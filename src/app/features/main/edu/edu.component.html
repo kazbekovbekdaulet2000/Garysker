@@ -1,0 +1,64 @@
+<div class="body">
+
+  <ng-container>
+
+    <h3>⭐ Популярное</h3>
+
+    <div class="items-holder">
+
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="reports$ | async as reports">
+
+    <h3>📖 Читать</h3>
+
+    <div class="items-holder">
+
+      <div class="report cursor-pointer" *ngFor="let report of reports">
+
+        <img [src]="report.debt_report_image[0].image" draggable="false"> 
+        <div class="logo"> G.</div>
+        <div class="content">
+          <div class="category"> {{report.category.name}}</div>
+          {{report.title}}
+        </div>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="videos$ | async as videos">
+
+    <h3>📹 Смотреть</h3>
+
+    <div class="items-holder">
+
+      <div class="video cursor-pointer" *ngFor="let video of videos">
+
+        <div class="logo"> G.</div>
+        <img [src]="video.image" draggable="false">
+        <div class="content">
+
+          <div class="category">
+            {{video.category.name}}
+          </div>
+          
+          <h5>{{video.title}}</h5>
+
+          <div class="date">
+            10 мин • {{video.created_at | DateRemained}}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>

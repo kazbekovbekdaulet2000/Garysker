@@ -1,0 +1,112 @@
+@import "variables";
+
+.sidemenu {
+  max-width: $sidemenu-width;
+  min-width: $sidemenu-width;
+
+  .main-menu {
+    max-width: 210px;
+    width: max-content;
+    color: $color-secondary;
+    margin-bottom: 48px;
+    font-weight: 600;
+    font-size: 14px;
+    .section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      padding: 6px;
+      padding-right: 24px;
+      border-radius: 14px;
+      margin-bottom: 8px;
+      .icon {
+        padding: 6px;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        border-radius: 12px;
+        align-content: center;
+        justify-content: center;
+        background-color: $color-section;
+      }
+      &:hover {
+        background-color: $color-background;
+      }
+    }
+
+    .active {
+      background-color: $color-active-back;
+      animation: fade 0.4s forwards;
+    }
+
+    &::after {
+      content: "";
+      width: 210px;
+      height: 1px;
+      position: absolute;
+      margin-top: 16px;
+      margin-bottom: 24px;
+      background-color: $color-border;
+    }
+  }
+
+  .dynamic-menu {
+    display: none;
+    .category {
+      width: 210px;
+      padding: 6px;
+      display: flex;
+      gap: 12px;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 4px;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 15px;
+      color: $color-secondary;
+      border-radius: 14px;
+
+      .icon {
+        padding: 6px;
+        padding-right: 4px;
+        padding-top: 4px;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        font-size: 18px;
+        line-height: 24px;
+        border-radius: 12px;
+        align-content: center;
+        justify-content: center;
+        border: 2px solid #ffa80000;
+        background-color: $color-section;
+      }
+
+      &:hover {
+        background-color: $color-background;
+      }
+
+      .active {
+        border: 2px solid #ffa80040;
+      }
+    }
+  }
+
+  .visable {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-content: space-between;
+  }
+
+  .top-margin{
+    margin-top: 108px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sidemenu {
+    display: none;
+  }
+}

@@ -1,0 +1,27 @@
+@import "./../../../../assets/scss/variables.scss";
+
+footer {
+  min-height: 64px;
+  display: flex;
+  padding: 72px 50px 24px;
+  background-color: $color-background;
+  bottom: 0px;
+  width: 100%;
+  font-size: 14px;
+
+
+  .bottom{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    a, img{
+      margin-left: 12px;
+      color: $color-primary;
+      text-decoration: none;
+      gap: 12px;
+    }
+  }
+
+}

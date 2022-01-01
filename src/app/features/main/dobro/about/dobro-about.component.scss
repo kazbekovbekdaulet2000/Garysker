@@ -1,0 +1,103 @@
+@import "variables";
+
+.info {
+  overflow-x: hidden;
+  margin-right: 50px;
+  animation: both;
+  max-width: 986px;
+  width: 100%;
+  padding: 32px 48px;
+  background-color: $color-background;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 64px;
+  margin-bottom: 48px;
+  user-select: none;
+
+  .icon {
+    width: 210px;
+    margin: 24px 0px;
+  }
+
+  .content {
+    min-width: 178px;
+    flex: 1;
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      color: $color-orange;
+      margin-bottom: 10px;
+    }
+    .desc{
+      align-self: stretch;
+      font-size: 12px;
+    }
+    
+    .donation{
+      padding: 24px 40px;
+      background-color: rgba(155, 155, 155, 0.29);
+      border-radius: 20px;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-content: center;
+      .progress {
+        background-color: rgba(106, 106, 106, 0.5);
+        border-radius: 10px;
+        height: 8px;
+        .indicator {
+          border-radius: 10px;
+          background: $color-success;
+        }
+      }
+    }
+
+  }
+}
+
+.tabs{
+  border-radius: 8px;
+  padding: 3px;
+  max-width: 986px;
+  background-color: $color-background;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  &-item{
+    text-align: center;
+    width: calc(50% - 2px);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  .selected{
+    background-color: $color-background-100;
+    color: $color-orange;
+    filter: drop-shadow(0 1px 2px rgba(21, 29, 36, 0.05));
+    transition: 0.3s ease-in;
+  }
+}
+
+
+
+@media screen and (max-width: 480px) {
+  .info{
+    padding: 24px;
+    gap: 24px;
+    .icon{
+      width: calc(100% - 64px);
+      margin: 12px 32px; 
+      margin-bottom: 0px;
+      height: max-content;
+    }
+    .content{
+      .donation{
+        padding: 12px 16px;  
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+<div class="sidemenu">
+  <div class="main-menu">
+    <div class="section cursor-pointer" routerLink="edu" [class.active]="currentRoute === 'edu'">
+      <div class="icon"> <img src="assets/icons/home.svg" draggable=false> </div> 
+      Образование
+    </div>
+
+    <div class="section cursor-pointer" routerLink="dobro" [class.active]="currentRoute === 'dobro'">
+      <div class="icon">
+        <img src="assets/icons/heart.svg" draggable=false>  
+      </div>
+      Добро
+    </div>
+  </div>
+
+  <div [class.visable]="currentRoute === 'edu'" class="dynamic-menu" *ngIf="categories$ | async as categories">
+    <div class="category cursor-pointer" *ngFor="let category of categories.categories; let i = index" (click)="routeCategory(i)"> 
+      <div class="icon" [class.active]="selectedSection === i">
+        {{category.icon}}
+      </div>
+      
+      {{category.name}}
+    </div>
+  </div>
+
+
+  <div [class.visable]="currentRoute === 'dobro'" class="dynamic-menu">
+    
+    <div class="category cursor-pointer"> 
+      <div class="icon">
+        🙌
+      </div>
+      В процессе
+    </div>
+
+    <div class="category cursor-pointer"> 
+      <div class="icon">
+        ✨
+      </div>
+      Завершенные
+    </div>
+
+  </div>
+
+  <div class="dynamic-menu visable top-margin">
+    
+    <div class="category cursor-pointer" (click)="navigateTelegram()"> 
+      <div class="icon">
+        ⚠️
+      </div>
+      Перейти в чат сообщества
+    </div>
+
+  </div>
+
+</div>

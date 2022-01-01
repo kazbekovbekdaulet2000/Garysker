@@ -1,0 +1,26 @@
+<div class="info" *ngIf="dobro_project$ | async as project">
+
+  <img class="icon" src="assets/icons/bagde.svg" draggable="false">
+
+  <div class="content">
+
+    <div class="title"> {{project.title}}</div>
+
+    <div class="desc"> {{project.description}}</div>
+
+    <div class="donation">
+
+      <div class="progress">
+        <div class="indicator" [style.width.%]="(parse(project.collected) / parse(project.necessary)) * 100"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="tabs">
+  <div class="tabs-item" [class.selected]="tab==1" (click)="selectTab(1)">Описание</div>
+  <div class="tabs-item" [class.selected]="tab==2" (click)="selectTab(2)">Отчеты</div>
+</div>

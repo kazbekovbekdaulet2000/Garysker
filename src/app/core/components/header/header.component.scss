@@ -1,0 +1,70 @@
+@import "variables";
+
+nav {
+  height: 64px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  // padding: 0 50px;
+  background-color: $color-background;
+
+  .icon-holder {
+    margin-left: 50px;
+    min-width: $sidemenu-width;
+    font-family: "Acrobat";
+    font-size: 28px;
+    line-height: 21px;
+    text-transform: uppercase;
+    &::before{
+      content: 'Garyshker.';
+    }
+    &::first-letter {
+      color: $color-orange;
+    }
+  }
+
+  .small-icon-holder{
+    display: none;
+    margin-left: 24px;
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+    .search-bar {
+      height: 36px;
+      padding: 0px 12px;
+      border-radius: 10px;
+      background-color: $color-section;
+      border: none;
+      font-size: 14px;
+      color: $color-secondary;
+    }
+
+    .items{
+      margin-right: 50px;
+    }
+  }
+}
+
+
+@media screen and (max-width: 640px) {
+  nav{
+    .icon-holder {
+      margin-left: 16px;
+      min-width: 0;
+      &::before{
+        content: 'G.';
+      }
+      &::first-letter {
+        color: $color-orange;
+      }
+    }
+  }
+  .content {
+    margin: 0px 16px;
+  }
+}

@@ -1,0 +1,9 @@
+@import "variables";
+
+.body {
+  overflow-x: hidden;
+
+  &.light {
+    background-color: #fff;
+  }
+}

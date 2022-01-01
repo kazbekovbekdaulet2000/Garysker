@@ -1,0 +1,92 @@
+@import "./assets/scss/variables.scss";
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+@import "~bootstrap/dist/css/bootstrap.css";
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00000000;
+}
+
+body {
+  background-color: $color-space;
+  color: $color-primary;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: "Open Sans", sans-serif;
+}
+
+main{
+  min-height: 90vh;
+}
+
+* {
+  outline: none !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+$grid-breakpoints: (
+  xxxs: 0,
+  xxs: 320px,
+  xs: 568px,
+  sm: 667px,
+  md: 768px,
+  lg: 992px,
+  xl: 1440px,
+);
+
+$container-max-widths: (
+  xxxs: 0,
+  xxs: 320px,
+  xs: 568px,
+  sm: 667px,
+  md: 768px,
+  lg: 992px,
+  xl: 1440px,
+);
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+}
+
+@keyframes fade {
+  from {
+    background-color: $color-space;
+  }
+  to {
+    background-color: $color-active-back;
+  }
+}
+
+.btn {
+  outline: none !important;
+}
+
+@font-face {
+  font-family: Acrobat;
+  src: url("assets/font/Akrobat-Bold.otf") format("opentype");
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

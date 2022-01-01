@@ -1,0 +1,41 @@
+<div class="body" *ngIf = "dobro_projects$ | async as dobro_projects">
+  <button class="help"> Поддержать проект деньгой </button>
+  <div class="projects">
+    
+    <div class="project" *ngFor="let proj of dobro_projects" [class.finished]="proj.is_completed">
+      <div class="status" *ngIf="proj.is_completed"> Завершено </div>
+      <div class="status active" *ngIf="!proj.is_completed"> В процессе </div>
+      
+      <div class="content">
+
+        <div class ="data">
+  
+          <div class="title">
+            {{proj.title}}
+          </div>
+
+          <div class="desc">
+            {{proj.small_description}}
+          </div>
+          
+          <div class="progress"> 
+            <div class="indicator" [style.width.%]="(parse(proj.collected) / parse(proj.necessary)) * 100"></div>
+          </div>
+
+          <div class="sum">
+            {{proj.collected}} ₸ из {{proj.necessary}} ₸
+          </div>
+
+          <button class="help mt-4" [routerLink]="[proj.id]"> Подробнее </button>
+
+        </div>
+
+        <img src="assets/icons/bagde.svg" draggable="false">
+
+      </div>
+      
+
+    </div> 
+    
+  </div>
+</div>
