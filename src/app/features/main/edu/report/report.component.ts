@@ -12,8 +12,10 @@ import { AuthState } from '@core/states/auth/auth.state';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ClearReportDetail, GetReport, LikeReport, ListReportComments, PostReportComment, SaveReport } from '../../main.actions';
 import { MainState } from '../../main.state';
+import { LoginErrModalComponent } from './noLogin-modal /login-modal.component';
 import { LinkShareModalComponent } from './share-modal/share-modal.component';
 
 @Component({
@@ -101,11 +103,23 @@ export class ReportComponent implements OnDestroy {
   }
 
   likeReport(id: number) {
-    this.store.dispatch(new LikeReport(id))
+    this.access$.subscribe(token=>{
+      if(token !==''){
+        this.store.dispatch(new LikeReport(id))
+      }else{
+        this.bsService.show(LoginErrModalComponent,{class: 'modal-dialog-centered'})
+      }
+    })
   }
 
   saveReport(id: number) {
-    this.store.dispatch(new SaveReport(id))
+    this.access$.subscribe(token=>{
+      if(token !==''){
+        this.store.dispatch(new SaveReport(id))
+      }else{
+        this.bsService.show(LoginErrModalComponent,{class: 'modal-dialog-centered'})
+      }
+    })
   }
 
   get getLink() {

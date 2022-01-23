@@ -64,9 +64,8 @@
 
       <!-- <input *ngIf="(access$ | async) !== ''" type="text" (keyup.enter)="sendComment()" formControlName="body"
         placeholder="Написать комментарий..." class="textfield" [style.margin-top]="replyContent ?? 0"> -->
-        <div class="textfield">
+        <div *ngIf="(access$ | async) !== ''" class="textfield">
           <textarea
-            *ngIf="(access$ | async) !== ''" 
             rows=3 
             placeholder="Написать комментарий..." 
             class="textfield-area" 
