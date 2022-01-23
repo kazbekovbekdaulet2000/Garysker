@@ -12,7 +12,7 @@ import { AuthState } from '@core/states/auth/auth.state';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { ClearReportDetail, GetReport, LikeReport, ListReportComments, PostReportComment, SaveReport } from '../../main.actions';
 import { MainState } from '../../main.state';
 import { LoginErrModalComponent } from './noLogin-modal /login-modal.component';
@@ -103,7 +103,7 @@ export class ReportComponent implements OnDestroy {
   }
 
   likeReport(id: number) {
-    this.access$.subscribe(token=>{
+    this.access$.pipe(take(1)).subscribe(token=>{
       if(token !==''){
         this.store.dispatch(new LikeReport(id))
       }else{
@@ -113,7 +113,7 @@ export class ReportComponent implements OnDestroy {
   }
 
   saveReport(id: number) {
-    this.access$.subscribe(token=>{
+    this.access$.pipe(take(1)).subscribe(token=>{
       if(token !==''){
         this.store.dispatch(new SaveReport(id))
       }else{
