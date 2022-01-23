@@ -1,0 +1,15 @@
+<h3>Часто задаваемые вопросы</h3>
+ 
+<ng-container *ngIf="questions$ | async as questions">
+  <div class="question" *ngFor="let question of questions">
+    <div class="question-header"> 
+      <h5>{{question.question}}</h5>
+      <div class="hide-show" [class.hide]='selected.includes(question.id)' (click)="showHideAns(question.id)"></div>
+    </div>
+    <div [@expandAnimation]="selected.includes(question.id) ? 'in' : 'out'" class="question-body"> 
+      {{question.answer}}
+    </div>
+  </div>
+</ng-container>
+  
+<p>* Если вы не нашли ответ на свой вопрос в нашем FAQ, вы всегда можете связатся с нами и мы вам ответим.</p>

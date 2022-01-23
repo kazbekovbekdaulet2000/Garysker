@@ -14,8 +14,8 @@
   </div>
 
   <div [class.visable]="currentRoute === 'edu'" class="dynamic-menu" *ngIf="categories$ | async as categories">
-    <div class="category cursor-pointer" *ngFor="let category of categories.categories; let i = index" (click)="routeCategory(i)"> 
-      <div class="icon" [class.active]="selectedSection === i">
+    <div class="category cursor-pointer" *ngFor="let category of categories" routerLink="edu" (click)="routeCategory(category.id)"> 
+      <div class="icon" [class.active]="selectedCategorySection === category.id">
         {{category.icon}}
       </div>
       
@@ -26,15 +26,15 @@
 
   <div [class.visable]="currentRoute === 'dobro'" class="dynamic-menu">
     
-    <div class="category cursor-pointer"> 
-      <div class="icon">
+    <div class="category cursor-pointer" (click)="routeDobroType(1)"> 
+      <div class="icon" [class.active]="selectedDobroSection === 1">
         🙌
       </div>
       В процессе
     </div>
 
-    <div class="category cursor-pointer"> 
-      <div class="icon">
+    <div class="category cursor-pointer" (click)="routeDobroType(2)"> 
+      <div class="icon" [class.active]="selectedDobroSection === 2">
         ✨
       </div>
       Завершенные
@@ -48,7 +48,7 @@
       <div class="icon">
         ⚠️
       </div>
-      Перейти в чат сообщества
+      Поддержать проект 
     </div>
 
   </div>

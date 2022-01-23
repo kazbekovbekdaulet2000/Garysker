@@ -5,7 +5,6 @@ nav {
   display: flex;
   flex-direction: row;
   align-items: center;
-  // padding: 0 50px;
   background-color: $color-background;
 
   .icon-holder {
@@ -15,49 +14,83 @@ nav {
     font-size: 28px;
     line-height: 21px;
     text-transform: uppercase;
-    &::before{
-      content: 'Garyshker.';
+    &::before {
+      content: "Garyshker.";
     }
     &::first-letter {
       color: $color-orange;
     }
   }
 
-  .small-icon-holder{
+  .small-icon-holder {
     display: none;
     margin-left: 24px;
   }
 
+  .search-bar {
+    height: 36px;
+    padding: 0px 12px;
+    border-radius: 10px;
+    min-width: 225px;
+    width: 320px;
+    background-color: $color-section;
+    border: none;
+    font-size: 14px;
+    color: $color-secondary;
+  }
+
   .content {
-    width: 100%;
+    flex: 1;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    
-    .search-bar {
-      height: 36px;
-      padding: 0px 12px;
-      border-radius: 10px;
-      background-color: $color-section;
-      border: none;
-      font-size: 14px;
-      color: $color-secondary;
-    }
+    justify-content: flex-end;
 
-    .items{
+    .items {
+      display: flex;
+      flex-wrap: nowrap;
+      height: 36px;
       margin-right: 50px;
+      .btn {
+        font-weight: 600;
+        font-size: 14px;
+        padding: 0 24px;
+      }
     }
   }
 }
 
+.transparent{
+  background-color: transparent;
+  padding: 0px 150px;
+  .icon-holder{
+    margin-left: 0px;
+  }
+  .content{
+    .items{
+      margin-right: 0px;
+    }
+  }
+}
+
+.secondary {
+  &-warning {
+    color: $color-text-pink;
+    border: 1px solid $color-text-pink;
+    background-color: transparent;
+  }
+}
+
+.primary {
+  background-color: $color-orange;
+}
 
 @media screen and (max-width: 640px) {
-  nav{
+  nav {
     .icon-holder {
       margin-left: 16px;
       min-width: 0;
-      &::before{
-        content: 'G.';
+      &::before {
+        content: "G.";
       }
       &::first-letter {
         color: $color-orange;

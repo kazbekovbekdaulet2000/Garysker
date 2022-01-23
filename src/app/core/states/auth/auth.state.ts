@@ -1,20 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import * as moment from 'moment';
-import { Moment } from 'moment';
-
+import { Navigate } from '@ngxs/router-plugin';
 import { Login, Logout, RemoveToken, UpdateToken } from './actions';
 
 import { TokenModel } from '../../models/api/token.model';
 import { IdentityService } from '@core/services/identity.service';
+import { Moment } from 'moment';
+import * as moment from 'moment';
 
 
 interface AuthStateModel {
-  token: TokenModel | null;
+  access: string;
+  refresh: string;
+  accessTokenExpireDate?: Moment | null;
 }
 
 const defaults = {
-  token: null,
+  access: '',
+  refresh: '',
+  accessTokenExpireDate: null,
 };
 
 @State<AuthStateModel>({
@@ -25,8 +29,13 @@ const defaults = {
 export class AuthState {
 
   @Selector()
-  static token({ token }: AuthStateModel): TokenModel | null {
-    return token;
+  static accessTokenExpireDate({ accessTokenExpireDate }: AuthStateModel): Moment | null | undefined {
+    return accessTokenExpireDate;
+  }
+
+  @Selector()
+  static access({ access }: AuthStateModel): string {
+    return access;
   }
 
   constructor(
@@ -36,7 +45,31 @@ export class AuthState {
   }
 
   @Action(Login)
-  Login({ patchState }: StateContext<AuthStateModel>, { token }: Login) {
-    return patchState({ token });
+  Login({ patchState }: StateContext<AuthStateModel>, { payload }: Login) {
+    return this.identityService.login(payload)
+      .toPromise()
+      .then(token => {
+        const decodedAccessToken = JSON.parse(window.atob(token.access.split('.')[1]));
+        return patchState({
+          access: token.access,
+          refresh: token.refresh,
+          accessTokenExpireDate: moment.unix(decodedAccessToken.exp)
+        });
+      })
+  }
+
+  @Action(UpdateToken)
+  UpdateToken({ patchState }: StateContext<AuthStateModel>, { access }: UpdateToken) {
+    const decodedAccessToken = JSON.parse(window.atob(access.split('.')[1]));
+    return patchState({
+      access: access,
+      accessTokenExpireDate: moment.unix(decodedAccessToken.exp)
+    });
+  }
+
+  @Action(RemoveToken)
+  RemoveToken({ patchState }: StateContext<AuthStateModel>) {
+    patchState({ access: '', refresh: '', accessTokenExpireDate: null})
+    this.store.dispatch(new Navigate(['/']))
   }
 }

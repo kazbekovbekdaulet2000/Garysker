@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 
-import { CategoryList } from '@core/models/api/category.model';
-import { ListCategories } from './actions';
+import { CategoryModel } from '@core/models/api/category.model';
+import { FilterByCategory, ListCategories } from './actions';
 import { CategoriesService } from '@core/services/categories.service';
+import { ListReports, ListVideos } from 'src/app/features/main/main.actions';
 
 
 interface StateModel {
-  categories: CategoryList | null;
+  selected_category: number | null;
+  categories: CategoryModel[] | [];
 }
 
 const defaults = {
-  categories: null,
+  selected_category: null,
+  categories: [],
 };
 
 @State<StateModel>({
@@ -22,8 +25,13 @@ const defaults = {
 export class SidebarState {
 
   @Selector()
-  static categories({ categories }: StateModel): CategoryList | null {
+  static categories({ categories }: StateModel): CategoryModel[] {
     return categories;
+  }
+
+  @Selector()
+  static selected_category({ selected_category }: StateModel): number | null {
+    return selected_category;
   }
 
   constructor(
@@ -36,8 +44,15 @@ export class SidebarState {
   ListCategories({ getState, patchState }: StateContext<StateModel>) {
     this.categoryService.list()
       .toPromise()
-      .then(res=>{
-        patchState({ categories: res });
+      .then(categories => {
+        patchState({ categories });
       })
+  }
+
+  @Action(FilterByCategory)
+  FilterByCategory({ patchState }: StateContext<StateModel>, {id}:FilterByCategory) {
+    patchState({ selected_category: id });
+    this.store.dispatch(new ListReports)
+    this.store.dispatch(new ListVideos)
   }
 }

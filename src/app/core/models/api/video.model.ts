@@ -1,14 +1,21 @@
-import { CategoryNameModel } from "./category.model";
-import { SectionModel } from "./section.model";
+import { UserModel } from "./user.model";
 
 
 export interface VideoModel {
   id: number,
   title: string,
-  body: string,
   image: string,
-  section: SectionModel,
-  video: string,
   created_at: string,
-  category: CategoryNameModel
+  category: string,
+  likes_count: number,
+  liked: boolean,
+  bookmarks_count: number,
+  bookmarked: boolean,
+  views: number,
+}
+
+export interface VideoDetailModel extends VideoModel {
+  author: UserModel,
+  body: string,
+  video: string  
 }

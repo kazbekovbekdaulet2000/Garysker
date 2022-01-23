@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { CategoryList } from '@core/models/api/category.model';
+import { CategoryModel } from '@core/models/api/category.model';
 import { map } from 'rxjs/operators';
 
 
@@ -17,11 +17,11 @@ export class CategoriesService extends ApiService {
     super('edu/categories');
   }
 
-  list(params?: any): Observable<CategoryList> {
-    return this.http.get<CategoryList>(this.noSlashUrl(), { params })
+  list(params?: any): Observable<CategoryModel[]> {
+    return this.http.get<CategoryModel[]>(this.getUrl(), { params })
       .pipe(
         map(res=>{
-          res.categories = res.categories.map(val=>{
+          res = res.map(val=>{
             val.icon = val.name.substring(0, 2);
             val.name = val.name.substring(3)
             return val

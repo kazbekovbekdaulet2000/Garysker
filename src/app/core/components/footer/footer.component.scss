@@ -1,27 +1,79 @@
-@import "./../../../../assets/scss/variables.scss";
+@import "variables";
 
 footer {
   min-height: 64px;
   display: flex;
-  padding: 72px 50px 24px;
+  flex-direction: column;
+  padding: 36px 50px 12px;
   background-color: $color-background;
   bottom: 0px;
   width: 100%;
   font-size: 14px;
 
-
-  .bottom{
-    width: 100%;
+  .content {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-
-    a, img{
-      margin-left: 12px;
-      color: $color-primary;
-      text-decoration: none;
-      gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 108px;
+    &-info {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 80px;
+      margin-bottom: 12px;
+      &-item {
+        display: flex;
+        flex-direction: column;
+        .main {
+          font-weight: 600;
+          font-size: 18px;
+          color: #ffd2dd;
+        }
+        a {
+          margin-top: 8px;
+          font-size: 16px;
+        }
+      }
+    }
+    &-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+      &-main {
+        font-weight: 600;
+        font-size: 18px;
+        color: #cacaca;
+      }
+      a {
+        font-size: 16px;
+        color: #9f9f9f;
+      }
+    }
+    .project-btn {
+      align-self: center;
+      color: $color-orange;
+      padding: 1rem 3rem;
+      border: 1px solid $color-orange;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
     }
   }
 
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    &-rules {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 12px;
+    }
+    &-social {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 12px;
+    }
+  }
 }

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, RouteConfigLoadStart, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Select, Store } from '@ngxs/store';
-import { ListCategories } from '@core/states/sidebar/actions';
-import { CategoryList } from '@core/models/api/category.model';
+import { FilterByCategory, ListCategories } from '@core/states/sidebar/actions';
+import { CategoryModel } from '@core/models/api/category.model';
 import { Observable } from 'rxjs';
 import { SidebarState } from '@core/states/sidebar/sidebar.state';
 
@@ -13,14 +13,15 @@ import { SidebarState } from '@core/states/sidebar/sidebar.state';
   templateUrl: './side-menu.component.html',
   styleUrls: ['./side-menu.component.scss']
 })
-export class SideMenuComponent implements OnInit {
+export class SideMenuComponent {
 
   currentRoute: string | undefined;
-  
-  selectedSection: number | undefined
+
+  selectedCategorySection: number | null | undefined;
+  selectedDobroSection: number | null | undefined;
 
   @Select(SidebarState.categories)
-  categories$!: Observable<CategoryList>;
+  categories$!: Observable<CategoryModel[]>;
 
   constructor(
     private store: Store,
@@ -48,19 +49,30 @@ export class SideMenuComponent implements OnInit {
       })
   }
 
-  routeCategory(id: number){
-    this.selectedSection = id
+  routeCategory(id: number) {
+    if (this.selectedCategorySection !== id) {
+      this.selectedCategorySection = id
+    } else {
+      this.selectedCategorySection = null
+    }
+    this.store.dispatch(new FilterByCategory(this.selectedCategorySection))
   }
 
-  ngOnInit(): void {
+  routeDobroType(id: number) {
+    if (this.selectedDobroSection !== id) {
+      this.selectedDobroSection = id
+    } else {
+      this.selectedDobroSection = null
+    }
+    // this.store.dispatch(new FilterByCategory(this.selectedDobroSection))
   }
 
   onClick(str: string) {
 
   }
 
-  navigateTelegram(){
-    window.open('https://t.me/garyshkerchat', '_blank')
+  navigateTelegram() {
+    // window.open('https://t.me/garyshkerchat', '_blank')
   }
 
 }

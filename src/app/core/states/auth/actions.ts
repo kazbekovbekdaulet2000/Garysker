@@ -3,15 +3,13 @@ import { TokenModel } from "../../models/api/token.model";
 export class Login {
   static readonly type = '[Auth] Login';
 
-  constructor(public token: TokenModel) {
+  constructor(public payload: any) {
   }
 }
 
 export class UpdateToken {
   static readonly type = '[Auth] UpdateToken';
-
-  constructor(public token: TokenModel) {
-  }
+  constructor(public access: string){}
 }
 
 export class RemoveToken {

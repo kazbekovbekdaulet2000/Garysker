@@ -1,26 +1,36 @@
 import { Injectable } from '@angular/core';
+import { CommentModel } from '@core/models/api/comment.model';
 import { DobroProjectModel } from '@core/models/api/dobro-project.model';
-import { ReportModel } from '@core/models/api/report.model';
+import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
+import { QuestionModel } from '@core/models/api/question.model';
+import { ReportDetailModel, ReportModel } from '@core/models/api/report.model';
 import { VideoModel } from '@core/models/api/video.model';
 import { DobroService } from '@core/services/dobro.service';
 import { ReportsService } from '@core/services/reports.service';
+import { SupportService } from '@core/services/support.service';
 import { VideosService } from '@core/services/videos.service';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import { ClearDobroDetails, GetDobroProject, ListDobroProjects, ListReports, ListVideos } from './main.actions';
+import { ClearDobroDetails, ClearReportDetail, GetDobroProject, GetReport, ListDobroProjects, ListQuestions, ListReportComments, ListReports, ListVideos, PostReportComment } from './main.actions';
 
 
 interface StateModel {
-  reports: ReportModel[] | [];
-  videos: VideoModel[] | [];
+  reports: ListResponseModel<ReportModel>;
+  report: ReportDetailModel | null;
+  videos: ListResponseModel<VideoModel>;
+  comments: ListResponseModel<CommentModel>;
   dobro_projects: DobroProjectModel[] | [];
   dobro_project: DobroProjectModel | null;
+  questions: QuestionModel[] | []
 }
 
 const defaults = {
-  reports: [],
-  videos: [],
+  reports: emptyListResponse,
+  report: null,
+  videos: emptyListResponse,
+  comments: emptyListResponse,
   dobro_projects: [],
-  dobro_project: null
+  dobro_project: null,
+  questions: []
 };
 
 @State<StateModel>({
@@ -31,13 +41,23 @@ const defaults = {
 export class MainState {
 
   @Selector()
-  static reports({ reports }: StateModel): ReportModel[] | [] {
+  static reports({ reports }: StateModel): ListResponseModel<ReportModel> {
     return reports;
   }
 
   @Selector()
-  static videos({ videos }: StateModel): VideoModel[] | [] {
+  static report({ report }: StateModel): ReportDetailModel | null {
+    return report;
+  }
+
+  @Selector()
+  static videos({ videos }: StateModel): ListResponseModel<VideoModel> {
     return videos;
+  }
+
+  @Selector()
+  static comments({ comments }: StateModel): ListResponseModel<CommentModel> {
+    return comments;
   }
 
   @Selector()
@@ -50,11 +70,17 @@ export class MainState {
     return dobro_project;
   }
 
+  @Selector()
+  static questions({ questions }: StateModel): QuestionModel[] | [] {
+    return questions;
+  }
+
   constructor(
     private store: Store,
     private reportService: ReportsService,
     private videoService: VideosService,
     private dobroService: DobroService,
+    private supportService: SupportService
   ) {
   }
 
@@ -65,6 +91,39 @@ export class MainState {
       .then(reports => {
         patchState({ reports });
       })
+  }
+
+  @Action(GetReport)
+  GetReport({ patchState }: StateContext<StateModel>, { id }: GetReport) {
+    this.reportService.get(id)
+      .toPromise()
+      .then(report => {
+        patchState({ report });
+      })
+  }
+
+  @Action(ListReportComments)
+  ListReportComments({ patchState }: StateContext<StateModel>, { id }: ListReportComments) {
+    this.reportService.listComments(id)
+      .toPromise()
+      .then(comments => {
+        patchState({ comments })
+      })
+  }
+
+  @Action(PostReportComment)
+  PostReportComment({ patchState }: StateContext<StateModel>, { id, payload }: PostReportComment) {
+    this.reportService.postComment(id, payload)
+      .toPromise()
+      .then(comment => {
+        console.log(comment)
+        this.store.dispatch(new ListReportComments(id))
+      })
+  }
+
+  @Action(ClearReportDetail)
+  ClearReportDetail({ patchState }: StateContext<StateModel>) {
+    patchState({ report: null });
   }
 
   @Action(ListVideos)
@@ -99,4 +158,12 @@ export class MainState {
     patchState({ dobro_project: null })
   }
 
+  @Action(ListQuestions)
+  ListQuestions({ patchState }: StateContext<StateModel>) {
+    this.supportService.listQuestions()
+      .toPromise()
+      .then(questions => {
+        patchState({ questions })
+      })
+  }
 }

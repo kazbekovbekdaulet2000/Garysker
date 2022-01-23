@@ -39,7 +39,9 @@
                 "src/assets/scss"
               ]
             },
-            "scripts": []
+            "scripts": [
+              "./node_modules/css-element-queries/src/ResizeSensor.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -61,11 +63,30 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": {
+                  "inline": true
+                }
+              },
               "outputHashing": "all"
             },
             "development": {
               "buildOptimizer": false,
-              "optimization": false,
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": {
+                  "inline": true
+                }
+              },
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
@@ -109,9 +130,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "garyshker-front"
+  "defaultProject": "garyshker-front",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
