@@ -18,6 +18,8 @@ import { SanitizerPipeModule } from 'src/app/shared/pipes/sanitizer/sanitizer-pi
 import { CommentModule } from 'src/app/shared/components/comment/comment.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
+import { LinkShareModalComponent } from './edu/report/share-modal/share-modal.component';
+import { LoginErrModalComponent } from './edu/report/noLogin-modal /login-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
     FooterComponent,
     ReportComponent,
     VideoComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    LinkShareModalComponent,
+    LoginErrModalComponent
   ],
   imports: [
     CommonModule,

@@ -10,9 +10,13 @@ import { ReportDetailModel } from '@core/models/api/report.model';
 import { ReportsService } from '@core/services/reports.service';
 import { AuthState } from '@core/states/auth/auth.state';
 import { Select, Store } from '@ngxs/store';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { ClearReportDetail, GetReport, ListReportComments, PostReportComment } from '../../main.actions';
+import { map } from 'rxjs/operators';
+import { ClearReportDetail, GetReport, LikeReport, ListReportComments, PostReportComment, SaveReport } from '../../main.actions';
 import { MainState } from '../../main.state';
+import { LoginErrModalComponent } from './noLogin-modal /login-modal.component';
+import { LinkShareModalComponent } from './share-modal/share-modal.component';
 
 @Component({
   selector: 'app-report',
@@ -21,7 +25,7 @@ import { MainState } from '../../main.state';
   encapsulation: ViewEncapsulation.None,
   animations: [opacityAnimation, heightAnimation]
 })
-export class ReportComponent implements OnDestroy, AfterViewInit {
+export class ReportComponent implements OnDestroy {
 
   @Select(AuthState.access) access$!: Observable<string>;
   @Select(MainState.report) report$!: Observable<ReportDetailModel>;
@@ -33,11 +37,13 @@ export class ReportComponent implements OnDestroy, AfterViewInit {
 
   formGroup: FormGroup | any;
   reportId: number | undefined;
+
   constructor(
     private store: Store,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private reportService: ReportsService
+    private reportService: ReportsService,
+    private bsService: BsModalService
   ) {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.reportId = id
@@ -53,49 +59,74 @@ export class ReportComponent implements OnDestroy, AfterViewInit {
     })
   }
 
-  ngAfterViewInit() {
-    throw ("asd")
-  }
-
   ngOnDestroy(): void {
     this.store.dispatch(new ClearReportDetail)
   }
 
   sendComment() {
     const payload = this.formGroup.getRawValue()
-    if (payload.body !== '') {
+    if (payload.body !== '' && payload.body !== null) {
       this.reportService.postComment(this.reportId!, payload)
         .toPromise()
-        .then(()=> {
+        .then(() => {
           this.replyContent = null
           this.formGroup.patchValue({
             body: null,
-            reply: null, 
+            reply: null,
           })
           this.store.dispatch(new ListReportComments(this.reportId!))
         })
-        .catch((err)=>{
+        .catch((err) => {
           alert(err)
         })
+    }else{
+      alert("нету коммента")
     }
   }
 
   addReply(reply: CommentModel) {
-    if(this.replyContent?.id === reply.id){
+    if (this.replyContent?.id === reply.id) {
       this.replyContent = null
       this.formGroup.patchValue({
-        reply: null, 
+        reply: null,
       });
-    }else{
+    } else {
       this.replyContent = reply
       this.formGroup.patchValue({
-        reply: this.replyContent.id, 
+        reply: this.replyContent.id,
       });
     }
   }
 
-  removeReplyParent(){
+  removeReplyParent() {
     this.replyContent = null
   }
 
+  likeReport(id: number) {
+    this.access$.subscribe(token=>{
+      if(token !==''){
+        this.store.dispatch(new LikeReport(id))
+      }else{
+        this.bsService.show(LoginErrModalComponent,{class: 'modal-dialog-centered'})
+      }
+    })
+  }
+
+  saveReport(id: number) {
+    this.access$.subscribe(token=>{
+      if(token !==''){
+        this.store.dispatch(new SaveReport(id))
+      }else{
+        this.bsService.show(LoginErrModalComponent,{class: 'modal-dialog-centered'})
+      }
+    })
+  }
+
+  get getLink() {
+    return `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
+  }
+
+  openShareModal(){
+    this.bsService.show(LinkShareModalComponent,{class: 'modal-dialog-centered'})
+  }
 }
