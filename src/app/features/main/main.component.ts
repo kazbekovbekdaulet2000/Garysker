@@ -13,6 +13,6 @@ export class MainComponent {
   ) {}
 
   @HostListener('window:scroll')
-  onScroll(): void { 
+  onScroll(): void {
   }
 }

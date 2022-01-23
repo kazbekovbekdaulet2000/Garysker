@@ -3,13 +3,14 @@
 .wrapper {
   min-height: 100vh;
   display: flex;
-  margin:0px  50px;
-  overflow:visible;
+  margin: 0px 50px;
+  margin-right: 0px;
+  overflow: visible;
 
   .sidebar {
     width: $sidemenu-width;
-    margin-top: 32px;
     transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-bottom: 64px;
   }
 
   .body {
@@ -23,12 +24,11 @@
   }
 }
 
-
 @media screen and (max-width: 768px) {
   .wrapper {
-    margin:0px 16px; 
+    margin: 0px 16px;
   }
-  .sidebar{
+  .sidebar {
     width: 0px;
     display: none;
   }

@@ -1,22 +1,36 @@
-<nav>
-  
-  <!-- <div class="icon-holder">
-    <img src="assets/images/logo.png" draggable=false height="21">
-    <h3 class="">Garyshker.</h3>
-  </div> -->
+<nav [class.transparent]="main==='auth'">
 
-  <div class="icon-holder"></div>
+  <div class="icon-holder" routerLink=''></div>
 
-  <div class="content">
+  <div class="small-icon-holder">
+    <img src="assets/images/logo-small.png" draggable=false height="21">
+  </div>
 
-    <div class="small-icon-holder">
-      <img src="assets/images/logo-small.png" draggable=false height="21">
-    </div>  
+  <input type="text" class="search-bar" *ngIf="main!=='auth' && main!=='application'">
 
-    <input type="text" class="search-bar">
+  <div class="content" *ngIf="dataAvailable">
 
     <div class="items">
 
+      <button 
+        *ngIf="(access$ | async)!.length === 0 && main!=='application'" 
+        class="btn primary" 
+        tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+        routerLink='auth/application'
+      > Оставить заявку </button>
+
+      <button 
+        *ngIf="(access$ | async)!.length === 0 && main!=='auth'"
+        class="btn primary" 
+        routerLink='auth'
+      > Войти </button>
+      
+      <button 
+        *ngIf="(access$ | async)!.length > 0 && main!=='auth' && main!=='profile'" 
+        class="btn primary"
+        routerLink='auth/profile'
+        > Личный кабинет </button>
+    
     </div>
 
   </div>

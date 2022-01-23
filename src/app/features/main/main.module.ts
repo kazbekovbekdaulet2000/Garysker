@@ -7,9 +7,17 @@ import { CardModule } from 'src/app/shared/components/card/card.module';
 import { NgxsModule } from '@ngxs/store';
 import { MainState } from './main.state';
 import { EduComponent } from './edu/edu.component';
-import { DatePipeModule } from 'src/app/shared/pipes/name/date-pipe.module';
+import { DatePipeModule } from 'src/app/shared/pipes/date/date-pipe.module';
 import { DobroComponent } from './dobro/dobro.component';
 import { DobroAboutComponent } from './dobro/about/dobro-about.component';
+import { FooterComponent } from '@core/components/footer/footer.component';
+import { ReportComponent } from './edu/report/report.component';
+import { VideoComponent } from './edu/video/video.component';
+import { QuestionsComponent } from './questions/questions.component';
+import { SanitizerPipeModule } from 'src/app/shared/pipes/sanitizer/sanitizer-pipe.module';
+import { CommentModule } from 'src/app/shared/components/comment/comment.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 
 @NgModule({
   declarations: [
@@ -17,14 +25,23 @@ import { DobroAboutComponent } from './dobro/about/dobro-about.component';
     EduComponent,
     DobroComponent,
     SideMenuComponent,
-    DobroAboutComponent
+    DobroAboutComponent,
+    FooterComponent,
+    ReportComponent,
+    VideoComponent,
+    QuestionsComponent
   ],
   imports: [
     CommonModule,
     MainRoutingModule,
     CardModule,
+    CommentModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxStickySidebarModule,
     NgxsModule.forFeature([MainState]),
-    DatePipeModule
+    DatePipeModule,
+    SanitizerPipeModule
   ],
 })
 export class MainModule {

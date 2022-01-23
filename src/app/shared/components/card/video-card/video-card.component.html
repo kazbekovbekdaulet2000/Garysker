@@ -1,0 +1,19 @@
+<div @opacityAnimation class="video-card cursor-pointer">
+
+  <div class="logo"> G.</div>
+  <img [src]="video.image" draggable="false">
+  <div class="content">
+
+    <div class="category">
+      {{video.category}}
+    </div>
+
+    <h5>{{video.title}}</h5>
+
+    <div class="date">
+      10 мин • {{video.created_at | DateRemained}}
+    </div>
+
+  </div>
+
+</div>

@@ -1,1 +1,51 @@
-<p>register works!</p>
+<div class="center">
+  <div class="auth-card" [formGroup]="formGroup">
+
+    <h3> Регестрация </h3>
+
+    <h6>Email</h6>
+    <input type="email" class="user-info" formControlName="email">
+    <p *ngIf="getRequireMessage('email')">*обязательно к заполнению</p>
+
+    <h6>Имя и фамилия</h6>
+    <input type="text" class="user-info" formControlName="full_name">
+    <p *ngIf="getRequireMessage('full_name')">*обязательно к заполнению</p>
+
+    <!-- <h6>Электронная почта</h6>
+    <input type="email" class="user-info"> -->
+
+    <h6>Страна, город</h6>
+    <input type="text" class="user-info" formControlName="city">
+    <p *ngIf="getRequireMessage('city')">*обязательно к заполнению</p>
+
+    <h6>Дата рождения</h6>
+
+    <input 
+      type="text"
+      mask="0000/M0/d0"
+      placeholder="гггг/мм/дд"
+      class="user-info"
+      formControlName="birth_date"
+    >
+    <p *ngIf="getRequireMessage('birth_date')">*обязательно к заполнению</p>
+
+
+    <h6>Пароль</h6>
+    <input type="password" class="user-info" formControlName="password">
+    <p *ngIf="getRequireMessage('password')">*обязательно к заполнению</p>
+
+    <h6>Подтвердить пароль</h6>
+    <input type="password" class="user-info" formControlName="re_password">
+    <p *ngIf="getRequireMessage('re_password')">*обязательно к заполнению</p>
+
+    <div class="save-me">
+      <input type="checkbox" id="toggle-button" class="toggle-button">
+      <label for="toggle-button" class="text">Запомнить меня</label>
+    </div>
+
+    <div class="menu">
+      <button class="btn login" [disabled]="formGroup.invalid" (click)="onSave()">Создать аккаунт</button>
+    </div>
+
+  </div>
+</div>

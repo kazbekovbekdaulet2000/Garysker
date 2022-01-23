@@ -7,12 +7,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from '@core/components/header/header.component';
+import { NotFoundComponent } from './features/notfound/notfound.component';
+import { AboutComponent } from './features/main/about/about.component';
 
 registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    NotFoundComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +27,7 @@ registerLocaleData(localeRu, 'ru');
     BrowserAnimationsModule,
   ],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     { provide: LOCALE_ID, useValue: 'ru' }
   ],
   bootstrap: [AppComponent]

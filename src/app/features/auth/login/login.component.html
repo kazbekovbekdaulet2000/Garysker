@@ -1,1 +1,25 @@
-<p>login works!</p>
+<div class="center">
+  <div class="auth-card" [formGroup]="formGroup">
+    
+    <h3> Войти </h3>
+  
+    <h6>Email</h6>
+    <input type="email" class="user-info" formControlName="email"> 
+    <p *ngIf="getRequireMessage('email')">*обязательно к заполнению</p>
+  
+    <h6>Пароль</h6>
+    <input type="password" class="user-info" formControlName="password"> 
+    <p *ngIf="getRequireMessage('password')">*обязательно к заполнению</p>
+    
+    <div class="save-me">
+      <input type="checkbox" id="toggle-button" class="toggle-button">
+      <label for="toggle-button" class="text">Запомнить меня</label>
+    </div>
+
+    <div class="menu"> 
+      <a href="">Забыли пароль?</a> 
+      <button class="btn login" (click)="login()">Войти</button>
+    </div>
+  
+  </div>
+</div>

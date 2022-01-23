@@ -25,8 +25,6 @@ export class LoaderState {
 
   @Action(PushLoaderQueue)
   PushLoaderQueue({patchState, getState}: StateContext<LoaderStateModel>, {event}: PushLoaderQueue) {
-    console.log(event)
-    
     return patchState({
       queue: [...getState().queue, event]
     });

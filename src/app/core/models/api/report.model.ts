@@ -1,16 +1,22 @@
-import { CategoryNameModel } from "./category.model";
+import { UserModel } from "./user.model";
 
 export interface ReportModel {
   id: number,
   title: string,
-  debt_report_image: ImageModel[],
+  image: string,
   created_at: string,
-  category: CategoryNameModel,
-  author: string,
-  count: number
+  category: string,
+  read_time: string,
+  likes_count: number,
+  liked: boolean,
+  bookmarks_count: number,
+  bookmarked: boolean,
+  comments_count: number
+  views: number
 }
 
-
-export interface ImageModel {
-  image: string
+export interface ReportDetailModel extends ReportModel{
+  author: UserModel,
+  body: string,
+  icon?: string,
 }

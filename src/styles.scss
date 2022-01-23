@@ -32,7 +32,9 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
-main{
+main {
+  margin: 0;
+  padding: 0;
   min-height: 90vh;
 }
 
@@ -75,12 +77,25 @@ h3 {
     background-color: $color-space;
   }
   to {
-    background-color: $color-active-back;
+    background-color: #aeaeae10;
   }
 }
 
 .btn {
   outline: none !important;
+  margin-left: 12px;
+  border-radius: 8px;
+  &:focus,
+  &:active,
+  &:hover{
+    outline: none !important;
+    box-shadow: none;
+  }
+}
+
+a{
+  text-decoration: none;
+  color: #C4BDCF;
 }
 
 @font-face {
@@ -88,5 +103,23 @@ h3 {
   src: url("assets/font/Akrobat-Bold.otf") format("opentype");
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.modal-content{
+  position: relative;
+  background-color: #26212E;
+  border-radius: 16px;
+  padding: 32px 64px;
+  h4{
+    font-weight: 700;
+  }
+}
+
+.inner-wrapper-sticky{
+  top: 32px !important;
+  // bottom: 32px !important;
+}
+
+@media screen and (max-width: 640px) {
+  .modal-content{
+    padding: 32px 16px;
+  }
+}

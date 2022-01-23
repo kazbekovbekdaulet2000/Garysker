@@ -21,6 +21,22 @@
 </div>
 
 <div class="tabs">
-  <div class="tabs-item" [class.selected]="tab==1" (click)="selectTab(1)">Описание</div>
-  <div class="tabs-item" [class.selected]="tab==2" (click)="selectTab(2)">Отчеты</div>
+  <div class="tabs-item" [class.selected]="tab===1" (click)="selectTab(1)">Описание</div>
+  <div class="tabs-item" [class.selected]="tab===2" (click)="selectTab(2)">Отчеты</div>
 </div>
+
+<ng-container *ngIf="tab===1">
+
+  <div class="tab-content">
+    1
+  </div>
+
+</ng-container>
+
+<ng-container *ngIf="tab===2">
+
+  <div class="tab-content">
+    2
+  </div>
+
+</ng-container>

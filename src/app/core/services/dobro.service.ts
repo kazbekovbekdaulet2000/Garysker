@@ -17,11 +17,11 @@ export class DobroService extends ApiService {
   }
 
   list(params?: any): Observable<DobroProjectModel[]> {
-    return this.http.get<DobroProjectModel[]>(this.noSlashUrl('projects'), { params })
+    return this.http.get<DobroProjectModel[]>(this.getUrl('projects'), { params })
   }
 
   get(id: number, params?: any): Observable<DobroProjectModel> {
-    return this.http.get<DobroProjectModel>(this.noSlashUrl(`project_detail/${id}`), {params})
+    return this.http.get<DobroProjectModel>(this.getUrl(`projects/${id}`), {params})
   }
 
 }

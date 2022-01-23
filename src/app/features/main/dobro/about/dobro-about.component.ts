@@ -25,18 +25,13 @@ export class DobroAboutComponent implements OnDestroy {
     })
   }
   ngOnDestroy(): void {
-    console.log("clearing")
     this.store.dispatch(new ClearDobroDetails())
   }
 
   parse(str: string) {
     return parseFloat(str)
   }
-
-  @HostListener('window:scroll')
-  onScroll(): void {
-  }
-
+  
   selectTab(indx: number) {
     this.tab = indx
   }
