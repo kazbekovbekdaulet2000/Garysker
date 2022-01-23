@@ -10,7 +10,7 @@ import { ReportsService } from '@core/services/reports.service';
 import { SupportService } from '@core/services/support.service';
 import { VideosService } from '@core/services/videos.service';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import { ClearDobroDetails, ClearReportDetail, GetDobroProject, GetReport, ListDobroProjects, ListQuestions, ListReportComments, ListReports, ListVideos, PostReportComment } from './main.actions';
+import { ClearDobroDetails, ClearReportDetail, GetDobroProject, GetReport, LikeReport, ListDobroProjects, ListQuestions, ListReportComments, ListReports, ListVideos, PostReportComment, SaveReport } from './main.actions';
 
 
 interface StateModel {
@@ -99,6 +99,36 @@ export class MainState {
       .toPromise()
       .then(report => {
         patchState({ report });
+      })
+  }
+
+  @Action(LikeReport)
+  LikeReport({ getState, patchState }: StateContext<StateModel>, { id }: LikeReport) {
+    this.reportService.like(id)
+      .subscribe(ans=>{
+        let newRep = getState().report
+        newRep!.liked = ans?.liked
+        if(newRep!.liked){
+          newRep!.likes_count+=1
+        }else{
+          newRep!.likes_count-=1
+        }
+        patchState({report: newRep})
+      })
+  }
+
+  @Action(SaveReport)
+  SaveReport({ getState, patchState }: StateContext<StateModel>, { id }: SaveReport) {
+    this.reportService.save(id)
+      .subscribe(ans=>{
+        let newRep = getState().report
+        newRep!.bookmarked = ans?.bookmarked
+        if(newRep!.bookmarked){
+          newRep!.bookmarks_count+=1
+        }else{
+          newRep!.bookmarks_count-=1
+        }
+        patchState({report: newRep})
       })
   }
 

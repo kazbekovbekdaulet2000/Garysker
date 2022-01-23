@@ -12,6 +12,16 @@ export class ListReportComments {
   constructor(public id: number) { }
 }
 
+export class LikeReport {
+  static readonly type = '[Main] LikeReport'
+  constructor(public id: number) { }
+}
+
+export class SaveReport {
+  static readonly type = '[Main] SaveReport'
+  constructor(public id: number) { }
+}
+
 export class PostReportComment {
   static readonly type = '[Main] PostReportComment'
   constructor(public id: number, public payload: any) { }

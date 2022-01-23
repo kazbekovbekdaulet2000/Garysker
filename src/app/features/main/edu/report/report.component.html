@@ -18,50 +18,29 @@
     <div #body class="report-body" [innerHTML]="report.body | sanitizer"></div>
 
     <div class="report-stat">
+
       <div>
-        <svg width="28" height="25" viewBox="0 0 28 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M14 25C14 25 0 11.9524 0 7.31945C0 2.38662 2.56025 0 7.875 0C10.5 0 14 4.03297 14 4.03297C14 4.03297 17.5 0 20.125 0C25.4398 0 28 2.38506 28 7.31945C28 11.9524 14 25 14 25ZM20.125 1.61349C18.7442 1.61349 14 5.64341 14 5.64341C14 5.64341 9.254 1.61349 7.875 1.61349C3.2235 1.61349 1.75 3.37394 1.75 7.53358C1.75 11.4433 14 22.5788 14 22.5788C14 22.5788 26.25 11.4433 26.25 7.53358C26.25 3.37394 24.7765 1.61349 20.125 1.61349Z"
-            fill="white" />
-        </svg>
+        <img src="assets/icons/comment.svg" alt="">
+        {{report.comments_count}}
+      </div>
+
+      <img class="cursor-pointer" (click)="saveReport(report.id)"
+        [src]="report.bookmarked ? 'assets/icons/saved.svg' : 'assets/icons/unsaved.svg'" alt="">
+      
+      <!-- <a [href]="getLink" target="_blank" rel="noopener" type="button"> -->
+      <img class="cursor-pointer" (click)="openShareModal()" src="assets/icons/share.svg" alt="">
+
+      <div class="report-stat-views cursor-pointer" (click)="likeReport(report.id)">
+        <img [src]="report.liked ? 'assets/icons/liked.svg' : 'assets/icons/like.svg'" alt="">
         {{report.likes_count}}
       </div>
 
-      <div class="space">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M14 24.5C14.5372 24.5 15.0622 24.4668 15.582 24.416L22.75 28V21.8032C25.949 19.558 28 16.1157 28 12.25C28 5.4845 21.7333 0 14 0C6.2685 0 0 5.4845 0 12.25C0 19.0155 6.2685 24.5 14 24.5ZM14 1.74829C20.7655 1.74829 26.25 6.45054 26.25 12.2483C26.25 15.8043 24.1623 18.914 21 20.8075V20.9964V25.3714L15.75 22.7483C15.75 22.7483 16.0072 22.7483 14 22.7483C7.23625 22.7483 1.75 18.046 1.75 12.2483C1.75 6.45054 7.23625 1.74829 14 1.74829Z"
-            fill="white" />
-        </svg>
-        {{report.comments_count}} комментарии
-      </div>
+    </div>
 
-      <div>
-        <svg width="35" height="26" viewBox="0 0 35 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g filter="url(#filter0_d_2257_11429)">
-            <path
-              d="M6.44726 8.72382L6.29063 8.98266L6.44726 9.24151C9.06283 13.5641 13.3224 15.6505 17.5 15.6505C21.6776 15.6505 25.9372 13.5641 28.5527 9.24151L28.7094 8.98266L28.5527 8.72382C25.9372 4.40121 21.6776 2.3148 17.5 2.3148C13.3224 2.3148 9.06284 4.40121 6.44726 8.72382ZM30.4188 8.67101L30.8247 8.44894L30.4188 8.67101C30.5271 8.86875 30.5271 9.09658 30.4188 9.29432C27.5951 14.4548 22.5909 17.1177 17.5 17.1177C12.4091 17.1177 7.40492 14.4548 4.58115 9.29432C4.47295 9.09659 4.47295 8.86875 4.58115 8.67101C7.40492 3.51053 12.4091 0.847656 17.5 0.847656C22.5909 0.847656 27.5951 3.51053 30.4188 8.67101ZM21.05 8.98267C21.05 10.7089 19.504 12.1834 17.5 12.1834C15.496 12.1834 13.95 10.7089 13.95 8.98267C13.95 7.25645 15.496 5.78195 17.5 5.78195C19.504 5.78195 21.05 7.25645 21.05 8.98267Z"
-              stroke="white" shape-rendering="crispEdges" />
-          </g>
-          <defs>
-            <filter id="filter0_d_2257_11429" x="0" y="0.347656" width="35" height="25.2695"
-              filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
-              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                result="hardAlpha" />
-              <feOffset dy="4" />
-              <feGaussianBlur stdDeviation="2" />
-              <feComposite in2="hardAlpha" operator="out" />
-              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2257_11429" />
-              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2257_11429" result="shape" />
-            </filter>
-          </defs>
-        </svg>
-
-        {{report.views}}
-      </div>
-
+    <div class="report-author">
+      <img class="report-author-photo"
+        [src]="report.author.image.includes('/media/garysh.jpg') ? 'assets/images/user.png' : report.author.image">
+      {{report.author.full_name}}
     </div>
 
   </div>
@@ -73,9 +52,8 @@
       <h5>{{report.comments_count}} комментариев</h5>
 
       <div @heightAnimation class="reply" *ngIf="replyContent">
-        <img class="reply-sign" src="assets/icons/reply-sign.svg" draggable=false>  
-        <img 
-        class="reply-image"
+        <img class="reply-sign" src="assets/icons/reply-sign.svg" draggable=false>
+        <img class="reply-image"
           [src]="replyContent.owner.image.includes('/media/garysh.jpg') ? 'assets/images/user.png' : replyContent.owner.image">
         <div class="reply-info">
           <p class="reply-info-name">{{replyContent.owner.full_name}}</p>
@@ -84,16 +62,18 @@
         <div class="reply-cancel cursor-pointer" (click)="removeReplyParent()">отменить</div>
       </div>
 
-      <input 
-        *ngIf="(access$ | async) !== ''" 
-        type="text" 
-        (keyup.enter)="sendComment()" 
-        formControlName="body"
-        placeholder="Написать комментарий..." 
-        class="textfield"
-        [style.margin-top]="replyContent ?? 0"
-      >
-      
+      <!-- <input *ngIf="(access$ | async) !== ''" type="text" (keyup.enter)="sendComment()" formControlName="body"
+        placeholder="Написать комментарий..." class="textfield" [style.margin-top]="replyContent ?? 0"> -->
+        <div class="textfield">
+          <textarea
+            *ngIf="(access$ | async) !== ''" 
+            rows=3 
+            placeholder="Написать комментарий..." 
+            class="textfield-area" 
+            formControlName="body"
+          ></textarea>
+          <button class="btn textfield-btn" (click)="sendComment()">Отправить</button>
+        </div>
       <app-comment-module *ngFor="let comment of comments.results" (reply)="addReply($event)" [comment]="comment">
       </app-comment-module>
 

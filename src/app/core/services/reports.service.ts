@@ -40,6 +40,14 @@ export class ReportsService extends ApiService {
       )
   }
 
+  like(id: number): Observable<any> {
+    return this.http.post<any>(this.getUrl(`reports/${id}/like`), {})
+  }
+
+  save(id: number): Observable<any> {
+    return this.http.post<any>(this.getUrl(`reports/${id}/save`), {})
+  }
+
   listComments(id: number, params?: any): Observable<ListResponseModel<CommentModel>> {
     return this.http.get<ListResponseModel<CommentModel>>(this.getUrl(`reports/${id}/comments`), { params })
   }
