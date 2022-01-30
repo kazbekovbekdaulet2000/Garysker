@@ -1,0 +1,10 @@
+<div class="menu">
+  <div class="icon">
+    {{report.icon}}
+  </div>
+  <p>{{report.category}}</p>
+  <p>{{report.created_at | DateRemained}}</p>
+  <p [style.opacity]="0.7">By {{report.author.full_name}}</p>
+  <p [style.opacity]="0.7"> | </p>
+  <p [style.opacity]="0.7">{{report.read_time | ReadTime}}</p>
+</div>

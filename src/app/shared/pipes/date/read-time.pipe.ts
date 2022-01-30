@@ -11,7 +11,6 @@ export class ReadTimePipe implements PipeTransform {
 
   transform(date: string): string {
     var myDate = new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-    console.log(myDate)
     var a = date.split(':');
     var minutes = (+a[0]) * 60 + (+a[1]);
     return `время чтения: ${minutes} минуты`;

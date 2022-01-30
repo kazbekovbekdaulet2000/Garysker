@@ -1,0 +1,41 @@
+<div *ngIf="comments$ | async as comments" class="comment" [formGroup]="formGroup">
+  
+  <h5>{{entity.comments_count}} комментариев</h5>
+
+  <div @heightAnimation class="reply" *ngIf="replyContent">
+        
+    <img class="reply-sign" src="assets/icons/reply-sign.svg" draggable=false>
+    <img class="reply-image"
+      [src]="replyContent.owner.image.includes('/media/garysh.jpg') ? 'assets/images/user.png' : replyContent.owner.image">
+    <div class="reply-info">
+      <p class="reply-info-name">{{replyContent.owner.full_name}}</p>
+      <p class="reply-info-date">{{replyContent.created_at | DateRemained}}</p>
+    </div>
+    <div class="reply-cancel cursor-pointer" (click)="removeReplyParent()">отменить</div>
+  
+  </div>
+
+  <div *ngIf="(access$ | async) !== ''" class="textfield">
+
+    <textarea
+      rows=3 
+      placeholder="Написать комментарий..." 
+      class="textfield-area" 
+      formControlName="body"
+    ></textarea>
+
+    <button class="btn textfield-btn" (click)="sendComment()">Отправить</button>
+  
+  </div>
+
+  <app-comment-module 
+    *ngFor="let comment of comments.results" 
+    (reply)="addReply($event)" 
+    [comment]="comment">
+  </app-comment-module>
+
+  <a class="d-flex loadmore my-2 align-items-center justify-content-center cursor-pointer" *ngIf="comments.next" (click)="loadMore()">
+    загрузить больше
+  </a>
+
+</div>

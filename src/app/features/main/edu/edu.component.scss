@@ -1,7 +1,6 @@
 @import "variables";
 
 .body {
-  // overflow-x: hidden;
   overflow: visible;
   position: relative;
   width: 100%;
@@ -15,5 +14,18 @@
     margin-top: 24px;
     margin-bottom: 36px;
     padding: 0px;
+    .popular{
+      max-width: 360px;
+      min-width: 165px;
+      border-radius: 20px;
+      margin-right: 16px;
+      height: 230px;
+      overflow: hidden;
+      &-poster{
+        height: 100%;
+        min-width: 165px;
+        object-fit: cover;
+      }
+    }
   }
 }

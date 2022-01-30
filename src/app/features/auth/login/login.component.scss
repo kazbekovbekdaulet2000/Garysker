@@ -118,5 +118,10 @@
   }
   .auth-card {
     width: 100%;
+    .menu {
+      .login {
+        padding: 20px 48px;
+      }
+    }
   }
 }

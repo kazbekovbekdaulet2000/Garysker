@@ -7,7 +7,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProfileComponent } from './profile/profile.component';
 import { ApplicationComponent } from './application/application.component';
 import { ApplicationModalComponent } from './application/modal/application-modal.component';
 
@@ -20,7 +19,6 @@ const maskConfig: Partial<IConfig> = {
     AuthComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
     ApplicationComponent,
     ApplicationModalComponent
   ],

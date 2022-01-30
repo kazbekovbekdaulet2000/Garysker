@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
@@ -12,14 +11,13 @@ import { AuthState } from '@core/states/auth/auth.state';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { ClearReportDetail, GetReport, LikeReport, ListReportComments, PostReportComment, SaveReport } from '../../main.actions';
-import { MainState } from '../../main.state';
-import { LoginErrModalComponent } from './noLogin-modal /login-modal.component';
-import { LinkShareModalComponent } from './share-modal/share-modal.component';
+import { take } from 'rxjs/operators';
+import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
+import { LinkShareModalComponent } from 'src/app/shared/modals/share-modal/share-modal.component';
+import { ClearReportDetail, GetReport, LikeReport, ListMoreReportComments, ListReportComments, PostReportComment, SaveReport } from '../report.actions';
+import { ReportState } from '../report.state';
 
 @Component({
-  selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -28,8 +26,8 @@ import { LinkShareModalComponent } from './share-modal/share-modal.component';
 export class ReportComponent implements OnDestroy {
 
   @Select(AuthState.access) access$!: Observable<string>;
-  @Select(MainState.report) report$!: Observable<ReportDetailModel>;
-  @Select(MainState.comments) comments$!: Observable<ListResponseModel<CommentModel>>;
+  @Select(ReportState.report) report$!: Observable<ReportDetailModel>;
+  @Select(ReportState.comments) comments$!: Observable<ListResponseModel<CommentModel>>;
 
   @ViewChild('body') body!: ElementRef<any>
 
@@ -65,23 +63,20 @@ export class ReportComponent implements OnDestroy {
 
   sendComment() {
     const payload = this.formGroup.getRawValue()
-    if (payload.body !== '' && payload.body !== null) {
-      this.reportService.postComment(this.reportId!, payload)
-        .toPromise()
-        .then(() => {
-          this.replyContent = null
-          this.formGroup.patchValue({
-            body: null,
-            reply: null,
-          })
-          this.store.dispatch(new ListReportComments(this.reportId!))
-        })
-        .catch((err) => {
-          alert(err)
-        })
-    }else{
+    if (payload.body !== '' || payload.body !== null) {
+      this.store.dispatch(new PostReportComment(this.reportId, payload))
+      this.formGroup.patchValue({
+        body: null,
+        reply: null
+      })
+      this.replyContent = null
+    } else {
       alert("нету коммента")
     }
+  }
+
+  loadMore(){
+    this.store.dispatch(new ListMoreReportComments(this.reportId!))
   }
 
   addReply(reply: CommentModel) {
@@ -103,21 +98,21 @@ export class ReportComponent implements OnDestroy {
   }
 
   likeReport(id: number) {
-    this.access$.pipe(take(1)).subscribe(token=>{
-      if(token !==''){
+    this.access$.pipe(take(1)).subscribe(token => {
+      if (token !== '') {
         this.store.dispatch(new LikeReport(id))
-      }else{
-        this.bsService.show(LoginErrModalComponent,{class: 'modal-dialog-centered'})
+      } else {
+        this.bsService.show(LoginErrModalComponent, { class: 'modal-dialog-centered' })
       }
     })
   }
 
-  saveReport(id: number) {
-    this.access$.pipe(take(1)).subscribe(token=>{
-      if(token !==''){
+  onSave(id: number) {
+    this.access$.pipe(take(1)).subscribe(token => {
+      if (token !== '') {
         this.store.dispatch(new SaveReport(id))
-      }else{
-        this.bsService.show(LoginErrModalComponent,{class: 'modal-dialog-centered'})
+      } else {
+        this.bsService.show(LoginErrModalComponent, { class: 'modal-dialog-centered' })
       }
     })
   }
@@ -126,7 +121,7 @@ export class ReportComponent implements OnDestroy {
     return `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
   }
 
-  openShareModal(){
-    this.bsService.show(LinkShareModalComponent,{class: 'modal-dialog-centered'})
+  onShare() {
+    this.bsService.show(LinkShareModalComponent, { class: 'modal-dialog-centered' })
   }
 }

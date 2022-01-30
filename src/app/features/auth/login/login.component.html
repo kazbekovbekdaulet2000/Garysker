@@ -11,12 +11,7 @@
     <input type="password" class="user-info" formControlName="password"> 
     <p *ngIf="getRequireMessage('password')">*обязательно к заполнению</p>
     
-    <div class="save-me">
-      <input type="checkbox" id="toggle-button" class="toggle-button">
-      <label for="toggle-button" class="text">Запомнить меня</label>
-    </div>
-
-    <div class="menu"> 
+    <div class="menu mt-4"> 
       <a href="">Забыли пароль?</a> 
       <button class="btn login" (click)="login()">Войти</button>
     </div>

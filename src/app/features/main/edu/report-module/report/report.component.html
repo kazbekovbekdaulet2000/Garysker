@@ -2,16 +2,7 @@
 
   <div @opacityAnimation class="report">
 
-    <div class="report-menu">
-      <div class="icon">
-        {{report.icon}}
-      </div>
-      <p>{{report.category}}</p>
-      <p>{{report.created_at | DateRemained}}</p>
-      <p [style.opacity]="0.7">By {{report.author.full_name}}</p>
-      <p [style.opacity]="0.7"> | </p>
-      <p [style.opacity]="0.7">{{report.read_time | ReadTime}}</p>
-    </div>
+    <app-report-menu [report]="report"></app-report-menu>
 
     <h1 class="report-header"> {{report.title}}</h1>
 
@@ -24,11 +15,10 @@
         {{report.comments_count}}
       </div>
 
-      <img class="cursor-pointer" (click)="saveReport(report.id)"
+      <img class="cursor-pointer" (click)="onSave(report.id)"
         [src]="report.bookmarked ? 'assets/icons/saved.svg' : 'assets/icons/unsaved.svg'" alt="">
       
-      <!-- <a [href]="getLink" target="_blank" rel="noopener" type="button"> -->
-      <img class="cursor-pointer" (click)="openShareModal()" src="assets/icons/share.svg" alt="">
+      <img class="cursor-pointer" (click)="onShare()" src="assets/icons/share.svg" alt="">
 
       <div class="report-stat-views cursor-pointer" (click)="likeReport(report.id)">
         <img [src]="report.liked ? 'assets/icons/liked.svg' : 'assets/icons/like.svg'" alt="">
@@ -52,6 +42,7 @@
       <h5>{{report.comments_count}} комментариев</h5>
 
       <div @heightAnimation class="reply" *ngIf="replyContent">
+        
         <img class="reply-sign" src="assets/icons/reply-sign.svg" draggable=false>
         <img class="reply-image"
           [src]="replyContent.owner.image.includes('/media/garysh.jpg') ? 'assets/images/user.png' : replyContent.owner.image">
@@ -60,21 +51,31 @@
           <p class="reply-info-date">{{replyContent.created_at | DateRemained}}</p>
         </div>
         <div class="reply-cancel cursor-pointer" (click)="removeReplyParent()">отменить</div>
+      
       </div>
 
-      <!-- <input *ngIf="(access$ | async) !== ''" type="text" (keyup.enter)="sendComment()" formControlName="body"
-        placeholder="Написать комментарий..." class="textfield" [style.margin-top]="replyContent ?? 0"> -->
-        <div *ngIf="(access$ | async) !== ''" class="textfield">
-          <textarea
-            rows=3 
-            placeholder="Написать комментарий..." 
-            class="textfield-area" 
-            formControlName="body"
-          ></textarea>
-          <button class="btn textfield-btn" (click)="sendComment()">Отправить</button>
-        </div>
-      <app-comment-module *ngFor="let comment of comments.results" (reply)="addReply($event)" [comment]="comment">
+      <div *ngIf="(access$ | async) !== ''" class="textfield">
+
+        <textarea
+          rows=3 
+          placeholder="Написать комментарий..." 
+          class="textfield-area" 
+          formControlName="body"
+        ></textarea>
+
+        <button class="btn textfield-btn" (click)="sendComment()">Отправить</button>
+      
+      </div>
+      
+      <app-comment-module 
+        *ngFor="let comment of comments.results" 
+        (reply)="addReply($event)" 
+        [comment]="comment">
       </app-comment-module>
+
+      <a class="d-flex loadmore my-2 align-items-center justify-content-center cursor-pointer" *ngIf="comments.next" (click)="loadMore()">
+        загрузить больше
+      </a>
 
     </div>
 

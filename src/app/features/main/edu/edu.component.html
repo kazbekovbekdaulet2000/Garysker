@@ -1,20 +1,24 @@
 <div class="body">
 
-  <!-- <ng-container>
+  <div @opacityAnimation *ngIf="popular$ | async as popular">
 
-    <h3>⭐ Популярное</h3>
+    <h3 @opacityAnimation *ngIf="popular.length > 0">⭐ Популярное</h3>
 
-    <div class="items-holder">
+    <div @opacityAnimation *ngIf="popular.length > 0" class="items-holder">
+
+      <div (click)="onNavigate(item)" class="popular cursor-pointer" *ngFor="let item of popular">
+        <img class="popular-poster" [src]="item.image" alt="">
+      </div>
 
     </div>
 
-  </ng-container> -->
+  </div>
 
-  <div @heightAnimation  *ngIf="reports$ | async as reports">
+  <div @opacityAnimation *ngIf="reports$ | async as reports">
 
-    <h3 @heightAnimation *ngIf="reports.results.length > 0">📖 Читать</h3>
+    <h3 @opacityAnimation *ngIf="reports.results.length > 0">📖 Читать</h3>
 
-    <div @heightAnimation *ngIf="reports.results.length > 0" class="items-holder">
+    <div @opacityAnimation *ngIf="reports.results.length > 0" class="items-holder">
 
       <div *ngFor="let report of reports.results">
         <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
@@ -24,14 +28,14 @@
 
   </div>
 
-  <div @heightAnimation *ngIf="videos$ | async as videos">
+  <div @opacityAnimation *ngIf="videos$ | async as videos">
 
-    <h3 @heightAnimation *ngIf="videos.results.length > 0">📹 Смотреть</h3>
+    <h3 @opacityAnimation *ngIf="videos.results.length > 0">📹 Смотреть</h3>
 
-    <div @heightAnimation *ngIf="videos.results.length > 0" class="items-holder">
+    <div @opacityAnimation *ngIf="videos.results.length > 0" class="items-holder">
 
       <div *ngFor="let video of videos.results">
-        <video-card [routerLink]="['videos', video.id]" [video]='video'></video-card>
+        <app-video-card [routerLink]="['videos', video.id]" [video]='video'></app-video-card>
       </div>
 
     </div>

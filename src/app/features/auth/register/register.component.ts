@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
   formGroup: FormGroup | any;
 
@@ -21,9 +21,6 @@ export class RegisterComponent implements OnInit {
       password: ['', Validators.required],
       re_password: ['', Validators.required],
     });
-  }
-
-  ngOnInit(): void {
   }
 
   getRequireMessage(name: string) {

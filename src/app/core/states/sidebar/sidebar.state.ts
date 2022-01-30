@@ -4,7 +4,8 @@ import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { CategoryModel } from '@core/models/api/category.model';
 import { FilterByCategory, ListCategories } from './actions';
 import { CategoriesService } from '@core/services/categories.service';
-import { ListReports, ListVideos } from 'src/app/features/main/main.actions';
+import { ListReports } from 'src/app/features/main/edu/report-module/report.actions';
+import { ListVideos } from 'src/app/features/main/edu/video-module/video.actions';
 
 
 interface StateModel {
@@ -50,9 +51,8 @@ export class SidebarState {
   }
 
   @Action(FilterByCategory)
-  FilterByCategory({ patchState }: StateContext<StateModel>, {id}:FilterByCategory) {
+  FilterByCategory({ patchState }: StateContext<StateModel>, { id }: FilterByCategory) {
     patchState({ selected_category: id });
-    this.store.dispatch(new ListReports)
-    this.store.dispatch(new ListVideos)
+    this.store.dispatch([ListReports, ListVideos])
   }
 }

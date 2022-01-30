@@ -1,0 +1,14 @@
+<div *ngIf="video$ | async as video" class="video-holder">
+  <div class="content">
+    <app-plyr-player [entity]="video"></app-plyr-player>
+    <app-video-details [entity]="video"></app-video-details>
+    <app-video-comments [entity]="video"></app-video-comments>
+  </div>
+
+  <div class="content d-flex flex-column gap-4">
+
+    <app-video-card [video]="video" width="100%"></app-video-card>
+    
+  </div>
+
+</div>

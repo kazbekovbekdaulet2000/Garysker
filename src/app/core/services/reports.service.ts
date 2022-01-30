@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import { SidebarState } from '@core/states/sidebar/sidebar.state';
 import { CommentModel } from '@core/models/api/comment.model';
+import { AuthState } from '@core/states/auth/auth.state';
+import { UpdatePopular } from 'src/app/features/main/main.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,14 @@ export class ReportsService extends ApiService {
     if (id !== null) {
       params = { category: id }
     }
-    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('reports'), { params })
+    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('reports'), { params }).pipe(
+      map(reports=>{
+        if(id === null || id === undefined){
+          this.store.dispatch(new UpdatePopular(reports, 'report'))
+        }
+        return reports
+      })
+    )
   }
 
   get(id: number): Observable<ReportDetailModel> {
@@ -54,6 +63,13 @@ export class ReportsService extends ApiService {
 
   postComment(id: number, payload: any): Observable<CommentModel> {
     return this.http.post<CommentModel>(this.getUrl(`reports/${id}/comments`), payload)
+      .pipe(
+        map(res => {
+          const owner = this.store.selectSnapshot(AuthState.profile)
+          res.owner = owner!
+          res.replies = []
+          return res
+        })
+      )
   }
-
 }

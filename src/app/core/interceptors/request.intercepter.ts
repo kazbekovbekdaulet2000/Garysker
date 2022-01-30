@@ -3,7 +3,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Store } from '@ngxs/store';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
-import { RemoveToken, UpdateToken } from '@core/states/auth/actions';
+import { RemoveToken, UpdateProfile, UpdateToken } from '@core/states/auth/actions';
 import { AuthState } from '@core/states/auth/auth.state';
 import * as moment from 'moment';
 import { IdentityService } from '@core/services/identity.service';
@@ -95,6 +95,7 @@ export class RequestInterceptor implements HttpInterceptor {
       return this.identityService.refresh(refresh).pipe(
         map(token => {
           this.store.dispatch(new UpdateToken(token.access));
+          this.store.dispatch(new UpdateProfile())
           return token;
         }),
         tap(() => {

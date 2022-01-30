@@ -12,6 +12,7 @@ export interface VideoModel {
   bookmarks_count: number,
   bookmarked: boolean,
   views: number,
+  comments_count: number,
 }
 
 export interface VideoDetailModel extends VideoModel {

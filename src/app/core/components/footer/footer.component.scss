@@ -27,6 +27,7 @@ footer {
         .main {
           font-weight: 600;
           font-size: 18px;
+          margin-top: 0px;
           color: #ffd2dd;
         }
         a {
@@ -42,7 +43,7 @@ footer {
       margin-bottom: 12px;
       &-main {
         font-weight: 600;
-        font-size: 18px;
+        font-size: 18px !important;
         color: #cacaca;
       }
       a {

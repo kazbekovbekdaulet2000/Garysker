@@ -32,7 +32,8 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/plyr/dist/plyr.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -40,7 +41,8 @@
               ]
             },
             "scripts": [
-              "./node_modules/css-element-queries/src/ResizeSensor.js"
+              "./node_modules/css-element-queries/src/ResizeSensor.js",
+              "./node_modules/hls.js/dist/hls.min.js"
             ]
           },
           "configurations": {

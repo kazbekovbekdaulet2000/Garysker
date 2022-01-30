@@ -7,7 +7,7 @@ import { Store } from '@ngxs/store';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent {
+export class MainProfileComponent {
 
   constructor(
     private store: Store

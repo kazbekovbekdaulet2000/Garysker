@@ -1,0 +1,33 @@
+@import "variables";
+
+.menu {
+  margin: 0px 120px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 14px;
+  p {
+    margin-bottom: 0px;
+    margin-left: 12px;
+  }
+  .icon {
+    padding: 6px;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    display: flex;
+    border-radius: 12px;
+    align-content: center;
+    justify-content: center;
+    background-color: $color-section;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .menu {
+    margin: 0px 16px;
+    margin-bottom: 12px;
+    font-size: 10px;
+  }
+}
