@@ -15,6 +15,14 @@
     margin-top: 24px;
     margin-bottom: 36px;
     padding: 0px;
+    &::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #00000000;
+    }
     .popular {
       position: relative;
       border-radius: 20px;

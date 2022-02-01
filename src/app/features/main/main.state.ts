@@ -68,7 +68,11 @@ export class MainState {
   @Action(UpdatePopular)
   UpdatePopular({ getState, patchState }: StateContext<StateModel>, {payload, type}:UpdatePopular) {
     let list = getState().popular
-    list = [...list, ...payload?.results]
+    payload?.results.forEach((element:any) => {
+      if(!list.includes(element)){
+        list.push(element)
+      }
+    });
     list.sort((a, b)=> b.views - a.views)
     patchState({popular: list})
   }

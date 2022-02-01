@@ -5,7 +5,7 @@
       Образование
     </div>
 
-    <div class="section cursor-pointer" routerLink="dobro" [class.active]="currentRoute === 'dobro'">
+    <div class="section cursor-pointer" (click)="removeRouteDobro()" routerLink="dobro" [class.active]="currentRoute === 'dobro'">
       <div class="icon">
         <img src="assets/icons/heart.svg" draggable=false>  
       </div>

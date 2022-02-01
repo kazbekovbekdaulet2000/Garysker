@@ -67,6 +67,13 @@ export class SideMenuComponent {
     }
   }
 
+  removeRouteDobro() {
+    if (this.selectedDobroSection !== null && this.selectedDobroSection !== undefined) {
+      this.selectedDobroSection = null
+      this.store.dispatch(new FilterByDobro(this.selectedDobroSection))
+    }
+  }
+
   updateContent() {
     this.store.dispatch(new FilterByCategory(this.selectedCategorySection!))
   }
