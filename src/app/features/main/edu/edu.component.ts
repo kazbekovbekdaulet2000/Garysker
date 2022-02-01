@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, ElementRef, OnChanges, OnDestroy, OnInit, QueryList, Renderer2, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store'
 import { VideoModel } from '@core/models/api/video.model';
 import { ReportModel } from '@core/models/api/report.model';
@@ -19,27 +19,62 @@ import { ClearPopular } from '../main.actions';
   styleUrls: ['./edu.component.scss'],
   animations: [opacityAnimation, heightAnimation]
 })
-export class EduComponent implements OnDestroy{
+export class EduComponent implements OnDestroy, AfterContentChecked, OnChanges{
 
   @Select(ReportState.reports) reports$!: Observable<ListResponseModel<ReportModel>>;
   @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>;
   @Select(MainState.popular) popular$!: Observable<any>;
 
+  @ViewChildren('image') images!: QueryList<ElementRef>;
+  @ViewChildren('imageHolder') imageHolder!: QueryList<ElementRef>;
+
   constructor(
     private store: Store,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
   ) {
     this.store.dispatch([ListReports, ListVideos])
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.changeWidth()
+  }
+  
+  ngAfterContentChecked(): void {
+    this.changeWidth()
   }
 
   ngOnDestroy(): void {
     this.store.dispatch(ClearPopular)
   }
 
-  onNavigate(item: any){
-    if(item?.read_time){
+  changeWidth() {
+    if (this.imageHolder) {
+      this.imageHolder.forEach((item, indx) => {
+        const ratio = this.images.get(indx)?.nativeElement?.naturalWidth / this.images.get(indx)?.nativeElement?.naturalHeight
+
+        let width = 240
+        width = ratio * 230
+        if (ratio * 230 > 420) {
+          width = 365
+        } else if (ratio * 230 < 240) {
+          width = 240
+        }
+
+        if (this.imageHolder.get(indx)?.nativeElement !== undefined) {
+          this.renderer.setStyle(
+            this.imageHolder.get(indx)?.nativeElement,
+            'min-width',
+            `${width}px`
+          )
+        }
+      })
+    }
+  }
+
+  onNavigate(item: any) {
+    if (item?.read_time) {
       this.router.navigate(['edu/reports', item?.id])
-    }else{
+    } else {
       this.router.navigate(['edu/videos', item?.id])
     }
   }

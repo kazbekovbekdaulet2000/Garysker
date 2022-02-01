@@ -8,7 +8,8 @@ export interface DobroProjectModel {
   description?: string,
   video?: string,
   debt_dobro_file?: DocumentModel[] 
-  title: string
+  title: string,
+  body: string,
 }
 
 interface DocumentModel{

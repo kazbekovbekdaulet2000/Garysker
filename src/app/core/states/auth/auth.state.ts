@@ -42,7 +42,7 @@ export class AuthState {
   }
 
   @Selector()
-  static profile({ profile }: AuthStateModel): UserModel | null{
+  static profile({ profile }: AuthStateModel): UserModel | null {
     return profile;
   }
 
@@ -73,16 +73,19 @@ export class AuthState {
 
   @Action(RemoveToken)
   RemoveToken({ patchState }: StateContext<AuthStateModel>) {
-    patchState({ access: '', refresh: '', profile: null, accessTokenExpireDate: null})
-    this.store.dispatch(new Navigate(['']))
+    patchState({ access: '', refresh: '', profile: null, accessTokenExpireDate: null })
+    console.log(window.location.href.includes('profile'))
+    if (window.location.href.includes('auth/login') || window.location.href.includes('profile')) {
+      this.store.dispatch(new Navigate(['']))
+    }
   }
 
   @Action(UpdateProfile)
   UpdateProfile({ patchState }: StateContext<AuthStateModel>) {
     this.identityService.profile()
       .toPromise()
-      .then(profile=>{
-        patchState({profile})
+      .then(profile => {
+        patchState({ profile })
       })
   }
 }

@@ -2,6 +2,10 @@ export class ListVideos {
   static readonly type = '[Video] ListVideos';
 }
 
+export class ListSavedVideos {
+  static readonly type = '[Video] ListSavedVideos';
+}
+
 export class GetVideo {
   static readonly type = '[Video] GetVideo';
   constructor(public id: number) { }

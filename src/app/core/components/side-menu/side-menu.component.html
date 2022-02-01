@@ -26,14 +26,14 @@
 
   <div [class.visable]="currentRoute === 'dobro'" class="dynamic-menu">
     
-    <div class="category cursor-pointer" (click)="routeDobroType(1)"> 
+    <div class="category cursor-pointer" routerLink="dobro" (click)="routeDobroType(1)"> 
       <div class="icon" [class.active]="selectedDobroSection === 1">
         🙌
       </div>
       В процессе
     </div>
 
-    <div class="category cursor-pointer" (click)="routeDobroType(2)"> 
+    <div class="category cursor-pointer" routerLink="dobro" (click)="routeDobroType(2)"> 
       <div class="icon" [class.active]="selectedDobroSection === 2">
         ✨
       </div>
@@ -46,7 +46,7 @@
     
     <div class="category cursor-pointer" (click)="navigateTelegram()"> 
       <div class="icon">
-        ⚠️
+        <img src="assets/icons/help.svg">
       </div>
       Поддержать проект 
     </div>

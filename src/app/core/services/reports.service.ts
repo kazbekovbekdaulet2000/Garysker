@@ -38,6 +38,10 @@ export class ReportsService extends ApiService {
     )
   }
 
+  listSaved(params?: any): Observable<ListResponseModel<ReportModel>> {
+    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('reports/bookmarked'), { params })
+  }
+
   get(id: number): Observable<ReportDetailModel> {
     return this.http.get<ReportDetailModel>(this.getUrl(`reports/${id}`))
       .pipe(

@@ -32,9 +32,11 @@ export class ReportComponent implements OnDestroy {
   @ViewChild('body') body!: ElementRef<any>
 
   replyContent: any | null
-
+  
   formGroup: FormGroup | any;
   reportId: number | undefined;
+
+  textInputLarge: boolean = false;
 
   constructor(
     private store: Store,
@@ -63,7 +65,7 @@ export class ReportComponent implements OnDestroy {
 
   sendComment() {
     const payload = this.formGroup.getRawValue()
-    if (payload.body !== '' || payload.body !== null) {
+    if (payload.body !== '' && payload.body !== null) {
       this.store.dispatch(new PostReportComment(this.reportId, payload))
       this.formGroup.patchValue({
         body: null,
@@ -123,5 +125,9 @@ export class ReportComponent implements OnDestroy {
 
   onShare() {
     this.bsService.show(LinkShareModalComponent, { class: 'modal-dialog-centered' })
+  }
+
+  textareaTap() {
+    this.textInputLarge=true
   }
 }

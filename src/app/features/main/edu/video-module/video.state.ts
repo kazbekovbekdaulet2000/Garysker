@@ -15,7 +15,8 @@ import {
   SaveVideo,
   PostVideoComment,
   ClearVideoDetail,
-  ListMoreVideoComments
+  ListMoreVideoComments,
+  ListSavedVideos
 } from './video.actions';
 
 interface StateModel {
@@ -60,6 +61,14 @@ export class VideoState {
   @Action(ListVideos)
   ListVideos({ getState, patchState }: StateContext<StateModel>) {
     this.videoService.list()
+      .subscribe(videos => {
+        patchState({ videos });
+      })
+  }
+
+  @Action(ListSavedVideos)
+  ListSavedVideos({ getState, patchState }: StateContext<StateModel>) {
+    this.videoService.listSaved()
       .subscribe(videos => {
         patchState({ videos });
       })

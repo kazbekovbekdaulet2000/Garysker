@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Select, Store } from '@ngxs/store';
-import { FilterByCategory, ListCategories } from '@core/states/sidebar/actions';
+import { FilterByCategory, FilterByDobro, ListCategories } from '@core/states/sidebar/actions';
 import { CategoryModel } from '@core/models/api/category.model';
 import { Observable } from 'rxjs';
 import { SidebarState } from '@core/states/sidebar/sidebar.state';
@@ -77,7 +77,7 @@ export class SideMenuComponent {
     } else {
       this.selectedDobroSection = null
     }
-    // this.store.dispatch(new FilterByCategory(this.selectedDobroSection))
+    this.store.dispatch(new FilterByDobro(this.selectedDobroSection))
   }
 
   onClick(str: string) {

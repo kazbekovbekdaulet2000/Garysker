@@ -41,7 +41,10 @@ export class RequestInterceptor implements HttpInterceptor {
     return next.handle(req)
       .pipe(
         catchError(error => {
-          return this.handleResponseError(error, req, next);
+          if (error instanceof HttpErrorResponse && !req.url.includes('auth/login/')) {
+            return this.handleResponseError(error, req, next);
+          }
+          return throwError(error);
         })
       );
   }
@@ -49,6 +52,7 @@ export class RequestInterceptor implements HttpInterceptor {
   setAuthHeader(req: HttpRequest<any>) {
     const { access } = this.store.selectSnapshot(AuthState);
     if (access !== '') {
+      console.log(access)
       req = req.clone({
         setHeaders: {
           'Authorization': `Bearer ${access}`
@@ -75,17 +79,19 @@ export class RequestInterceptor implements HttpInterceptor {
   }
 
   refreshToken(): Observable<any> {
+    const { refresh } = this.store.selectSnapshot(AuthState);
+    if (refresh === '') {
+      return new Observable
+    }
     if (this.refreshTokenInProgress) {
       return new Observable(observer => {
-        this.tokenRefreshed$.subscribe(() => {
+        return this.tokenRefreshed$.subscribe(() => {
           observer.next();
           observer.complete();
         });
       });
     } else {
       this.refreshTokenInProgress = true;
-
-      const { refresh } = this.store.selectSnapshot(AuthState);
 
       if (refresh === '') {
         this.refreshTokenInProgress = false;
@@ -112,6 +118,7 @@ export class RequestInterceptor implements HttpInterceptor {
   handleResponseError(error: HttpErrorResponse, req?: HttpRequest<any>, next?: HttpHandler) {
     if (error.status === 401) {
       return this.refreshToken().pipe(
+        take(1),
         switchMap(() => {
           req = this.setAuthHeader(req!);
           return next!.handle(req);
@@ -121,7 +128,7 @@ export class RequestInterceptor implements HttpInterceptor {
           return throwError(e);
         }));
     } else if (error.status === 404) {
-      this.store.dispatch(new Navigate(["notfound"]))
+      // this.store.dispatch(new Navigate(["**"]))
     }
     return throwError(error);
   }

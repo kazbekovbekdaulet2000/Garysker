@@ -31,6 +31,10 @@ export class LoginComponent {
       (this.formGroup.controls[name].dirty || this.formGroup.controls[name].touched)
   }
 
+  getFalseMessage(name: string) {
+    return this.formGroup.controls[name].errors?.incorrect
+  }
+
   login() {
     this.identityService.login(this.formGroup.getRawValue())
       .toPromise()
@@ -40,8 +44,17 @@ export class LoginComponent {
         this.store.dispatch(new UpdateProfile())
       })
       .catch(error => {
+        console.log(error)
         this.formGroup.controls['email'].setErrors({ 'incorrect': true });
+        console.log(this.formGroup.controls['email'].markAsUntouched())
+        console.log(this.formGroup.controls['email'].markAsPristine())
+
         this.formGroup.controls['password'].setErrors({ 'incorrect': true });
+        console.log(this.formGroup.controls['password'].markAsUntouched())
+        console.log(this.formGroup.controls['password'].markAsPristine())
+
+        this.getFalseMessage("email")
+        this.getFalseMessage("password")
       })
   }
 }

@@ -14,6 +14,7 @@ import { videoI18n } from './videoplayer.i18n';
 export class PlyrVideoPlayerComponent implements OnInit {
   
   @Input() entity: VideoDetailModel | any
+  @Input() link: string | any;
 
   @ViewChild(PlyrComponent)
   plyr!: PlyrComponent;
@@ -28,17 +29,25 @@ export class PlyrVideoPlayerComponent implements OnInit {
     //   default: 576, 
     //   options: [2160, 1440, 1080, 720, 576, 480, 360, 240] 
     // },
-    // backend doesn have quality options yeit
+    // backend doesn have quality options yeet
     i18n: videoI18n,
     autoplay: false,
     volume: 1,
+    fullscreen: {
+      enabled: true,
+      iosNative: true
+    },
+    storage: {
+      enabled: true,
+      key: "vidoe_storage"
+    }
   }
 
   ngOnInit(): void {
-    if (this.entity) {
+    if (this.link) {
       this.videoSources = [
         {
-          src: this.entity.video,
+          src: this.link,
           provider: 'html5',
         },
       ];

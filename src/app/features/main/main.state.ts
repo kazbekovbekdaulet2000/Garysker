@@ -5,6 +5,7 @@ import { DobroService } from '@core/services/dobro.service';
 import { ReportsService } from '@core/services/reports.service';
 import { SupportService } from '@core/services/support.service';
 import { VideosService } from '@core/services/videos.service';
+import { SidebarState } from '@core/states/sidebar/sidebar.state';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { 
   ClearDobroDetails, 
@@ -59,8 +60,6 @@ export class MainState {
 
   constructor(
     private store: Store,
-    private reportService: ReportsService,
-    private videoService: VideosService,
     private dobroService: DobroService,
     private supportService: SupportService
   ) {
@@ -81,10 +80,20 @@ export class MainState {
 
   @Action(ListDobroProjects)
   ListDobroProjects({ getState, patchState }: StateContext<StateModel>) {
+    const type = this.store.selectSnapshot(SidebarState.selected_dobro)
     this.dobroService.list()
       .toPromise()
       .then(dobro_projects => {
-        patchState({ dobro_projects });
+        console.log(dobro_projects.filter(val=>!val.is_completed) )
+        if(type){
+          if(type===1){
+            patchState({ dobro_projects: dobro_projects.filter(val=>!val.is_completed)})
+          }else if(type===2){
+            patchState({ dobro_projects: dobro_projects.filter(val=>val.is_completed)})
+          }
+        }else{
+          patchState({ dobro_projects });
+        }
       })
   }
 
@@ -93,6 +102,7 @@ export class MainState {
     this.dobroService.get(id)
       .toPromise()
       .then(dobro_project => {
+        console.log(dobro_project)
         patchState({ dobro_project });
       })
   }

@@ -22,6 +22,7 @@ import { MainProfileComponent } from './profile/profile.component';
 import { PlyrVideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
 import { VideoState } from './edu/video-module/video.state';
 import { ReportState } from './edu/report-module/report.state';
+import { ProfileChangeModalComponent } from './profile/profile-change-modal/profile-change-modal.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ReportState } from './edu/report-module/report.state';
     QuestionsComponent,
     LinkShareModalComponent,
     LoginErrModalComponent,
-    MainProfileComponent
+    MainProfileComponent,
+    ProfileChangeModalComponent
   ],
   imports: [
     CommonModule,

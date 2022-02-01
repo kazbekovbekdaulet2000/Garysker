@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
+import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { VideoDetailModel } from '@core/models/api/video.model';
@@ -15,7 +16,7 @@ import { VideoState } from '../../video.state';
   selector: 'app-video-comments',
   templateUrl: './video-comments.component.html',
   styleUrls: ['./video-comments.component.scss'],
-  animations: [heightAnimation]
+  animations: [opacityAnimation, heightAnimation]
 })
 export class VideoCommentsComponent implements OnInit {
   @Input() entity!: VideoDetailModel;
@@ -26,6 +27,8 @@ export class VideoCommentsComponent implements OnInit {
   formGroup!: FormGroup;
 
   replyContent: any | null;
+
+  textInputLarge: boolean = false;
 
   constructor(
     private store: Store,
@@ -83,7 +86,7 @@ export class VideoCommentsComponent implements OnInit {
 
   sendComment() {
     const payload = this.formGroup.getRawValue()
-    if (payload.body !== '' || payload.body !== null) {
+    if (payload.body !== '' && payload.body !== null) {
       this.store.dispatch(new PostVideoComment(this.entity.id, payload))
       this.formGroup.patchValue({
         body: null,
@@ -93,5 +96,9 @@ export class VideoCommentsComponent implements OnInit {
     } else {
       alert("нету коммента")
     }
+  }
+
+  textareaTap() {
+    this.textInputLarge=true
   }
 }

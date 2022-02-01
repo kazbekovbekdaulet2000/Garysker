@@ -2,6 +2,10 @@ export class ListReports {
   static readonly type = '[Report] ListReports';
 }
 
+export class ListSavedReports {
+  static readonly type = '[Report] ListSavedReports';
+}
+
 export class GetReport {
   static readonly type = '[Report] GetReport';
   constructor(public id: number) { }

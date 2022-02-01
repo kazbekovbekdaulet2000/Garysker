@@ -147,6 +147,7 @@
   },
   "defaultProject": "garyshker-front",
   "cli": {
+    "analytics": "52016a85-b5b0-4bb7-b4ee-6555419ea7e1",
     "defaultCollection": "@angular-eslint/schematics"
   }
 }

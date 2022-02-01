@@ -60,11 +60,13 @@
           rows=3 
           placeholder="Написать комментарий..." 
           class="textfield-area" 
+          [class.large]="textInputLarge"
           formControlName="body"
+          (click)="textareaTap()"
         ></textarea>
-
-        <button class="btn textfield-btn" (click)="sendComment()">Отправить</button>
-      
+    
+        <button @opacityAnimation *ngIf="textInputLarge" class="btn textfield-btn" (click)="sendComment()">Отправить</button>
+    
       </div>
       
       <app-comment-module 

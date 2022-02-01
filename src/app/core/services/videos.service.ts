@@ -44,6 +44,10 @@ export class VideosService extends ApiService {
     )
   }
 
+  listSaved(params?: any): Observable<ListResponseModel<VideoModel>> {
+    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl('bookmarked'), { params })
+  }
+
   get(id: number): Observable<VideoDetailModel> {
     return this.http.get<VideoDetailModel>(this.getUrl(id))
   }
@@ -67,6 +71,7 @@ export class VideosService extends ApiService {
           const owner = this.store.selectSnapshot(AuthState.profile)
           res.owner = owner!
           res.replies = []
+          res.created_at = new Date().toISOString()
           return res
         })
       )

@@ -20,23 +20,28 @@
 
 </div>
 
-<div class="tabs">
-  <div class="tabs-item" [class.selected]="tab===1" (click)="selectTab(1)">Описание</div>
-  <div class="tabs-item" [class.selected]="tab===2" (click)="selectTab(2)">Отчеты</div>
+<div *ngIf="dobro_project$ | async as project">
+
+  <div class="tabs">
+    <div class="tabs-item" [class.selected]="tab===1" (click)="selectTab(1)">Описание</div>
+    <div class="tabs-item" [class.selected]="tab===2" (click)="selectTab(2)">Отчеты</div>
+  </div>
+
+  <ng-container *ngIf="tab===1">
+
+    <div class="d-flex my-5 flex-column tab-content">
+      <app-plyr-player [link]="project.video"></app-plyr-player>
+      <div class="mt-4 tab-content-body" [innerHTML]="project.body | sanitizer"></div>
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="tab===2">
+
+    <div class="d-flex my-5 flex-column tab-content">
+      hello
+    </div>
+
+  </ng-container>
+
 </div>
-
-<ng-container *ngIf="tab===1">
-
-  <div class="tab-content">
-    1
-  </div>
-
-</ng-container>
-
-<ng-container *ngIf="tab===2">
-
-  <div class="tab-content">
-    2
-  </div>
-
-</ng-container>

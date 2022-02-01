@@ -11,6 +11,7 @@ import {
   ListMoreReportComments,
   ListReportComments,
   ListReports,
+  ListSavedReports,
   PostReportComment,
   SaveReport
 } from './report.actions';
@@ -59,6 +60,14 @@ export class ReportState {
   @Action(ListReports)
   ListReports({ patchState }: StateContext<StateModel>) {
     this.reportService.list()
+      .subscribe(reports => {
+        patchState({ reports });
+      })
+  }
+
+  @Action(ListSavedReports)
+  ListSavedReports({ patchState }: StateContext<StateModel>) {
+    this.reportService.listSaved()
       .subscribe(reports => {
         patchState({ reports });
       })

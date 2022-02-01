@@ -6,10 +6,12 @@
     <h6>Email</h6>
     <input type="email" class="user-info" formControlName="email"> 
     <p *ngIf="getRequireMessage('email')">*обязательно к заполнению</p>
+    <p *ngIf="getFalseMessage('email')">повторите попытку</p>
   
     <h6>Пароль</h6>
     <input type="password" class="user-info" formControlName="password"> 
     <p *ngIf="getRequireMessage('password')">*обязательно к заполнению</p>
+    <p *ngIf="getFalseMessage('password')">повторите попытку</p>
     
     <div class="menu mt-4"> 
       <a href="">Забыли пароль?</a> 
