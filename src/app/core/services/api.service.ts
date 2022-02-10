@@ -7,7 +7,7 @@ export class ApiService {
   ) { }
 
   protected getUrl(branch?: string | number): string {
-    let url = `https://app.garyshker-app.kz/${this.uri}`;
+    let url = `${environment.API}/${this.uri}`;
 
     if (branch) {
       url += `/${branch}`;
@@ -16,7 +16,7 @@ export class ApiService {
     return `${url}/`;
   }
   protected getNoSlashUrl(branch?: string | number): string {
-    let url = `https://app.garyshker-app.kz/${this.uri}`;
+    let url = `${environment.API}/${this.uri}`;
 
     if (branch) {
       url += `/${branch}`;

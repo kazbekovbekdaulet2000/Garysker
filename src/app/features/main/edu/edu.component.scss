@@ -1,12 +1,17 @@
 @import "variables";
 
+.icon{
+  width: 28px;
+  height: 28px;
+}
+
 .body {
-  // overflow-x: hidden;
   overflow: visible;
   position: relative;
   width: 100%;
   .items-holder {
     display: flex;
+    position: relative;
     align-items: flex-start;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -15,5 +20,83 @@
     margin-top: 24px;
     margin-bottom: 36px;
     padding: 0px;
+    &::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #00000000;
+    }
+
+    &::-moz-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+
+    &::-moz-scrollbar-thumb {
+      background: #00000000;
+    }
+    
+    .popular {
+      position: relative;
+      border-radius: 20px;
+      margin-right: 16px;
+      min-width: 240px;
+      max-width: 360px;
+      height: 230px;
+      overflow: hidden;
+      &-poster {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      &-title {
+        z-index: 100;
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        right: 24px;
+      }
+      &-info {
+        z-index: 100;
+        position: absolute;
+        bottom: 20px;
+        left: 24px;
+        right: 24px;
+        &-icon {
+          align-self: center;
+          width: 32px;
+          height: 32px;
+          padding: 6px;
+          border-radius: 50%;
+          margin-right: 0.25rem;
+          border: 1px solid #ffffff50;
+        }
+        &-text {
+          align-self: center;
+          font-size: 12px;
+          font-weight: 600;
+          &-time {
+            font-size: 10px;
+            font-weight: 300;
+          }
+        }
+      }
+      &::after {
+        z-index: 2;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+    }
   }
 }

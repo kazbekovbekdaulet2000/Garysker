@@ -2,37 +2,65 @@
 
   <div class="icon-holder" routerLink=''></div>
 
-  <div class="small-icon-holder">
-    <img src="assets/images/logo-small.png" draggable=false height="21">
+  <div (click)="toggleSearch()" class="search-bar" *ngIf="main!=='auth' && main!=='application'">
+    <img class="search-bar-icon" src="assets/icons/search.svg" alt="">
+    <input type="text" [formControl]="searchText" class="search-bar-input" placeholder="Пойск...">
+    <ng-container *ngIf="list$ | async as list">
+      <div #search @opacityAnimation class="search-bar-result" *ngIf="(showSearch && list.length>0); else noRes">
+        <div (click)="navigateRes(res)" class="search-bar-result-item" *ngFor="let res of list">
+          {{res?.title}}
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noRes>
+      <div #search @opacityAnimation class="search-bar-result" *ngIf="showSearch">
+        <div class="d-flex justify-content-center search-bar-result-error">
+          Нету результата
+        </div>
+      </div>
+    </ng-template>
   </div>
 
-  <input type="text" class="search-bar" *ngIf="main!=='auth' && main!=='application'">
 
-  <div class="content" *ngIf="dataAvailable">
+  <div class="align-items-center justify-content-center content" *ngIf="dataAvailable">
 
-    <div class="items">
+    <button *ngIf="(access$ | async)?.length === 0 && main!=='application'" class="btn content-primary"
+      routerLink='auth/application'> Оставить заявку </button>
 
-      <button 
-        *ngIf="(access$ | async)!.length === 0 && main!=='application'" 
-        class="btn primary" 
-        tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-        routerLink='auth/application'
-      > Оставить заявку </button>
+    <button *ngIf="(access$ | async)?.length === 0 && main!=='auth'" class="btn content-primary" routerLink='auth'>
+      Войти </button>
 
-      <button 
-        *ngIf="(access$ | async)!.length === 0 && main!=='auth'"
-        class="btn primary" 
-        routerLink='auth'
-      > Войти </button>
-      
-      <button 
-        *ngIf="(access$ | async)!.length > 0 && main!=='auth' && main!=='profile'" 
-        class="btn primary"
-        routerLink='auth/profile'
-        > Личный кабинет </button>
-    
+    <div *ngIf="profile$ | async as profile">
+
+      <div *ngIf="main!=='auth'" (click)="dropdownToggle()" class="content-profile">
+
+        <img class="content-profile-image" (click)="dropdownToggle()"
+          [src]="profile.image.includes('/media/garysh.jpg') ? 'assets/images/user.png' : profile.image">
+
+        <div #toggleDiv class="content-profile-text">
+          {{profile.full_name}}
+          <img class="content-profile-text-drop" src="assets/icons/dropdown.svg" alt="">
+        </div>
+
+        <div #menu @opacityAnimation *ngIf="dropdown" class="dropdown">
+          <div class="dropdown-item" (click)="dropdownToggle()" routerLink='profile'>
+            <img class="dropdown-item-image" src="assets/icons/user.svg" alt="">
+            Личный кабинет
+          </div>
+          <div class="dropdown-item" (click)="logout()" routerLink='profile'>
+            <img class="dropdown-item-image" src="assets/icons/exit.svg" alt="">
+            Выйти
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
+  </div>
+
+  <div class="menu">
+    <img class="menu-icon" src="assets/icons/menu.svg" alt="">
   </div>
 
 </nav>

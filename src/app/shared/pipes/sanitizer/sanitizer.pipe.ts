@@ -12,7 +12,7 @@ export class SanitizerPipe implements PipeTransform {
 
   transform(v: string): SafeHtml {
     var re = /\/media\/uploads\//gi;
-    var newHtml = v.replace(re, `https://app.garyshker-app.kz/media/uploads/`);
+    var newHtml = v.replace(re, `${environment.API}/media/uploads/`);
 
     const sanitizedContent = DOMPurify.sanitize(newHtml);
     return this.sanitizer.bypassSecurityTrustHtml(sanitizedContent);

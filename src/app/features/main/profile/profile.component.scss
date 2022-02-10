@@ -1,0 +1,75 @@
+@import "variables";
+
+.profile {
+  gap: 36px;
+  margin-bottom: 112px;
+  &-image {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  &-info {
+    &-change {
+      padding: 4px;
+      cursor: pointer;
+      transition: 0.2s all;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+      }
+    }
+    &-detail {
+      margin-bottom: 8px;
+      opacity: 0.7;
+      font-size: 14px;
+    }
+  }
+}
+
+.body {
+  overflow: visible;
+  position: relative;
+  width: 100%;
+  .items-holder {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    overflow-x: scroll;
+    width: 100%;
+    margin-top: 24px;
+    margin-bottom: 36px;
+    padding: 0px;
+    &::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #00000000;
+    }
+
+    &::-moz-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+
+    &::-moz-scrollbar-thumb {
+      background: #00000000;
+    }
+    .popular {
+      max-width: 360px;
+      min-width: 165px;
+      border-radius: 20px;
+      margin-right: 16px;
+      height: 230px;
+      overflow: hidden;
+      &-poster {
+        height: 100%;
+        min-width: 165px;
+        object-fit: cover;
+      }
+    }
+  }
+}

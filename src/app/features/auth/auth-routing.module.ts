@@ -4,7 +4,6 @@ import { ApplicationComponent } from './application/application.component';
 
 import {AuthComponent} from './auth.component';
 import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 
 
@@ -22,10 +21,6 @@ const routes: Routes = [
   {
     path: 'application',
     component: ApplicationComponent
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent
   },
   // {
   //   path: 'register',

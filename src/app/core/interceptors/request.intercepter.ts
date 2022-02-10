@@ -3,7 +3,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Store } from '@ngxs/store';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
-import { RemoveToken, UpdateToken } from '@core/states/auth/actions';
+import { RemoveToken, UpdateProfile, UpdateToken } from '@core/states/auth/actions';
 import { AuthState } from '@core/states/auth/auth.state';
 import * as moment from 'moment';
 import { IdentityService } from '@core/services/identity.service';
@@ -41,7 +41,10 @@ export class RequestInterceptor implements HttpInterceptor {
     return next.handle(req)
       .pipe(
         catchError(error => {
-          return this.handleResponseError(error, req, next);
+          if (error instanceof HttpErrorResponse && !req.url.includes('auth/login/')) {
+            return this.handleResponseError(error, req, next);
+          }
+          return throwError(error);
         })
       );
   }
@@ -75,17 +78,19 @@ export class RequestInterceptor implements HttpInterceptor {
   }
 
   refreshToken(): Observable<any> {
+    const { refresh } = this.store.selectSnapshot(AuthState);
+    if (refresh === '') {
+      return new Observable
+    }
     if (this.refreshTokenInProgress) {
       return new Observable(observer => {
-        this.tokenRefreshed$.subscribe(() => {
+        return this.tokenRefreshed$.subscribe(() => {
           observer.next();
           observer.complete();
         });
       });
     } else {
       this.refreshTokenInProgress = true;
-
-      const { refresh } = this.store.selectSnapshot(AuthState);
 
       if (refresh === '') {
         this.refreshTokenInProgress = false;
@@ -95,6 +100,7 @@ export class RequestInterceptor implements HttpInterceptor {
       return this.identityService.refresh(refresh).pipe(
         map(token => {
           this.store.dispatch(new UpdateToken(token.access));
+          this.store.dispatch(new UpdateProfile())
           return token;
         }),
         tap(() => {
@@ -111,6 +117,7 @@ export class RequestInterceptor implements HttpInterceptor {
   handleResponseError(error: HttpErrorResponse, req?: HttpRequest<any>, next?: HttpHandler) {
     if (error.status === 401) {
       return this.refreshToken().pipe(
+        take(1),
         switchMap(() => {
           req = this.setAuthHeader(req!);
           return next!.handle(req);
@@ -120,7 +127,7 @@ export class RequestInterceptor implements HttpInterceptor {
           return throwError(e);
         }));
     } else if (error.status === 404) {
-      this.store.dispatch(new Navigate(["notfound"]))
+      // this.store.dispatch(new Navigate(["**"]))
     }
     return throwError(error);
   }

@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from '@core/components/header/header.component';
 import { NotFoundComponent } from './features/notfound/notfound.component';
 import { AboutComponent } from './features/main/about/about.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 registerLocaleData(localeRu, 'ru');
 
@@ -22,6 +23,7 @@ registerLocaleData(localeRu, 'ru');
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     CoreModule.forRoot(),
     BrowserAnimationsModule,

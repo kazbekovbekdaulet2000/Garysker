@@ -20,7 +20,7 @@ export class IdentityService extends ApiService {
   }
 
   login(payload: any): Observable<TokenModel> {
-    return this.http.post<TokenModel>(this.getUrl('login'), payload);
+    return this.http.post<TokenModel>(this.getUrl('login'), payload, {params: {refresh_token: true}});
   }
 
   signup(payload: any): Observable<any> {

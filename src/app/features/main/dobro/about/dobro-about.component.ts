@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DobroProjectModel } from '@core/models/api/dobro-project.model';
 import { Select, Store } from '@ngxs/store'
@@ -8,7 +8,8 @@ import { MainState } from '../../main.state';
 
 @Component({
   templateUrl: './dobro-about.component.html',
-  styleUrls: ['./dobro-about.component.scss']
+  styleUrls: ['./dobro-about.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DobroAboutComponent implements OnDestroy {
   @Select(MainState.dobro_project) dobro_project$!: Observable<DobroProjectModel>;

@@ -16,7 +16,8 @@ import { RequestInterceptor } from './interceptors/request.intercepter';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { ModalModule } from 'ngx-bootstrap/modal'
-
+import { PlyrModule } from 'ngx-plyr';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     // HeaderComponent,
@@ -32,7 +33,10 @@ import { ModalModule } from 'ngx-bootstrap/modal'
     CommonModule,
     BrowserModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
+    PlyrModule,
     NgxsModule.forRoot([AuthState, SidebarState, LoaderState]),
     NgxsStoragePluginModule.forRoot({ key: ['auth'] }),
     NgxsRouterPluginModule.forRoot(),

@@ -20,6 +20,7 @@
       padding-right: 24px;
       border-radius: 14px;
       margin-bottom: 8px;
+      transition: 0.2s all;
       .icon {
         padding: 6px;
         width: 36px;
@@ -66,11 +67,10 @@
       line-height: 15px;
       color: $color-secondary;
       border-radius: 14px;
+      transition: 0.2s all;
 
       .icon {
         padding: 6px;
-        padding-right: 4px;
-        padding-top: 4px;
         width: 36px;
         height: 36px;
         display: flex;
@@ -81,6 +81,11 @@
         justify-content: center;
         border: 2px solid #ffa80000;
         background-color: $color-section;
+      }
+      .icon-size {
+        width: 20px;
+        height: 20px;
+        object-fit: cover;
       }
 
       &:hover {
@@ -100,7 +105,7 @@
     align-content: space-between;
   }
 
-  .top-margin{
+  .top-margin {
     margin-top: 108px;
   }
 }

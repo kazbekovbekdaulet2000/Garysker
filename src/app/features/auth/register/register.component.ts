@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
   formGroup: FormGroup | any;
 
@@ -23,15 +23,12 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
   getRequireMessage(name: string) {
     return this.formGroup.controls[name].invalid && 
             (this.formGroup.controls[name].dirty || this.formGroup.controls[name].touched)
   }
 
   onSave() {
-    console.log(this.formGroup.getRawValue())
+    // TODO
   }
 }

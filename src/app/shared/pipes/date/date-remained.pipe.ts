@@ -31,7 +31,7 @@ export class DateRemainedPipe implements PipeTransform {
         let sec = Math.floor(seconds / val.value);
         if (sec <= 1) {
           return { indx: sec, value: `${val.name_single} назад` }
-        } else if (sec <= 5) {
+        } else if (sec < 5) {
           return { indx: sec, value: `${sec} ${val.name_plural_5} назад` }
         } else {
           return { indx: sec, value: `${sec} ${val.name_plural} назад` }

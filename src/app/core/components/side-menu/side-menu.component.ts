@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, OnChanges, SimpleChanges } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Select, Store } from '@ngxs/store';
-import { FilterByCategory, ListCategories } from '@core/states/sidebar/actions';
+import { FilterByCategory, FilterByDobro, ListCategories } from '@core/states/sidebar/actions';
 import { CategoryModel } from '@core/models/api/category.model';
 import { Observable } from 'rxjs';
 import { SidebarState } from '@core/states/sidebar/sidebar.state';
+import { ClearPopular } from 'src/app/features/main/main.actions';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { SidebarState } from '@core/states/sidebar/sidebar.state';
   templateUrl: './side-menu.component.html',
   styleUrls: ['./side-menu.component.scss']
 })
-export class SideMenuComponent {
+export class SideMenuComponent implements AfterContentChecked, OnChanges {
 
   currentRoute: string | undefined;
 
@@ -26,9 +27,18 @@ export class SideMenuComponent {
   constructor(
     private store: Store,
     private router: Router,
+    private changeDetector: ChangeDetectorRef,
   ) {
     this.addNavigationListener();
     this.store.dispatch(new ListCategories())
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.changeDetector.detectChanges()
+  }
+
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges()
   }
 
   addNavigationListener(): void {
@@ -52,10 +62,29 @@ export class SideMenuComponent {
   routeCategory(id: number) {
     if (this.selectedCategorySection !== id) {
       this.selectedCategorySection = id
+      this.store.dispatch(ClearPopular)
     } else {
       this.selectedCategorySection = null
     }
-    this.store.dispatch(new FilterByCategory(this.selectedCategorySection))
+    this.updateContent()
+  }
+
+  removeRouteCategory() {
+    if (this.selectedCategorySection !== null && this.selectedCategorySection !== undefined) {
+      this.selectedCategorySection = null
+      this.updateContent()
+    }
+  }
+
+  removeRouteDobro() {
+    if (this.selectedDobroSection !== null && this.selectedDobroSection !== undefined) {
+      this.selectedDobroSection = null
+      this.store.dispatch(new FilterByDobro(this.selectedDobroSection))
+    }
+  }
+
+  updateContent() {
+    this.store.dispatch(new FilterByCategory(this.selectedCategorySection!))
   }
 
   routeDobroType(id: number) {
@@ -64,7 +93,7 @@ export class SideMenuComponent {
     } else {
       this.selectedDobroSection = null
     }
-    // this.store.dispatch(new FilterByCategory(this.selectedDobroSection))
+    this.store.dispatch(new FilterByDobro(this.selectedDobroSection))
   }
 
   onClick(str: string) {

@@ -4,10 +4,11 @@ import { AboutComponent } from './about/about.component';
 import { DobroAboutComponent } from './dobro/about/dobro-about.component';
 import { DobroComponent } from './dobro/dobro.component';
 import { EduComponent } from './edu/edu.component';
-import { ReportComponent } from './edu/report/report.component';
-import { VideoComponent } from './edu/video/video.component';
+import { ReportModuleModule } from './edu/report-module/report-module.module';
+import { VideoModuleModule } from './edu/video-module/video-module.module';
 
 import { MainComponent } from './main.component';
+import { MainProfileComponent } from './profile/profile.component';
 import { QuestionsComponent } from './questions/questions.component';
 
 const routes: Routes = [
@@ -30,16 +31,16 @@ const routes: Routes = [
       },
       {
         path: 'edu/reports/:id',
-        component: ReportComponent
+        loadChildren: () => ReportModuleModule,
       },
       {
         path: 'edu/videos/:id',
-        component: VideoComponent
+        loadChildren: () => VideoModuleModule,
       },
       {
         path: 'questions',
         component: QuestionsComponent
-      }, 
+      },
       {
         path: 'dobro',
         component: DobroComponent
@@ -48,6 +49,10 @@ const routes: Routes = [
         path: 'dobro/:id',   // надо в компоненты разделить 
         component: DobroAboutComponent
       },
+      {
+        path: 'profile',
+        component: MainProfileComponent,
+      }
     ]
   },
 ];

@@ -1,8 +1,14 @@
-@import "./assets/scss/variables.scss";
+@import "variables";
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
 @import "~bootstrap/dist/css/bootstrap.css";
 
+:root {
+  --plyr-color-main: #FFA800;
+}
+
 body {
+  touch-action: none;
   padding: 0;
   margin: 0;
 }
@@ -10,14 +16,6 @@ body {
 html {
   overflow: scroll;
   overflow-x: hidden;
-}
-::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #00000000;
 }
 
 body {
@@ -115,7 +113,6 @@ a{
 
 .inner-wrapper-sticky{
   top: 32px !important;
-  // bottom: 32px !important;
 }
 
 @media screen and (max-width: 640px) {

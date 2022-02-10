@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Login } from '@core/states/auth/actions';
-import { Navigate } from '@ngxs/router-plugin';
+import { Router } from '@angular/router';
+import { IdentityService } from '@core/services/identity.service';
+import { Login, UpdateProfile } from '@core/states/auth/actions';
 import { Store } from '@ngxs/store';
 
 @Component({
@@ -9,13 +10,15 @@ import { Store } from '@ngxs/store';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  formGroup: FormGroup | any;
+  formGroup: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store
+    private store: Store,
+    private identityService: IdentityService,
+    private router: Router
   ) {
     this.formGroup = this.formBuilder.group({
       email: [null, Validators.required],
@@ -23,16 +26,34 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
   getRequireMessage(name: string) {
-    return this.formGroup.controls[name].invalid && 
-            (this.formGroup.controls[name].dirty || this.formGroup.controls[name].touched)
+    return this.formGroup.controls[name].invalid &&
+      (this.formGroup.controls[name].dirty || this.formGroup.controls[name].touched)
   }
 
-  login(){
-    this.store.dispatch(new Login(this.formGroup.getRawValue()))
-    this.store.dispatch(new Navigate(['/edu']))
+  getFalseMessage(name: string) {
+    return this.formGroup.controls[name].errors?.incorrect
+  }
+
+  login() {
+    this.identityService.login(this.formGroup.getRawValue())
+      .toPromise()
+      .then(token => {
+        this.store.dispatch(new Login(token))
+        this.router.navigate([''])
+        this.store.dispatch(new UpdateProfile())
+      })
+      .catch(error => {
+        this.formGroup.controls['email'].setErrors({ 'incorrect': true });
+        this.formGroup.controls['email'].markAsUntouched()
+        this.formGroup.controls['email'].markAsPristine()
+
+        this.formGroup.controls['password'].setErrors({ 'incorrect': true });
+        this.formGroup.controls['password'].markAsUntouched()
+        this.formGroup.controls['password'].markAsPristine()
+
+        this.getFalseMessage("email")
+        this.getFalseMessage("password")
+      })
   }
 }

@@ -1,20 +1,50 @@
 <div class="body">
 
-  <!-- <ng-container>
+  <div class="d-flex mb-5 flex-column justify-content-center align-items-center">
+    <h1 class="mb-5">Образование</h1>
+    <p class="text-center mb-2 mx-5">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и читать материалы
+      в
+      интересном формате по нашим темам для саморазвития. </p>
+  </div>
 
-    <h3>⭐ Популярное</h3>
+  <div @opacityAnimation *ngIf="popular$ | async as popular">
 
-    <div class="items-holder">
+    <div @opacityAnimation class="d-flex flex-row align-items-center gap-2" *ngIf="popular.length > 0">
+      <img class="icon" src="assets/images/star.png" alt="">
+      <h3 class="mb-0">Популярное</h3>
+    </div>
+
+    <div @opacityAnimation *ngIf="popular.length > 0" class="items-holder">
+
+      <div #imageHolder (click)="onNavigate(item)" class="popular cursor-pointer"
+        *ngFor="let item of popular; let indx = index">
+        <img #image class="popular-poster" [src]="item.image" alt="">
+        <h5 class="popular-title">
+          {{item.title}}
+        </h5>
+        <div class="d-flex align-content-center popular-info">
+          <img class="popular-info-icon" [src]="item.category_icon">
+          <div class="d-flex flex-column popular-info-text">
+            {{item.category}}
+            <div *ngIf="item.read_time" class='popular-info-text-time'>{{item.read_time | ReadTime}} • {{item.created_at
+              | DateRemained}}</div>
+            <div *ngIf="!item.read_time" class='popular-info-text-time'>{{item.created_at | DateRemained}}</div>
+          </div>
+        </div>
+      </div>
 
     </div>
 
-  </ng-container> -->
+  </div>
 
-  <div @heightAnimation  *ngIf="reports$ | async as reports">
+  <div @opacityAnimation *ngIf="reports$ | async as reports">
 
-    <h3 @heightAnimation *ngIf="reports.results.length > 0">📖 Читать</h3>
+    <div @opacityAnimation class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
+      <img class="icon" src="assets/images/open-book.png" alt="">
+      <h3 class="mb-0">Читать</h3>
+    </div>
 
-    <div @heightAnimation *ngIf="reports.results.length > 0" class="items-holder">
+    <div @opacityAnimation *ngIf="reports.results.length > 0" class="items-holder">
 
       <div *ngFor="let report of reports.results">
         <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
@@ -24,14 +54,17 @@
 
   </div>
 
-  <div @heightAnimation *ngIf="videos$ | async as videos">
+  <div @opacityAnimation *ngIf="videos$ | async as videos">
 
-    <h3 @heightAnimation *ngIf="videos.results.length > 0">📹 Смотреть</h3>
+    <div @opacityAnimation class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
+      <img class="icon" src="assets/images/video-camera.png" alt="">
+      <h3 class="mb-0">Смотреть</h3>
+    </div>
 
-    <div @heightAnimation *ngIf="videos.results.length > 0" class="items-holder">
+    <div @opacityAnimation *ngIf="videos.results.length > 0" class="items-holder">
 
       <div *ngFor="let video of videos.results">
-        <video-card [routerLink]="['videos', video.id]" [video]='video'></video-card>
+        <app-video-card [routerLink]="['videos', video.id]" [video]='video'></app-video-card>
       </div>
 
     </div>
