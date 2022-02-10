@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { DobroProjectModel } from '@core/models/api/dobro-project.model';
 import { QuestionModel } from '@core/models/api/question.model';
 import { DobroService } from '@core/services/dobro.service';
-import { ReportsService } from '@core/services/reports.service';
 import { SupportService } from '@core/services/support.service';
-import { VideosService } from '@core/services/videos.service';
 import { SidebarState } from '@core/states/sidebar/sidebar.state';
+import getImageDimenstion from '@core/utils/image-size';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import { 
-  ClearDobroDetails, 
-  ClearPopular, 
-  GetDobroProject, 
-  ListDobroProjects, 
+import { combineLatest } from 'rxjs';
+import { ReportState } from './edu/report-module/report.state';
+import { VideoState } from './edu/video-module/video.state';
+import {
+  ClearDobroDetails,
+  ClearPopular,
+  GetDobroProject,
+  ListDobroProjects,
   ListQuestions,
   UpdatePopular
 } from './main.actions';
@@ -21,14 +23,14 @@ interface StateModel {
   popular: any[];
   dobro_projects: DobroProjectModel[] | [];
   dobro_project: DobroProjectModel | null;
-  questions: QuestionModel[] | []
+  questions: QuestionModel[] | [],
 }
 
 const defaults = {
   popular: [],
   dobro_projects: [],
   dobro_project: null,
-  questions: []
+  questions: [],
 };
 
 @State<StateModel>({
@@ -37,7 +39,7 @@ const defaults = {
 })
 @Injectable()
 export class MainState {
-  
+
   @Selector()
   static popular({ popular }: StateModel): any[] | [] {
     return popular;
@@ -66,20 +68,25 @@ export class MainState {
   }
 
   @Action(UpdatePopular)
-  UpdatePopular({ getState, patchState }: StateContext<StateModel>, {payload, type}:UpdatePopular) {
-    let list = getState().popular
-    payload?.results.forEach((element:any) => {
-      if(!list.includes(element)){
-        list.push(element)
-      }
-    });
-    list.sort((a, b)=> b.views - a.views)
-    patchState({popular: list})
+  UpdatePopular({ getState, patchState }: StateContext<StateModel>, { payload, type }: UpdatePopular) {
+    combineLatest([
+      this.store.select(VideoState.videos),
+      this.store.select(ReportState.reports)
+    ]).subscribe(data => {
+      const list = data.reduce((prev: any, curr: any)=>{
+        return [...prev, ...curr?.results]
+      }, [])
+      list.forEach(item=>{
+        item.width = getImageDimenstion(item.image)
+      })
+      list.sort((a, b)=> b.views - a.views)
+      patchState({popular: list})
+    })
   }
 
   @Action(ClearPopular)
-  ClearPopular({ getState, patchState }: StateContext<StateModel>) {
-    patchState({popular: []})
+  ClearPopular({ patchState }: StateContext<StateModel>) {
+    patchState({ popular: [] })
   }
 
   @Action(ListDobroProjects)
@@ -88,14 +95,13 @@ export class MainState {
     this.dobroService.list()
       .toPromise()
       .then(dobro_projects => {
-        console.log(dobro_projects.filter(val=>!val.is_completed) )
-        if(type){
-          if(type===1){
-            patchState({ dobro_projects: dobro_projects.filter(val=>!val.is_completed)})
-          }else if(type===2){
-            patchState({ dobro_projects: dobro_projects.filter(val=>val.is_completed)})
+        if (type) {
+          if (type === 1) {
+            patchState({ dobro_projects: dobro_projects.filter(val => !val.is_completed) })
+          } else if (type === 2) {
+            patchState({ dobro_projects: dobro_projects.filter(val => val.is_completed) })
           }
-        }else{
+        } else {
           patchState({ dobro_projects });
         }
       })
@@ -106,7 +112,6 @@ export class MainState {
     this.dobroService.get(id)
       .toPromise()
       .then(dobro_project => {
-        console.log(dobro_project)
         patchState({ dobro_project });
       })
   }

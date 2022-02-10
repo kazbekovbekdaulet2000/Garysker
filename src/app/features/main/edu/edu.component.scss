@@ -1,5 +1,10 @@
 @import "variables";
 
+.icon{
+  width: 28px;
+  height: 28px;
+}
+
 .body {
   overflow: visible;
   position: relative;
@@ -23,6 +28,16 @@
     &::-webkit-scrollbar-thumb {
       background: #00000000;
     }
+
+    &::-moz-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+
+    &::-moz-scrollbar-thumb {
+      background: #00000000;
+    }
+    
     .popular {
       position: relative;
       border-radius: 20px;
@@ -55,10 +70,9 @@
         right: 24px;
         &-icon {
           align-self: center;
-          width: 30px;
-          height: 30px;
-          padding-left: 6px;
-          line-height: 28px;
+          width: 32px;
+          height: 32px;
+          padding: 6px;
           border-radius: 50%;
           margin-right: 0.25rem;
           border: 1px solid #ffffff50;

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VideoDetailModel } from '@core/models/api/video.model';
 import { Select, Store } from '@ngxs/store';
@@ -10,9 +10,10 @@ import { VideoState } from '../video.state';
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss']
 })
-export class VideoComponent implements OnDestroy{
+export class VideoComponent implements OnDestroy {
 
   @Select(VideoState.video) video$!: Observable<VideoDetailModel>
+  @ViewChild('plyr') plyr!: ElementRef;
 
   constructor(
     private store: Store,

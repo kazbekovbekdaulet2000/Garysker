@@ -44,14 +44,13 @@ export class LoginComponent {
         this.store.dispatch(new UpdateProfile())
       })
       .catch(error => {
-        console.log(error)
         this.formGroup.controls['email'].setErrors({ 'incorrect': true });
-        console.log(this.formGroup.controls['email'].markAsUntouched())
-        console.log(this.formGroup.controls['email'].markAsPristine())
+        this.formGroup.controls['email'].markAsUntouched()
+        this.formGroup.controls['email'].markAsPristine()
 
         this.formGroup.controls['password'].setErrors({ 'incorrect': true });
-        console.log(this.formGroup.controls['password'].markAsUntouched())
-        console.log(this.formGroup.controls['password'].markAsPristine())
+        this.formGroup.controls['password'].markAsUntouched()
+        this.formGroup.controls['password'].markAsPristine()
 
         this.getFalseMessage("email")
         this.getFalseMessage("password")

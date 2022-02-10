@@ -9,7 +9,7 @@ nav {
   padding: 0px 50px;
 }
 
-.transparent{
+.transparent {
   background-color: transparent;
   padding: 0px 150px;
 }
@@ -44,6 +44,26 @@ nav {
     height: 12px;
     top: 12px;
     left: 6px;
+  }
+  &-result {
+    position: absolute;
+    z-index: 100;
+    border-radius: 10px;
+    background-color: #33323e;
+    padding: 4px;
+    top: 48px;
+    left: 0px;
+    width: 100%;
+    &-error{
+      padding: 12px;
+    }
+    &-item {
+      padding: 6px 12px;
+      &:hover {
+        background-color: #ffffff10;
+        border-radius: 10px;
+      }
+    }
   }
   &-input {
     flex: 1;

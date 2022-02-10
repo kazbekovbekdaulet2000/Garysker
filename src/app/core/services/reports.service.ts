@@ -10,6 +10,7 @@ import { SidebarState } from '@core/states/sidebar/sidebar.state';
 import { CommentModel } from '@core/models/api/comment.model';
 import { AuthState } from '@core/states/auth/auth.state';
 import { UpdatePopular } from 'src/app/features/main/main.actions';
+import getCategoryIcon from '@core/utils/category-icons';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,11 @@ export class ReportsService extends ApiService {
     }
     return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('reports'), { params }).pipe(
       map(reports=>{
+        reports.results.forEach(res=>{
+          res.category_icon = getCategoryIcon(res.category.substring(0, 2))
+          res.category = res.category.substring(3)
+        })
+        
         if(id === null || id === undefined){
           this.store.dispatch(new UpdatePopular(reports, 'report'))
         }
@@ -39,14 +45,22 @@ export class ReportsService extends ApiService {
   }
 
   listSaved(params?: any): Observable<ListResponseModel<ReportModel>> {
-    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('reports/bookmarked'), { params })
+    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('reports/bookmarked'), { params }).pipe(
+      map(reports=>{
+        reports.results.forEach(res=>{
+          res.category_icon = getCategoryIcon(res.category.substring(0, 2))
+          res.category = res.category.substring(3)
+        })
+        return reports
+      })
+    )
   }
 
   get(id: number): Observable<ReportDetailModel> {
     return this.http.get<ReportDetailModel>(this.getUrl(`reports/${id}`))
       .pipe(
         map(res => {
-          res.icon = res.category.substring(0, 2)
+          res.icon = getCategoryIcon(res.category.substring(0, 2))
           res.category = res.category.substring(3)
           return res
         })

@@ -6,6 +6,7 @@ export interface ReportModel {
   image: string,
   created_at: string,
   category: string,
+  category_icon?: string,
   read_time: string,
   likes_count: number,
   liked: boolean,

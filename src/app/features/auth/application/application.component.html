@@ -1,11 +1,84 @@
 <div class="application">
+
   <div class="application-header">
-    <h1>Cалем :)</h1>
-    <p>Решение о принятии или отклонении заявки принимается на основе вашей анкеты, поэтому — расскажите нам о вас как можно подробней.</p>
+    <h1>Регистрация</h1>
+    <p>Решение о принятии или отклонении заявки принимается на основе вашей анкеты, поэтому — расскажите нам о вас как
+      можно подробней.</p>
     <p>Перед тем как заполнять анкету, просим ознакомится с ценностями нашего проекта.</p>
-    <div class="application-header-modal"  (click)="openModal()">
-      <div class="application-header-modal-emoji">🙌</div>  
-      <div class="application-header-modal-text">Наши ценности</div>  
+    <div class="application-header-modal" (click)="openModal()">
+      <img src="assets/images/raising-hands.png" class="application-header-modal-emoji">
+      <div class="application-header-modal-text">Наши ценности</div>
     </div>
   </div>
+
+</div>
+
+<div class="d-flex app-body">
+
+  <div class="app-body-menu">
+
+    <div *ngFor="let stage of stages" (click)="onSelect(stage.id)"
+      class="d-flex justify-content-end align-items-center gap-3 sections cursor-pointer">
+      <div class="d-flex flex-column align-items-end">
+        <h6> {{stage.title}}</h6>
+        <div class="sections-text">{{stage.description}}</div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center sections-icon">
+        <img [src]="stage.icon" [class.selected]="stage_num===stage.id">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="d-flex flex-column app-body-form">
+
+    <div @opacityUpDownAnimation class="form-body-header">
+      Шаг {{stage_num}}/{{stages.length}}
+    </div>
+
+    <div @opacityUpDownAnimation *ngIf="stage_num===1 && tabChanged" class="form">
+
+      <div class="form-body">
+
+        <h3>Давайте начнем со знакомства</h3>
+        <div class="form-body-detail">Заполните форму ниже</div>
+
+      </div>
+
+      <div class="d-flex flex-column form-content">
+
+        <label class="form-content-title" for="name">Введите ваше имя</label>
+
+        <input class="form-content-input" id="name" type="text" placeholder="">
+
+        <button (click)="next()" class="btn btn-primary align-self-end form-content-button">Далее</button>
+
+      </div>
+
+    </div>
+
+    <div @opacityUpDownAnimation *ngIf="stage_num===2 && tabChanged" class="form">
+
+      <div class="form-body">
+
+        <h3>Расскажите немного о себе</h3>
+        <div class="form-body-detail">Заполните форму ниже</div>
+
+      </div>
+
+      <div class="d-flex flex-column form-content">
+
+        <label class="form-content-title" for="name">В каком городе проживаете? Чем занимаетесь? Ваши хобби и
+          увлечения?</label>
+
+        <textarea rows="3" class="form-content-textarea" id="name" type="text" placeholder=""></textarea>
+
+        <button (click)="next()" class="btn btn-primary align-self-end form-content-button">Далее</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>

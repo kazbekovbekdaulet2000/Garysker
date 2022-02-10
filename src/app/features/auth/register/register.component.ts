@@ -29,6 +29,6 @@ export class RegisterComponent {
   }
 
   onSave() {
-    console.log(this.formGroup.getRawValue())
+    // TODO
   }
 }

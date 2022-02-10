@@ -41,6 +41,23 @@
     margin-top: 24px;
     margin-bottom: 36px;
     padding: 0px;
+    &::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #00000000;
+    }
+
+    &::-moz-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+
+    &::-moz-scrollbar-thumb {
+      background: #00000000;
+    }
     .popular {
       max-width: 360px;
       min-width: 165px;

@@ -13,13 +13,14 @@ import { ListReports } from './report-module/report.actions';
 import { ListVideos } from './video-module/video.actions';
 import { MainState } from '../main.state';
 import { ClearPopular } from '../main.actions';
+import getImageDimenstion from '@core/utils/image-size';
 
 @Component({
   templateUrl: './edu.component.html',
   styleUrls: ['./edu.component.scss'],
   animations: [opacityAnimation, heightAnimation]
 })
-export class EduComponent implements OnDestroy, AfterContentChecked, OnChanges{
+export class EduComponent implements OnInit, OnDestroy, AfterContentChecked{
 
   @Select(ReportState.reports) reports$!: Observable<ListResponseModel<ReportModel>>;
   @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>;
@@ -35,7 +36,8 @@ export class EduComponent implements OnDestroy, AfterContentChecked, OnChanges{
   ) {
     this.store.dispatch([ListReports, ListVideos])
   }
-  ngOnChanges(changes: SimpleChanges): void {
+  
+  ngOnInit(): void {
     this.changeWidth()
   }
   
@@ -48,27 +50,27 @@ export class EduComponent implements OnDestroy, AfterContentChecked, OnChanges{
   }
 
   changeWidth() {
-    if (this.imageHolder) {
-      this.imageHolder.forEach((item, indx) => {
-        const ratio = this.images.get(indx)?.nativeElement?.naturalWidth / this.images.get(indx)?.nativeElement?.naturalHeight
+    // if (this.imageHolder) {
+    //   this.imageHolder.forEach((item, indx) => {
+    //     const ratio = this.images.get(indx)?.nativeElement?.naturalWidth / this.images.get(indx)?.nativeElement?.naturalHeight
 
-        let width = 240
-        width = ratio * 230
-        if (ratio * 230 > 420) {
-          width = 365
-        } else if (ratio * 230 < 240) {
-          width = 240
-        }
+    //     let width = 240
+    //     width = ratio * 230
+    //     if (ratio * 230 > 420) {
+    //       width = 365
+    //     } else if (ratio * 230 < 240) {
+    //       width = 240
+    //     }
 
-        if (this.imageHolder.get(indx)?.nativeElement !== undefined) {
-          this.renderer.setStyle(
-            this.imageHolder.get(indx)?.nativeElement,
-            'min-width',
-            `${width}px`
-          )
-        }
-      })
-    }
+    //     if (this.imageHolder.get(indx)?.nativeElement !== undefined) {
+    //       this.renderer.setStyle(
+    //         this.imageHolder.get(indx)?.nativeElement,
+    //         'min-width',
+    //         `${width}px`
+    //       )
+    //     }
+    //   })
+    // }
   }
 
   onNavigate(item: any) {

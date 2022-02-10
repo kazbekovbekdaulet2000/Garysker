@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, OnChanges, SimpleChanges } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Select, Store } from '@ngxs/store';
@@ -14,7 +14,7 @@ import { ClearPopular } from 'src/app/features/main/main.actions';
   templateUrl: './side-menu.component.html',
   styleUrls: ['./side-menu.component.scss']
 })
-export class SideMenuComponent {
+export class SideMenuComponent implements AfterContentChecked, OnChanges {
 
   currentRoute: string | undefined;
 
@@ -27,9 +27,18 @@ export class SideMenuComponent {
   constructor(
     private store: Store,
     private router: Router,
+    private changeDetector: ChangeDetectorRef,
   ) {
     this.addNavigationListener();
     this.store.dispatch(new ListCategories())
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.changeDetector.detectChanges()
+  }
+
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges()
   }
 
   addNavigationListener(): void {

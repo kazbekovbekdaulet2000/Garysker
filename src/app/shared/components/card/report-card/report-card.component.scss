@@ -27,7 +27,7 @@
     color: #ffa800;
   }
 
-  img {
+  .back {
     z-index: 1;
     position: absolute;
     object-fit: cover;
@@ -61,4 +61,8 @@
   font-weight: 500;
   font-size: 10px;
   margin-bottom: 4px;
+  &-icon{
+    width: 16px;
+    height: 16px;
+  }
 }

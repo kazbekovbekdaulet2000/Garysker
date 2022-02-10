@@ -6,7 +6,6 @@ import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { ReportDetailModel } from '@core/models/api/report.model';
-import { ReportsService } from '@core/services/reports.service';
 import { AuthState } from '@core/states/auth/auth.state';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -42,7 +41,6 @@ export class ReportComponent implements OnDestroy {
     private store: Store,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private reportService: ReportsService,
     private bsService: BsModalService
   ) {
     this.activatedRoute.params.subscribe(({ id }) => {

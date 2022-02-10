@@ -1,19 +1,20 @@
 <div @opacityAnimation class="video-card cursor-pointer" [style.width]="width">
 
   <div class="logo"> G.</div>
-  <img [src]="video.image" draggable="false">
+  <img class="back" [src]="video.image" draggable="false">
   <div class="content">
 
-    <div class="category">
+    <div class="d-flex flex-row align-items-center gap-1 category">
+      <img class="category-icon" [src]="video.category_icon">
       {{video.category}}
     </div>
 
     <h5>{{video.title}}</h5>
 
     <div class="date">
-      10 мин • {{video.created_at | DateRemained}}
+      {{video.created_at | DateRemained}}
     </div>
-
+    <!-- 10 мин •  -->
   </div>
 
 </div>

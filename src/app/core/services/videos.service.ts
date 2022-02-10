@@ -11,6 +11,7 @@ import { SidebarState } from '@core/states/sidebar/sidebar.state';
 import { CommentModel } from '@core/models/api/comment.model';
 import { AuthState } from '@core/states/auth/auth.state';
 import { UpdatePopular } from 'src/app/features/main/main.actions';
+import getCategoryIcon from '@core/utils/category-icons';
 
 interface ReportList {
   videos: VideoModel[]
@@ -35,8 +36,13 @@ export class VideosService extends ApiService {
       params = { category: id }
     }
     return this.http.get<ListResponseModel<VideoModel>>(this.getUrl(), { params }).pipe(
-      map(videos=>{
-        if(id === null || id === undefined){
+      map(videos => {
+        videos.results.forEach(res => {
+          res.category_icon = getCategoryIcon(res.category.substring(0, 2))
+          res.category = res.category.substring(3)
+        })
+        
+        if (id === null || id === undefined) {
           this.store.dispatch(new UpdatePopular(videos, 'video'))
         }
         return videos
@@ -45,11 +51,25 @@ export class VideosService extends ApiService {
   }
 
   listSaved(params?: any): Observable<ListResponseModel<VideoModel>> {
-    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl('bookmarked'), { params })
+    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl('bookmarked'), { params }).pipe(
+      map(videos => {
+        videos.results.forEach(res => {
+          res.category_icon = getCategoryIcon(res.category.substring(0, 2))
+          res.category = res.category.substring(3)
+        })
+        return videos
+      })
+    )
   }
 
   get(id: number): Observable<VideoDetailModel> {
-    return this.http.get<VideoDetailModel>(this.getUrl(id))
+    return this.http.get<VideoDetailModel>(this.getUrl(id)).pipe(
+      map(video => {
+        video.category_icon = getCategoryIcon(video.category.substring(0, 2))
+        video.category = video.category.substring(3)
+        return video
+      })
+    )
   }
 
   like(id: number): Observable<any> {
@@ -61,7 +81,7 @@ export class VideosService extends ApiService {
   }
 
   listComments(id: number, params?: any): Observable<ListResponseModel<CommentModel>> {
-    return this.http.get<ListResponseModel<CommentModel>>(this.getUrl(`${id}/comments`), {params})
+    return this.http.get<ListResponseModel<CommentModel>>(this.getUrl(`${id}/comments`), { params })
   }
 
   postComment(id: number, payload: any): Observable<CommentModel> {

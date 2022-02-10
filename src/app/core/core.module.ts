@@ -17,6 +17,7 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { ModalModule } from 'ngx-bootstrap/modal'
 import { PlyrModule } from 'ngx-plyr';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     // HeaderComponent,
@@ -32,6 +33,8 @@ import { PlyrModule } from 'ngx-plyr';
     CommonModule,
     BrowserModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     PlyrModule,
     NgxsModule.forRoot([AuthState, SidebarState, LoaderState]),
