@@ -5,13 +5,7 @@ import { opacityAnimation } from '@core/animations/opacity-animation';
 import { opacityUpDownAnimation } from '@core/animations/opacity-up-down-animation';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ApplicationModalComponent } from './modal/application-modal.component';
-
-export interface StageModel {
-  id: number
-  title: string
-  description: string
-  icon: string
-}
+import { SignUpSections, StageModel } from './sign-up-sections';
 
 @Component({
   selector: 'app-application',
@@ -25,16 +19,11 @@ export class ApplicationComponent {
   modalRef!: BsModalRef;
   formGroup!: FormGroup;
 
-  stage_num: number = 1;
+  stage_num: number = 0;
 
   tabChanged: boolean = true;
 
-  stages: StageModel[] = [
-    { id: 1, title: "О вас", description: "пройти и зарегистрироваться", icon: "assets/icons/person.svg" },
-    { id: 2, title: "Деятельность", description: "пройти и зарегистрироваться", icon: "assets/icons/about-page.svg" },
-    { id: 3, title: "Ценности проекта", description: "пройти и зарегистрироваться", icon: "assets/icons/star.svg" },
-    { id: 5, title: "Данные для входа", description: "пройти и зарегистрироваться", icon: "assets/icons/message.svg" },
-  ]
+  stages: StageModel[] = SignUpSections
 
   constructor(
     private bsService: BsModalService
@@ -59,9 +48,10 @@ export class ApplicationComponent {
 
   }
 
-  next() {
+  nextSection(event: any) {
+    console.log(event)
     this.tabChanged = false
-    if (this.stage_num === 5) {
+    if (this.stage_num === this.stages.length-1) {
       return
     }
     this.stage_num++

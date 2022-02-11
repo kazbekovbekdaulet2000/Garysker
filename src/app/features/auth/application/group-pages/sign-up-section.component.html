@@ -1,0 +1,41 @@
+<div @opacityUpDownAnimation class="form" [formGroup]="formGroup">
+
+  <div class="form-body">
+
+    <h3>{{form.title}}</h3>
+    <div class="form-body-detail">{{form.label}}</div>
+
+  </div>
+
+  <div class="d-flex flex-column form-content">
+
+    <ng-container *ngFor="let config of form.config">
+
+      <label *ngIf="config.type !== 'user-type' && config.helper" class="form-content-title"
+        [for]="config.property">Введите имя я</label>
+
+      <input *ngIf="config.type !== 'user-type'" class="form-content-input" [id]="config.property" [type]="config.type"
+        [placeholder]="config.placeholder">
+
+      <ng-container *ngIf="config.type === 'user-type'">
+
+        <div class="d-flex align-items-center gap-2 user-type"  *ngFor="let type of config.userTypes">
+          
+          <img class="user-type-icon" [src]="type.icon" >
+
+          <div class="user-type-info">
+            <h6>{{type.name}}</h6>
+            {{type.description}}
+          </div>
+
+        </div>
+
+      </ng-container>
+
+    </ng-container>
+
+    <button class="btn btn-primary align-self-end form-content-button" (click)="send()">Далее</button>
+
+  </div>
+
+</div>

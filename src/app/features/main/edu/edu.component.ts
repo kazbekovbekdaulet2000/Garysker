@@ -20,7 +20,7 @@ import getImageDimenstion from '@core/utils/image-size';
   styleUrls: ['./edu.component.scss'],
   animations: [opacityAnimation, heightAnimation]
 })
-export class EduComponent implements OnInit, OnDestroy, AfterContentChecked{
+export class EduComponent implements OnDestroy {
 
   @Select(ReportState.reports) reports$!: Observable<ListResponseModel<ReportModel>>;
   @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>;
@@ -36,41 +36,9 @@ export class EduComponent implements OnInit, OnDestroy, AfterContentChecked{
   ) {
     this.store.dispatch([ListReports, ListVideos])
   }
-  
-  ngOnInit(): void {
-    this.changeWidth()
-  }
-  
-  ngAfterContentChecked(): void {
-    this.changeWidth()
-  }
 
   ngOnDestroy(): void {
     this.store.dispatch(ClearPopular)
-  }
-
-  changeWidth() {
-    // if (this.imageHolder) {
-    //   this.imageHolder.forEach((item, indx) => {
-    //     const ratio = this.images.get(indx)?.nativeElement?.naturalWidth / this.images.get(indx)?.nativeElement?.naturalHeight
-
-    //     let width = 240
-    //     width = ratio * 230
-    //     if (ratio * 230 > 420) {
-    //       width = 365
-    //     } else if (ratio * 230 < 240) {
-    //       width = 240
-    //     }
-
-    //     if (this.imageHolder.get(indx)?.nativeElement !== undefined) {
-    //       this.renderer.setStyle(
-    //         this.imageHolder.get(indx)?.nativeElement,
-    //         'min-width',
-    //         `${width}px`
-    //       )
-    //     }
-    //   })
-    // }
   }
 
   onNavigate(item: any) {

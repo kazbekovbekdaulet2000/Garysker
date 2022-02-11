@@ -20,6 +20,7 @@
     margin-top: 24px;
     margin-bottom: 36px;
     padding: 0px;
+
     &::-webkit-scrollbar {
       width: 0;
       background: transparent;
@@ -100,3 +101,20 @@
     }
   }
 }
+
+.reading{
+  position: relative;
+  overflow: auto;
+  white-space: nowrap;
+  height: 152px;
+}
+
+// display: inline-block;
+//     overflow: hidden;
+//     position: relative;
+//     background-color: #c4c4c4;
+//     margin-right: 8px;
+//     width: 160px;
+//     height: 200px;
+//     box-shadow: 0 5px 10px #d3000026;
+//     border-radius: 10px;

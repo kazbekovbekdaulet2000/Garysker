@@ -56,26 +56,42 @@ export class PlyrVideoPlayerComponent implements OnInit {
     } else {
       this.video$.subscribe(link => {
         const new_link = link.video.split('/video-video/')[0]
+        this.videoSources.push({
+          src: link.video,
+          provider: 'html5',
+          type: 'video/mp4',
+          size: this.get_quality(link.original_quality),
+        })
         link.video_quality.forEach(video => {
           const q_link = video.path
-          if (link.original_quality === video.quality) {
-            this.videoSources.push({
-              src: link.video,
-              type: 'video/mp4',
-              size: link.original_quality,
-            })
-          } else {
-            this.videoSources.push({
-              src: `${new_link}/video-video/${q_link}`,
-              type: 'video/mp4',
-              size: video.quality
-            })
-          }
-
+          this.videoSources.push({
+            src: `${new_link}/video-video/${q_link}`,
+            provider: 'html5',
+            type: 'video/mp4',
+            size: video.quality
+          })
         })
-
       })
     }
+  }
+
+  get_quality(quality: number): number {
+    if (quality > 1080 && quality <= 1440) {
+      return 1440
+    }
+    if (quality > 1440 && quality <= 2160) {
+      return 2160
+    }
+    if (quality > 720 && quality <= 1080) {
+      return 1080
+    }
+    if (quality > 480 && quality <= 720) {
+      return 720
+    }
+    if (quality > 360 && quality <= 480) {
+      return 480
+    }
+    return 240
   }
 
   play(): void {

@@ -7,7 +7,7 @@
       интересном формате по нашим темам для саморазвития. </p>
   </div>
 
-  <div @opacityAnimation *ngIf="popular$ | async as popular">
+  <!-- <div @opacityAnimation *ngIf="popular$ | async as popular">
 
     <div @opacityAnimation class="d-flex flex-row align-items-center gap-2" *ngIf="popular.length > 0">
       <img class="icon" src="assets/images/star.png" alt="">
@@ -35,7 +35,7 @@
 
     </div>
 
-  </div>
+  </div> -->
 
   <div @opacityAnimation *ngIf="reports$ | async as reports">
 
@@ -44,8 +44,41 @@
       <h3 class="mb-0">Читать</h3>
     </div>
 
-    <div @opacityAnimation *ngIf="reports.results.length > 0" class="items-holder">
+    <div @opacityAnimation *ngIf="reports.results.length > 0" class="d-flex align-items-center gap-2 mt-4 reading">
 
+      <div *ngFor="let report of reports.results">
+        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
+      </div>
+
+      <div *ngFor="let report of reports.results">
+        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
+      </div>
+      <div *ngFor="let report of reports.results">
+        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
+      </div>
+      <div *ngFor="let report of reports.results">
+        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
+      </div>
+      <div *ngFor="let report of reports.results">
+        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
+      </div>
+      <div *ngFor="let report of reports.results">
+        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
+      </div>
+      <div *ngFor="let report of reports.results">
+        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
+      </div>
+
+      <div *ngFor="let report of reports.results">
+        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
+      </div>
+      <div *ngFor="let report of reports.results">
+        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
+      </div>
+
+      <div *ngFor="let report of reports.results">
+        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
+      </div>
       <div *ngFor="let report of reports.results">
         <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
       </div>
@@ -54,7 +87,7 @@
 
   </div>
 
-  <div @opacityAnimation *ngIf="videos$ | async as videos">
+  <!-- <div @opacityAnimation *ngIf="videos$ | async as videos">
 
     <div @opacityAnimation class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
       <img class="icon" src="assets/images/video-camera.png" alt="">
@@ -69,6 +102,6 @@
 
     </div>
 
-  </div>
+  </div> -->
 
 </div>

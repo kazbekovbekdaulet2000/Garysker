@@ -51,7 +51,7 @@ export class RequestInterceptor implements HttpInterceptor {
 
   setAuthHeader(req: HttpRequest<any>) {
     const { access } = this.store.selectSnapshot(AuthState);
-    if (access !== '') {
+    if (!!access) {
       req = req.clone({
         setHeaders: {
           'Authorization': `Bearer ${access}`

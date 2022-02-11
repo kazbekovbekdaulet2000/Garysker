@@ -1,11 +1,13 @@
-<div @opacityAnimation class="report-card cursor-pointer">
-  <img class="back" [src]="report.image" draggable="false">
+<div @opacityAnimation class="report-card cursor-pointer" [ngStyle]="{'background-image': 'url(' + report.image + ')'}">
   <div class="logo"> G.</div>
   <div class="content">
+    
+    <h5>{{report.title}}</h5>
+  
     <div class="d-flex flex-row align-items-center gap-1 category"> 
       <img class="category-icon" [src]="report.category_icon">
       {{report.category}}
     </div>
-    {{report.title}}
+  
   </div>
 </div>
