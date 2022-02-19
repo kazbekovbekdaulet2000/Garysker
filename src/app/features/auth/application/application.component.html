@@ -15,11 +15,18 @@
 
 <div class="d-flex app-body">
 
+  <div class="app-body-mobmenu">
+    <div *ngFor="let stage of stages; let i=index" (click)="onSelect(i)" class="app-body-mobmenu-item cursor-pointer">
+      <div class="d-flex justify-content-center align-items-center sections-icon" [class.no-next]="true">
+        <img [src]="stage.icon" [class.selected]="stage_num===i">
+      </div>
+    </div>
+  </div>
+
   <div class="app-body-menu">
 
     <div *ngFor="let stage of stages; let i=index" (click)="onSelect(i)"
       class="d-flex justify-content-end align-items-center gap-3 sections cursor-pointer">
-
       <div class="d-flex flex-column align-items-end">
         <h6> {{stage.name}}</h6>
         <div class="sections-text">{{stage.small_text}}</div>
@@ -41,15 +48,16 @@
       Шаг {{stage_num+1}}/{{stages.length}}
     </div>
 
-    <div *ngFor="let stage of stages; let i=index">
-
-      <app-sign-up-section 
+    <ng-container *ngFor="let stage of stages; let i = index">
+      <app-sign-up-section
         *ngIf="stage_num===i" 
+        class="section" 
         [form]="stage"
-        (next)="nextSection($event)" 
-      > </app-sign-up-section>
-
-    </div>
+        [stage]="i"
+        [group]="forms[i]"
+        (next)="nextSection($event)"
+        (prev)="prevSection()"> </app-sign-up-section>
+    </ng-container>
 
   </div>
 

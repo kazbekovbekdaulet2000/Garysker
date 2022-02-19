@@ -4,18 +4,11 @@ import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
 import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
-import { environment } from '@env';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { Store } from '@ngxs/store';
-import { SidebarState } from '@core/states/sidebar/sidebar.state';
 import { CommentModel } from '@core/models/api/comment.model';
 import { AuthState } from '@core/states/auth/auth.state';
-import { UpdatePopular } from 'src/app/features/main/main.actions';
 import getCategoryIcon from '@core/utils/category-icons';
-
-interface ReportList {
-  videos: VideoModel[]
-}
 
 @Injectable({
   providedIn: 'root'
@@ -31,20 +24,12 @@ export class VideosService extends ApiService {
   }
 
   list(params?: any): Observable<ListResponseModel<VideoModel>> {
-    const id = this.store.selectSnapshot(SidebarState.selected_category);
-    if (id !== null) {
-      params = { category: id }
-    }
     return this.http.get<ListResponseModel<VideoModel>>(this.getUrl(), { params }).pipe(
       map(videos => {
         videos.results.forEach(res => {
           res.category_icon = getCategoryIcon(res.category.substring(0, 2))
           res.category = res.category.substring(3)
         })
-        
-        if (id === null || id === undefined) {
-          this.store.dispatch(new UpdatePopular(videos, 'video'))
-        }
         return videos
       })
     )
@@ -72,6 +57,18 @@ export class VideosService extends ApiService {
     )
   }
 
+  getRelated(id: number, params?: any): Observable<ListResponseModel<VideoModel>> {
+    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl(`${id}/related`), { params }).pipe(
+      map(videos => {
+        videos.results.forEach(res => {
+          res.category_icon = getCategoryIcon(res.category.substring(0, 2))
+          res.category = res.category.substring(3)
+        })
+        return videos
+      })
+    )
+  }
+
   like(id: number): Observable<any> {
     return this.http.post<any>(this.getUrl(`${id}/like`), {})
   }
@@ -84,6 +81,10 @@ export class VideosService extends ApiService {
     return this.http.get<ListResponseModel<CommentModel>>(this.getUrl(`${id}/comments`), { params })
   }
 
+  likeComment(videoId: number, id: number): Observable<any> {
+    return this.http.post<any>(this.getUrl(`${videoId}/comments/${id}/like`), {})
+  }
+
   postComment(id: number, payload: any): Observable<CommentModel> {
     return this.http.post<CommentModel>(this.getUrl(`${id}/comments`), payload)
       .pipe(
@@ -92,6 +93,9 @@ export class VideosService extends ApiService {
           res.owner = owner!
           res.replies = []
           res.created_at = new Date().toISOString()
+          res.updated_at = new Date().toISOString()
+          res.liked = false
+          res.likes_count = 0
           return res
         })
       )

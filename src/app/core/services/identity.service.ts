@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-import {TokenModel} from '../models/api/token.model';
+import { TokenModel } from '../models/api/token.model';
 import { ApiService } from './api.service';
 import { UserModel } from '@core/models/api/user.model';
 
@@ -20,7 +20,7 @@ export class IdentityService extends ApiService {
   }
 
   login(payload: any): Observable<TokenModel> {
-    return this.http.post<TokenModel>(this.getUrl('login'), payload, {params: {refresh_token: true}});
+    return this.http.post<TokenModel>(this.getUrl('login'), payload, { params: { refresh_token: true } });
   }
 
   signup(payload: any): Observable<any> {
@@ -28,7 +28,7 @@ export class IdentityService extends ApiService {
   }
 
   refresh(refresh: string): Observable<TokenModel> {
-    return this.http.post<TokenModel>(this.getUrl('refresh'), {refresh}, {params: {refresh_token: true}});
+    return this.http.post<TokenModel>(this.getUrl('refresh'), { refresh }, { params: { refresh_token: true } });
   }
 
   profile(): Observable<UserModel> {
@@ -36,6 +36,12 @@ export class IdentityService extends ApiService {
   }
 
   update_profile(payload: any): Observable<UserModel> {
+    return this.http.patch<UserModel>(this.getUrl('profile'), payload)
+  }
+
+  update_profile_image(file: File): Observable<UserModel> {
+    const payload = new FormData();
+    payload.append('image', file);
     return this.http.patch<UserModel>(this.getUrl('profile'), payload)
   }
 }

@@ -3,7 +3,6 @@
 .sidemenu {
   max-width: $sidemenu-width;
   min-width: $sidemenu-width;
-
   .main-menu {
     max-width: 210px;
     width: max-content;
@@ -68,7 +67,6 @@
       color: $color-secondary;
       border-radius: 14px;
       transition: 0.2s all;
-
       .icon {
         padding: 6px;
         width: 36px;
@@ -91,10 +89,18 @@
       &:hover {
         background-color: $color-background;
       }
-
-      .active {
-        border: 2px solid #ffa80040;
+    }
+    .support {
+      background-color: #b67906;
+      text-align: center;
+      color: #fff;
+      padding: 16px;
+      &:hover {
+        background-color: #875903;
       }
+    }
+    .active {
+      border: 2px solid #ffa80040;
     }
   }
 

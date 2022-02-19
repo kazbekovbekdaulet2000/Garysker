@@ -1,5 +1,4 @@
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { expandAnimation } from '@core/animations/expand-animation';
 import { QuestionModel } from '@core/models/api/question.model';
 import { Select, Store } from '@ngxs/store';

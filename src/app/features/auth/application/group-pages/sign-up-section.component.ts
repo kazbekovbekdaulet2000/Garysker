@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { opacityUpDownAnimation } from '@core/animations/opacity-up-down-animation';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { StageModel } from '../sign-up-sections';
+import { ErrorModalComponent } from 'src/app/shared/modals/err-modal/err-modal.component';
+import { InputConfig, StageModel } from '../sign-up-sections';
 
 @Component({
   selector: 'app-sign-up-section',
@@ -16,24 +16,53 @@ import { StageModel } from '../sign-up-sections';
 export class SignUpSectionComponent implements OnInit {
 
   @Input() form!: StageModel;
-
-  formGroup!: FormGroup;
-
+  @Input() group!: FormGroup;
+  @Input() stage: number = 0;
   @Output() next = new EventEmitter<any>();
+  @Output() prev = new EventEmitter();
+  selectedType: number = NaN;
 
+  cities: string[] = ['Алматы', 'Нур-Султан', 'Шымкент', 'Актобе', 'Караганда',
+    'Тараз', 'Павлодар', 'Атырау', 'Усть-Каменогорск', 'Семей', 'Уральск', 'Кызылорда', 'Костанай',
+    'Петропавловск', 'Актау', 'Темиртау', 'Туркестан', 'Кокшетау', 'Талдыкорган', 'Экибастуз', 'Рудный',
+    'Жанаозен', 'Жезказган', 'Балхаш']
   constructor(
-    private formBuilder: FormBuilder
+    private bsService: BsModalService
   ) { }
 
   ngOnInit(): void {
-    const list = this.form.config?.map(val => {
-      return val.property
-    })
-    const controls = Object.assign({}, ...list!.map(key => ({ [String(key)]: "" })))
-    this.formGroup = this.formBuilder.group(controls)
+    if (this.group.controls?.user_type) {
+      this.selectedType = this.group.controls?.user_type.value
+    }
+  }
+
+  updateSelection(key: any, val: any) {
+    console.log(key, val.target.value)
+    this.group.get(key)?.setValue(val.target.value)
   }
 
   send() {
-    this.next.emit(this.formGroup.getRawValue())
+    if (this.group.valid) {
+      this.next.emit(this.group.getRawValue())
+    } else {
+      this.bsService.show(ErrorModalComponent, {
+        initialState: { message: "Данные не заполнены до конца" },
+        class: 'modal-dialog-centered'
+      })
+      this.form.config?.forEach((val: InputConfig) => {
+        if (!this.group.get(val.key!)?.valid){
+          this.group.get(val.key!)?.setErrors({ 'incorrect': true });
+        }
+      })
+    }
+  }
+
+  back() {
+    this.prev.emit()
+  }
+
+  choseType(i: number) {
+    this.selectedType = i
+    this.group.get('user_type')?.setValue(i)
   }
 }

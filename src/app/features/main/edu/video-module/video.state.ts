@@ -6,7 +6,8 @@ import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
 import { ReportsService } from '@core/services/reports.service';
 import { VideosService } from '@core/services/videos.service';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import iterateComments from '../report-module/report.state';
+import getComment from '../getComment';
+import iterateComments from '../iterateComments';
 import {
   ListVideos,
   GetVideo,
@@ -16,7 +17,12 @@ import {
   PostVideoComment,
   ClearVideoDetail,
   ListMoreVideoComments,
-  ListSavedVideos
+  ListSavedVideos,
+  ListMoreVideos,
+  LikeVideoComment,
+  ListRelatedVideos,
+  ClearVideoList,
+  ListMoreSavedVideos
 } from './video.actions';
 
 interface StateModel {
@@ -59,11 +65,43 @@ export class VideoState {
   ) { }
 
   @Action(ListVideos)
-  ListVideos({ getState, patchState }: StateContext<StateModel>) {
-    this.videoService.list()
+  ListVideos({ getState, patchState }: StateContext<StateModel>, { params }: ListVideos) {
+    this.videoService.list(params)
       .subscribe(videos => {
         patchState({ videos });
       })
+  }
+
+  @Action(ListMoreVideos)
+  ListMoreVideos({ getState, patchState }: StateContext<StateModel>, { params }: ListMoreVideos) {
+    this.videoService.list(params)
+      .subscribe(videos => {
+        const { count, results, next, previous } = videos
+        const newVideo = getState().videos
+        newVideo.count = count
+        newVideo.next = next
+        newVideo.results = [...newVideo.results, ...results]
+        newVideo.previous = previous
+        patchState({ videos: newVideo })
+      })
+  }
+
+  @Action(ListMoreSavedVideos)
+  ListMoreSavedVideos({ getState, patchState }: StateContext<StateModel>) {
+    if (getState().videos.next) {
+      const pageNumber = Number(getState().videos.next.split('page=')[1])
+      const params = { page: pageNumber }
+      this.videoService.listSaved(params)
+        .subscribe(reports => {
+          const { count, results, next, previous } = reports
+          const newVideos = getState().videos
+          newVideos.count = count
+          newVideos.next = next
+          newVideos.results = [...newVideos.results, ...results]
+          newVideos.previous = previous
+          patchState({ videos: newVideos })
+        })
+    }
   }
 
   @Action(ListSavedVideos)
@@ -81,6 +119,19 @@ export class VideoState {
         patchState({ video });
       })
   }
+
+  @Action(ListRelatedVideos)
+  ListRelatedVideos({ patchState, getState }: StateContext<StateModel>, { id, params }: ListRelatedVideos) {
+    this.videoService.getRelated(id, params)
+      .subscribe(videos => {
+        const list = getState().videos.results
+        getState().videos.next = videos.next
+        getState().videos.previous = videos.previous
+        getState().videos.results = [...list, ...videos.results]
+        // patchState({ videos:  })
+      })
+  }
+
 
   @Action(LikeVideo)
   LikeVideo({ getState, patchState }: StateContext<StateModel>, { id }: LikeVideo) {
@@ -123,8 +174,8 @@ export class VideoState {
   @Action(ListMoreVideoComments)
   ListMoreVideoComments({ getState, patchState }: StateContext<StateModel>, { id }: ListMoreVideoComments) {
     const next = getState().comments.next
-    const page = next.split('page=')[1]
-    if (page) {
+    if (next) {
+      const page = Number(next.split('page=')[1])
       const params = { page }
       this.videoService.listComments(id, params)
         .subscribe(comments => {
@@ -140,6 +191,7 @@ export class VideoState {
   PostVideoComment({ getState, patchState }: StateContext<StateModel>, { id, payload }: PostVideoComment) {
     this.videoService.postComment(id, payload)
       .subscribe(comment => {
+        getState().video!.comments_count += 1
         getState().comments.count += 1
         if (comment.reply) {
           getState().comments.results.map(item => iterateComments(item, comment))
@@ -150,8 +202,30 @@ export class VideoState {
       })
   }
 
+  @Action(LikeVideoComment)
+  LikeVideoComment({ getState, patchState }: StateContext<StateModel>, { reportId, commentId }: LikeVideoComment) {
+    this.videoService.likeComment(reportId, commentId)
+      .subscribe(({ liked }) => {
+        const comment = getComment(getState().comments.results, commentId)
+        if (!comment) {
+          return
+        }
+        if (liked) {
+          comment!.likes_count += 1
+        } else {
+          comment!.likes_count -= 1
+        }
+        comment!.liked = liked
+      })
+  }
+
   @Action(ClearVideoDetail)
   ClearReportDetail({ patchState }: StateContext<StateModel>) {
-    patchState({ video: null });
+    patchState({ video: null, videos: emptyListResponse });
+  }
+
+  @Action(ClearVideoList)
+  ClearVideoList({ patchState }: StateContext<StateModel>) {
+    patchState({ videos: emptyListResponse });
   }
 }

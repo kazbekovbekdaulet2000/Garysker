@@ -11,7 +11,9 @@ import { HeaderComponent } from '@core/components/header/header.component';
 import { NotFoundComponent } from './features/notfound/notfound.component';
 import { AboutComponent } from './features/main/about/about.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSliderModule } from '@angular/material/slider';
+import { SwiperModule } from "swiper/angular";
 registerLocaleData(localeRu, 'ru');
 
 @NgModule({
@@ -25,11 +27,14 @@ registerLocaleData(localeRu, 'ru');
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    MatSliderModule,
+    SwiperModule,
+    MatSidenavModule,
     CoreModule.forRoot(),
     BrowserAnimationsModule,
   ],
   providers: [
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'ru' }
   ],
   bootstrap: [AppComponent]

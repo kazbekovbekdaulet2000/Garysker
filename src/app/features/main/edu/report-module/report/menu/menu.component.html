@@ -1,10 +1,14 @@
 <div class="menu">
   <div class="icon">
-    <img [src]="report.icon" alt="">
+    <img class="icon-image" [src]="report.icon" alt="">
   </div>
-  <p>{{report.category}}</p>
-  <p>{{report.created_at | DateRemained}}</p>
-  <p [style.opacity]="0.7">By {{report.author.full_name}}</p>
-  <p [style.opacity]="0.7"> | </p>
-  <p [style.opacity]="0.7">время чтения: {{report.read_time | ReadTime}}</p>
+  <div class="menu-category flex-fill">
+    <p class="cursor-pointer" (click)="navigateEdu(report.category)">{{report.category}}</p>
+  </div>
+  <div>
+    <p>{{report.created_at | DateRemained}}</p>
+  </div>
+  <div>
+    <p [style.opacity]="0.7">время чтения: {{report.read_time | ReadTime}}</p>
+  </div>
 </div>

@@ -1,20 +1,18 @@
 <div class="center">
   <div class="auth-card" [formGroup]="formGroup">
     
-    <h3> Войти </h3>
+    <h3> Авторизация </h3>
   
-    <h6>Email</h6>
-    <input type="email" class="user-info" formControlName="email"> 
+    <input type="email" class="user-info" formControlName="email" placeholder="Почта"> 
     <p *ngIf="getRequireMessage('email')">*обязательно к заполнению</p>
-    <p *ngIf="getFalseMessage('email')">повторите попытку</p>
+    <!-- <p *ngIf="getFalseMessage('email')">*Неправильный логин или пароль</p> -->
   
-    <h6>Пароль</h6>
-    <input type="password" class="user-info" formControlName="password"> 
+    <input type="password" class="user-info" formControlName="password" placeholder="Пароль"> 
     <p *ngIf="getRequireMessage('password')">*обязательно к заполнению</p>
-    <p *ngIf="getFalseMessage('password')">повторите попытку</p>
+    <p *ngIf="getFalseMessage('password')">*Неправильный логин или пароль</p>
     
     <div class="menu mt-4"> 
-      <a href="">Забыли пароль?</a> 
+      <div class="cursor-pointer">Забыли пароль?</div> 
       <button class="btn login" (click)="login()">Войти</button>
     </div>
   

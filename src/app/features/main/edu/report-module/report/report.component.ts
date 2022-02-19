@@ -5,7 +5,7 @@ import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
 import { ListResponseModel } from '@core/models/api/list.model';
-import { ReportDetailModel } from '@core/models/api/report.model';
+import { ReportDetailModel, ReportModel } from '@core/models/api/report.model';
 import { AuthState } from '@core/states/auth/auth.state';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
 import { LinkShareModalComponent } from 'src/app/shared/modals/share-modal/share-modal.component';
-import { ClearReportDetail, GetReport, LikeReport, ListMoreReportComments, ListReportComments, PostReportComment, SaveReport } from '../report.actions';
+import { ClearReportDetail, GetRelatedReports, GetReport, LikeReport, LikeReportComment, ListMoreReportComments, ListMoreReports, ListReportComments, PostReportComment, SaveReport } from '../report.actions';
 import { ReportState } from '../report.state';
 
 @Component({
@@ -27,16 +27,18 @@ export class ReportComponent implements OnDestroy {
   @Select(AuthState.access) access$!: Observable<string>;
   @Select(ReportState.report) report$!: Observable<ReportDetailModel>;
   @Select(ReportState.comments) comments$!: Observable<ListResponseModel<CommentModel>>;
+  @Select(ReportState.reports) reports$!: Observable<ListResponseModel<ReportModel>>;
 
   @ViewChild('body') body!: ElementRef<any>
 
   replyContent: any | null
-  
+
   formGroup: FormGroup | any;
-  reportId: number | undefined;
+  reportId!: number;
 
   textInputLarge: boolean = false;
 
+  page: number = 1;
   constructor(
     private store: Store,
     private activatedRoute: ActivatedRoute,
@@ -47,6 +49,7 @@ export class ReportComponent implements OnDestroy {
       this.reportId = id
       this.store.dispatch(new GetReport(id))
       this.store.dispatch(new ListReportComments(id))
+      this.store.dispatch(new GetRelatedReports(id, { page: this.page }))
 
       this.formGroup = this.formBuilder.group({
         body: [null, Validators.required],
@@ -58,7 +61,11 @@ export class ReportComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(new ClearReportDetail)
+    this.store.dispatch(ClearReportDetail)
+  }
+
+  onScroll() {
+    this.store.dispatch(ListMoreReports)
   }
 
   sendComment() {
@@ -75,7 +82,7 @@ export class ReportComponent implements OnDestroy {
     }
   }
 
-  loadMore(){
+  loadMore() {
     this.store.dispatch(new ListMoreReportComments(this.reportId!))
   }
 
@@ -91,6 +98,10 @@ export class ReportComponent implements OnDestroy {
         reply: this.replyContent.id,
       });
     }
+  }
+
+  postLike(reply: CommentModel) {
+    this.store.dispatch(new LikeReportComment(this.reportId!, reply.id))
   }
 
   removeReplyParent() {
@@ -118,7 +129,7 @@ export class ReportComponent implements OnDestroy {
   }
 
   get getLink() {
-    return `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
+    return `https://www.youtube.com/sharer/sharer.php?u=${window.location.href}`
   }
 
   onShare() {
@@ -126,6 +137,6 @@ export class ReportComponent implements OnDestroy {
   }
 
   textareaTap() {
-    this.textInputLarge=true
+    this.textInputLarge = true
   }
 }

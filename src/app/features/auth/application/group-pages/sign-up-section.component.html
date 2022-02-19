@@ -1,4 +1,4 @@
-<div @opacityUpDownAnimation class="form" [formGroup]="formGroup">
+<div @opacityUpDownAnimation class="form" [formGroup]="group">
 
   <div class="form-body">
 
@@ -11,17 +11,42 @@
 
     <ng-container *ngFor="let config of form.config">
 
-      <label *ngIf="config.type !== 'user-type' && config.helper" class="form-content-title"
-        [for]="config.property">Введите имя я</label>
+      <label *ngIf="config.type !== 'user-type' && config.helper" class="form-content-title" [for]="config.key"> Дата
+        рождения </label>
 
-      <input *ngIf="config.type !== 'user-type'" class="form-content-input" [id]="config.property" [type]="config.type"
-        [placeholder]="config.placeholder">
+      <input
+        *ngIf="config.type !== 'user-type' && config.key && config.type !== 'goals' && config.type !== 'birth-date' && config.type !=='city-selector'"
+        class="form-content-input" [id]="config.key" [type]="config.type" [formControlName]="config.key"
+        [placeholder]="config.placeholder" [email]="config.key === 'email'">
 
-      <ng-container *ngIf="config.type === 'user-type'">
+      <input *ngIf="config.type === 'birth-date' && config.key" [formControlName]="config.key"
+        class="form-content-input date" type="text" mask="d0/M0/0000" [placeholder]="config.placeholder"
+        [dropSpecialCharacters]="false" value="">
 
-        <div class="d-flex align-items-center gap-2 user-type"  *ngFor="let type of config.userTypes">
-          
-          <img class="user-type-icon" [src]="type.icon" >
+      <select class="form-content-input" *ngIf="config.type === 'city-selector' && config.key"
+        (change)="updateSelection(config.key, $event)">
+        <option value="" disabled selected>Город</option>
+        <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+      </select>
+
+      <select class="form-content-input" *ngIf="config.type === 'user-type' && config.key"
+        (change)="updateSelection(config.key, $event)">
+        <option value="" disabled selected>{{config.placeholder}}</option>
+        <option value="0">Учусь</option>
+        <option value="1">Работаю</option>
+        <option value="2">Учусь</option>
+      </select>
+      <!-- <ng-container *ngIf="config.key">
+        <p *ngIf="group.controls[config.key].errors?.incorrect">
+          loloolol
+        </p>
+      </ng-container> -->
+
+      <ng-container *ngIf="config.type === 'goals'">
+
+        <div class="d-flex align-items-center gap-2 user-type" *ngFor="let type of config.userTypes; let i = index">
+
+          <img class="user-type-icon" [src]="type.icon">
 
           <div class="user-type-info">
             <h6>{{type.name}}</h6>
@@ -34,7 +59,13 @@
 
     </ng-container>
 
-    <button class="btn btn-primary align-self-end form-content-button" (click)="send()">Далее</button>
+    <div class="d-flex justify-content-end align-items-end">
+
+      <button *ngIf="stage > 0" class="btn form-content-prev" (click)="back()">Вернутся назад</button>
+
+      <button class="btn form-content-next" (click)="send()">Далее</button>
+
+    </div>
 
   </div>
 

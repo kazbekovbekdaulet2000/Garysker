@@ -15,11 +15,9 @@ export class ListQuestions {
   static readonly type = '[Main] ListQuestions'
 }
 
-export class UpdatePopular {
-  static readonly type = '[Main] UpdatePopular'
-  constructor(public payload: any, public type: string) { }
-}
-
-export class ClearPopular{
-  static readonly type = '[Main] ClearPopular'
+export class ChangeCategory {
+  static readonly type = '[Main] ChangeCategory';
+  constructor(
+    public id: number
+  ){}
 }

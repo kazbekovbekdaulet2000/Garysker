@@ -1,5 +1,5 @@
-import {ChangeDetectorRef, Component, ElementRef, HostListener, SimpleChanges, ViewChild} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -7,22 +7,11 @@ import {NavigationEnd, Router} from '@angular/router';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
+  updateSticky: Subject<boolean> = new Subject();
 
-  constructor(
-    private router: Router,
-    private changeDetector: ChangeDetectorRef
-  ) {}
-
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.changeDetector.detectChanges()
-  }
-
-  ngAfterContentChecked(): void {
-    this.changeDetector.detectChanges()
-  }
-
-  @HostListener('window:scroll')
-  onScroll(): void {
+  constructor() { }
+  
+  updateMethod() {
+    this.updateSticky.next(true);
   }
 }

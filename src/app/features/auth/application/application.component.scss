@@ -54,9 +54,32 @@
 }
 
 .app-body {
+  overflow: scroll;
   display: flex;
   margin: auto 200px;
   margin-top: 12px;
+  &-mobmenu {
+    display: none;
+    margin-top: 18px;
+    justify-content: space-between;
+    &-item {
+      position: relative;
+      flex: 1;
+      &:last-child {
+        flex: 0;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        left: 0px;
+        height: 1px;
+        background-color: #33323e;
+        z-index: -1;
+        top: 32px;
+      }
+    }
+  }
   &-menu {
     margin: 0px 40px;
     position: relative;
@@ -80,6 +103,10 @@
     margin-bottom: 64px;
     min-height: 60vh;
   }
+}
+.section {
+  overflow: scroll;
+  transition: 0.3s all;
 }
 
 .sections {
@@ -124,68 +151,15 @@
     contrast(103%);
 }
 
-.form {
-  width: 100%;
-  &-body {
-    &-header {
-      font-size: 12px;
-      line-height: 14px;
-      margin-bottom: 12px;
-    }
-    &-detail {
-      font-size: 12px;
-      line-height: 14px;
-      opacity: 0.6;
-    }
-    &::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      margin-top: 16px;
-      height: 1px;
-      background-color: #b9b8b540;
-    }
-  }
-  &-content {
-    margin-top: 36px;
-    width: 100%;
-    &-title {
-      font-size: 12px;
-      opacity: 0.6;
-      margin-bottom: 8px;
-    }
-    &-input {
-      width: 100%;
-      height: 40px;
-      padding: 12px 16px;
-      border-radius: 12px;
-      border: 1px solid #ffa800;
-      background-color: #ffffff10;
-      font-size: 16px;
-      color: #808191;
-      transition: all 0.3s;
-    }
-    &-textarea {
-      width: 100%;
-      height: 145px;
-      resize: none;
-      padding: 12px 16px;
-      border-radius: 15px;
-      border: 1px solid #ffa800;
-      background-color: #ffffff10;
-      font-size: 16px;
-      color: $color-secondary;
-      transition: 0.3s all;
-    }
-    &-button {
-      border-radius: 12px;
-      background-color: #ffaa00e1;
-      margin-top: 24px;
-      padding: 8px 36px;
-      outline: none;
-      border: none;
-    }
-  }
+.active {
+  border-color: #ffa800;
+}
+
+.form-body-header {
+  font-size: 12px;
+  line-height: 14px;
+  opacity: 0.6;
+  margin-bottom: 12px;
 }
 
 @media screen and (max-width: 1240px) {
@@ -201,12 +175,38 @@
 
 @media screen and (max-width: 867px) {
   .application {
+    display: none;
     margin: auto 40px;
     margin-top: 48px;
   }
   .app-body {
     margin: auto 40px;
     margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    &-mobmenu {
+      display: flex;
+    }
+    &-menu {
+      display: none;
+    }
+    &-form {
+      margin-top: 32px;
+    }
+  }
+  .sections {
+    &-icon {
+      background-color: #33323e;
+      border-radius: 50%;
+      width: 64px;
+      height: 64px;
+      padding: 6px;
+      position: relative;
+      img {
+        width: 30px !important;
+        height: 30px !important;
+      }
+    }
   }
 }
 

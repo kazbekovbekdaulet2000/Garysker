@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
@@ -15,8 +15,7 @@ import { videoI18n } from './videoplayer.i18n';
   styleUrls: ['./videoplayer.component.scss'],
   animations: [opacityAnimation, heightOutAnimation]
 })
-export class PlyrVideoPlayerComponent implements OnInit {
-
+export class PlyrVideoPlayerComponent implements OnInit, OnChanges {
   @Input() entity: VideoDetailModel | any
   @Input() link: string | any;
 
@@ -39,12 +38,15 @@ export class PlyrVideoPlayerComponent implements OnInit {
       enabled: true,
       iosNative: true
     },
-    storage: {
-      enabled: true,
-      key: "vidoe_storage"
-    }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.player) {
+      this.player.stop()
+      location.reload()
+      this.player.play()
+    }
+  }
   ngOnInit(): void {
     if (this.link) {
       this.videoSources = [

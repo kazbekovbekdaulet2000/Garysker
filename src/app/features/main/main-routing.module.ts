@@ -6,10 +6,14 @@ import { DobroComponent } from './dobro/dobro.component';
 import { EduComponent } from './edu/edu.component';
 import { ReportModuleModule } from './edu/report-module/report-module.module';
 import { VideoModuleModule } from './edu/video-module/video-module.module';
+import { EventsComponent } from './events/events.component';
 
 import { MainComponent } from './main.component';
-import { MainProfileComponent } from './profile/profile.component';
+import { ProductsComponent } from './products/products.component';
+import { ProfileComponent } from './profile/profile.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { ShopComponent } from './shop/shop.component';
+import { SupportComponent } from './support/support.component';
 
 const routes: Routes = [
   {
@@ -30,6 +34,10 @@ const routes: Routes = [
         component: EduComponent
       },
       {
+        path: 'edu/:id',
+        component: EduComponent
+      },
+      {
         path: 'edu/reports/:id',
         loadChildren: () => ReportModuleModule,
       },
@@ -42,16 +50,24 @@ const routes: Routes = [
         component: QuestionsComponent
       },
       {
-        path: 'dobro',
-        component: DobroComponent
+        path: 'products',
+        component: ProductsComponent
       },
       {
-        path: 'dobro/:id',   // надо в компоненты разделить 
-        component: DobroAboutComponent
+        path: 'shop',
+        component: ShopComponent
+      },
+      {
+        path: 'events',
+        component: EventsComponent
       },
       {
         path: 'profile',
-        component: MainProfileComponent,
+        component: ProfileComponent,
+      },
+      {
+        path: 'support',
+        component: SupportComponent
       }
     ]
   },

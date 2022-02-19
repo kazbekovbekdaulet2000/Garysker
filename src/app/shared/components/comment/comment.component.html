@@ -1,18 +1,27 @@
-<div @heightOutAnimation class="comment" [class.reply]="isReply" [class.last]="isLast">
+<div *ngIf="comment" @heightOutAnimation class="comment" [class.reply]="isReply" [class.last]="isLast">
+
   <div class="comment-user">
-    <img class="comment-user-image"
-      [src]="comment.owner.image.includes('/media/garysh.jpg') ? 'assets/images/user.png' : comment.owner.image">
+
+    <img class="comment-user-image" [src]="comment.owner?.image">
+
     <div class="comment-user-info">
-      <p class="comment-user-info-name">{{comment.owner.full_name}}</p>
+      <p class="comment-user-info-name">{{comment.owner.surname}} {{comment.owner.name}}</p>
       <p class="comment-user-info-date">{{comment.created_at | DateRemained}}</p>
     </div>
+
+    <div class="comment-user-like cursor-pointer" (click)="likeComment(comment)">
+      <img class="comment-user-like-icon" [src]="comment.liked ? 'assets/icons/liked.svg' : 'assets/icons/like.svg'">
+      <div class="comment-user-like-count">{{comment.likes_count}}</div>
+    </div>
+
   </div>
+
   <div class="comment-text">
     {{comment.body}}
   </div>
 
   <div class="handle">
-    
+
     <div *ngIf="(access$ | async) !==''" class="comment-reply cursor-pointer" (click)="addReply(comment)">
       ответить
     </div>
@@ -22,13 +31,14 @@
     </div>
 
   </div>
-  
+
 
   <ng-container *ngIf="!hideAns">
 
-    <div @heightOutAnimation *ngFor="let reply of comment.replies; let i = index">
-      <app-comment-module [isLast]="comment.replies.length-1 === i" [isReply]="true" [comment]='reply' (reply)="addReply($event)"> </app-comment-module>
-    </div>
+    <app-comment-module @heightOutAnimation *ngFor="let reply of comment.replies; let i = index"
+      [isLast]="comment.replies.length-1 === i" [isReply]="true" [comment]='reply' (like)="likeComment($event)"
+      (reply)="addReply($event)">
+    </app-comment-module>
 
   </ng-container>
 

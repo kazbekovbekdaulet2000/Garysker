@@ -18,16 +18,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { LinkShareModalComponent } from '../../shared/modals/share-modal/share-modal.component';
 import { LoginErrModalComponent } from '../../shared/modals/noLogin-modal /login-modal.component';
-import { MainProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './profile/profile.component';
 import { PlyrVideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
 import { VideoState } from './edu/video-module/video.state';
 import { ReportState } from './edu/report-module/report.state';
 import { ProfileChangeModalComponent } from './profile/profile-change-modal/profile-change-modal.component';
+import { ProductsComponent } from './products/products.component';
+import { ShopComponent } from './shop/shop.component';
+import { EventsComponent } from './events/events.component';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { SupportComponent } from './support/support.component';
+import { SwiperModule } from "swiper/angular";
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { EduPopularComponent } from './edu/popular/popular.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     EduComponent,
+    EduPopularComponent,
     DobroComponent,
     SideMenuComponent,
     DobroAboutComponent,
@@ -35,8 +44,12 @@ import { ProfileChangeModalComponent } from './profile/profile-change-modal/prof
     QuestionsComponent,
     LinkShareModalComponent,
     LoginErrModalComponent,
-    MainProfileComponent,
-    ProfileChangeModalComponent
+    ProfileComponent,
+    ProfileChangeModalComponent,
+    ProductsComponent,
+    ShopComponent,
+    EventsComponent,
+    SupportComponent
   ],
   imports: [
     CommonModule,
@@ -45,6 +58,9 @@ import { ProfileChangeModalComponent } from './profile/profile-change-modal/prof
     CommentModule,
     PlyrVideoPlayerModule,
     FormsModule,
+    IvyCarouselModule,
+    SwiperModule,
+    InfiniteScrollModule,
     ReactiveFormsModule,
     NgxStickySidebarModule,
     NgxsModule.forFeature([MainState, ReportState, VideoState]),

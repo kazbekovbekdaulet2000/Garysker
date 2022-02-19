@@ -14,7 +14,6 @@ export class LoaderInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.store.dispatch(new PushLoaderQueue(req.url));
-
     return next.handle(req)
       .pipe(
         finalize(() => {

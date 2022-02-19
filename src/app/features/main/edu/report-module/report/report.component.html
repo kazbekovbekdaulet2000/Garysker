@@ -1,4 +1,4 @@
-<ng-container *ngIf="report$ | async as report">
+<div *ngIf="report$ | async as report" class="report-holder">
 
   <div @opacityAnimation class="report">
 
@@ -8,6 +8,18 @@
 
     <div #body class="report-body" [innerHTML]="report.body | sanitizer"></div>
 
+    <div class="report-author">
+      <img class="report-author-photo"
+        [src]="report.author.image">
+      <div class="d-flex flex-column">
+        <div class="report-author-name">{{report.author.surname}} {{report.author.name}}</div>
+        <div class="report-author-role">Автор</div>
+      </div>
+
+    </div>
+
+    <div class="report-views">{{report.views}} просмотров</div>
+
     <div class="report-stat">
 
       <div>
@@ -16,8 +28,8 @@
       </div>
 
       <img class="cursor-pointer" (click)="onSave(report.id)"
-        [src]="report.bookmarked ? 'assets/icons/saved.svg' : 'assets/icons/unsaved.svg'" alt="">
-      
+        [src]="report.bookmarked ? 'assets/icons/saved.svg' : 'assets/icons/save.svg'" alt="">
+
       <img class="cursor-pointer" (click)="onShare()" src="assets/icons/share.svg" alt="">
 
       <div class="report-stat-views cursor-pointer" (click)="likeReport(report.id)">
@@ -27,55 +39,43 @@
 
     </div>
 
-    <div class="report-author">
-      <img class="report-author-photo"
-        [src]="report.author.image.includes('/media/garysh.jpg') ? 'assets/images/user.png' : report.author.image">
-      {{report.author.full_name}}
-    </div>
-
   </div>
+
 
   <ng-container *ngIf="comments$ | async as comments">
 
     <div class="comment-holder" [formGroup]="formGroup">
 
-      <h5>{{report.comments_count}} комментариев</h5>
+      <h5>{{report.comments_count}} {{report.comments_count===1 ? 'комментарий' : 'комментария'}}</h5>
 
       <div @heightAnimation class="reply" *ngIf="replyContent">
-        
+
         <img class="reply-sign" src="assets/icons/reply-sign.svg" draggable=false>
         <img class="reply-image"
-          [src]="replyContent.owner.image.includes('/media/garysh.jpg') ? 'assets/images/user.png' : replyContent.owner.image">
+          [src]="replyContent.owner.image">
         <div class="reply-info">
-          <p class="reply-info-name">{{replyContent.owner.full_name}}</p>
+          <p class="reply-info-name">{{replyContent.owner.surname}} {{replyContent.owner.name}}</p>
           <p class="reply-info-date">{{replyContent.created_at | DateRemained}}</p>
         </div>
         <div class="reply-cancel cursor-pointer" (click)="removeReplyParent()">отменить</div>
-      
+
       </div>
 
       <div *ngIf="(access$ | async) !== ''" class="textfield">
 
-        <textarea
-          rows=3 
-          placeholder="Написать комментарий..." 
-          class="textfield-area" 
-          [class.large]="textInputLarge"
-          formControlName="body"
-          (click)="textareaTap()"
-        ></textarea>
-    
-        <button @opacityAnimation *ngIf="textInputLarge" class="btn textfield-btn" (click)="sendComment()">Отправить</button>
-    
+        <textarea rows=3 placeholder="Написать комментарий..." class="textfield-area" [class.large]="textInputLarge"
+          formControlName="body" (click)="textareaTap()"></textarea>
+
+        <button @opacityAnimation *ngIf="textInputLarge" class="btn textfield-btn"
+          (click)="sendComment()">Отправить</button>
+
       </div>
-      
-      <app-comment-module 
-        *ngFor="let comment of comments.results" 
-        (reply)="addReply($event)" 
-        [comment]="comment">
+
+      <app-comment-module *ngFor="let comment of comments.results" (reply)="addReply($event)" (like)="postLike($event)" [comment]="comment">
       </app-comment-module>
 
-      <a class="d-flex loadmore my-2 align-items-center justify-content-center cursor-pointer" *ngIf="comments.next" (click)="loadMore()">
+      <a class="d-flex loadmore my-2 align-items-center justify-content-center cursor-pointer" *ngIf="comments.next"
+        (click)="loadMore()">
         загрузить больше
       </a>
 
@@ -83,4 +83,24 @@
 
   </ng-container>
 
-</ng-container>
+  <ng-container *ngIf="reports$ | async as reports">
+
+    <div 
+      @opacityAnimation
+      *ngIf="reports.results.length > 0"
+      infiniteScroll 
+      [infiniteScrollDistance]="1"
+      [infiniteScrollThrottle]="50"
+      [scrollWindow]="false"
+      [horizontal]="true"
+      (scrolled)="onScroll()" 
+      class="d-flex align-items-center gap-2 my-4 reading">
+
+      <report-card *ngFor="let report of reports.results" [routerLink]="['/edu/reports', report.id]" [report]='report'>
+      </report-card>
+
+    </div>
+
+  </ng-container>
+
+</div>

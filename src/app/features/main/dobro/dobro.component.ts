@@ -26,8 +26,4 @@ export class DobroComponent {
   parse(str: string){
     return parseFloat(str)
   }
-
-  @HostListener('window:scroll')
-  onScroll(): void { 
-  }
 }

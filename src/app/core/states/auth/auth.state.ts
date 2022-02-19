@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
-import { Login, Logout, RemoveToken, UpdateProfile, UpdateToken } from './actions';
+import { Login, Logout, PatchUser, RemoveToken, UpdateAvatar, UpdateProfile, UpdateToken } from './actions';
 
 import { TokenModel } from '../../models/api/token.model';
 import { IdentityService } from '@core/services/identity.service';
@@ -82,6 +82,24 @@ export class AuthState {
   @Action(UpdateProfile)
   UpdateProfile({ patchState }: StateContext<AuthStateModel>) {
     this.identityService.profile()
+      .toPromise()
+      .then(profile => {
+        patchState({ profile })
+      })
+  }
+
+  @Action(PatchUser)
+  PatchUser({ patchState }: StateContext<AuthStateModel>, { payload }: PatchUser) {
+    this.identityService.update_profile(payload)
+      .toPromise()
+      .then(profile => {
+        patchState({ profile })
+      })
+  }
+
+  @Action(UpdateAvatar)
+  UpdateAvatar({ patchState }: StateContext<AuthStateModel>, { file }: UpdateAvatar) {
+    this.identityService.update_profile_image(file)
       .toPromise()
       .then(profile => {
         patchState({ profile })

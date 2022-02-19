@@ -1,14 +1,14 @@
 <div *ngIf="comments$ | async as comments" class="comment" [formGroup]="formGroup">
   
-  <h5>{{entity.comments_count}} комментариев</h5>
+  <h5>{{entity.comments_count}} {{entity.comments_count===1 ? 'комментарий' : 'комментария'}}</h5>
 
   <div @heightAnimation class="reply" *ngIf="replyContent">
         
     <img class="reply-sign" src="assets/icons/reply-sign.svg" draggable=false>
     <img class="reply-image"
-      [src]="replyContent.owner.image.includes('/media/garysh.jpg') ? 'assets/images/user.png' : replyContent.owner.image">
+      [src]="replyContent.owner?.image">
     <div class="reply-info">
-      <p class="reply-info-name">{{replyContent.owner.full_name}}</p>
+      <p class="reply-info-name">{{replyContent.owner.surname}} {{replyContent.owner.name}}</p>
       <p class="reply-info-date">{{replyContent.created_at | DateRemained}}</p>
     </div>
     <div class="reply-cancel cursor-pointer" (click)="removeReplyParent()">отменить</div>
@@ -33,6 +33,7 @@
   <app-comment-module 
     *ngFor="let comment of comments.results" 
     (reply)="addReply($event)" 
+    (like)="likeComment($event)"
     [comment]="comment">
   </app-comment-module>
 

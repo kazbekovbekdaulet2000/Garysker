@@ -9,7 +9,7 @@ import { VideoDetailModel } from '@core/models/api/video.model';
 import { AuthState } from '@core/states/auth/auth.state';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { ListMoreVideoComments, ListVideoComments, PostVideoComment } from '../../video.actions';
+import { LikeVideoComment, ListMoreVideoComments, ListVideoComments, PostVideoComment } from '../../video.actions';
 import { VideoState } from '../../video.state';
 
 @Component({
@@ -98,7 +98,11 @@ export class VideoCommentsComponent implements OnInit {
     }
   }
 
+  likeComment(comment: CommentModel) {
+    this.store.dispatch(new LikeVideoComment(this.entity.id, comment.id))
+  }
+
   textareaTap() {
-    this.textInputLarge=true
+    this.textInputLarge = true
   }
 }

@@ -1,107 +1,86 @@
-<div class="body">
+<div @opacityAnimation class="body">
 
-  <div class="d-flex mb-5 flex-column justify-content-center align-items-center">
-    <h1 class="mb-5">Образование</h1>
-    <p class="text-center mb-2 mx-5">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и читать материалы
+  <div class="d-flex flex-column body-header">
+    <h1 class="body-header-name">Образование</h1>
+    <p class="body-header-text mb-2 mr-4">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и читать
+      материалы
       в
       интересном формате по нашим темам для саморазвития. </p>
   </div>
 
-  <!-- <div @opacityAnimation *ngIf="popular$ | async as popular">
 
-    <div @opacityAnimation class="d-flex flex-row align-items-center gap-2" *ngIf="popular.length > 0">
-      <img class="icon" src="assets/images/star.png" alt="">
-      <h3 class="mb-0">Популярное</h3>
+  <div *ngIf="categories$ | async as categories" class="d-flex align-items-center gap-2 my-4 categories">
+
+    <div class="d-flex align-items-center categories-item" (click)="removeRouteCategory()"
+      [class.active]="!!!(selectedCategory$ | async)">
+      <div>Все темы</div>
     </div>
 
-    <div @opacityAnimation *ngIf="popular.length > 0" class="items-holder">
-
-      <div #imageHolder (click)="onNavigate(item)" class="popular cursor-pointer"
-        *ngFor="let item of popular; let indx = index">
-        <img #image class="popular-poster" [src]="item.image" alt="">
-        <h5 class="popular-title">
-          {{item.title}}
-        </h5>
-        <div class="d-flex align-content-center popular-info">
-          <img class="popular-info-icon" [src]="item.category_icon">
-          <div class="d-flex flex-column popular-info-text">
-            {{item.category}}
-            <div *ngIf="item.read_time" class='popular-info-text-time'>{{item.read_time | ReadTime}} • {{item.created_at
-              | DateRemained}}</div>
-            <div *ngIf="!item.read_time" class='popular-info-text-time'>{{item.created_at | DateRemained}}</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </div> -->
-
-  <div @opacityAnimation *ngIf="reports$ | async as reports">
-
-    <div @opacityAnimation class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
-      <img class="icon" src="assets/images/open-book.png" alt="">
-      <h3 class="mb-0">Читать</h3>
-    </div>
-
-    <div @opacityAnimation *ngIf="reports.results.length > 0" class="d-flex align-items-center gap-2 mt-4 reading">
-
-      <div *ngFor="let report of reports.results">
-        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
-      </div>
-
-      <div *ngFor="let report of reports.results">
-        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
-      </div>
-      <div *ngFor="let report of reports.results">
-        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
-      </div>
-      <div *ngFor="let report of reports.results">
-        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
-      </div>
-      <div *ngFor="let report of reports.results">
-        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
-      </div>
-      <div *ngFor="let report of reports.results">
-        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
-      </div>
-      <div *ngFor="let report of reports.results">
-        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
-      </div>
-
-      <div *ngFor="let report of reports.results">
-        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
-      </div>
-      <div *ngFor="let report of reports.results">
-        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
-      </div>
-
-      <div *ngFor="let report of reports.results">
-        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
-      </div>
-      <div *ngFor="let report of reports.results">
-        <report-card [routerLink]="['reports', report.id]" [report]='report'></report-card>
-      </div>
-
+    <div *ngFor="let category of categories" class="d-flex align-items-center cursor-pointer categories-item"
+      (click)="updateContent(category.id)" [class.active]="(selectedCategory$ | async) === category.id">
+      <img [src]="category.icon" class="categories-item-icon">
+      <div>{{category.name}}</div>
     </div>
 
   </div>
 
-  <!-- <div @opacityAnimation *ngIf="videos$ | async as videos">
+  <ng-container *ngIf="!!!(selectedCategory$ | async)">
+    
+    <app-popular [popular]="popular$ | async"></app-popular>
 
-    <div @opacityAnimation class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
-      <img class="icon" src="assets/images/video-camera.png" alt="">
-      <h3 class="mb-0">Смотреть</h3>
-    </div>
+  </ng-container>
 
-    <div @opacityAnimation *ngIf="videos.results.length > 0" class="items-holder">
+  <ng-container *ngIf="reports$ | async as reports">
 
-      <div *ngFor="let video of videos.results">
-        <app-video-card [routerLink]="['videos', video.id]" [video]='video'></app-video-card>
+    <div @opacityAnimation>
+
+      <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
+        <img class="icon" src="assets/images/open-book.png" alt="">
+        <h3 class="mb-0">Читать</h3>
+      </div>
+
+      <div 
+        *ngIf="reports.results.length > 0"
+        infiniteScroll 
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="50"
+        [scrollWindow]="false"
+        [horizontal]="true"
+        (scrolled)="onScroll()" 
+        class="d-flex align-items-center gap-2 my-4 reading">
+
+        <report-card *ngFor="let report of reports.results" [routerLink]="['reports', report.id]" [report]='report'>
+        </report-card>
+
       </div>
 
     </div>
 
-  </div> -->
+  </ng-container>
+
+  <div @opacityAnimation *ngIf="videos$ | async as videos">
+
+    <div class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
+      <img class="icon" src="assets/images/video-camera.png" alt="">
+      <h3 class="mb-0">Смотреть</h3>
+    </div>
+
+    <div *ngIf="videos.results.length > 0" class="videos">
+
+      <app-video-card @opacityAnimation *ngFor="let video of videos.results" [routerLink]="['videos', video.id]"
+        [video]='video'>
+      </app-video-card>
+
+    </div>
+
+    <div *ngIf="videos.next"
+      class="d-flex show_more flex-column align-content-center align-items-center cursor-pointer mb-5"
+      (click)="loadVideo(videos.next)">
+      Смотреть еще
+      <img src="assets/icons/down.svg" alt="">
+    </div>
+    <div *ngIf="!videos.next" class="mb-5"></div>
+
+  </div>
 
 </div>

@@ -7,27 +7,28 @@ import { SidebarState } from '@core/states/sidebar/sidebar.state';
 import getImageDimenstion from '@core/utils/image-size';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { combineLatest } from 'rxjs';
+import { ListReports } from './edu/report-module/report.actions';
 import { ReportState } from './edu/report-module/report.state';
+import { ListVideos } from './edu/video-module/video.actions';
 import { VideoState } from './edu/video-module/video.state';
 import {
+  ChangeCategory,
   ClearDobroDetails,
-  ClearPopular,
   GetDobroProject,
   ListDobroProjects,
   ListQuestions,
-  UpdatePopular
 } from './main.actions';
 
 
 interface StateModel {
-  popular: any[];
+  selectedCategory: number;
   dobro_projects: DobroProjectModel[] | [];
   dobro_project: DobroProjectModel | null;
   questions: QuestionModel[] | [],
 }
 
 const defaults = {
-  popular: [],
+  selectedCategory: NaN,
   dobro_projects: [],
   dobro_project: null,
   questions: [],
@@ -41,10 +42,10 @@ const defaults = {
 export class MainState {
 
   @Selector()
-  static popular({ popular }: StateModel): any[] | [] {
-    return popular;
+  static selectedCategory({ selectedCategory }: StateModel): number {
+    return selectedCategory;
   }
-
+  
   @Selector()
   static dobro_projects({ dobro_projects }: StateModel): DobroProjectModel[] | [] {
     return dobro_projects;
@@ -67,26 +68,15 @@ export class MainState {
   ) {
   }
 
-  @Action(UpdatePopular)
-  UpdatePopular({ getState, patchState }: StateContext<StateModel>, { payload, type }: UpdatePopular) {
-    combineLatest([
-      this.store.select(VideoState.videos),
-      this.store.select(ReportState.reports)
-    ]).subscribe(data => {
-      const list = data.reduce((prev: any, curr: any)=>{
-        return [...prev, ...curr?.results]
-      }, [])
-      list.forEach(item=>{
-        item.width = getImageDimenstion(item.image)
-      })
-      list.sort((a, b)=> b.views - a.views)
-      patchState({popular: list})
-    })
-  }
-
-  @Action(ClearPopular)
-  ClearPopular({ patchState }: StateContext<StateModel>) {
-    patchState({ popular: [] })
+  @Action(ChangeCategory)
+  ChangeCategory({ getState, patchState }: StateContext<StateModel>, { id }: ChangeCategory) {
+    let params = {}
+    if (id) {
+      params = { category: id }
+    }
+    this.store.dispatch(new ListReports(params))
+    this.store.dispatch(new ListVideos(params))
+    patchState({ selectedCategory: id })
   }
 
   @Action(ListDobroProjects)

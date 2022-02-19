@@ -1,10 +1,13 @@
 <div class="wrapper">
 
-  <div class="sidebar" >
-    <core-sidemenu stickySidebar></core-sidemenu>
+  <div class="sidebar">
+    <core-sidemenu 
+      stickySidebar
+      [updateSticky]="updateSticky"
+    ></core-sidemenu>
   </div>
 
-  <div class="body">
+  <div class="main">
     <router-outlet></router-outlet>
   </div>
 

@@ -1,0 +1,52 @@
+<div @heightAnimation *ngIf="popular">
+
+  <div class="d-flex flex-row align-items-center gap-2">
+    <img class="icon" src="assets/images/star.png" alt="">
+    <h3 class="mb-0">Интересное</h3>
+  </div>
+  
+  <div class="swipe">
+
+    <swiper #swiper [config]="config" [slidesPerView]="cellCount" class="mySwiper">
+
+      <ng-template swiperSlide *ngFor="let item of popular; let indx = index">
+        
+        <div class="mySwiper-item" (click)="onNavigate(item)">
+
+          <img [src]="item.image" alt="">
+
+          <div class="logo"> G.</div>
+
+          <div class="content" >
+
+            <h5>{{item.title}}</h5>
+
+            <div class="d-flex align-content-center content-category cursor-pointer">
+              <img class="content-category-icon" [src]="item.category_icon">
+              <div class="d-flex flex-column content-category-text">
+                {{item.category}}
+                <div *ngIf="item.read_time" class='content-category-text-time'>{{item.read_time | ReadTime}} •
+                  {{item.created_at
+                  | DateRemained}}</div>
+                <div *ngIf="!item.read_time" class='content-category-text-time'>{{item.created_at | DateRemained}}</div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </ng-template>
+
+    </swiper>
+
+    <div class="navigation no-select" (click)="slidePrev()">
+      <img src="assets/icons/arrow.svg">
+    </div>
+    <div class="navigation next no-select next" (click)="slideNext()">
+      <img src="assets/icons/arrow.svg">
+    </div>
+
+  </div>
+
+</div>
