@@ -5,15 +5,12 @@
   gap: 24px;
   margin-bottom: 36px;
   margin-right: 16px;
-  .content {
-  }
-}
-
-@media screen and (max-width: 1440px) {
-  .video-holder {
-    width: calc(100% - 32px);
-    margin-right: 0px;
-    grid-template-columns: 1fr 300px;
+  .content{
+    &-more{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
   }
 }
 
@@ -21,13 +18,21 @@
   .video-holder {
     width: calc(100% - 32px);
     margin-right: 0px;
-    grid-template-columns: 1fr 200px;
+    grid-template-columns: 1fr 250px;
   }
 }
-@media screen and (max-width: 960px) {
+
+@media screen and (max-width: 1000px) {
   .video-holder {
-    width: 100%;
+    width: calc(100% - 16px);
     margin-right: 0px;
     grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .video-holder {
+    width: 100%;
+    padding: 0px 16px;
   }
 }

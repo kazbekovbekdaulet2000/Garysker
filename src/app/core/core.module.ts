@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
-
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './states/auth/auth.state';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -18,15 +17,13 @@ import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { ModalModule } from 'ngx-bootstrap/modal'
 import { PlyrModule } from 'ngx-plyr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PlyrVideoPlayerModule } from '../shared/components/videoplayer/videoplayer.module';
+
 @NgModule({
   declarations: [
-    // HeaderComponent,
-    // FooterComponent,
     LoaderComponent,
   ],
   exports: [
-    // HeaderComponent,
-    // FooterComponent,
     LoaderComponent,
   ],
   imports: [
@@ -35,8 +32,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    PlyrVideoPlayerModule,
     HttpClientModule,
     PlyrModule,
+    MatSliderModule,
+    MatSidenavModule,
     NgxsModule.forRoot([AuthState, SidebarState, LoaderState]),
     NgxsStoragePluginModule.forRoot({ key: ['auth'] }),
     NgxsRouterPluginModule.forRoot(),

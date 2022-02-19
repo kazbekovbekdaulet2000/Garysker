@@ -9,6 +9,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApplicationComponent } from './application/application.component';
 import { ApplicationModalComponent } from './application/modal/application-modal.component';
+import { SignUpSectionComponent } from './application/group-pages/sign-up-section.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -20,7 +21,8 @@ const maskConfig: Partial<IConfig> = {
     LoginComponent,
     RegisterComponent,
     ApplicationComponent,
-    ApplicationModalComponent
+    ApplicationModalComponent,
+    SignUpSectionComponent
   ],
   imports: [
     CommonModule,

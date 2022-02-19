@@ -1,36 +1,36 @@
 <div class="sidemenu">
   <div class="main-menu">
-    <div class="section cursor-pointer" (click)="removeRouteCategory()" routerLink="edu"
-      [class.active]="currentRoute === 'edu'">
+
+    <div class="section cursor-pointer" routerLink="/edu" [class.active]="currentRoute === 'edu'">
       <div class="icon">
-        <img src="assets/icons/category/edu.svg" draggable=false>
+        <img src="assets/icons/edu.svg" draggable=false>
       </div>
       Образование
     </div>
 
-    <div class="section cursor-pointer">
+    <div class="section cursor-pointer" routerLink="/products" [class.active]="currentRoute === 'products'">
       <div class="icon">
-        <img src="assets/icons/category/products.svg" draggable=false>
+        <img src="assets/icons/products.svg" draggable=false>
       </div>
       Продукты
     </div>
 
-    <div class="section cursor-pointer">
+    <div class="section cursor-pointer" routerLink="/shop" [class.active]="currentRoute === 'shop'">
       <div class="icon">
-        <img src="assets/icons/category/shop.svg" draggable=false>
+        <img src="assets/icons/shop.svg" draggable=false>
       </div>
       Магазин
     </div>
 
-    <div class="section cursor-pointer">
+    <div class="section cursor-pointer" routerLink="/events" [class.active]="currentRoute === 'events'">
       <div class="icon">
-        <img src="assets/icons/category/events.svg" draggable=false>
+        <img src="assets/icons/events.svg" draggable=false>
       </div>
       Мероприятия
     </div>
   </div>
 
-  <div class="dynamic-menu visable">
+  <div class="dynamic-menu visable" routerLink="/about" [class.active]="currentRoute === 'about'">
     <div class="category cursor-pointer">
       <div class="icon">
         <img class="icon-size" src="assets/icons/home.svg">
@@ -39,41 +39,9 @@
     </div>
   </div>
 
-  <!-- <div [class.visable]="currentRoute === 'edu'" class="dynamic-menu" *ngIf="categories$ | async as categories">
-    <div class="category cursor-pointer" *ngFor="let category of categories" routerLink="edu" (click)="routeCategory(category.id)"> 
-      <div class="icon" [class.active]="selectedCategorySection === category.id">
-        <img class="icon-size" [src]="category.icon">
-      </div>
-      
-      {{category.name}}
-    </div>
-  </div>
-
-
-  <div [class.visable]="currentRoute === 'dobro'" class="dynamic-menu">
-    
-    <div class="category cursor-pointer" routerLink="dobro" (click)="routeDobroType(1)"> 
-      <div class="icon" [class.active]="selectedDobroSection === 1">
-        <img class="icon-size" src="assets/images/raising-hands.png">
-      </div>
-      В процессе
-    </div>
-
-    <div class="category cursor-pointer" routerLink="dobro" (click)="routeDobroType(2)"> 
-      <div class="icon" [class.active]="selectedDobroSection === 2">
-        <img class="icon-size" src="assets/images/sparkles.png">
-      </div>
-      Завершенные
-    </div>
-
-  </div> -->
-
   <div class="dynamic-menu visable top-margin">
 
-    <div class="category cursor-pointer" (click)="navigateTelegram()">
-      <div class="icon">
-        <img src="assets/icons/help.svg">
-      </div>
+    <div class="d-flex justify-content-center category support cursor-pointer">
       Поддержать проект
     </div>
 

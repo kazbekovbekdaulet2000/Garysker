@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { UserModel } from '@core/models/api/user.model';
 import { ReportsService } from '@core/services/reports.service';
@@ -27,6 +27,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   dataAvailable: boolean = false
 
+  sidebar: string = '100%';
+
   @Select(AuthState.access) access$!: Observable<string>;
   @Select(AuthState.profile) profile$!: Observable<UserModel>;
 
@@ -40,7 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchText = new FormControl('');
 
   list$!: Observable<any[]>
-  
+
   constructor(
     private router: Router,
     private store: Store,
@@ -48,13 +50,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private reportService: ReportsService,
     private videoService: VideosService
   ) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationStart))
+      .subscribe((val) => {
+        this.sidebar = '100%'
+      })
     this.renderer.listen('window', 'click', (e: Event) => {
       if (this.menu) {
         if (e.target !== this.toggleDiv.nativeElement && e.target !== this.menu?.nativeElement) {
           this.dropdown = false;
         }
       }
-      if (this.search){
+      if (this.search) {
         if (e.target !== this.search?.nativeElement) {
           this.showSearch = false;
         }
@@ -76,9 +83,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe(value => {
         if (value !== '') {
-          this.showSearch=true
+          this.showSearch = true
           this.list$ = combineLatest([
-            this.reportService.list({ title: value }), 
+            this.reportService.list({ title: value }),
             this.videoService.list({ title: value })
           ]).pipe(
             map(res => {
@@ -109,6 +116,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
           case route.url.includes('auth'):
             this.main = 'auth';
             break;
+          case route.url.includes('edu'):
+            this.main = 'edu'
+            break;
+          case route.url.includes('products'):
+            this.main = 'products'
+            break;
+          case route.url.includes('events'):
+            this.main = 'events'
+            break;
+          case route.url.includes('shop'):
+            this.main = 'shop'
+            break;
+          case route.url.includes('about'):
+            this.main = 'about'
+            break;
           default:
             this.main = '';
         }
@@ -116,7 +138,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       })
   }
 
-  navigateRes(result: any){
+  navigateRes(result: any) {
     if (result?.read_time) {
       this.router.navigate(['edu/reports', result?.id])
     } else {
@@ -124,8 +146,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleSearch(){
-    this.showSearch !=this.showSearch
+  navigateRoute(path: string){
+    this.activateMenu()
+    this.router.navigate([path])
+  }
+
+  activateMenu() {
+    if (this.sidebar === "100%") {
+      this.sidebar = "0%";
+    } else {
+      this.sidebar = "100%";
+    }
+  }
+
+  toggleSearch() {
+    this.showSearch != this.showSearch
   }
 
   dropdownToggle() {

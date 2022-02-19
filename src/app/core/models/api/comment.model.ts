@@ -7,5 +7,7 @@ export interface CommentModel {
   updated_at: string,
   body: string,
   reply: number,
-  owner: UserModel
+  owner: UserModel,
+  liked: boolean,
+  likes_count: number
 }

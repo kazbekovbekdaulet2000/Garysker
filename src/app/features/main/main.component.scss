@@ -13,7 +13,7 @@
     margin-bottom: 64px;
   }
 
-  .body {
+  .main {
     flex: 1;
     overflow-x: hidden;
     margin-top: 32px;
@@ -26,13 +26,13 @@
 
 @media screen and (max-width: 768px) {
   .wrapper {
-    margin: 0px 16px;
+    margin: 0px;
   }
   .sidebar {
     width: 0px;
     display: none;
   }
-  .body {
+  .main {
     margin: 0px;
   }
 }

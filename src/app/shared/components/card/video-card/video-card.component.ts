@@ -13,6 +13,7 @@ export class VideoCardComponent implements OnInit{
   @Input() video!: VideoModel;
   @Input() width: string = '360px';
   @Input() fontSize: string = 'normal'
+  @Input() small: boolean = false
   
   ngOnInit(): void {
     if(this.video.image === null){

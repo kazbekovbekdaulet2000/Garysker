@@ -1,33 +1,21 @@
 @import "variables";
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "./assets/font/stylesheet.scss";
 
 :root {
-  --plyr-color-main: #FFA800;
+  --plyr-color-main: #ffa800;
 }
 
 body {
-  touch-action: none;
   padding: 0;
   margin: 0;
-}
-
-html {
-  overflow: scroll;
-  overflow-x: hidden;
 }
 
 body {
   background-color: $color-space;
   color: $color-primary;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  font-family: "Open Sans", sans-serif;
 }
 
 main {
@@ -43,26 +31,6 @@ main {
 .cursor-pointer {
   cursor: pointer;
 }
-
-$grid-breakpoints: (
-  xxxs: 0,
-  xxs: 320px,
-  xs: 568px,
-  sm: 667px,
-  md: 768px,
-  lg: 992px,
-  xl: 1440px,
-);
-
-$container-max-widths: (
-  xxxs: 0,
-  xxs: 320px,
-  xs: 568px,
-  sm: 667px,
-  md: 768px,
-  lg: 992px,
-  xl: 1440px,
-);
 
 h1,
 h2,
@@ -85,38 +53,68 @@ h3 {
   border-radius: 8px;
   &:focus,
   &:active,
-  &:hover{
+  &:hover {
     outline: none !important;
     box-shadow: none;
   }
 }
 
-a{
+a {
   text-decoration: none;
-  color: #C4BDCF;
+  color: #c4bdcf;
 }
 
-@font-face {
-  font-family: Acrobat;
-  src: url("assets/font/Akrobat-Bold.otf") format("opentype");
-}
-
-.modal-content{
+.modal-content {
   position: relative;
-  background-color: #26212E;
+  background-color: #26212e;
   border-radius: 16px;
   padding: 32px 64px;
-  h4{
+  h4 {
     font-weight: 700;
   }
 }
 
-.inner-wrapper-sticky{
+.inner-wrapper-sticky {
   top: 32px !important;
 }
 
 @media screen and (max-width: 640px) {
-  .modal-content{
+  .modal-content {
     padding: 32px 16px;
   }
+}
+html,
+body {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  font-smooth: antialiased;
+}
+body {
+  margin: 0;
+  font-family: "Formular", sans-serif;
+}
+
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active {
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
 }

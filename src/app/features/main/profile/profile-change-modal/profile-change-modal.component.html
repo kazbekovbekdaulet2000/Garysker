@@ -1,2 +1,19 @@
-<div class="icon">🙃</div>
-<h4>Change</h4>
+<div *ngIf="profile$ | async as profile" [formGroup]="formGroup">
+
+  <h3>Редактирование профиля</h3>
+
+  <div class="user">
+
+    <img class="user-image" [src]="profile.image" (click)="avatarInputFile.click()">
+    <input #avatarInputFile type="file" hidden (change)="onChangeAvatarInputFile($event)">
+
+    <input class="form-control" formControlName="name" placeholder="Имя" />
+
+    <input class="form-control" formControlName="surname" placeholder="Фамилия" />
+
+    <textarea rows=3 class="form-control" formControlName="description" placeholder="О вас"></textarea>
+
+    <button class="btn user-submit" (click)="updateUser()">Сохранить</button>
+  </div>
+
+</div>

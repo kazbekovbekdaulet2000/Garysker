@@ -1,34 +1,47 @@
-<div *ngIf="entity" class="detail"> 
-  
-  <div class="detail-category">{{entity.category}}</div>
-  
-  <h3>{{entity.title}}</h3>
-  
-  <div class="mt-3 detail-body" [innerHTML]="entity.body | sanitizer"></div>
-  
-  <div class="d-flex flex-row align-items-center">
-    
-    <div class="detail-views">{{entity.created_at | DateRemained}}</div>
-    
-    <div class="d-flex gap-4">
-      
-      <img 
-        (click)="onShare()"
-        class="cursor-pointer" 
-        src="assets/icons/share.svg" alt="">
-      
-      <img 
-        (click)="onLike()" 
-        class="cursor-pointer" 
-        [src]="entity.liked ? 'assets/icons/liked.svg' : 'assets/icons/like.svg'" alt=""> 
+<div *ngIf="entity" class="detail">
 
-      <img 
-        (click)="onSave()" 
-        class="cursor-pointer" 
-        [src]="entity.bookmarked ? 'assets/icons/saved.svg' : 'assets/icons/unsaved.svg'" alt=""> 
+  <div class="detail-info">
+
+    <div class="detail-info-user">
+      <img [src]="entity.author.image"
+        alt="">
+      <div class="detail-info-user-text">
+        <div>{{entity.author.surname}} {{entity.author.name}}</div>
+        <div class="detail-info-user-text-author">Автор</div>
+      </div>
+    </div>
+
+    <div class="detail-info-category">
+      <img [src]="entity?.category_icon" alt="">
+      {{entity.category}}
+    </div>
+
+  </div>
+
+  <h3>{{entity.title}}</h3>
+
+  <div class="mt-3 detail-body" [innerHTML]="entity.body | sanitizer"></div>
+
+  <div class="d-flex flex-row align-items-center">
+
+    <div class="detail-views">{{entity.created_at | DateRemained}}</div>
+
+    <div class="d-flex gap-4">
+
+      <img (click)="onShare()" class="cursor-pointer" src="assets/icons/share.svg" alt="">
+
+      <img (click)="onSave()" class="cursor-pointer"
+        [src]="entity.bookmarked ? 'assets/icons/saved.svg' : 'assets/icons/save.svg'" alt="">
+
+      <div>
+        <img (click)="onLike()" class="cursor-pointer"
+          [src]="entity.liked ? 'assets/icons/liked.svg' : 'assets/icons/like.svg'" alt="">
+
+        {{entity.likes_count}}
+      </div>
 
     </div>
-    
+
   </div>
 
 </div>

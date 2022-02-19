@@ -11,6 +11,8 @@ import { DatePipeModule } from 'src/app/shared/pipes/date/date-pipe.module';
 import { SanitizerPipeModule } from 'src/app/shared/pipes/sanitizer/sanitizer-pipe.module';
 import { ReportMenuComponent } from './report/menu/menu.component';
 import { ReplyModule } from 'src/app/shared/components/reply/reply.module';
+import { CardModule } from 'src/app/shared/components/card/card.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -24,6 +26,8 @@ import { ReplyModule } from 'src/app/shared/components/reply/reply.module';
     CommentModule,
     FormsModule,
     ReplyModule,
+    CardModule,
+    InfiniteScrollModule,
     ReactiveFormsModule,
     NgxsModule.forFeature([ReportState]),
     DatePipeModule,

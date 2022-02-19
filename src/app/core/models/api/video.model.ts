@@ -14,11 +14,11 @@ export interface VideoModel {
   bookmarked: boolean,
   views: number,
   comments_count: number,
+  body: string
 }
 
 export interface VideoDetailModel extends VideoModel {
   author: UserModel,
-  body: string,
   video: string,
   video_quality: Array<{
     path: string,

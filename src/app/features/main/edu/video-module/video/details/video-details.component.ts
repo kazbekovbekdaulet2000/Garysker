@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { VideoDetailModel } from '@core/models/api/video.model';
 import { AuthState } from '@core/states/auth/auth.state';
 import { Select, Store } from '@ngxs/store';
@@ -28,7 +28,7 @@ export class VideoDetailsComponent {
     this.bsService.show(LinkShareModalComponent, { class: 'modal-dialog-centered' })
   }
 
-  onLike(){
+  onLike() {
     this.access$.pipe(take(1)).subscribe(token => {
       if (token !== '') {
         this.store.dispatch(new LikeVideo(this.entity.id))

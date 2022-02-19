@@ -26,5 +26,4 @@ export class LoginErrModalComponent {
     this.route.navigate(['auth'])
     this.closeModal()
   }
-
 }

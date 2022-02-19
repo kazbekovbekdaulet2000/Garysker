@@ -1,15 +1,86 @@
-<div class="holder mt-6">
-  <h2>Как устроен наш проект?</h2>
+<div class="d-flex flex-column align-items-center holder pt-6">
 
-  <div class="text mb-5 mt-3">
-    Garyshker.com - это сообщество, которое объединяет вокруг себя творческих и социально-активных людей, создавая при
-    этом благоприятные условия для изучения важных тем и реализации благотворительных проектов.
+  <img src="assets/images/garyshker.svg" alt="">
+
+  <div class="d-flex flex-row justify-content-center gap-4 holder-sections">
+    <div *ngFor="let section of sections; let indx = index;"
+      class="d-flex flex-column align-items-center cursor-pointer" (click)="changeTabs(indx)">
+      {{section.name}}
+      <div @opacityAnimation class="holder-more" *ngIf="selectedSection===indx">
+        <img src="assets/images/polygon.svg" alt="">
+      </div>
+    </div>
   </div>
 
-  <h2>Из чего состоит Garyshker?</h2>
+</div>
 
-  <h2>Кто делает Garyshker?</h2>
+<div *ngIf="selectedSection === 0" class="section">
 
 
-  <h5>Благодарности</h5>
+  <h3 class="mb-4">Как устроен наш проект?</h3>
+
+  <p class="mr-4">Garyshker.com - это сообщество, которое объединяет вокруг себя творческих и социально-активных людей,
+    создавая при этом благоприятные условия для изучения важных тем и реализации благотворительных проектов.</p>
+
+  <div class="d-flex flex-column align-items-center">
+    <!-- <app-plyr-player></app-plyr-player> -->
+  </div>
+
+  <div class="section-products">
+
+    <h3>Наши продукты</h3>
+
+    <div class="section-products-items">
+
+      <div class="item cursor-pointer" routerLink="/edu">
+        <div class="d-flex align-items-center gap-2">
+          <img class="section-products-items-image" src="assets/icons/edu.svg" alt="">
+          <h5 class="mb-0">Образование</h5>
+        </div>
+        <p class="item-text mb-0 mt-2">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и
+          читать материалы в
+          интересном формате</p>
+      </div>
+
+
+      <div class="item cursor-pointer" routerLink="/products">
+        <div class="d-flex align-items-center gap-2">
+          <img src="assets/icons/products.svg" alt="">
+          <h5 class="mb-0">Проекты</h5>
+        </div>
+        <p class="item-text mb-0 mt-2">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и
+          читать материалы в интересном формате</p>
+      </div>
+
+      <div class="item cursor-pointer" routerLink="/shop">
+        <div class="d-flex align-items-center gap-2">
+          <img src="assets/icons/shop.svg" alt="">
+          <h5 class="mb-0">Магазин</h5>
+        </div>
+        <p class="item-text mb-0 mt-2">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и
+          читать материалы в интересном формате</p>
+      </div>
+
+      <div class="item cursor-pointer" routerLink="/events">
+        <div class="d-flex align-items-center gap-2">
+          <img src="assets/icons/events.svg" alt="">
+          <h5 class="mb-0">Ивенты</h5>
+        </div>
+        <p class="item-text mb-0 mt-2">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и
+          читать материалы в интересном формате</p>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 class="mb-4">Команда</h3>
+
+</div>
+
+<div *ngIf="selectedSection === 1" class="section">
+
+</div>
+
+<div *ngIf="selectedSection === 2" class="section">
+
 </div>
