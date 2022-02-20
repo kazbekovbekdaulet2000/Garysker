@@ -55,14 +55,14 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
       ];
     } else {
       this.video$.subscribe(link => {
-        const new_link = link.video.split('/video-video/')[0]
+        const new_link = link?.video?.split('/video-video/')[0]
         this.videoSources.push({
-          src: link.video,
+          src: link?.video,
           provider: 'html5',
           type: 'video/mp4',
-          size: this.get_quality(link.original_quality),
+          size: this.get_quality(link?.original_quality),
         })
-        link.video_quality.forEach((video: any) => {
+        link?.video_quality?.forEach((video: any) => {
           const q_link = video.path
           this.videoSources.push({
             src: `${new_link}/video-video/${q_link}`,

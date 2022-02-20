@@ -57,8 +57,8 @@ export class VideoState {
 
   @Selector()
   static comments({ comments }: StateModel): ListResponseModel<CommentModel> {
-    if(comments.count === 0){
-      comments.results = [] 
+    if (comments.count === 0) {
+      comments.results = []
     }
     return comments;
   }
@@ -128,12 +128,12 @@ export class VideoState {
   ListRelatedVideos({ patchState, getState }: StateContext<StateModel>, { id, params }: ListRelatedVideos) {
     this.videoService.getRelated(id, params)
       .subscribe(videos => {
-        const list = getState().videos.results
-        const new_list = getState().videos
-        new_list.next = videos.next
-        new_list.previous = videos.previous
-        new_list.results = [...list, ...videos.results]
-        patchState({ videos: new_list })
+        // const list = getState().videos.results
+        // const new_list = getState().videos
+        // new_list.next = videos.next
+        // new_list.previous = videos.previous
+        // new_list.results = [...list, ...videos.results]
+        patchState({ videos })
       })
   }
 
@@ -170,10 +170,10 @@ export class VideoState {
 
   @Action(ListVideoComments)
   ListVideoComments({ patchState, getState }: StateContext<StateModel>, { id }: ListVideoComments) {
-    getState().comments = emptyListResponse
     this.videoService.listComments(id)
-      .subscribe(comments => {
-        patchState({ comments })
+      .toPromise()
+      .then(comments => {
+        patchState({ comments: comments })
       })
   }
 

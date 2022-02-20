@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
@@ -11,7 +11,7 @@ import { VideoState } from '../video.state';
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss']
 })
-export class VideoComponent implements OnDestroy {
+export class VideoComponent implements OnInit, OnDestroy {
 
   @Select(VideoState.video) video$!: Observable<VideoDetailModel>
   @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>
@@ -25,10 +25,14 @@ export class VideoComponent implements OnDestroy {
   ) {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.videoId = id
-      this.store.dispatch(new ListVideoComments(id))
       this.store.dispatch(new GetVideo(id))
       this.store.dispatch(new ListRelatedVideos(id, { page: 1 }))
+      this.store.dispatch(new ListVideoComments(id))
     })
+  }
+  
+  ngOnInit(): void {
+    
   }
 
   ngOnDestroy(): void {

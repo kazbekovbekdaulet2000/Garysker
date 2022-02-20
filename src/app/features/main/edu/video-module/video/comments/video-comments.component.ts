@@ -42,10 +42,6 @@ export class VideoCommentsComponent {
         video: [id, Validators.required]
       })
     })
-
-    this.comments$.subscribe(data=>{
-      console.log(data)
-    })
   }
 
   loadMore() {
