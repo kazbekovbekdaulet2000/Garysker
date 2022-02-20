@@ -65,7 +65,12 @@ export class ReportComponent implements OnDestroy {
   }
 
   onScroll() {
-    this.store.dispatch(ListMoreReports)
+    this.reports$.subscribe(data => {
+      if (data.next) {
+        const page = data.next.split('page=')[1]
+        this.store.dispatch(new GetRelatedReports(this.reportId, { page: page }))
+      }
+    })
   }
 
   sendComment() {

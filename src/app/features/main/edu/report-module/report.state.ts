@@ -128,7 +128,13 @@ export class ReportState {
   GetRelatedReports({ patchState, getState }: StateContext<StateModel>, { id, params }: GetRelatedReports) {
     this.reportService.getRelated(id, params)
       .subscribe(reports => {
-        patchState({ reports })
+        const list = getState().reports
+        list.count = reports.count
+        list.next = reports.next
+        list.previous = reports.previous
+        list.results = [...list.results, ...reports.results]
+        console.log(list)
+        patchState({ reports: list })
       })
   }
 
@@ -224,7 +230,7 @@ export class ReportState {
   }
 
   @Action(ClearReportList)
-  ClearReportList({ patchState, getState}: StateContext<StateModel>) {
+  ClearReportList({ patchState, getState }: StateContext<StateModel>) {
     getState().reports.results = []
     patchState({ reports: emptyListResponse });
   }
