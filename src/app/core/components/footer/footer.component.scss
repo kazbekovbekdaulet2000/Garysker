@@ -9,7 +9,7 @@ footer {
   bottom: 0px;
   width: 100%;
   font-size: 14px;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .content {
     display: flex;
@@ -50,6 +50,9 @@ footer {
       a {
         font-size: 16px;
         color: #9f9f9f;
+        &:hover{
+          color: $color-orange;
+        }
       }
     }
     .project-btn {

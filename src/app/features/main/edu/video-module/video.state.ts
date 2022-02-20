@@ -22,7 +22,8 @@ import {
   LikeVideoComment,
   ListRelatedVideos,
   ClearVideoList,
-  ListMoreSavedVideos
+  ListMoreSavedVideos,
+  ClearVideoComments
 } from './video.actions';
 
 interface StateModel {
@@ -56,6 +57,9 @@ export class VideoState {
 
   @Selector()
   static comments({ comments }: StateModel): ListResponseModel<CommentModel> {
+    if(comments.count === 0){
+      comments.results = [] 
+    }
     return comments;
   }
 
@@ -125,10 +129,11 @@ export class VideoState {
     this.videoService.getRelated(id, params)
       .subscribe(videos => {
         const list = getState().videos.results
-        getState().videos.next = videos.next
-        getState().videos.previous = videos.previous
-        getState().videos.results = [...list, ...videos.results]
-        // patchState({ videos:  })
+        const new_list = getState().videos
+        new_list.next = videos.next
+        new_list.previous = videos.previous
+        new_list.results = [...list, ...videos.results]
+        patchState({ videos: new_list })
       })
   }
 
@@ -164,11 +169,18 @@ export class VideoState {
   }
 
   @Action(ListVideoComments)
-  ListVideoComments({ patchState }: StateContext<StateModel>, { id }: ListVideoComments) {
+  ListVideoComments({ patchState, getState }: StateContext<StateModel>, { id }: ListVideoComments) {
+    getState().comments = emptyListResponse
     this.videoService.listComments(id)
       .subscribe(comments => {
         patchState({ comments })
       })
+  }
+
+  @Action(ClearVideoComments)
+  ClearVideoComments({ patchState, getState }: StateContext<StateModel>) {
+    getState().comments.results = []
+    patchState({ comments: emptyListResponse })
   }
 
   @Action(ListMoreVideoComments)
@@ -180,9 +192,11 @@ export class VideoState {
       this.videoService.listComments(id, params)
         .subscribe(comments => {
           const list = getState().comments.results
-          getState().comments.next = comments.next
-          getState().comments.previous = comments.previous
-          getState().comments.results = [...list, ...comments.results]
+          const new_list = getState().comments
+          new_list.next = comments.next
+          new_list.previous = comments.previous
+          new_list.results = [...list, ...comments.results]
+          patchState({ comments: new_list })
         })
     }
   }
@@ -225,7 +239,8 @@ export class VideoState {
   }
 
   @Action(ClearVideoList)
-  ClearVideoList({ patchState }: StateContext<StateModel>) {
+  ClearVideoList({ patchState, getState }: StateContext<StateModel>) {
+    getState().videos.results = []
     patchState({ videos: emptyListResponse });
   }
 }

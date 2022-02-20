@@ -46,23 +46,23 @@
 
           <div class="dropdown-desc">Профиль</div>
 
-          <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='profile'>
-            <img class="dropdown-item-image" src="assets/icons/user.svg" alt="">
+          <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
+            <img class="dropdown-item-image" src="assets/icons/user_new.svg" alt="">
             Личный кабинет
           </div>
 
-          <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()">
+          <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
             <img class="d-flex align-items-center  dropdown-item-image" src="assets/icons/folder.svg" alt="">
             Закладки
           </div>
 
-          <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()">
+          <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
             <img class="dropdown-item-image" src="assets/icons/settings.svg" alt="">
             Настройки
           </div>
 
-          <div class="d-flex align-items-center gap-1 dropdown-item" (click)="logout()" routerLink='edu'>
-            <img class="dropdown-item-image" src="assets/icons/exit.svg" alt="">
+          <div class="d-flex align-items-center gap-1 dropdown-item" (click)="logout()" routerLink='/edu'>
+            <img class="dropdown-item-image" src="assets/icons/exit_new.svg" alt="">
             Выйти
           </div>
 
@@ -104,7 +104,7 @@
 
     <div *ngIf="(access$ | async)?.length === 0" class="sidemenu-auth">
       <div class="d-flex align-items-center gap-3 item" (click)="navigateRoute('/auth')">
-        <img class="sidemenu-auth-icon" src="assets/icons/exit.svg" alt="">
+        <img class="sidemenu-auth-icon" src="assets/icons/exit_new.svg" alt="">
         Войти
       </div>
 
@@ -117,20 +117,20 @@
     <div class="sidemenu-section">
       <ng-container *ngIf="profile$ | async as profile">
 
-        <div class="d-flex align-items-center gap-3 py-2" [class.active]="main === 'profile'" routerLink="/profile">
-          <img class="sidemenu-section-icon" src="assets/icons/user.svg" alt="">
+        <div class="d-flex align-items-center gap-3 py-2" [class.active]="main === 'profile'" (click)="navigateRoute('/profile')">
+          <img class="sidemenu-section-icon" src="assets/icons/user_new.svg" alt="">
           Личный кабинет
         </div>
-        <div class="d-flex align-items-center gap-3 py-2">
+        <div class="d-flex align-items-center gap-3 py-2" (click)="navigateRoute('/profile')">
           <img class="sidemenu-section-icon" src="assets/icons/folder.svg" alt="">
           Закладки
         </div>
-        <div class="d-flex align-items-center gap-3 py-2">
+        <div class="d-flex align-items-center gap-3 py-2" (click)="navigateRoute('/profile')">
           <img class="sidemenu-section-icon" src="assets/icons/settings.svg" alt="">
           Настройки
         </div>
-        <div class="d-flex align-items-center gap-3 py-2" (click)="logout()" routerLink='edu'>
-          <img class="sidemenu-section-icon" src="assets/icons/exit.svg" alt="">
+        <div class="d-flex align-items-center gap-3 py-2" (click)="logout()">
+          <img class="sidemenu-section-icon" src="assets/icons/exit_new.svg" alt="">
           Выход
         </div>
 
@@ -163,6 +163,12 @@
         О garyshker
       </div>
 
+    </div>
+
+    <div class="sidemenu-support">
+      <button class="btn">
+        Поддержать проект
+      </button>
     </div>
 
   </mat-sidenav-content>

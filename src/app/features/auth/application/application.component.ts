@@ -111,21 +111,20 @@ export class ApplicationComponent {
         let date = payload.birth_date.split('/')
         payload.birth_date = date.reverse().join("-")
         if (payload.password === payload.re_password) {
-          console.log(payload)
-          // this.identityService.signup(payload)
-          //   .toPromise()
-          //   .then(data => {
-          //     alert("вы успешно зареганы")
-          //     this.router.navigate(['/auth'])
-          //   })
-          //   .catch(err => {
-          //     if (err.error?.email) {
-          //       this.bsService.show(ErrorModalComponent, {
-          //         initialState: { message: "Email адрес уже существует" },
-          //         class: 'modal-dialog-centered'
-          //       })
-          //     }
-          //   })
+          this.identityService.signup(payload)
+            .toPromise()
+            .then(data => {
+              alert("вы успешно зареганы")
+              this.router.navigate(['/auth'])
+            })
+            .catch(err => {
+              if (err.error?.email) {
+                this.bsService.show(ErrorModalComponent, {
+                  initialState: { message: "Email адрес уже существует" },
+                  class: 'modal-dialog-centered'
+                })
+              }
+            })
         } else {
           this.bsService.show(ErrorModalComponent, {
             initialState: { message: "Пароли не совпадают" },

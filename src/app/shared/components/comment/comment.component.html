@@ -1,16 +1,17 @@
-<div *ngIf="comment" @heightOutAnimation class="comment" [class.reply]="isReply" [class.last]="isLast">
+<div @heightOutAnimation class="comment" [class.reply]="isReply" [class.last]="isLast">
 
   <div class="comment-user">
 
     <img class="comment-user-image" [src]="comment.owner?.image">
 
     <div class="comment-user-info">
-      <p class="comment-user-info-name">{{comment.owner.surname}} {{comment.owner.name}}</p>
-      <p class="comment-user-info-date">{{comment.created_at | DateRemained}}</p>
+      <p class="comment-user-info-name">{{comment?.owner?.surname}} {{comment?.owner?.name}}</p>
+      <p *ngIf="comment.created_at" class="comment-user-info-date">{{comment.created_at | DateRemained}}</p>
     </div>
 
     <div class="comment-user-like cursor-pointer" (click)="likeComment(comment)">
-      <img class="comment-user-like-icon" [src]="comment.liked ? 'assets/icons/liked.svg' : 'assets/icons/like.svg'">
+      <img class="comment-user-like-icon"
+        [src]="comment.liked ? 'assets/icons/liked_new.svg' : 'assets/icons/like_new.svg'">
       <div class="comment-user-like-count">{{comment.likes_count}}</div>
     </div>
 

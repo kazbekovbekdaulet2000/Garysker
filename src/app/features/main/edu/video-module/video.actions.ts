@@ -51,6 +51,10 @@ export class ListMoreVideoComments {
   constructor(public id: number) { }
 }
 
+export class ClearVideoComments {
+  static readonly type = '[Video] ClearVideoComments'
+}
+
 export class LikeVideo {
   static readonly type = '[Video] LikeVideo'
   constructor(public id: number) { }

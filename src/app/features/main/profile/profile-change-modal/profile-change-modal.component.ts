@@ -27,7 +27,7 @@ export class ProfileChangeModalComponent {
       surname: [null],
       description: [null],
     })
-    this.profile$.subscribe(data=>{
+    this.profile$.subscribe(data => {
       this.formGroup.patchValue(data)
     })
   }
@@ -38,9 +38,12 @@ export class ProfileChangeModalComponent {
     }
   }
 
-  updateUser(){
-    console.log(this.formGroup.getRawValue())
+  updateUser() {
     this.store.dispatch(new PatchUser(this.formGroup.getRawValue()));
+    this.closeModal()
   }
 
+  closeModal(){
+    this.bsModalRef.hide()
+  }
 }

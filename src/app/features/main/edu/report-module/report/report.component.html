@@ -28,12 +28,12 @@
       </div>
 
       <img class="cursor-pointer" (click)="onSave(report.id)"
-        [src]="report.bookmarked ? 'assets/icons/saved.svg' : 'assets/icons/save.svg'" alt="">
+        [src]="report.bookmarked ? 'assets/icons/saved_new.svg' : 'assets/icons/save_new.svg'" alt="">
 
-      <img class="cursor-pointer" (click)="onShare()" src="assets/icons/share.svg" alt="">
+      <img class="cursor-pointer" (click)="onShare()" src="assets/icons/new_share.svg" alt="">
 
       <div class="report-stat-views cursor-pointer" (click)="likeReport(report.id)">
-        <img [src]="report.liked ? 'assets/icons/liked.svg' : 'assets/icons/like.svg'" alt="">
+        <img [src]="report.liked ? 'assets/icons/liked_new.svg' : 'assets/icons/like_new.svg'" alt="">
         {{report.likes_count}}
       </div>
 
@@ -71,9 +71,9 @@
 
       </div>
 
-      <app-comment-module *ngFor="let comment of comments.results" (reply)="addReply($event)" (like)="postLike($event)" [comment]="comment">
+      <app-comment-module *ngFor="let comment of comments.results" [comment]="comment" (reply)="addReply($event)" (like)="postLike($event)">
       </app-comment-module>
-
+      
       <a class="d-flex loadmore my-2 align-items-center justify-content-center cursor-pointer" *ngIf="comments.next"
         (click)="loadMore()">
         загрузить больше
@@ -85,6 +85,11 @@
 
   <ng-container *ngIf="reports$ | async as reports">
 
+    <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
+      <img class="icon" src="assets/images/open-book.png" alt="">
+      <h3 class="mb-0">Читать</h3>
+    </div>
+
     <div 
       @opacityAnimation
       *ngIf="reports.results.length > 0"
@@ -94,7 +99,7 @@
       [scrollWindow]="false"
       [horizontal]="true"
       (scrolled)="onScroll()" 
-      class="d-flex align-items-center gap-2 my-4 reading">
+      class="d-flex align-items-center gap-2 my-4 mb-5 reading">
 
       <report-card *ngFor="let report of reports.results" [routerLink]="['/edu/reports', report.id]" [report]='report'>
       </report-card>

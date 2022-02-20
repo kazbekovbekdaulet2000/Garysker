@@ -94,6 +94,11 @@ h3 {
   position: relative;
   overflow-x: scroll;
   flex-wrap: wrap;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   &-item {
     background-color: #1c1b29;
     border-radius: 20px;

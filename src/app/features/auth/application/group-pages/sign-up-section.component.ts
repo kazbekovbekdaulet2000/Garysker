@@ -37,7 +37,6 @@ export class SignUpSectionComponent implements OnInit {
   }
 
   updateSelection(key: any, val: any) {
-    console.log(key, val.target.value)
     this.group.get(key)?.setValue(val.target.value)
   }
 

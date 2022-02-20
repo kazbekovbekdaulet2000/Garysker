@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { ReportModel } from '@core/models/api/report.model';
@@ -20,7 +21,7 @@ import { ProfileChangeModalComponent } from './profile-change-modal/profile-chan
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  animations: [opacityAnimation]
+  animations: [opacityAnimation, heightAnimation]
 })
 export class ProfileComponent implements OnInit {
 

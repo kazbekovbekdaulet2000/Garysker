@@ -224,7 +224,8 @@ export class ReportState {
   }
 
   @Action(ClearReportList)
-  ClearReportList({ patchState }: StateContext<StateModel>) {
+  ClearReportList({ patchState, getState}: StateContext<StateModel>) {
+    getState().reports.results = []
     patchState({ reports: emptyListResponse });
   }
 }

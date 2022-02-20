@@ -2,7 +2,8 @@
 
   <div class="d-flex flex-column body-header">
     <h1 class="body-header-name">Образование</h1>
-    <p class="body-header-text mb-2 mr-4">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и читать
+    <p class="body-header-text mb-2 mr-4">Наше основное направление, где любой желающий может бесплатно изучать,
+      смотреть и читать
       материалы
       в
       интересном формате по нашим темам для саморазвития. </p>
@@ -24,29 +25,19 @@
 
   </div>
 
-  <ng-container *ngIf="!!!(selectedCategory$ | async)">
-    
-    <app-popular [popular]="popular$ | async"></app-popular>
-
-  </ng-container>
+  <app-popular [popular]="popular$ | async"></app-popular>
 
   <ng-container *ngIf="reports$ | async as reports">
 
-    <div @opacityAnimation>
+    <div @heightAnimation *ngIf="reports.results.length > 0">
 
       <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
         <img class="icon" src="assets/images/open-book.png" alt="">
         <h3 class="mb-0">Читать</h3>
       </div>
 
-      <div 
-        *ngIf="reports.results.length > 0"
-        infiniteScroll 
-        [infiniteScrollDistance]="1"
-        [infiniteScrollThrottle]="50"
-        [scrollWindow]="false"
-        [horizontal]="true"
-        (scrolled)="onScroll()" 
+      <div *ngIf="reports.results.length > 0" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
+        [scrollWindow]="false" [horizontal]="true" (scrolled)="onScroll()"
         class="d-flex align-items-center gap-2 my-4 reading">
 
         <report-card *ngFor="let report of reports.results" [routerLink]="['reports', report.id]" [report]='report'>
@@ -58,29 +49,33 @@
 
   </ng-container>
 
-  <div @opacityAnimation *ngIf="videos$ | async as videos">
+  <ng-container *ngIf="videos$ | async as videos">
+    
+    <div @heightAnimation *ngIf="videos.results.length > 0">
 
-    <div class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
-      <img class="icon" src="assets/images/video-camera.png" alt="">
-      <h3 class="mb-0">Смотреть</h3>
+      <div class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
+        <img class="icon" src="assets/images/video-camera.png" alt="">
+        <h3 class="mb-0">Смотреть</h3>
+      </div>
+
+      <div *ngIf="videos.results.length > 0" class="videos">
+
+        <app-video-card *ngFor="let video of videos.results" [routerLink]="['videos', video.id]"
+          [video]='video'>
+        </app-video-card>
+
+      </div>
+
+      <div *ngIf="videos.next"
+        class="d-flex show_more flex-column align-content-center align-items-center cursor-pointer mb-5"
+        (click)="loadVideo(videos.next)">
+        Смотреть еще
+        <img src="assets/icons/down.svg" alt="">
+      </div>
+      <div *ngIf="!videos.next" class="mb-5"></div>
+
     </div>
-
-    <div *ngIf="videos.results.length > 0" class="videos">
-
-      <app-video-card @opacityAnimation *ngFor="let video of videos.results" [routerLink]="['videos', video.id]"
-        [video]='video'>
-      </app-video-card>
-
-    </div>
-
-    <div *ngIf="videos.next"
-      class="d-flex show_more flex-column align-content-center align-items-center cursor-pointer mb-5"
-      (click)="loadVideo(videos.next)">
-      Смотреть еще
-      <img src="assets/icons/down.svg" alt="">
-    </div>
-    <div *ngIf="!videos.next" class="mb-5"></div>
-
-  </div>
+    
+  </ng-container>
 
 </div>

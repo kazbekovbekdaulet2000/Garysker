@@ -74,7 +74,7 @@ export class AuthState {
   @Action(RemoveToken)
   RemoveToken({ patchState }: StateContext<AuthStateModel>) {
     patchState({ access: '', refresh: '', profile: null, accessTokenExpireDate: null })
-    if (window.location.href.includes('auth/login') || window.location.href.includes('profile')) {
+    if (window.location.href.includes('profile')) {
       this.store.dispatch(new Navigate(['']))
     }
   }

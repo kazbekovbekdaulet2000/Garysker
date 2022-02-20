@@ -54,7 +54,7 @@
 }
 
 .app-body {
-  overflow: scroll;
+  overflow: auto;
   display: flex;
   margin: auto 200px;
   margin-top: 12px;
@@ -105,7 +105,7 @@
   }
 }
 .section {
-  overflow: scroll;
+  overflow: auto;
   transition: 0.3s all;
 }
 

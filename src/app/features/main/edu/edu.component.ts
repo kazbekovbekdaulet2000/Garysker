@@ -127,9 +127,14 @@ export class EduComponent implements OnDestroy {
   }
 
   updateContent(id: number) {
+    this.store.dispatch(ClearReportList)
+    this.store.dispatch(ClearVideoList)
+
     const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
     if (categoryId !== id) {
       this.store.dispatch(new ChangeCategory(id))
+    }else{
+      this.store.dispatch(new ChangeCategory(NaN))
     }
   }
 
