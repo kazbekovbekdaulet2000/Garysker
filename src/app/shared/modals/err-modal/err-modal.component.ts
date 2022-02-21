@@ -5,7 +5,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   templateUrl: './err-modal.component.html',
   styleUrls: ['./err-modal.component.scss']
 })
-export class ErrorModalComponent implements OnInit {
+export class MessageModalComponent implements OnInit {
 
   message: string = ""
 

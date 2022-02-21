@@ -4,8 +4,7 @@ import { ApplicationComponent } from './application/application.component';
 
 import {AuthComponent} from './auth.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-
+import { ResetPassComponent } from './reset-pass/reset-pass.component';
 
 const routes: Routes = [
   {
@@ -22,10 +21,10 @@ const routes: Routes = [
     path: 'application',
     component: ApplicationComponent
   },
-  // {
-  //   path: 'register',
-  //   component: RegisterComponent
-  // },
+  {
+    path: 'reset',
+    component: ResetPassComponent
+  }
 ];
 
 @NgModule({

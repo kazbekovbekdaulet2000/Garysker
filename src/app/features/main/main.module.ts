@@ -4,7 +4,7 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { SideMenuComponent } from '@core/components/side-menu/side-menu.component';
 import { CardModule } from 'src/app/shared/components/card/card.module';
-import { NgxsModule } from '@ngxs/store';
+import { NgxsModule, Store } from '@ngxs/store';
 import { MainState } from './main.state';
 import { EduComponent } from './edu/edu.component';
 import { DatePipeModule } from 'src/app/shared/pipes/date/date-pipe.module';
@@ -66,7 +66,7 @@ import { EduPopularComponent } from './edu/popular/popular.component';
     NgxsModule.forFeature([MainState, ReportState, VideoState]),
     DatePipeModule,
     SanitizerPipeModule
-  ],
+  ]
 })
 export class MainModule {
 }

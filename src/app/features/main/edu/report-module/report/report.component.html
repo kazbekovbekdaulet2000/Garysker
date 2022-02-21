@@ -94,14 +94,14 @@
       @opacityAnimation
       *ngIf="reports.results.length > 0"
       infiniteScroll 
-      [infiniteScrollDistance]="1"
+      [infiniteScrollDistance]="4"
       [infiniteScrollThrottle]="50"
       [scrollWindow]="false"
       [horizontal]="true"
       (scrolled)="onScroll()" 
       class="d-flex align-items-center gap-2 my-4 mb-5 reading">
 
-      <report-card *ngFor="let report of reports.results" [routerLink]="['/edu/reports', report.id]" [report]='report'>
+      <report-card *ngFor="let report of reports.results" (click)="navigateReport(report.id)" [report]='report'>
       </report-card>
 
     </div>

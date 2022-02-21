@@ -8,36 +8,26 @@
   justify-content: center;
 }
 
-.auth-card {
+.reset {
   background-color: transparent;
   width: 560px;
   margin: auto;
-
-  h3 {
-    color: $color-text-pink;
-    font-size: 28px;
-    font-family: "Spoof", sans-serif;
-  }
-
-  h6 {
-    margin-top: 16px;
-    margin-bottom: 8px;
+  &-header {
+    font-family: Spoof, sans-serif;
     font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 19px;
-    color: #817b8b;
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 45px;
+    color: #ffffff;
+    margin-bottom: 24px;
+    opacity: 0.8;
   }
-
-  p {
-    font-size: 12px;
-    line-height: 16px;
-    color: #ba2525;
-    margin: 8px 0px;
+  &-text {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
   }
-
-  .user-info {
-    margin-top: 18px;
+  &-input {
     background-color: #33323e;
     outline: none;
     border: none;
@@ -48,6 +38,7 @@
     padding: 0px 12px;
     border-radius: 8px;
     border: 1px solid transparent;
+    margin-top: 24px;
     &:focus {
       border: 1px solid #ffa800;
       background-color: transparent;
@@ -56,12 +47,22 @@
       margin-top: 0px;
     }
   }
-
-  .menu {
+  &-error {
+    font-size: 12px;
+    line-height: 16px;
+    color: #ba2525;
+    margin-top: 4px;
+    margin-bottom: 0px;
+  }
+  &-menu {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    .login {
+    margin-top: 24px;
+    &-force {
+      flex: 1;
+    }
+    &-next {
       font-weight: 700;
       font-size: 16px;
       background-color: #ffa80090;

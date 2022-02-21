@@ -7,7 +7,6 @@ import { Store } from '@ngxs/store';
 import { ChangeCategory } from '../../main/main.actions';
 
 @Component({
-  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
