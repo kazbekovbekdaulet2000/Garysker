@@ -206,6 +206,7 @@ nav {
   padding: 16px;
   &-auth {
     margin-top: 64px;
+    margin-bottom: 24px;
     &-icon {
       width: 24px;
       height: 24px;
@@ -245,7 +246,7 @@ nav {
     }
   }
   &-section {
-    padding: 20px 16px;
+    padding: 0px 16px;
     width: calc(100% + 32px);
     margin-left: -16px;
     &-icon {
@@ -255,6 +256,21 @@ nav {
       padding: 9px;
       border-radius: 12px;
       background-color: #ffffff10;
+    }
+  }
+  &-support{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 64px;
+    margin-bottom: 24px;
+    .btn{
+      background-color: #b67906;
+      border-radius: 12px;
+      padding: 16px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
     }
   }
   .active {

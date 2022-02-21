@@ -12,7 +12,7 @@
     <p *ngIf="getFalseMessage('password')">*Неправильный логин или пароль</p>
     
     <div class="menu mt-4"> 
-      <div class="cursor-pointer">Забыли пароль?</div> 
+      <div class="cursor-pointer" routerLink="/auth/reset">Забыли пароль?</div> 
       <button class="btn login" (click)="login()">Войти</button>
     </div>
   

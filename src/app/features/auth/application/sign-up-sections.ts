@@ -10,6 +10,7 @@ export interface InputConfig {
   placeholder?: string
   key?: string
   userTypes?: UserTypes[]
+  error?: string
 }
 
 export interface StageModel {
@@ -32,17 +33,20 @@ export const SignUpPageOne: StageModel = {
       type: 'input',
       placeholder: 'Введите имя',
       key: 'name',
+      error: 'имя не заполнена'
     },
     {
       type: 'input',
       placeholder: 'Введите фамилию',
       key: 'surname',
+      error: 'фамилия не заполнена'
     },
     {
       helper: 'Дата рождения',
       type: 'birth-date',
       placeholder: 'дд/мм/гггг',
       key: 'birth_date',
+      error: 'неправильный формат'
     }
   ]
 }
@@ -58,11 +62,13 @@ export const SignUpPageTwo: StageModel = {
       type: 'city-selector',
       placeholder: 'Выберите город',
       key: 'city',
+      error: 'выберите город'
     },
     {
       type: 'user-type',
       placeholder: 'Чем вы занимаетесь?',
       key: 'user_type',
+      error: 'выберите чем вы занимаетесь'
     },
   ]
 }
@@ -109,16 +115,19 @@ export const SignUpPageFour: StageModel = {
       type: 'email',
       placeholder: 'Введите электронную почту',
       key: 'email',
+      error: 'напишите в правильном формате'
     },
     {
       type: 'password',
       placeholder: 'Придумайте пароль',
       key: 'password',
+      error: 'надо ввести больше 8 знаков для пароля'
     },
     {
       type: 'password',
       placeholder: 'Повторно введите пароль',
       key: 're_password',
+      error: 'пароли не совпадают'
     },
   ]
 } 

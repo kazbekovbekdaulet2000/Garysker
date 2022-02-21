@@ -1,17 +1,17 @@
-import { Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { ClearVideoDetail, GetVideo, ListMoreVideos, ListRelatedVideos } from '../video.actions';
+import { ClearVideoComments, ClearVideoDetail, ClearVideoList, GetVideo, ListMoreVideos, ListRelatedVideos, ListVideoComments } from '../video.actions';
 import { VideoState } from '../video.state';
 
 @Component({
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss']
 })
-export class VideoComponent implements OnDestroy {
+export class VideoComponent implements OnInit, OnDestroy {
 
   @Select(VideoState.video) video$!: Observable<VideoDetailModel>
   @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>
@@ -27,15 +27,23 @@ export class VideoComponent implements OnDestroy {
       this.videoId = id
       this.store.dispatch(new GetVideo(id))
       this.store.dispatch(new ListRelatedVideos(id, { page: 1 }))
+      this.store.dispatch(new ListVideoComments(id))
     })
+  }
+  
+  ngOnInit(): void {
+    
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(new ClearVideoDetail)
+    this.store.dispatch([ClearVideoDetail, ClearVideoList, ClearVideoComments])
   }
+
   navigateVideo(id: number) {
     this.router.navigate(['/edu/videos', id])
+    this.ngOnDestroy()
   }
+
   loadVideo(next: string) {
     if (next) {
       const pageNumber = Number(next.split('page=')[1])

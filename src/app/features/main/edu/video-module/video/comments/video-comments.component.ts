@@ -9,7 +9,7 @@ import { VideoDetailModel } from '@core/models/api/video.model';
 import { AuthState } from '@core/states/auth/auth.state';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { LikeVideoComment, ListMoreVideoComments, ListVideoComments, PostVideoComment } from '../../video.actions';
+import { LikeVideoComment, ListMoreVideoComments, PostVideoComment } from '../../video.actions';
 import { VideoState } from '../../video.state';
 
 @Component({
@@ -18,7 +18,7 @@ import { VideoState } from '../../video.state';
   styleUrls: ['./video-comments.component.scss'],
   animations: [opacityAnimation, heightAnimation]
 })
-export class VideoCommentsComponent implements OnInit {
+export class VideoCommentsComponent {
   @Input() entity!: VideoDetailModel;
 
   @Select(VideoState.comments) comments$!: Observable<ListResponseModel<CommentModel>>;
@@ -35,11 +35,6 @@ export class VideoCommentsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute
   ) {
-    this.formGroup = this.formBuilder.group({
-      body: [null, Validators.required],
-      reply: [null],
-      video: [null, Validators.required]
-    })
     this.activatedRoute.params.subscribe(({ id }) => {
       this.formGroup = this.formBuilder.group({
         body: [null, Validators.required],
@@ -47,17 +42,6 @@ export class VideoCommentsComponent implements OnInit {
         video: [id, Validators.required]
       })
     })
-
-  }
-
-  ngOnInit(): void {
-    if (this.entity) {
-      this.loadComments(this.entity.id)
-    }
-  }
-
-  loadComments(videoId: number) {
-    this.store.dispatch(new ListVideoComments(videoId))
   }
 
   loadMore() {

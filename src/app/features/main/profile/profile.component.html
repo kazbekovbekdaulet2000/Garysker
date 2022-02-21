@@ -22,7 +22,7 @@
 
   <ng-container *ngIf="reports$ | async as reports">
 
-    <div @opacityAnimation>
+    <div @heightAnimation *ngIf="reports.results.length > 0">
 
       <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
         <img class="icon" src="assets/images/open-book.png" alt="">
@@ -46,7 +46,7 @@
 
   <ng-container *ngIf="videos$ | async as videos">
 
-    <div @opacityAnimation>
+    <div @heightAnimation *ngIf="videos.results.length > 0">
 
       <div class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
         <img class="icon" src="assets/images/video-camera.png" alt="">

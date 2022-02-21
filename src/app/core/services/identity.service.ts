@@ -44,4 +44,16 @@ export class IdentityService extends ApiService {
     payload.append('image', file);
     return this.http.patch<UserModel>(this.getUrl('profile'), payload)
   }
+
+  reset(payload: any): Observable<any> {
+    return this.http.post<any>(this.getUrl('reset'), payload)
+  }
+
+  resetConfirm(payload: any): Observable<any> {
+    return this.http.post<any>(this.getUrl('reset/confirm'), payload)
+  }
+
+  resetForce(payload: any): Observable<any>{
+    return this.http.post<any>(this.getUrl('reset/force'), payload)
+  }
 }

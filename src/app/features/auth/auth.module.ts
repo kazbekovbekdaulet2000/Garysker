@@ -4,12 +4,11 @@ import { CommonModule } from '@angular/common';
 import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApplicationComponent } from './application/application.component';
-import { ApplicationModalComponent } from './application/modal/application-modal.component';
 import { SignUpSectionComponent } from './application/group-pages/sign-up-section.component';
+import { ResetPassComponent } from './reset-pass/reset-pass.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -19,9 +18,8 @@ const maskConfig: Partial<IConfig> = {
   declarations: [
     AuthComponent,
     LoginComponent,
-    RegisterComponent,
     ApplicationComponent,
-    ApplicationModalComponent,
+    ResetPassComponent,
     SignUpSectionComponent
   ],
   imports: [

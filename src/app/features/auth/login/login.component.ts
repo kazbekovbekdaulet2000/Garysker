@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { IdentityService } from '@core/services/identity.service';
 import { Login, UpdateProfile } from '@core/states/auth/actions';
 import { Store } from '@ngxs/store';
+import { ChangeCategory } from '../../main/main.actions';
 
 @Component({
-  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -42,6 +42,7 @@ export class LoginComponent {
         this.store.dispatch(new Login(token))
         this.router.navigate([''])
         this.store.dispatch(new UpdateProfile())
+        this.store.dispatch(new ChangeCategory(NaN))
       })
       .catch(error => {
         this.formGroup.controls['email'].setErrors({ 'incorrect': true });

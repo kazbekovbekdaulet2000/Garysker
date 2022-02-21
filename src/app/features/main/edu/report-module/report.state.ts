@@ -26,12 +26,14 @@ import {
 
 interface StateModel {
   reports: ListResponseModel<ReportModel>;
+  reports_related: ListResponseModel<ReportModel>;
   report: ReportDetailModel | null;
   comments: ListResponseModel<CommentModel>;
 }
 
 const defaults = {
   reports: emptyListResponse,
+  reports_related: emptyListResponse,
   report: null,
   comments: emptyListResponse,
 };
@@ -46,6 +48,11 @@ export class ReportState {
   @Selector()
   static reports({ reports }: StateModel): ListResponseModel<ReportModel> {
     return reports;
+  }
+
+  @Selector()
+  static reports_related({ reports_related }: StateModel): ListResponseModel<ReportModel> {
+    return reports_related;
   }
 
   @Selector()
@@ -127,8 +134,13 @@ export class ReportState {
   @Action(GetRelatedReports)
   GetRelatedReports({ patchState, getState }: StateContext<StateModel>, { id, params }: GetRelatedReports) {
     this.reportService.getRelated(id, params)
-      .subscribe(reports => {
-        patchState({ reports })
+      .subscribe(reports_related => {
+        const list = getState().reports_related
+        list.count = reports_related.count
+        list.next = reports_related.next
+        list.previous = reports_related.previous
+        list.results = [...list.results, ...reports_related.results]
+        return patchState({ reports_related: list })
       })
   }
 
@@ -219,12 +231,13 @@ export class ReportState {
   }
 
   @Action(ClearReportDetail)
-  ClearReportDetail({ patchState }: StateContext<StateModel>) {
-    patchState({ report: null });
+  ClearReportDetail({ patchState, getState}: StateContext<StateModel>) {
+    getState().reports_related.results = []
+    patchState({ report: null, reports_related: emptyListResponse});
   }
 
   @Action(ClearReportList)
-  ClearReportList({ patchState }: StateContext<StateModel>) {
+  ClearReportList({ patchState, getState }: StateContext<StateModel>) {
     patchState({ reports: emptyListResponse });
   }
 }

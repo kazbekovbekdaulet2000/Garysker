@@ -20,6 +20,7 @@ SwiperCore.use([Autoplay, Navigation, Scrollbar, Mousewheel]);
 export class EduPopularComponent {
   @Input() popular: any
   @ViewChild('swiper', { static: false }) swiper: any;
+  @Select(MainState.selectedCategory) selectedCategory$!: Observable<boolean>
   config!: SwiperOptions;
 
   resizeObservable$!: Observable<Event>

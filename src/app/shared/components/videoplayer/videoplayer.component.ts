@@ -15,7 +15,7 @@ import { videoI18n } from './videoplayer.i18n';
   styleUrls: ['./videoplayer.component.scss'],
   animations: [opacityAnimation, heightOutAnimation]
 })
-export class PlyrVideoPlayerComponent implements OnInit, OnChanges {
+export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
   @Input() entity: VideoDetailModel | any
   @Input() link: string | any;
 
@@ -40,14 +40,12 @@ export class PlyrVideoPlayerComponent implements OnInit, OnChanges {
     },
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.player) {
-      this.player.stop()
-      location.reload()
-      this.player.play()
-    }
+  ngOnDestroy(): void {
+    this.player.destroy()
   }
+
   ngOnInit(): void {
+    this.videoSources = []
     if (this.link) {
       this.videoSources = [
         {
@@ -57,14 +55,14 @@ export class PlyrVideoPlayerComponent implements OnInit, OnChanges {
       ];
     } else {
       this.video$.subscribe(link => {
-        const new_link = link.video.split('/video-video/')[0]
+        const new_link = link?.video?.split('/video-video/')[0]
         this.videoSources.push({
-          src: link.video,
+          src: link?.video,
           provider: 'html5',
           type: 'video/mp4',
-          size: this.get_quality(link.original_quality),
+          size: this.get_quality(link?.original_quality),
         })
-        link.video_quality.forEach(video => {
+        link?.video_quality?.forEach((video: any) => {
           const q_link = video.path
           this.videoSources.push({
             src: `${new_link}/video-video/${q_link}`,

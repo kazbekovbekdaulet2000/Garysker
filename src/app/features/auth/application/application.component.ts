@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { opacityUpDownAnimation } from '@core/animations/opacity-up-down-animation';
 import { IdentityService } from '@core/services/identity.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ErrorModalComponent } from 'src/app/shared/modals/err-modal/err-modal.component';
-import { ApplicationModalComponent } from './modal/application-modal.component';
+import { MessageModalComponent } from 'src/app/shared/modals/err-modal/err-modal.component';
 import { SignUpPageFour, SignUpPageOne, SignUpPageThree, SignUpPageTwo, StageModel } from './sign-up-sections';
 
 @Component({
@@ -31,11 +30,17 @@ export class ApplicationComponent {
     SignUpPageFour,
   ]
 
+  checkPasswords: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+    let pass = group.get('password')!.value;
+    let re_pass = group.get('re_password')!.value
+    return pass === re_pass ? null : { notSame: true }
+  }
+
   forms: FormGroup[] = [
     this.formBuilder.group({
       name: [null, Validators.required],
       surname: [null, Validators.required],
-      birth_date: [null, Validators.required],
+      birth_date: [null, [Validators.minLength(10), Validators.required]],
     }),
     this.formBuilder.group({
       city: [null, Validators.required],
@@ -45,8 +50,8 @@ export class ApplicationComponent {
     }),
     this.formBuilder.group({
       email: [null, Validators.required],
-      password: [null, Validators.required],
-      re_password: [null, Validators.required]
+      password: [null, [Validators.required, Validators.minLength(8)]],
+      re_password: [null, [Validators.required, Validators.minLength(8)]]
     })
   ]
 
@@ -57,28 +62,20 @@ export class ApplicationComponent {
     private router: Router
   ) { }
 
-  openModal() {
-    this.bsService.show(
-      ApplicationModalComponent,
-      {
-        class: 'modal-lg modal-dialog-centered',
-      })
-  }
-
   getNextId(id: number) {
-    if(id===3){
+    if (id === 3) {
       return 1
     }
-    if (id - 1 >= 0) { 
-      return id - 1 
-    } else { 
-      return 0 
+    if (id - 1 >= 0) {
+      return id - 1
+    } else {
+      return 0
     }
   }
 
   onSelect(stage_num: number) {
-    if(stage_num === this.stage_num){
-      return 
+    if (stage_num === this.stage_num) {
+      return
     }
     if (this.forms[this.getNextId(stage_num)].valid) {
       if (this.stage_num !== stage_num) {
@@ -89,7 +86,7 @@ export class ApplicationComponent {
         }, 500)
       }
     } else {
-      this.bsService.show(ErrorModalComponent, {
+      this.bsService.show(MessageModalComponent, {
         initialState: { message: "Данные не заполнены до конца" },
         class: 'modal-dialog-centered'
       })
@@ -110,28 +107,23 @@ export class ApplicationComponent {
         })
         let date = payload.birth_date.split('/')
         payload.birth_date = date.reverse().join("-")
-        if (payload.password === payload.re_password) {
-          console.log(payload)
-          // this.identityService.signup(payload)
-          //   .toPromise()
-          //   .then(data => {
-          //     alert("вы успешно зареганы")
-          //     this.router.navigate(['/auth'])
-          //   })
-          //   .catch(err => {
-          //     if (err.error?.email) {
-          //       this.bsService.show(ErrorModalComponent, {
-          //         initialState: { message: "Email адрес уже существует" },
-          //         class: 'modal-dialog-centered'
-          //       })
-          //     }
-          //   })
-        } else {
-          this.bsService.show(ErrorModalComponent, {
-            initialState: { message: "Пароли не совпадают" },
-            class: 'modal-dialog-centered'
+        this.identityService.signup(payload)
+          .toPromise()
+          .then(() => {
+            this.bsService.show(MessageModalComponent, {
+              initialState: { message: "Вы успешно зарегистрировались" },
+              class: 'modal-dialog-centered'
+            })
+            this.router.navigate(['/auth'])
           })
-        }
+          .catch(err => {
+            if (err.error?.email) {
+              this.bsService.show(MessageModalComponent, {
+                initialState: { message: "Email адрес уже существует" },
+                class: 'modal-dialog-centered'
+              })
+            }
+          })
 
         return
       }

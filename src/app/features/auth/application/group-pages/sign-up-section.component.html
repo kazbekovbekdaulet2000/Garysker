@@ -13,9 +13,8 @@
 
       <label *ngIf="config.type !== 'user-type' && config.helper" class="form-content-title" [for]="config.key"> Дата
         рождения </label>
-
-      <input
-        *ngIf="config.type !== 'user-type' && config.key && config.type !== 'goals' && config.type !== 'birth-date' && config.type !=='city-selector'"
+  
+      <input *ngIf="(config.type === 'input' || config.type === 'email' || config.type === 'password') && config.key"
         class="form-content-input" [id]="config.key" [type]="config.type" [formControlName]="config.key"
         [placeholder]="config.placeholder" [email]="config.key === 'email'">
 
@@ -34,13 +33,14 @@
         <option value="" disabled selected>{{config.placeholder}}</option>
         <option value="0">Учусь</option>
         <option value="1">Работаю</option>
-        <option value="2">Учусь</option>
+        <option value="2">Другое</option>
       </select>
-      <!-- <ng-container *ngIf="config.key">
-        <p *ngIf="group.controls[config.key].errors?.incorrect">
-          loloolol
-        </p>
-      </ng-container> -->
+
+      <ng-container *ngIf="config.key">
+        <div class="form-content-err" *ngIf="group.controls[config.key]?.errors?.incorrect">
+          *{{config.error}}
+        </div>
+      </ng-container>
 
       <ng-container *ngIf="config.type === 'goals'">
 

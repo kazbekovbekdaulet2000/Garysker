@@ -118,3 +118,9 @@ label:focus,
   -webkit-appearance: none;
   box-shadow: none !important;
 }
+
+a{
+  &:hover{
+    color: $color-orange;
+  }
+}

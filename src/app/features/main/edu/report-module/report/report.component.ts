@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
 import { LinkShareModalComponent } from 'src/app/shared/modals/share-modal/share-modal.component';
-import { ClearReportDetail, GetRelatedReports, GetReport, LikeReport, LikeReportComment, ListMoreReportComments, ListMoreReports, ListReportComments, PostReportComment, SaveReport } from '../report.actions';
+import { ClearReportDetail, ClearReportList, GetRelatedReports, GetReport, LikeReport, LikeReportComment, ListMoreReportComments, ListMoreReports, ListReportComments, PostReportComment, SaveReport } from '../report.actions';
 import { ReportState } from '../report.state';
 
 @Component({
@@ -27,7 +27,7 @@ export class ReportComponent implements OnDestroy {
   @Select(AuthState.access) access$!: Observable<string>;
   @Select(ReportState.report) report$!: Observable<ReportDetailModel>;
   @Select(ReportState.comments) comments$!: Observable<ListResponseModel<CommentModel>>;
-  @Select(ReportState.reports) reports$!: Observable<ListResponseModel<ReportModel>>;
+  @Select(ReportState.reports_related) reports$!: Observable<ListResponseModel<ReportModel>>;
 
   @ViewChild('body') body!: ElementRef<any>
 
@@ -43,7 +43,8 @@ export class ReportComponent implements OnDestroy {
     private store: Store,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private bsService: BsModalService
+    private bsService: BsModalService,
+    private router: Router
   ) {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.reportId = id
@@ -65,7 +66,12 @@ export class ReportComponent implements OnDestroy {
   }
 
   onScroll() {
-    this.store.dispatch(ListMoreReports)
+    this.reports$.subscribe(data => {
+      if (data.next) {
+        const page = data.next.split('page=')[1]
+        this.store.dispatch(new GetRelatedReports(this.reportId, { page: page }))
+      }
+    })
   }
 
   sendComment() {
@@ -130,6 +136,12 @@ export class ReportComponent implements OnDestroy {
 
   get getLink() {
     return `https://www.youtube.com/sharer/sharer.php?u=${window.location.href}`
+  }
+
+  navigateReport(id: number){
+    // [routerLink]="['/edu/reports', report.id]"
+    this.store.dispatch(new ClearReportDetail)
+    this.router.navigate(['/edu/reports', id])
   }
 
   onShare() {

@@ -170,5 +170,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout() {
     this.dropdown = false
     this.store.dispatch(RemoveToken)
+    if(this.main === 'profile'){
+      this.activateMenu()
+      this.router.navigate(['/edu'])
+    }
   }
 }

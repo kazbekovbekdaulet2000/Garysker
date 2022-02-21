@@ -1,4 +1,4 @@
-<div @heightAnimation *ngIf="popular">
+<div @heightAnimation *ngIf="popular && !!!(selectedCategory$ | async)">
 
   <div class="d-flex flex-row align-items-center gap-2">
     <img class="icon" src="assets/images/star.png" alt="">

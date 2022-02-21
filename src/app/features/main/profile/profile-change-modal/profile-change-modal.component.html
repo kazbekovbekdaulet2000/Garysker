@@ -2,9 +2,14 @@
 
   <h3>Редактирование профиля</h3>
 
+  <div class="close">
+    <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
+  </div>
+
   <div class="user">
 
-    <img class="user-image" [src]="profile.image" (click)="avatarInputFile.click()">
+    <img class="user-image cursor-pointer" [src]="profile.image" (click)="avatarInputFile.click()">
+
     <input #avatarInputFile type="file" hidden (change)="onChangeAvatarInputFile($event)">
 
     <input class="form-control" formControlName="name" placeholder="Имя" />
