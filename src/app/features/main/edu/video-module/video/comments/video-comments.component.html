@@ -19,8 +19,10 @@
     <textarea rows=3 placeholder="Написать комментарий..." class="textfield-area" [class.large]="textInputLarge"
       formControlName="body" (click)="textareaTap()"></textarea>
 
-    <button @opacityAnimation *ngIf="textInputLarge" class="btn textfield-btn"
-      (click)="sendComment()">Отправить</button>
+    <div class="d-flex justify-content-end">
+      <button @opacityAnimation *ngIf="textInputLarge" class="btn textfield-btn"
+        (click)="sendComment()">Отправить</button>
+    </div>
 
   </div>
 

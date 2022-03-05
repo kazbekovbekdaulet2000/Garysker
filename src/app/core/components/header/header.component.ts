@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { UserModel } from '@core/models/api/user.model';
 import { ReportsService } from '@core/services/reports.service';
@@ -15,7 +16,7 @@ import { debounceTime, distinctUntilChanged, filter, map, takeUntil } from 'rxjs
   selector: 'core-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  animations: [opacityAnimation],
+  animations: [opacityAnimation, heightOutAnimation],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
@@ -25,7 +26,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   sideBar: boolean = false;
 
-  dataAvailable: boolean = false
+  dataAvailable: boolean = false;
+
+  userMenu: boolean = false;
 
   sidebar: string = '100%';
 
@@ -146,7 +149,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  navigateRoute(path: string){
+  navigateRoute(path: string) {
     this.activateMenu()
     this.router.navigate([path])
   }
@@ -167,10 +170,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dropdown = !this.dropdown
   }
 
+  triggerMenu() {
+    this.userMenu = !this.userMenu
+  }
+
   logout() {
     this.dropdown = false
     this.store.dispatch(RemoveToken)
-    if(this.main === 'profile'){
+    if (this.main === 'profile') {
       this.activateMenu()
       this.router.navigate(['/edu'])
     }

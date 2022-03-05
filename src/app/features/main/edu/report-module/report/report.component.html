@@ -9,8 +9,7 @@
     <div #body class="report-body" [innerHTML]="report.body | sanitizer"></div>
 
     <div class="report-author">
-      <img class="report-author-photo"
-        [src]="report.author.image">
+      <img class="report-author-photo" [src]="report.author.image">
       <div class="d-flex flex-column">
         <div class="report-author-name">{{report.author.surname}} {{report.author.name}}</div>
         <div class="report-author-role">Автор</div>
@@ -51,8 +50,7 @@
       <div @heightAnimation class="reply" *ngIf="replyContent">
 
         <img class="reply-sign" src="assets/icons/reply-sign.svg" draggable=false>
-        <img class="reply-image"
-          [src]="replyContent.owner.image">
+        <img class="reply-image" [src]="replyContent.owner.image">
         <div class="reply-info">
           <p class="reply-info-name">{{replyContent.owner.surname}} {{replyContent.owner.name}}</p>
           <p class="reply-info-date">{{replyContent.created_at | DateRemained}}</p>
@@ -66,14 +64,17 @@
         <textarea rows=3 placeholder="Написать комментарий..." class="textfield-area" [class.large]="textInputLarge"
           formControlName="body" (click)="textareaTap()"></textarea>
 
-        <button @opacityAnimation *ngIf="textInputLarge" class="btn textfield-btn"
-          (click)="sendComment()">Отправить</button>
+        <div class="d-flex justify-content-end">
+          <button @opacityAnimation *ngIf="textInputLarge" class="btn textfield-btn"
+            (click)="sendComment()">Отправить</button>
+        </div>
 
       </div>
 
-      <app-comment-module *ngFor="let comment of comments.results" [comment]="comment" (reply)="addReply($event)" (like)="postLike($event)">
+      <app-comment-module *ngFor="let comment of comments.results" [comment]="comment" (reply)="addReply($event)"
+        (like)="postLike($event)">
       </app-comment-module>
-      
+
       <a class="d-flex loadmore my-2 align-items-center justify-content-center cursor-pointer" *ngIf="comments.next"
         (click)="loadMore()">
         загрузить больше
@@ -87,18 +88,11 @@
 
     <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
       <img class="icon" src="assets/images/open-book.png" alt="">
-      <h3 class="mb-0">Читать</h3>
+      <h3 class="mb-0">Читать еще</h3>
     </div>
 
-    <div 
-      @opacityAnimation
-      *ngIf="reports.results.length > 0"
-      infiniteScroll 
-      [infiniteScrollDistance]="4"
-      [infiniteScrollThrottle]="50"
-      [scrollWindow]="false"
-      [horizontal]="true"
-      (scrolled)="onScroll()" 
+    <div @opacityAnimation *ngIf="reports.results.length > 0" infiniteScroll [infiniteScrollDistance]="4"
+      [infiniteScrollThrottle]="50" [scrollWindow]="false" [horizontal]="true" (scrolled)="onScroll()"
       class="d-flex align-items-center gap-2 my-4 mb-5 reading">
 
       <report-card *ngFor="let report of reports.results" (click)="navigateReport(report.id)" [report]='report'>

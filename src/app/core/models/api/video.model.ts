@@ -5,6 +5,7 @@ export interface VideoModel {
   id: number,
   title: string,
   image: string,
+  image_2: string,
   created_at: string,
   category: string,
   category_icon: string,

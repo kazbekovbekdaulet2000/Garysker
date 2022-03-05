@@ -22,6 +22,7 @@ import {
   PostReportComment,
   SaveReport
 } from './report.actions';
+import { MainState } from '../../main.state';
 
 
 interface StateModel {
@@ -81,9 +82,10 @@ export class ReportState {
 
   @Action(ListMoreReports)
   ListMoreReports({ patchState, getState }: StateContext<StateModel>) {
+    const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
     if (getState().reports.next) {
       const pageNumber = Number(getState().reports.next.split('page=')[1])
-      const params = { page: pageNumber }
+      const params = { page: pageNumber, category: categoryId ? categoryId : '' }
       this.reportService.list(params)
         .subscribe(reports => {
           const { count, results, next, previous } = reports
@@ -231,9 +233,9 @@ export class ReportState {
   }
 
   @Action(ClearReportDetail)
-  ClearReportDetail({ patchState, getState}: StateContext<StateModel>) {
+  ClearReportDetail({ patchState, getState }: StateContext<StateModel>) {
     getState().reports_related.results = []
-    patchState({ report: null, reports_related: emptyListResponse});
+    patchState({ report: null, reports_related: emptyListResponse });
   }
 
   @Action(ClearReportList)

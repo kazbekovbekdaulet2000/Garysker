@@ -12,7 +12,7 @@
     background-color: $color-border;
   }
 
-  .small{
+  .small {
     height: 180px;
   }
 
@@ -37,7 +37,7 @@
     color: #ffa800;
   }
 
-  .small-content{
+  .small-content {
     width: 164px !important;
     top: 12px !important;
     right: 30px !important;
@@ -48,6 +48,8 @@
     z-index: 4;
     top: 24px;
     right: 48px;
+    bottom: 24px;
+    // overflow: hidden;
     width: 256px;
     &-title {
       font-style: normal;
@@ -61,17 +63,23 @@
       -webkit-box-orient: vertical;
       margin: 24px 0px;
     }
-    &-text{
+    &-text {
       font-size: 12px;
-      text-overflow: ellipsis;
-      overflow-y: hidden;
-      display: -webkit-box;
       overflow: hidden;
-      -webkit-line-clamp: 5;
-      line-clamp: 5;
-      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      display: -webkit-box !important;
+      line-clamp: 3 !important;
+      -webkit-line-clamp: 3 !important;
+      -webkit-box-orient: vertical !important;
+      p {
+        margin: 0px;
+        &:not(:first-child) {
+          display: none;
+        }
+      }
     }
-    .small-text{
+    .small-text {
+      font-size: 20px;
       margin: 12px 0px !important;
     }
   }
@@ -103,6 +111,8 @@
       position: absolute;
       z-index: 4;
       top: 12px;
+      bottom: 12px;
+      overflow: hidden;
       right: 30px;
       &-title {
         font-size: 18px;
@@ -121,6 +131,8 @@
       position: absolute;
       z-index: 4;
       top: 12px;
+      bottom: 12px;
+      overflow: hidden;
       right: 30px;
       width: 164px;
       &-title {

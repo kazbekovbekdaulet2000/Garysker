@@ -31,6 +31,7 @@ import { SupportComponent } from './support/support.component';
 import { SwiperModule } from "swiper/angular";
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { EduPopularComponent } from './edu/popular/popular.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { EduPopularComponent } from './edu/popular/popular.component';
     ProductsComponent,
     ShopComponent,
     EventsComponent,
-    SupportComponent
+    SupportComponent,
+    AboutComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,9 @@ import { EduPopularComponent } from './edu/popular/popular.component';
     SwiperModule,
     InfiniteScrollModule,
     ReactiveFormsModule,
-    NgxStickySidebarModule,
+    NgxStickySidebarModule.withConfig({
+      minWidth: 257
+    }),
     NgxsModule.forFeature([MainState, ReportState, VideoState]),
     DatePipeModule,
     SanitizerPipeModule

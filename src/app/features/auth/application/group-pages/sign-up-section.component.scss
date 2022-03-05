@@ -30,7 +30,7 @@
       font-size: 12px;
       opacity: 0.6;
       margin-bottom: 8px;
-      margin-top: 16px
+      margin-top: 16px;
     }
     &-input {
       width: 100%;
@@ -43,7 +43,7 @@
       color: #ffffff60;
       transition: all 0.3s;
       margin-top: 16px;
-      &:first-child{
+      &:first-child {
         margin-top: 0px;
       }
       &:focus,
@@ -52,12 +52,12 @@
         border: 1px solid #ffa800;
       }
     }
-    &-err{
-      color: #BA2525;
+    &-err {
+      color: #ba2525;
       font-size: 12px;
       height: 6px;
     }
-    .date{
+    .date {
       margin-top: 0px;
       max-width: 145px;
     }
@@ -67,7 +67,7 @@
       padding: 8px;
       outline: none;
       border: none;
-      color: #FFFFFF50;
+      color: #ffffff50;
       font-weight: 300;
     }
     &-next {
@@ -77,7 +77,7 @@
       padding: 8px 36px;
       outline: none;
       border: none;
-      color: #FFFFFF;
+      color: #ffffff;
     }
   }
 }
@@ -101,20 +101,36 @@
     h6 {
       font-size: 16px;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #ffffff;
     }
     font-size: 13px;
     font-weight: 300;
-    color: #E0DFE1;
+    color: #e0dfe1;
   }
 }
 
-.selected{
+.selected {
   border: 1px solid #ffa800;
 }
 
 .active {
   border-color: #ffa800;
+}
+
+.form-check-input {
+  width: 25px;
+  height: 25px;
+  vertical-align: top;
+  border: 1px solid #ffa800;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-print-color-adjust: exact;
+}
+
+.politics{
+  flex: 1
 }
 
 @media screen and (max-width: 1240px) {

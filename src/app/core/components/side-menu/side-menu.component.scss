@@ -11,6 +11,9 @@
     font-weight: 600;
     font-size: 14px;
     .section {
+      &:first-child {
+        margin-top: 96px;
+      }
       display: flex;
       flex-direction: row;
       align-items: center;

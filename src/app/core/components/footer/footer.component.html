@@ -4,7 +4,7 @@
 
     <div class="content-info">
       <div class="content-info-item">
-        <a class="main">Продукты</a>
+        <a class="main">Проекты</a>
         <a routerLink="/edu">Образование</a>
         <a routerLink="/products">Проекты</a>
         <a routerLink="/shop">Магазин</a>
@@ -12,8 +12,8 @@
       </div>
       <div class="content-info-item">
         <a class="main">О нас</a>
-        <a routerLink="/about">О garyshker</a>
-        <a routerLink="/about">Партнеры</a>
+        <a routerLink="/about" [fragment]="'us'">О garyshker</a>
+        <a routerLink="/about" [fragment]="'partners'">Партнеры</a>
         <a routerLink="/questions">FAQs</a>
         <a routerLink="about">Документация НКО</a>
       </div>

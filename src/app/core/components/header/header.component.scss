@@ -1,7 +1,10 @@
 @import "variables";
 
 nav {
+  position: fixed;
+  width: 100%;
   height: 64px;
+  z-index: 100;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -240,9 +243,13 @@ nav {
       object-fit: cover;
     }
     &-link {
-      text-decoration: underline;
-      color: #ffa800;
+      color: #fff;
       font-size: 12px;
+      padding: 8px 12px;
+      background-color: #b67906;
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: 14px;
     }
   }
   &-section {
@@ -258,13 +265,13 @@ nav {
       background-color: #ffffff10;
     }
   }
-  &-support{
+  &-support {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 64px;
     margin-bottom: 24px;
-    .btn{
+    .btn {
       background-color: #b67906;
       border-radius: 12px;
       padding: 16px 24px;
@@ -280,12 +287,19 @@ nav {
     background-color: #33323e;
   }
   &-section-text {
-    margin-top: 40px;
-    margin-bottom: 16px;
-    opacity: 0.5;
+    margin-top: 24px;
+    margin-bottom: 12px;
     font-size: 14px;
-    font-weight: 700;
-    color: #808191;
+    font-weight: 500;
+    color: #ffa800;
+    &-icon {
+      transition: 0.3s ease-in-out;
+      filter: brightness(0) saturate(100%) invert(72%) sepia(28%) saturate(5948%) hue-rotate(360deg) brightness(106%)
+        contrast(103%);
+    }
+    .expanded {
+      transform: rotate(180deg);
+    }
   }
 }
 

@@ -8,6 +8,6 @@ export const expandAnimation = trigger('expandAnimation', [
     opacity: '0',
     height: '0px',
   })),
-  transition('in => out', animate('300ms ease-in-out')),
-  transition('out => in', animate('300ms ease-in-out'))
+  transition('in => out', animate('200ms ease-in-out')),
+  transition('out => in', animate('200ms ease-in-out'))
 ])

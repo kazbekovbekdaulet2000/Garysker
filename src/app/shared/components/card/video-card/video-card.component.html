@@ -1,17 +1,19 @@
 <div class="video-card cursor-pointer">
 
   <div class="logo"> G.</div>
-  <img class="back" [class.small]="small" [src]="video.image" draggable="false">
+  <img class="back" [class.small]="small" [src]="video.image_2 ? video.image_2 : video.image" draggable="false">
   <div class="content" [class.small-content]="small">
 
-    <div class="d-flex flex-row align-items-center gap-1 category">
+    <div class="d-flex flex-row align-items-center gap-1 category" 
+      [style.margin-right]="small ? '18px' : '0px'"
+      [style.font-size]="small ? '12px' : '14px'">
       <img class="category-icon" [src]="video.category_icon">
       {{video.category}}
     </div>
 
     <h5 class="content-title" [class.small-text]="small">{{video.title}}</h5>
 
-    <div class="content-text" [innerHTML]="video.body"></div>
+    <div class="content-text" [innerHTML]="video.body | sanitizer"></div>
 
   </div>
 

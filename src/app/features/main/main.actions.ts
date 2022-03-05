@@ -19,5 +19,5 @@ export class ChangeCategory {
   static readonly type = '[Main] ChangeCategory';
   constructor(
     public id: number
-  ){}
+  ) { }
 }

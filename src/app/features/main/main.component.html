@@ -1,10 +1,11 @@
 <div class="wrapper">
 
-  <div class="sidebar">
-    <core-sidemenu 
-      stickySidebar
-      [updateSticky]="updateSticky"
-    ></core-sidemenu>
+  <div class="sidebar"
+      stickySidebar 
+      innerWrapperSelector=".sidebar__inner">
+      <div class="sidebar__inner">
+        <core-sidemenu></core-sidemenu>
+      </div>
   </div>
 
   <div class="main">

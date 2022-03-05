@@ -108,7 +108,7 @@ export const SignUpPageFour: StageModel = {
   name: 'Данные для входа',
   small_text: 'пройти и зарегистрироваться',
   title: "Данные для входа",
-  label: "пройти и зарегистрироваться",
+  label: "внимательно заполните формы ниже для завершения регистрации",
   icon: "assets/icons/message.svg",
   config: [
     {

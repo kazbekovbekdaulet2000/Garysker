@@ -25,23 +25,29 @@ export class EduPopularComponent {
 
   resizeObservable$!: Observable<Event>
   resizeSubscription$!: Subscription
-  cellCount: number = window.innerWidth > 640 ? 2 : 1;
-
+  cellCount: number = window.innerWidth > 1000 ? 2 : (window.innerWidth > 640 ? 1.5 : 1.075);
+  spaceBetween: number = window.innerWidth > 1000 ? 24 : (window.innerWidth > 640 ? 16 : 12);
   constructor(
     private router: Router
   ) {
     this.resizeObservable$ = fromEvent(window, 'resize')
 
     this.resizeSubscription$ = this.resizeObservable$.subscribe((evt: any) => {
+      if (Number(evt.target?.innerWidth) < 1000 && Number(evt.target?.innerWidth) >= 640) {
+        this.cellCount = 1.5
+        this.spaceBetween = 16
+        return
+      }
       if (Number(evt.target?.innerWidth) < 640) {
-        this.cellCount = 1
+        this.cellCount = 1.075
+        this.spaceBetween = 12
         return
       }
       this.cellCount = 2
+      this.spaceBetween = 24
     })
 
     this.config = {
-      spaceBetween: 24,
       loop: true,
       loopedSlides: 10,
       initialSlide: 1,

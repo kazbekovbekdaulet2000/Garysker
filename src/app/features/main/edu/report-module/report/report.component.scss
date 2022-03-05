@@ -13,52 +13,34 @@
   padding: 24px 0px;
   margin-bottom: 40px;
   padding-bottom: 48px;
+  padding-left: 80px;
+  padding-right: 80px;
   margin-right: 16px;
   &-header {
     font-size: 32px;
-    margin: 0px 80px;
     margin-bottom: 24px;
   }
   &-body {
     font-family: Roboto, sans-serif;
     position: relative;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     img {
       width: 100%;
-      max-height: 80vh;
-      object-fit: cover;
-    }
-    p {
-      margin: 0px 80px;
-      margin-bottom: 12px;
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 27px;
-      letter-spacing: 0em;
-      text-align: left;
-      overflow-x: scroll;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      margin: 24px 80px;
-      overflow-x: scroll;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-      &::-webkit-scrollbar {
-        display: none;
-      }
+      max-height: 90vh;
+      object-fit:contain;
     }
   }
   &-stat {
-    margin: 0px 80px;
     margin-top: 24px;
     display: flex;
     flex-direction: row;
@@ -72,7 +54,6 @@
     }
   }
   &-author {
-    margin: 0px 80px;
     margin-top: 24px;
     display: flex;
     flex-direction: row;
@@ -93,7 +74,6 @@
     }
   }
   &-views {
-    margin: 0px 80px;
     margin-top: 16px;
     opacity: 0.7;
   }
@@ -111,7 +91,6 @@
     margin-bottom: 24px;
   }
   .textfield {
-    position: relative;
     height: max-content;
     &-area {
       width: 100%;
@@ -126,12 +105,10 @@
       transition: 0.3s all;
     }
     .large {
-      height: 145px;
+      height: max-content;
       border: 1px solid $color-orange;
     }
     &-btn {
-      z-index: 99;
-      position: absolute;
       background-color: rgba(255, 168, 0, 0.71);
       color: white;
       bottom: 14px;
@@ -202,6 +179,18 @@
   }
 }
 
+@media screen and (min-width: 1441px) {
+  .report {
+    margin: 0px auto;
+    margin-bottom: 40px;
+  }
+
+  .comment-holder {
+    margin: 0px auto;
+    margin-bottom: 40px;
+  }
+}
+
 @media screen and (max-width: 786px) {
   .report-holder {
     padding: 0px 16px;
@@ -216,9 +205,10 @@
     margin-right: 0px;
     margin-bottom: 24px;
     padding-top: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
     &-header {
       font-size: 20px;
-      margin: 0px 20px;
       margin-bottom: 20px;
     }
     &-body {
@@ -229,28 +219,16 @@
       p {
         font-size: 16px;
         font-size: 400;
-        margin: 0px 20px;
         margin-bottom: 12px;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        margin: 12px 20px;
       }
     }
     &-stat {
-      margin: 0px 20px;
       margin-top: 24px;
     }
     &-author {
-      margin: 0px 20px;
       margin-top: 24px;
     }
     &-views {
-      margin: 0px 20px;
       margin-top: 16px;
     }
   }

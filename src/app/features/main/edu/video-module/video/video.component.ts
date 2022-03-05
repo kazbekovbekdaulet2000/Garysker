@@ -4,17 +4,17 @@ import { ListResponseModel } from '@core/models/api/list.model';
 import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { ClearVideoComments, ClearVideoDetail, ClearVideoList, GetVideo, ListMoreVideos, ListRelatedVideos, ListVideoComments } from '../video.actions';
+import { ClearRelatedVideoList, ClearVideoComments, ClearVideoDetail, ClearVideoList, GetVideo, ListMoreVideos, ListRelatedVideos, ListVideoComments } from '../video.actions';
 import { VideoState } from '../video.state';
 
 @Component({
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss']
 })
-export class VideoComponent implements OnInit, OnDestroy {
+export class VideoComponent implements OnDestroy {
 
   @Select(VideoState.video) video$!: Observable<VideoDetailModel>
-  @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>
+  @Select(VideoState.related_videos) videos$!: Observable<ListResponseModel<VideoModel>>
 
   @ViewChild('plyr') plyr!: ElementRef;
   videoId: number = NaN;
@@ -30,13 +30,9 @@ export class VideoComponent implements OnInit, OnDestroy {
       this.store.dispatch(new ListVideoComments(id))
     })
   }
-  
-  ngOnInit(): void {
-    
-  }
 
   ngOnDestroy(): void {
-    this.store.dispatch([ClearVideoDetail, ClearVideoList, ClearVideoComments])
+    this.store.dispatch([ClearVideoDetail, ClearRelatedVideoList, ClearVideoComments])
   }
 
   navigateVideo(id: number) {

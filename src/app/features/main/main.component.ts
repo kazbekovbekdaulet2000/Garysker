@@ -10,7 +10,7 @@ export class MainComponent {
   updateSticky: Subject<boolean> = new Subject();
 
   constructor() { }
-  
+
   updateMethod() {
     this.updateSticky.next(true);
   }

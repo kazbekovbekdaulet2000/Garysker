@@ -1,16 +1,16 @@
 <div @opacityAnimation class="body">
 
   <div class="d-flex flex-column body-header">
-    <h1 class="body-header-name">Образование</h1>
-    <p class="body-header-text mb-2 mr-4">Наше основное направление, где любой желающий может бесплатно изучать,
-      смотреть и читать
-      материалы
-      в
-      интересном формате по нашим темам для саморазвития. </p>
+    <div (click)="onShow()" class="d-flex cursor-pointer gap-2 body-header-name">
+      <h1>Образование</h1>
+      <img [class.expanded]="show_info" src="assets/icons/down.svg">
+    </div>
+    <p @heightAnimation *ngIf="show_info" class="body-header-text mb-0 mr-4">Направление, открывающее возможность
+      бесплатно изучать, смотреть и читать материалы в свежем формате. </p>
   </div>
 
 
-  <div *ngIf="categories$ | async as categories" class="d-flex align-items-center gap-2 my-4 categories">
+  <div *ngIf="categories$ | async as categories" class="d-flex align-items-center gap-2 mt-4 categories">
 
     <div class="d-flex align-items-center categories-item" (click)="removeRouteCategory()"
       [class.active]="!!!(selectedCategory$ | async)">
@@ -50,7 +50,7 @@
   </ng-container>
 
   <ng-container *ngIf="videos$ | async as videos">
-    
+
     <div @heightAnimation *ngIf="videos.results.length > 0">
 
       <div class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
@@ -60,8 +60,7 @@
 
       <div *ngIf="videos.results.length > 0" class="videos">
 
-        <app-video-card *ngFor="let video of videos.results" [routerLink]="['videos', video.id]"
-          [video]='video'>
+        <app-video-card *ngFor="let video of videos.results" [routerLink]="['videos', video.id]" [video]='video'>
         </app-video-card>
 
       </div>
@@ -75,7 +74,7 @@
       <div *ngIf="!videos.next" class="mb-5"></div>
 
     </div>
-    
+
   </ng-container>
 
 </div>

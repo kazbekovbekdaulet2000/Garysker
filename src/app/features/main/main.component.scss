@@ -10,13 +10,15 @@
   .sidebar {
     width: $sidemenu-width;
     transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    margin-bottom: 64px;
+    // margin-top: 96px;
   }
 
   .main {
     flex: 1;
     overflow-x: hidden;
-    margin-top: 32px;
+    // overflow: visible;
+    // overflow-y: visible;
+    margin-top: 96px;
 
     &.light {
       background-color: #fff;
@@ -33,6 +35,8 @@
     display: none;
   }
   .main {
+    overflow: visible;
     margin: 0px;
+    margin-top: 64px;
   }
 }

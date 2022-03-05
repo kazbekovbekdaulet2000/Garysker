@@ -109,6 +109,7 @@ export class RequestInterceptor implements HttpInterceptor {
         }),
         catchError(error => {
           this.refreshTokenInProgress = false;
+          this.store.dispatch(RemoveToken);
           return throwError(error);
         }));
     }

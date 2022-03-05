@@ -77,3 +77,7 @@ export class ClearVideoDetail {
 export class ClearVideoList {
   static readonly type = '[Video] ClearVideoList';
 }
+
+export class ClearRelatedVideoList{
+  static readonly type = '[Video] ClearRelatedVideoList';
+}

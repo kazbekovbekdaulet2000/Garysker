@@ -27,8 +27,11 @@
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 768px) {
   .no-content {
     margin: 32px 32px;
+    &-text {
+      font-size: 18px;
+    }
   }
 }

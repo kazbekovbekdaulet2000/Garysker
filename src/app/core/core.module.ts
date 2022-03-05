@@ -18,6 +18,7 @@ import { ModalModule } from 'ngx-bootstrap/modal'
 import { PlyrModule } from 'ngx-plyr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlyrVideoPlayerModule } from '../shared/components/videoplayer/videoplayer.module';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -58,8 +59,7 @@ export class CoreModule {
           useClass: LoaderInterceptor,
           multi: true
         },
-        // AuthGuard,
-        // RedirectGuard,
+        AuthGuard,
       ]
     };
   }

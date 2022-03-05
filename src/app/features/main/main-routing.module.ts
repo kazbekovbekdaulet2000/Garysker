@@ -46,10 +46,6 @@ const routes: Routes = [
         loadChildren: () => VideoModuleModule,
       },
       {
-        path: 'questions',
-        component: QuestionsComponent
-      },
-      {
         path: 'products',
         component: ProductsComponent
       },
@@ -68,7 +64,11 @@ const routes: Routes = [
       {
         path: 'support',
         component: SupportComponent
-      }
+      },
+      {
+        path: 'questions',
+        component: QuestionsComponent
+      },
     ]
   },
 ];

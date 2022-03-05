@@ -39,7 +39,7 @@ export class EduComponent implements OnDestroy {
   @ViewChild('swiper', { static: false }) swiper: any;
 
   config!: SwiperOptions;
-
+  show_info: boolean = false;
   resizeObservable$!: Observable<Event>;
   resizeSubscription$!: Subscription;
   popular$!: Observable<any[]>;
@@ -64,19 +64,20 @@ export class EduComponent implements OnDestroy {
     })
 
     const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
-    this.updateContent(categoryId)
+    this.store.dispatch(new ChangeCategory(categoryId))
 
     this.popular$ = combineLatest([this.reports$, this.videos$])
       .pipe(
         filter(list => {
           return list.reduce((prev: boolean, curr: any) => {
-            return prev && curr.count > 0
+            return prev && curr.results.length > 0
           }, true)
         }),
         map(list => {
           const new_list = list.reduce((prev: any, curr: any) => {
             return [...prev, ...curr.results]
           }, [])
+          new_list.sort((a, b) => (a.views < b.views) ? 1 : ((b.views < a.views) ? -1 : 0))
           return new_list
         })
       )
@@ -86,7 +87,7 @@ export class EduComponent implements OnDestroy {
         spaceBetween: 24,
         loop: true,
         loopedSlides: data?.length,
-        initialSlide: 1,
+        initialSlide: 0,
         observer: true,
         autoplay: {
           delay: 5000
@@ -111,7 +112,7 @@ export class EduComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(ClearReportList)
-    this.store.dispatch(ClearVideoList)
+    // this.store.dispatch(ClearVideoList)
   }
 
   onNavigate(item: any) {
@@ -126,6 +127,10 @@ export class EduComponent implements OnDestroy {
     this.updateContent(NaN)
   }
 
+  onShow() {
+    this.show_info = !this.show_info
+  }
+
   updateContent(id: number) {
     this.store.dispatch(ClearReportList)
     this.store.dispatch(ClearVideoList)
@@ -133,13 +138,18 @@ export class EduComponent implements OnDestroy {
     const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
     if (categoryId !== id) {
       this.store.dispatch(new ChangeCategory(id))
-    }else{
+    } else {
       this.store.dispatch(new ChangeCategory(NaN))
     }
   }
 
   loadVideo(next: string) {
+    const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
     const pageNumber = Number(next.split('page=')[1])
-    this.store.dispatch(new ListMoreVideos({ page: pageNumber }))
+    let params = { page: pageNumber }
+    if (categoryId) {
+      params = { ...params, ...{ category: categoryId } }
+    }
+    this.store.dispatch(new ListMoreVideos(params))
   }
 }

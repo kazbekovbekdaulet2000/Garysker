@@ -9,7 +9,6 @@ import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from '@core/components/header/header.component';
 import { NotFoundComponent } from './features/notfound/notfound.component';
-import { AboutComponent } from './features/main/about/about.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
@@ -21,7 +20,6 @@ registerLocaleData(localeRu, 'ru');
     AppComponent,
     HeaderComponent,
     NotFoundComponent,
-    AboutComponent
   ],
   imports: [
     BrowserModule,
