@@ -1,7 +1,9 @@
 <div *ngIf="video$ | async as video" class="video-holder">
   
   <div class="content">
-    <app-plyr-player [entity]="video" #plyr></app-plyr-player>
+    <app-plyr-player 
+      [entity]="video" #plyr
+    ></app-plyr-player>
     <app-video-details [entity]="video"></app-video-details>
     <app-video-comments [entity]="video"></app-video-comments>
   </div>

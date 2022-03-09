@@ -22,8 +22,8 @@ export class GetReport {
   constructor(public id: number) { }
 }
 
-export class GetRelatedReports {
-  static readonly type = '[Report] GetRelatedReports';
+export class ListRelatedReports {
+  static readonly type = '[Report] ListRelatedReports';
   constructor(
     public id: number,
     public params: any

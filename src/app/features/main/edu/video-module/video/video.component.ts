@@ -1,9 +1,11 @@
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { PlyrVideoPlayerComponent } from 'src/app/shared/components/videoplayer/videoplayer.component';
 import { ClearRelatedVideoList, ClearVideoComments, ClearVideoDetail, ClearVideoList, GetVideo, ListMoreVideos, ListRelatedVideos, ListVideoComments } from '../video.actions';
 import { VideoState } from '../video.state';
 
@@ -16,13 +18,19 @@ export class VideoComponent implements OnDestroy {
   @Select(VideoState.video) video$!: Observable<VideoDetailModel>
   @Select(VideoState.related_videos) videos$!: Observable<ListResponseModel<VideoModel>>
 
-  @ViewChild('plyr') plyr!: ElementRef;
+  @ViewChild('plyr') plyr!: PlyrVideoPlayerComponent;
   videoId: number = NaN;
+
   constructor(
     private store: Store,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(()=>{
+      this.ngOnDestroy()
+    })
     this.activatedRoute.params.subscribe(({ id }) => {
       this.videoId = id
       this.store.dispatch(new GetVideo(id))

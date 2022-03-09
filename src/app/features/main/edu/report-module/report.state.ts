@@ -9,7 +9,7 @@ import getComment from '../getComment';
 import {
   ClearReportDetail,
   ClearReportList,
-  GetRelatedReports,
+  ListRelatedReports,
   GetReport,
   LikeReport,
   LikeReportComment,
@@ -27,14 +27,14 @@ import { MainState } from '../../main.state';
 
 interface StateModel {
   reports: ListResponseModel<ReportModel>;
-  reports_related: ListResponseModel<ReportModel>;
+  relatedReports: ListResponseModel<ReportModel>;
   report: ReportDetailModel | null;
   comments: ListResponseModel<CommentModel>;
 }
 
 const defaults = {
   reports: emptyListResponse,
-  reports_related: emptyListResponse,
+  relatedReports: emptyListResponse,
   report: null,
   comments: emptyListResponse,
 };
@@ -47,23 +47,23 @@ const defaults = {
 export class ReportState {
 
   @Selector()
-  static reports({ reports }: StateModel): ListResponseModel<ReportModel> {
-    return reports;
+  static reports(state: StateModel): ListResponseModel<ReportModel> {
+    return state.reports;
   }
 
   @Selector()
-  static reports_related({ reports_related }: StateModel): ListResponseModel<ReportModel> {
-    return reports_related;
+  static relatedReports(state: StateModel): ListResponseModel<ReportModel> {
+    return state.relatedReports;
   }
 
   @Selector()
-  static report({ report }: StateModel): ReportDetailModel | null {
-    return report;
+  static report(state: StateModel): ReportDetailModel | null {
+    return state.report;
   }
 
   @Selector()
-  static comments({ comments }: StateModel): ListResponseModel<CommentModel> {
-    return comments;
+  static comments(state: StateModel): ListResponseModel<CommentModel> {
+    return state.comments;
   }
 
   constructor(
@@ -75,7 +75,8 @@ export class ReportState {
   @Action(ListReports)
   ListReports({ patchState }: StateContext<StateModel>, { params }: ListReports) {
     this.reportService.list(params)
-      .subscribe(reports => {
+      .toPromise()
+      .then(reports => {
         patchState({ reports });
       })
   }
@@ -87,7 +88,8 @@ export class ReportState {
       const pageNumber = Number(getState().reports.next.split('page=')[1])
       const params = { page: pageNumber, category: categoryId ? categoryId : '' }
       this.reportService.list(params)
-        .subscribe(reports => {
+        .toPromise()
+        .then(reports => {
           const { count, results, next, previous } = reports
           const newReports = getState().reports
           newReports.count = count
@@ -102,7 +104,8 @@ export class ReportState {
   @Action(ListSavedReports)
   ListSavedReports({ patchState }: StateContext<StateModel>) {
     this.reportService.listSaved()
-      .subscribe(reports => {
+      .toPromise()
+      .then(reports => {
         patchState({ reports });
       })
   }
@@ -113,7 +116,8 @@ export class ReportState {
       const pageNumber = Number(getState().reports.next.split('page=')[1])
       const params = { page: pageNumber }
       this.reportService.listSaved(params)
-        .subscribe(reports => {
+        .toPromise()
+        .then(reports => {
           const { count, results, next, previous } = reports
           const newReports = getState().reports
           newReports.count = count
@@ -124,32 +128,35 @@ export class ReportState {
         })
     }
   }
+
   @Action(GetReport)
-  GetReport({ patchState }: StateContext<StateModel>, { id }: GetReport) {
+  GetReport({ getState, patchState, setState }: StateContext<StateModel>, { id }: GetReport) {
     this.reportService.get(id)
       .toPromise()
       .then(report => {
-        patchState({ report });
+        setState({ ...getState(), report: report });
       })
   }
 
-  @Action(GetRelatedReports)
-  GetRelatedReports({ patchState, getState }: StateContext<StateModel>, { id, params }: GetRelatedReports) {
+  @Action(ListRelatedReports)
+  ListRelatedReports({ patchState, setState, getState }: StateContext<StateModel>, { id, params }: ListRelatedReports) {
+    patchState({reports: emptyListResponse})
     this.reportService.getRelated(id, params)
-      .subscribe(reports_related => {
-        const list = getState().reports_related
-        list.count = reports_related.count
-        list.next = reports_related.next
-        list.previous = reports_related.previous
-        list.results = [...list.results, ...reports_related.results]
-        return patchState({ reports_related: list })
+      .toPromise()
+      .then(relatedReports => {
+        const list = getState().relatedReports
+        list.count = relatedReports.count
+        list.next = relatedReports.next
+        list.previous = relatedReports.previous
+        list.results = [...list.results, ...relatedReports.results]
+        setState({ ...getState(), relatedReports: list })
       })
   }
 
   @Action(LikeReport)
   LikeReport({ getState, patchState }: StateContext<StateModel>, { id }: LikeReport) {
     this.reportService.like(id)
-      .subscribe(ans => {
+      .toPromise().then(ans => {
         let newRep = getState().report
         newRep!.liked = ans?.liked
         if (newRep!.liked) {
@@ -164,7 +171,7 @@ export class ReportState {
   @Action(SaveReport)
   SaveReport({ getState, patchState }: StateContext<StateModel>, { id }: SaveReport) {
     this.reportService.save(id)
-      .subscribe(ans => {
+      .toPromise().then(ans => {
         let newRep = getState().report
         newRep!.bookmarked = ans?.bookmarked
         if (newRep!.bookmarked) {
@@ -177,11 +184,11 @@ export class ReportState {
   }
 
   @Action(ListReportComments)
-  ListReportComments({ patchState }: StateContext<StateModel>, { id }: ListReportComments) {
+  ListReportComments({ patchState, setState, getState }: StateContext<StateModel>, { id }: ListReportComments) {
     this.reportService.listComments(id)
       .toPromise()
       .then(comments => {
-        patchState({ comments })
+        setState({ ...getState(), comments: comments })
       })
   }
 
@@ -192,7 +199,8 @@ export class ReportState {
     if (page) {
       const params = { page }
       this.reportService.listComments(id, params)
-        .subscribe(comments => {
+        .toPromise()
+        .then(comments => {
           const list = getState().comments.results
           getState().comments.next = comments.next
           getState().comments.previous = comments.previous
@@ -204,7 +212,7 @@ export class ReportState {
   @Action(PostReportComment)
   PostReportComment({ getState, patchState }: StateContext<StateModel>, { id, payload }: PostReportComment) {
     this.reportService.postComment(id!, payload)
-      .subscribe(comment => {
+      .toPromise().then(comment => {
         getState().report!.comments_count += 1
         if (comment.reply) {
           getState().comments.results.map(item => iterateComments(item, comment))
@@ -218,7 +226,7 @@ export class ReportState {
   @Action(LikeReportComment)
   LikeReportComment({ getState, patchState }: StateContext<StateModel>, { reportId, commentId }: LikeReportComment) {
     this.reportService.likeComment(reportId, commentId)
-      .subscribe(({ liked }) => {
+      .toPromise().then(({ liked }) => {
         const comment = getComment(getState().comments.results, commentId)
         if (!comment) {
           return
@@ -234,8 +242,7 @@ export class ReportState {
 
   @Action(ClearReportDetail)
   ClearReportDetail({ patchState, getState }: StateContext<StateModel>) {
-    getState().reports_related.results = []
-    patchState({ report: null, reports_related: emptyListResponse });
+    patchState({ report: null, relatedReports: emptyListResponse });
   }
 
   @Action(ClearReportList)

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
 import { LinkShareModalComponent } from 'src/app/shared/modals/share-modal/share-modal.component';
-import { ClearReportDetail, ClearReportList, GetRelatedReports, GetReport, LikeReport, LikeReportComment, ListMoreReportComments, ListMoreReports, ListReportComments, PostReportComment, SaveReport } from '../report.actions';
+import { ClearReportDetail, ClearReportList, ListRelatedReports, GetReport, LikeReport, LikeReportComment, ListMoreReportComments, ListMoreReports, ListReportComments, PostReportComment, SaveReport } from '../report.actions';
 import { ReportState } from '../report.state';
 
 @Component({
@@ -27,7 +27,7 @@ export class ReportComponent implements OnDestroy {
   @Select(AuthState.access) access$!: Observable<string>;
   @Select(ReportState.report) report$!: Observable<ReportDetailModel>;
   @Select(ReportState.comments) comments$!: Observable<ListResponseModel<CommentModel>>;
-  @Select(ReportState.reports_related) reports$!: Observable<ListResponseModel<ReportModel>>;
+  @Select(ReportState.relatedReports) reports$!: Observable<ListResponseModel<ReportModel>>;
 
   @ViewChild('body') body!: ElementRef<any>
 
@@ -39,6 +39,7 @@ export class ReportComponent implements OnDestroy {
   textInputLarge: boolean = false;
 
   page: number = 1;
+
   constructor(
     private store: Store,
     private activatedRoute: ActivatedRoute,
@@ -48,16 +49,18 @@ export class ReportComponent implements OnDestroy {
   ) {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.reportId = id
-      this.store.dispatch(new GetReport(id))
-      this.store.dispatch(new ListReportComments(id))
-      this.store.dispatch(new GetRelatedReports(id, { page: this.page }))
+
+      this.store.dispatch([
+        new GetReport(id),
+        new ListReportComments(id),
+        new ListRelatedReports(id, { page: this.page })
+      ])
 
       this.formGroup = this.formBuilder.group({
         body: [null, Validators.required],
         reply: [null],
         report: [id, Validators.required]
       })
-
     })
   }
 
@@ -69,7 +72,7 @@ export class ReportComponent implements OnDestroy {
     this.reports$.subscribe(data => {
       if (data.next) {
         const page = data.next.split('page=')[1]
-        this.store.dispatch(new GetRelatedReports(this.reportId, { page: page }))
+        this.store.dispatch(new ListRelatedReports(this.reportId, { page: page }))
       }
     })
   }
@@ -138,7 +141,7 @@ export class ReportComponent implements OnDestroy {
     return `https://www.youtube.com/sharer/sharer.php?u=${window.location.href}`
   }
 
-  navigateReport(id: number){
+  navigateReport(id: number) {
     // [routerLink]="['/edu/reports', report.id]"
     this.store.dispatch(new ClearReportDetail)
     this.router.navigate(['/edu/reports', id])
@@ -149,6 +152,7 @@ export class ReportComponent implements OnDestroy {
   }
 
   textareaTap() {
+    console.log(this.store.selectSnapshot(ReportState))
     this.textInputLarge = true
   }
 }

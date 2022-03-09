@@ -66,6 +66,10 @@ h3 {
   height: 26px;
 }
 
+.report-virtual{
+  height: 234px;
+}
+
 .body {
   overflow: visible;
   position: relative;
@@ -232,5 +236,11 @@ h3 {
   .videos {
     margin-right: 0px;
     grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 484px) {
+  .report-virtual{
+    height: 174px;
   }
 }

@@ -1,6 +1,10 @@
 @import "./node_modules/swiper/swiper.scss";
 @import "variables";
 
+.popular-holder {
+  height: 370px;
+}
+
 .swiper-slide {
   -webkit-transform: translateZ(0);
   -webkit-backface-visibility: hidden;
@@ -147,6 +151,9 @@
 }
 
 @media screen and (max-width: 640px) {
+  .popular-holder {
+    height: 270px;
+  }
   .swipe {
     .navigation {
       left: -8px;

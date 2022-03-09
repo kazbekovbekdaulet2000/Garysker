@@ -3,6 +3,7 @@
 .sidemenu {
   max-width: $sidemenu-width;
   min-width: $sidemenu-width;
+  position: fixed;
   .main-menu {
     max-width: 210px;
     width: max-content;

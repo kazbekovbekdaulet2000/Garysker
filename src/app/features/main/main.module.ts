@@ -15,7 +15,6 @@ import { QuestionsComponent } from './questions/questions.component';
 import { SanitizerPipeModule } from 'src/app/shared/pipes/sanitizer/sanitizer-pipe.module';
 import { CommentModule } from 'src/app/shared/components/comment/comment.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { LinkShareModalComponent } from '../../shared/modals/share-modal/share-modal.component';
 import { LoginErrModalComponent } from '../../shared/modals/noLogin-modal /login-modal.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -64,9 +63,6 @@ import { AboutComponent } from './about/about.component';
     SwiperModule,
     InfiniteScrollModule,
     ReactiveFormsModule,
-    NgxStickySidebarModule.withConfig({
-      minWidth: 257
-    }),
     NgxsModule.forFeature([MainState, ReportState, VideoState]),
     DatePipeModule,
     SanitizerPipeModule

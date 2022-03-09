@@ -19,6 +19,8 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
   @Input() entity: VideoDetailModel | any
   @Input() link: string | any;
 
+  @Input() links: any;
+
   @Select(VideoState.video) video$!: Observable<VideoDetailModel>
 
   @ViewChild(PlyrComponent)
@@ -32,7 +34,7 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
   videoOption: Plyr.Options = {
     ratio: "16:9",
     i18n: videoI18n,
-    autoplay: false,
+    autoplay: true,
     volume: 1,
     fullscreen: {
       enabled: true,
@@ -95,7 +97,20 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
   }
 
   play(): void {
-    this.player.play();
+    if (this.player.paused)
+      this.player.play()
+    else
+      this.player.pause()
   }
 
+  // @HostListener('window:keydown', ['$event'])
+  // spaceEvent(event: any) {
+  //   if (event.ctrlKey && event.keyCode == 32) {
+  //     event.preventDefault()
+  //     this.play()
+  //   } else if (event.keyCode == 32) {
+  //     event.preventDefault()
+  //     this.play()
+  //   }
+  // }
 }
