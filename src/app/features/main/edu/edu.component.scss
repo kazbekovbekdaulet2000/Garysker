@@ -55,6 +55,7 @@
     }
   }
 }
+
 h3 {
   font-family: "Spoof", sans-serif;
   font-weight: 700;
@@ -157,6 +158,10 @@ h3 {
   margin-right: 50px;
 }
 
+.placeholderReports{
+  height: 234px;
+}
+
 @media screen and (max-width: 1200px) {
   .videos {
     margin-right: 16px;
@@ -232,5 +237,11 @@ h3 {
   .videos {
     margin-right: 0px;
     grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 484px) {
+  .placeholderReports{
+    height: 174px;
   }
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
 import { AboutComponent } from './about/about.component';
 import { DobroAboutComponent } from './dobro/about/dobro-about.component';
 import { DobroComponent } from './dobro/dobro.component';
@@ -69,6 +70,10 @@ const routes: Routes = [
         path: 'questions',
         component: QuestionsComponent
       },
+      {
+        path: 'payment',
+        component: IokaPaymentComponent
+      }
     ]
   },
 ];

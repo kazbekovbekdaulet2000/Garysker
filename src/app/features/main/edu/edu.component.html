@@ -9,7 +9,6 @@
       бесплатно изучать, смотреть и читать материалы в свежем формате. </p>
   </div>
 
-
   <div *ngIf="categories$ | async as categories" class="d-flex align-items-center gap-2 mt-4 categories">
 
     <div class="d-flex align-items-center categories-item" (click)="removeRouteCategory()"
@@ -27,31 +26,35 @@
 
   <app-popular [popular]="popular$ | async"></app-popular>
 
-  <ng-container *ngIf="reports$ | async as reports">
+  <div class="placeholderReports">
 
-    <div @heightAnimation *ngIf="reports.results.length > 0">
+    <ng-container *ngIf="reports$ | async as reports">
 
-      <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
-        <img class="icon" src="assets/images/open-book.png" alt="">
-        <h3 class="mb-0">Читать</h3>
+      <div @opacityAnimation *ngIf="reports.results.length > 0">
+
+        <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
+          <img class="icon" src="assets/images/open-book.png" alt="">
+          <h3 class="mb-0">Читать</h3>
+        </div>
+
+        <div *ngIf="reports.results.length > 0" infiniteScroll [infiniteScrollDistance]="1"
+          [infiniteScrollThrottle]="50" [scrollWindow]="false" [horizontal]="true" (scrolled)="onScroll()"
+          class="d-flex align-items-center gap-2 my-4 reading">
+
+          <report-card *ngFor="let report of reports.results" (click)="onReportRoute(report.id)" [report]='report'>
+          </report-card>
+
+        </div>
+
       </div>
 
-      <div *ngIf="reports.results.length > 0" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
-        [scrollWindow]="false" [horizontal]="true" (scrolled)="onScroll()"
-        class="d-flex align-items-center gap-2 my-4 reading">
+    </ng-container>
 
-        <report-card *ngFor="let report of reports.results" [routerLink]="['reports', report.id]" [report]='report'>
-        </report-card>
-
-      </div>
-
-    </div>
-
-  </ng-container>
+  </div>
 
   <ng-container *ngIf="videos$ | async as videos">
 
-    <div @heightAnimation *ngIf="videos.results.length > 0">
+    <div @opacityAnimation *ngIf="videos.results.length > 0">
 
       <div class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
         <img class="icon" src="assets/images/video-camera.png" alt="">
@@ -60,7 +63,7 @@
 
       <div *ngIf="videos.results.length > 0" class="videos">
 
-        <app-video-card *ngFor="let video of videos.results" [routerLink]="['videos', video.id]" [video]='video'>
+        <app-video-card *ngFor="let video of videos.results" (click)="onVideoRoute(video.id)" [video]='video'>
         </app-video-card>
 
       </div>

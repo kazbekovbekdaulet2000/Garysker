@@ -19,6 +19,8 @@ import { PlyrModule } from 'ngx-plyr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlyrVideoPlayerModule } from '../shared/components/videoplayer/videoplayer.module';
 import { AuthGuard } from './guards/auth.guard';
+import { ScrollState } from './states/scroll/scroll.state';
+import { IokaPaymentComponent } from '../shared/components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { AuthGuard } from './guards/auth.guard';
     PlyrModule,
     MatSliderModule,
     MatSidenavModule,
-    NgxsModule.forRoot([AuthState, SidebarState, LoaderState]),
+    NgxsModule.forRoot([AuthState, SidebarState, LoaderState, ScrollState]),
     NgxsStoragePluginModule.forRoot({ key: ['auth'] }),
     NgxsRouterPluginModule.forRoot(),
     ModalModule.forRoot(),

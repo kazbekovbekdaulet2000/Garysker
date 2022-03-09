@@ -6,6 +6,10 @@
   -webkit-backface-visibility: hidden;
 }
 
+.placeholderPopular{
+  height: 370px;
+}
+
 .swipe {
   position: relative;
   .mySwiper {
@@ -147,6 +151,9 @@
 }
 
 @media screen and (max-width: 640px) {
+  .placeholderPopular{
+    height: 270px;
+  }
   .swipe {
     .navigation {
       left: -8px;

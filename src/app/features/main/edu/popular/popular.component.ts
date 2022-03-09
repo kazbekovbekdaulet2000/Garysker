@@ -1,12 +1,13 @@
 import { Component, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { fromEvent, Observable, Subscription } from 'rxjs';
-import { Select } from '@ngxs/store'
+import { Select, Store } from '@ngxs/store'
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { heightAnimation } from '@core/animations/height-animation';
 import 'swiper/swiper.scss'
 import SwiperCore, { Autoplay, Navigation, Scrollbar, Mousewheel, SwiperOptions } from "swiper";
 import { MainState } from '../../main.state';
+import { UpdateTop } from '@core/states/scroll/scroll';
 
 SwiperCore.use([Autoplay, Navigation, Scrollbar, Mousewheel]);
 
@@ -20,6 +21,7 @@ SwiperCore.use([Autoplay, Navigation, Scrollbar, Mousewheel]);
 export class EduPopularComponent {
   @Input() popular: any
   @ViewChild('swiper', { static: false }) swiper: any;
+
   @Select(MainState.selectedCategory) selectedCategory$!: Observable<boolean>
   config!: SwiperOptions;
 
@@ -27,8 +29,10 @@ export class EduPopularComponent {
   resizeSubscription$!: Subscription
   cellCount: number = window.innerWidth > 1000 ? 2 : (window.innerWidth > 640 ? 1.5 : 1.075);
   spaceBetween: number = window.innerWidth > 1000 ? 24 : (window.innerWidth > 640 ? 16 : 12);
+
   constructor(
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {
     this.resizeObservable$ = fromEvent(window, 'resize')
 
@@ -70,6 +74,7 @@ export class EduPopularComponent {
   }
 
   onNavigate(item: any) {
+    this.store.dispatch(new UpdateTop(document.documentElement.scrollTop))
     if (item?.read_time) {
       this.router.navigate(['edu/reports', item?.id])
     } else {

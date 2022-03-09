@@ -13,12 +13,16 @@ import { ReportMenuComponent } from './report/menu/menu.component';
 import { ReplyModule } from 'src/app/shared/components/reply/reply.module';
 import { CardModule } from 'src/app/shared/components/card/card.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ReportRelatedComponent } from './report/related/related.component';
+import { ReportCommentsComponent } from './report/comments/comments.component';
 
 
 @NgModule({
   declarations: [
     ReportComponent,
     ReportMenuComponent,
+    ReportRelatedComponent,
+    ReportCommentsComponent
   ],
   imports: [
     CommonModule,

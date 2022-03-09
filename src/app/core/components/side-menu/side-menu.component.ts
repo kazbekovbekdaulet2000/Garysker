@@ -1,8 +1,10 @@
-import { AfterContentChecked, ChangeDetectorRef, Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { ListCategories } from '@core/states/sidebar/actions';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
 
 
 @Component({
@@ -17,6 +19,7 @@ export class SideMenuComponent {
   constructor(
     private store: Store,
     private router: Router,
+    private bsModalService: BsModalService
   ) {
     this.addNavigationListener();
     this.store.dispatch(new ListCategories())
@@ -52,7 +55,12 @@ export class SideMenuComponent {
       })
   }
 
-  navigateTelegram() {
-    // window.open('https://t.me/garyshkerchat', '_blank')
+  helpProject() {
+    this.bsModalService.show(IokaPaymentComponent,
+      {
+        animated: true,
+        class: 'modal-content-payment'
+      })
+    // this.router.navigate(['payment'])
   }
 }

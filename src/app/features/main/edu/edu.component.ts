@@ -18,6 +18,8 @@ import 'swiper/swiper.scss'
 import SwiperCore, { Autoplay, Navigation, Scrollbar, Mousewheel, SwiperOptions } from "swiper";
 import { ClearReportList, ListMoreReports } from './report-module/report.actions';
 import { filter, map } from 'rxjs/operators';
+import { UpdateTop } from '@core/states/scroll/scroll';
+import { ScrollState } from '@core/states/scroll/scroll.state';
 
 SwiperCore.use([Autoplay, Navigation, Scrollbar, Mousewheel]);
 
@@ -27,12 +29,14 @@ SwiperCore.use([Autoplay, Navigation, Scrollbar, Mousewheel]);
   animations: [opacityAnimation, heightAnimation],
   encapsulation: ViewEncapsulation.None,
 })
-export class EduComponent implements OnDestroy {
+export class EduComponent implements AfterViewInit, OnDestroy {
 
   @Select(ReportState.reports) reports$!: Observable<ListResponseModel<ReportModel>>;
   @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>;
   @Select(MainState.selectedCategory) selectedCategory$!: Observable<number>
   @Select(SidebarState.categories) categories$!: Observable<CategoryModel[]>;
+
+  @Select(ScrollState.top) top$!: Observable<number>;
 
   @ViewChildren('image') images!: QueryList<ElementRef>;
   @ViewChildren('imageHolder') imageHolder!: QueryList<ElementRef>;
@@ -98,6 +102,12 @@ export class EduComponent implements OnDestroy {
       };
     })
   }
+  ngAfterViewInit(): void {
+    this.top$.subscribe(top => {
+      window.scrollTo(0, top)
+    })
+    this.store.dispatch(new UpdateTop(0))
+  }
 
   onScroll() {
     this.store.dispatch(ListMoreReports)
@@ -112,7 +122,6 @@ export class EduComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(ClearReportList)
-    // this.store.dispatch(ClearVideoList)
   }
 
   onNavigate(item: any) {
@@ -151,5 +160,15 @@ export class EduComponent implements OnDestroy {
       params = { ...params, ...{ category: categoryId } }
     }
     this.store.dispatch(new ListMoreVideos(params))
+  }
+
+  onVideoRoute(id: number) {
+    this.store.dispatch(new UpdateTop(document.documentElement.scrollTop))
+    this.router.navigate(['edu/videos', id])
+  }
+
+  onReportRoute(id: number) {
+    this.store.dispatch(new UpdateTop(document.documentElement.scrollTop))
+    this.router.navigate(['edu/reports', id])
   }
 }

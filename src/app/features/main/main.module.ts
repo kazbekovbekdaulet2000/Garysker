@@ -32,6 +32,7 @@ import { SwiperModule } from "swiper/angular";
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { EduPopularComponent } from './edu/popular/popular.component';
 import { AboutComponent } from './about/about.component';
+import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AboutComponent } from './about/about.component';
     ShopComponent,
     EventsComponent,
     SupportComponent,
-    AboutComponent
+    AboutComponent,
+    IokaPaymentComponent
   ],
   imports: [
     CommonModule,

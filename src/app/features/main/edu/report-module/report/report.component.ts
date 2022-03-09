@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
 import { LinkShareModalComponent } from 'src/app/shared/modals/share-modal/share-modal.component';
-import { ClearReportDetail, ClearReportList, GetRelatedReports, GetReport, LikeReport, LikeReportComment, ListMoreReportComments, ListMoreReports, ListReportComments, PostReportComment, SaveReport } from '../report.actions';
+import { ClearReportDetail, GetRelatedReports, GetReport, LikeReport, LikeReportComment, ListReportComments, SaveReport } from '../report.actions';
 import { ReportState } from '../report.state';
 
 @Component({
@@ -38,19 +38,17 @@ export class ReportComponent implements OnDestroy {
 
   textInputLarge: boolean = false;
 
-  page: number = 1;
   constructor(
     private store: Store,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private bsService: BsModalService,
-    private router: Router
   ) {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.reportId = id
       this.store.dispatch(new GetReport(id))
       this.store.dispatch(new ListReportComments(id))
-      this.store.dispatch(new GetRelatedReports(id, { page: this.page }))
+      this.store.dispatch(new GetRelatedReports(id, { page: 1 }))
 
       this.formGroup = this.formBuilder.group({
         body: [null, Validators.required],
@@ -65,53 +63,8 @@ export class ReportComponent implements OnDestroy {
     this.store.dispatch(ClearReportDetail)
   }
 
-  onScroll() {
-    this.reports$.subscribe(data => {
-      if (data.next) {
-        const page = data.next.split('page=')[1]
-        this.store.dispatch(new GetRelatedReports(this.reportId, { page: page }))
-      }
-    })
-  }
-
-  sendComment() {
-    const payload = this.formGroup.getRawValue()
-    if (payload.body !== '' && payload.body !== null) {
-      this.store.dispatch(new PostReportComment(this.reportId, payload))
-      this.formGroup.patchValue({
-        body: null,
-        reply: null
-      })
-      this.replyContent = null
-    } else {
-      alert("нету коммента")
-    }
-  }
-
-  loadMore() {
-    this.store.dispatch(new ListMoreReportComments(this.reportId!))
-  }
-
-  addReply(reply: CommentModel) {
-    if (this.replyContent?.id === reply.id) {
-      this.replyContent = null
-      this.formGroup.patchValue({
-        reply: null,
-      });
-    } else {
-      this.replyContent = reply
-      this.formGroup.patchValue({
-        reply: this.replyContent.id,
-      });
-    }
-  }
-
   postLike(reply: CommentModel) {
     this.store.dispatch(new LikeReportComment(this.reportId!, reply.id))
-  }
-
-  removeReplyParent() {
-    this.replyContent = null
   }
 
   likeReport(id: number) {
@@ -134,21 +87,7 @@ export class ReportComponent implements OnDestroy {
     })
   }
 
-  get getLink() {
-    return `https://www.youtube.com/sharer/sharer.php?u=${window.location.href}`
-  }
-
-  navigateReport(id: number){
-    // [routerLink]="['/edu/reports', report.id]"
-    this.store.dispatch(new ClearReportDetail)
-    this.router.navigate(['/edu/reports', id])
-  }
-
   onShare() {
     this.bsService.show(LinkShareModalComponent, { class: 'modal-dialog-centered' })
-  }
-
-  textareaTap() {
-    this.textInputLarge = true
   }
 }

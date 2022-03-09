@@ -68,6 +68,10 @@ a {
   color: #c4bdcf;
 }
 
+iframe{
+  border-radius: 16px;
+}
+
 .modal-content {
   position: relative;
   background-color: #26212e;
@@ -77,11 +81,6 @@ a {
     font-weight: 700;
   }
 }
-
-.inner-wrapper-sticky {
-  // top: 96px !important;
-}
-
 @media screen and (max-width: 640px) {
   .modal-content {
     padding: 32px 16px;
