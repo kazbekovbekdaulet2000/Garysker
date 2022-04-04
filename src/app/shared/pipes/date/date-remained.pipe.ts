@@ -1,5 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Observable } from 'rxjs';
+import { AppState } from '@core/states/app/app.state';
+import { LangType } from '@core/types/lang.type';
+import { TranslateService } from '@ngx-translate/core';
+import { Select } from '@ngxs/store';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Interval, intervals } from './intervals';
 
 @Pipe({
   name: 'DateRemained'
@@ -7,47 +13,31 @@ import { Observable } from 'rxjs';
 export class DateRemainedPipe implements PipeTransform {
 
   constructor(
+    private translate: TranslateService
   ) {
   }
 
-  transform(date: string): string {
-    if (date) {
-      const seconds = Math.floor((+new Date() - +new Date(date)) / 1000);
+  transform(date: string): Observable<string> {
+    const seconds = Math.floor((+new Date() - +new Date(date)) / 1000);
 
-      if (seconds < 29)
-        return 'только что';
+    if (seconds < 29)
+      return this.translate.get('sections.date.now')
 
-      const intervals = [
-        { name_single: 'год', name_plural: "лет", name_plural_5: "года", value: 31536000 },
-        { name_single: 'месяц', name_plural: "месяца", name_plural_5: "месяцов", value: 2592000 },
-        { name_single: 'неделя', name_plural: "недели", name_plural_5: "недель", value: 604800 },
-        { name_single: 'день', name_plural: "дней", name_plural_5: "дня", value: 86400 },
-        { name_single: 'час', name_plural: "часов", name_plural_5: "часа", value: 3600 },
-        { name_single: 'минут', name_plural: "минуты", name_plural_5: "минут", value: 60 },
-        { name_single: 'секунд', name_plural: "секунды", name_plural_5: "секунд", value: 1 }
-      ];
-
-      const counter = intervals.map(val => {
-        let sec = Math.floor(seconds / val.value);
-        if (sec <= 1) {
-          return { indx: sec, value: `${val.name_single} назад` }
-        } else if (sec < 5) {
-          return { indx: sec, value: `${sec} ${val.name_plural_5} назад` }
-        } else {
-          return { indx: sec, value: `${sec} ${val.name_plural} назад` }
-        }
-      })
-
-      const new_date = counter.find((val) => {
-        if (val.indx !== 0) {
-          return val
-        } else {
-          return false
-        }
-      })
-
-      return new_date!.value
-    }
-    return date;
+    const timeObj = intervals.find(val => {
+      let time = Math.floor(seconds / val.value);
+      if (time !== 0) {
+        return val
+      }
+      return false
+    })
+    const time = Math.floor(seconds / timeObj!.value)
+    const prefix = time === 1 ? timeObj!.name_single : timeObj!.value >= 5 ? timeObj!.name_plural : timeObj!.name_plural_5
+    this.translate.onTranslationChange.subscribe(data => {
+      console.log(data)
+    })
+    return this.translate.get(`sections.date.${prefix}`, { time: time }).pipe(
+      map(data => {
+        return <string>data
+      }))
   }
 }

@@ -5,28 +5,28 @@
       <div class="icon">
         <img src="assets/icons/edu.svg" draggable=false>
       </div>
-      Образование
+      {{'sections.edu'| translate}}
     </div>
 
     <div class="section cursor-pointer" routerLink="/products" [class.active]="currentRoute === 'products'">
       <div class="icon">
         <img src="assets/icons/products.svg" draggable=false>
       </div>
-      Продукты
+      {{'sections.project'| translate}}
     </div>
 
     <div class="section cursor-pointer" routerLink="/shop" [class.active]="currentRoute === 'shop'">
       <div class="icon">
         <img src="assets/icons/shop.svg" draggable=false>
       </div>
-      Магазин
+      {{'sections.shop'| translate}}
     </div>
 
     <div class="section cursor-pointer" routerLink="/events" [class.active]="currentRoute === 'events'">
       <div class="icon">
         <img src="assets/icons/events.svg" draggable=false>
       </div>
-      Мероприятия
+      {{'sections.events'| translate}}
     </div>
   </div>
 
@@ -35,14 +35,14 @@
       <div class="icon">
         <img class="icon-size" src="assets/icons/home.svg">
       </div>
-      О проекте
+      {{'sections.about_g'| translate}}
     </div>
   </div>
 
   <div class="dynamic-menu visable top-margin">
 
-    <div class="d-flex justify-content-center category support cursor-pointer">
-      Поддержать проект
+    <div (click)="helpProject()" class="d-flex justify-content-center category support cursor-pointer">
+      {{'sections.help'| translate}}
     </div>
 
   </div>

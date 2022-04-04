@@ -10,13 +10,14 @@
   .sidebar {
     width: $sidemenu-width;
     transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    margin-bottom: 64px;
+    position: fixed;
   }
 
   .main {
     flex: 1;
     overflow-x: hidden;
-    margin-top: 32px;
+    margin-top: 96px;
+    margin-left: 257px;
 
     &.light {
       background-color: #fff;
@@ -27,12 +28,17 @@
 @media screen and (max-width: 768px) {
   .wrapper {
     margin: 0px;
+    .main{
+      margin-left: 0px;
+    }
   }
   .sidebar {
     width: 0px;
     display: none;
   }
   .main {
+    overflow: visible;
     margin: 0px;
+    margin-top: 64px;
   }
 }

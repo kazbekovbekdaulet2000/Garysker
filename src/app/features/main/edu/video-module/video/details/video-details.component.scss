@@ -27,6 +27,11 @@
           font-size: 12px;
           font-weight: 400;
         }
+        img{
+          width: 20px;
+          height: 20px;
+          object-fit: cover;
+        }
       }
     }
     &-category {

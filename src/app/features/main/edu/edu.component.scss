@@ -55,6 +55,7 @@
     }
   }
 }
+
 h3 {
   font-family: "Spoof", sans-serif;
   font-weight: 700;
@@ -73,13 +74,21 @@ h3 {
 
   &-header {
     margin-right: 16px;
-    margin-bottom: 24px;
     &-name {
       font-family: "Spoof", sans-serif;
       font-weight: 700;
       font-size: 48px;
       font-style: normal;
-      margin-bottom: 24px;
+      margin-bottom: 8px;
+      h1 {
+        margin-bottom: 0px;
+      }
+      img{
+        transition: 0.3s ease-in-out 0s;
+      }
+    }
+    .expanded{
+      transform: rotate(180deg);
     }
     &-text {
       max-width: 850px;
@@ -96,13 +105,14 @@ h3 {
   flex-wrap: wrap;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  margin-bottom: 48px;
   &::-webkit-scrollbar {
     display: none;
   }
   &-item {
     background-color: #1c1b29;
     border-radius: 20px;
-    padding: 8px 20px;
+    padding: 8px 12px;
     font-size: 14px;
     &-icon {
       width: 16px;
@@ -148,6 +158,10 @@ h3 {
   margin-right: 50px;
 }
 
+.placeholderReports{
+  height: 234px;
+}
+
 @media screen and (max-width: 1200px) {
   .videos {
     margin-right: 16px;
@@ -162,6 +176,16 @@ h3 {
     &-header {
       &-name {
         font-size: 36px;
+        margin-bottom: 8px;
+        h1 {
+          margin-bottom: 0px;
+        }
+        img{
+          transition: 0.3s ease-in-out 0s;
+        }
+      }
+      .expanded{
+        transform: rotate(180deg);
       }
     }
   }
@@ -213,5 +237,11 @@ h3 {
   .videos {
     margin-right: 0px;
     grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 484px) {
+  .placeholderReports{
+    height: 174px;
   }
 }

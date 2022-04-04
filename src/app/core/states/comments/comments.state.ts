@@ -38,7 +38,6 @@ export class CommentsState {
   ListComments({ patchState }: StateContext<StateModel>, { id, page, type }: ListComments) {
     this.commentService.listComments(id, type)
       .subscribe(comments => {
-        console.log(comments)
         patchState({ comments });
       })
   }

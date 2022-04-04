@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { expandAnimation } from '@core/animations/expand-animation';
+import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { QuestionModel } from '@core/models/api/question.model';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -10,7 +11,7 @@ import { MainState } from '../main.state';
   selector: 'app-questions',
   templateUrl: './questions.component.html',
   styleUrls: ['./questions.component.scss'],
-  animations: [expandAnimation]
+  animations: [expandAnimation, heightOutAnimation]
 })
 export class QuestionsComponent {
 
@@ -32,6 +33,5 @@ export class QuestionsComponent {
     } else {
       this.selected.push(id)
     }
-    // this.selected = this.selected === id ? null : id;
   }
 }

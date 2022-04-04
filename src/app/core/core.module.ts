@@ -18,6 +18,12 @@ import { ModalModule } from 'ngx-bootstrap/modal'
 import { PlyrModule } from 'ngx-plyr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlyrVideoPlayerModule } from '../shared/components/videoplayer/videoplayer.module';
+import { AuthGuard } from './guards/auth.guard';
+import { ScrollState } from './states/scroll/scroll.state';
+import { IokaPaymentComponent } from '../shared/components/payment/payment.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { AppState } from './states/app/app.state';
+import { LangPipeModule } from '../shared/pipes/lang/lang-pipe.module';
 
 @NgModule({
   declarations: [
@@ -37,10 +43,14 @@ import { PlyrVideoPlayerModule } from '../shared/components/videoplayer/videopla
     PlyrModule,
     MatSliderModule,
     MatSidenavModule,
-    NgxsModule.forRoot([AuthState, SidebarState, LoaderState]),
-    NgxsStoragePluginModule.forRoot({ key: ['auth'] }),
+    NgxsModule.forRoot([AppState, AuthState, SidebarState, LoaderState, ScrollState]),
+    NgxsStoragePluginModule.forRoot({ key: ['auth', 'app'] }),
     NgxsRouterPluginModule.forRoot(),
     ModalModule.forRoot(),
+    LangPipeModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'ru'
+    }),
   ],
 })
 export class CoreModule {
@@ -58,8 +68,7 @@ export class CoreModule {
           useClass: LoaderInterceptor,
           multi: true
         },
-        // AuthGuard,
-        // RedirectGuard,
+        AuthGuard,
       ]
     };
   }

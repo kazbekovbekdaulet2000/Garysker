@@ -4,13 +4,38 @@
 
     <app-report-menu [report]="report"></app-report-menu>
 
-    <h1 class="report-header"> {{report.title}}</h1>
+    <h1 class="report-header"> {{report | lang: 'title' | async}}</h1>
 
-    <div #body class="report-body" [innerHTML]="report.body | sanitizer"></div>
+    <div class="report-body">
+      <span class="mb-0" style="white-space: pre-line;">
+        {{report | lang: 'preview_text' | async}}
+      </span>
+    </div>
+
+    <div class="report-stat mb-4">
+
+      <div>
+        <img src="assets/icons/comment.svg" alt="">
+        {{report.comments_count}}
+      </div>
+
+      <img class="cursor-pointer" (click)="onSave(report.id)"
+        [src]="report.bookmarked ? 'assets/icons/saved_new.svg' : 'assets/icons/save_new.svg'" alt="">
+
+      <img class="cursor-pointer" (click)="onShare()" src="assets/icons/new_share.svg" alt="">
+
+      <div class="report-stat-views cursor-pointer" (click)="likeReport(report.id)">
+        <img [src]="report.liked ? 'assets/icons/liked_new.svg' : 'assets/icons/like_new.svg'" alt="">
+        {{report.likes_count}}
+      </div>
+
+    </div>
+
+    <div #body class="report-body" [innerHTML]="report | sanitizerLang: 'body' | async"></div>
 
     <div class="report-author">
-      <img class="report-author-photo"
-        [src]="report.author.image">
+
+      <img class="report-author-photo" [src]="report.author.image">
       <div class="d-flex flex-column">
         <div class="report-author-name">{{report.author.surname}} {{report.author.name}}</div>
         <div class="report-author-role">Автор</div>
@@ -18,7 +43,7 @@
 
     </div>
 
-    <div class="report-views">{{report.views}} просмотров</div>
+    <div class="report-views">{{'report.views' | translate: ({count: report.views})}}</div>
 
     <div class="report-stat">
 
@@ -41,71 +66,8 @@
 
   </div>
 
+  <app-report-comments [reportId]="reportId" [report]="report"></app-report-comments>
 
-  <ng-container *ngIf="comments$ | async as comments">
-
-    <div class="comment-holder" [formGroup]="formGroup">
-
-      <h5>{{report.comments_count}} {{report.comments_count===1 ? 'комментарий' : 'комментария'}}</h5>
-
-      <div @heightAnimation class="reply" *ngIf="replyContent">
-
-        <img class="reply-sign" src="assets/icons/reply-sign.svg" draggable=false>
-        <img class="reply-image"
-          [src]="replyContent.owner.image">
-        <div class="reply-info">
-          <p class="reply-info-name">{{replyContent.owner.surname}} {{replyContent.owner.name}}</p>
-          <p class="reply-info-date">{{replyContent.created_at | DateRemained}}</p>
-        </div>
-        <div class="reply-cancel cursor-pointer" (click)="removeReplyParent()">отменить</div>
-
-      </div>
-
-      <div *ngIf="(access$ | async) !== ''" class="textfield">
-
-        <textarea rows=3 placeholder="Написать комментарий..." class="textfield-area" [class.large]="textInputLarge"
-          formControlName="body" (click)="textareaTap()"></textarea>
-
-        <button @opacityAnimation *ngIf="textInputLarge" class="btn textfield-btn"
-          (click)="sendComment()">Отправить</button>
-
-      </div>
-
-      <app-comment-module *ngFor="let comment of comments.results" [comment]="comment" (reply)="addReply($event)" (like)="postLike($event)">
-      </app-comment-module>
-      
-      <a class="d-flex loadmore my-2 align-items-center justify-content-center cursor-pointer" *ngIf="comments.next"
-        (click)="loadMore()">
-        загрузить больше
-      </a>
-
-    </div>
-
-  </ng-container>
-
-  <ng-container *ngIf="reports$ | async as reports">
-
-    <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
-      <img class="icon" src="assets/images/open-book.png" alt="">
-      <h3 class="mb-0">Читать</h3>
-    </div>
-
-    <div 
-      @opacityAnimation
-      *ngIf="reports.results.length > 0"
-      infiniteScroll 
-      [infiniteScrollDistance]="4"
-      [infiniteScrollThrottle]="50"
-      [scrollWindow]="false"
-      [horizontal]="true"
-      (scrolled)="onScroll()" 
-      class="d-flex align-items-center gap-2 my-4 mb-5 reading">
-
-      <report-card *ngFor="let report of reports.results" (click)="navigateReport(report.id)" [report]='report'>
-      </report-card>
-
-    </div>
-
-  </ng-container>
+  <app-report-related [reportId]="reportId"></app-report-related>
 
 </div>

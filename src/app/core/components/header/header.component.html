@@ -4,11 +4,11 @@
 
   <div (click)="toggleSearch()" class="search-bar" *ngIf="main!=='auth' && main!=='application'">
     <img class="search-bar-icon" src="assets/icons/search.svg" alt="">
-    <input type="text" [formControl]="searchText" class="search-bar-input" placeholder="Поиск...">
+    <input type="text" [formControl]="searchText" class="search-bar-input" [placeholder]="'header.search' | translate">
     <ng-container *ngIf="list$ | async as list">
       <div #search @opacityAnimation class="search-bar-result" *ngIf="(showSearch && list.length>0); else noRes">
-        <div (click)="navigateRes(res)" class="search-bar-result-item" *ngFor="let res of list">
-          {{res?.title}}
+        <div (click)="navigateRes(res)" class="search-bar-result-item cursor-pointer" *ngFor="let res of list">
+          {{res | lang: 'title' | async}}
         </div>
       </div>
     </ng-container>
@@ -24,6 +24,8 @@
 
   <div class="align-items-center justify-content-center content" *ngIf="dataAvailable">
 
+    <!-- <button class="btn content-primary" (click)="changeLang()"> Изменить язык </button> -->
+
     <button *ngIf="(access$ | async)?.length === 0 && main!=='application'" class="btn content-primary"
       routerLink='auth/application'> Регистрация </button>
 
@@ -34,11 +36,11 @@
 
       <div *ngIf="main!=='auth'" (click)="dropdownToggle()" class="content-profile">
 
-        <img class="content-profile-image" (click)="dropdownToggle()"
-          [src]="profile.image">
+        <img class="content-profile-image" (click)="dropdownToggle()" [src]="profile.image">
 
-        <div #toggleDiv class="content-profile-text">
+        <div #toggleDiv class="d-flex content-profile-text gap-1 cursor-pointer">
           {{profile.surname}} {{profile.name}}
+          <img *ngIf="profile.verified" src="assets/icons/verified_user_new.svg">
           <img class="content-profile-text-drop" src="assets/icons/dropdown.svg" alt="">
         </div>
 
@@ -61,7 +63,7 @@
             Настройки
           </div>
 
-          <div class="d-flex align-items-center gap-1 dropdown-item" (click)="logout()" routerLink='/edu'>
+          <div class="d-flex align-items-center gap-1 dropdown-item" (click)="logout()">
             <img class="dropdown-item-image" src="assets/icons/exit_new.svg" alt="">
             Выйти
           </div>
@@ -87,19 +89,15 @@
 
     <ng-container *ngIf="profile$ | async as profile">
       <div class="d-flex align-items-center gap-4 sidemenu-profile">
-        <img class="sidemenu-profile-image"
-          [src]="profile.image" alt="">
-        <div class="d-flex flex-column">
+        <img class="sidemenu-profile-image" [src]="profile.image" alt="">
+        <div class="d-flex gap-2 justify-content-center">
 
-          <h4>{{profile.surname}} {{profile.name}}</h4>
-          <div class="sidemenu-profile-link cursor-pointer" routerLink="profile">Редактирование аккаунта</div>
+          <h4 class="mb-0">{{profile.surname}} {{profile.name}}</h4>
+          <img *ngIf="profile.verified" src="assets/icons/verified_user_new.svg">
 
         </div>
       </div>
     </ng-container>
-
-
-    <div *ngIf="profile$ | async as profile" class="sidemenu-section-text">Профиль</div>
 
 
     <div *ngIf="(access$ | async)?.length === 0" class="sidemenu-auth">
@@ -115,49 +113,64 @@
     </div>
 
     <div class="sidemenu-section">
-      <ng-container *ngIf="profile$ | async as profile">
 
-        <div class="d-flex align-items-center gap-3 py-2" [class.active]="main === 'profile'" (click)="navigateRoute('/profile')">
-          <img class="sidemenu-section-icon" src="assets/icons/user_new.svg" alt="">
-          Личный кабинет
-        </div>
-        <div class="d-flex align-items-center gap-3 py-2" (click)="navigateRoute('/profile')">
-          <img class="sidemenu-section-icon" src="assets/icons/folder.svg" alt="">
-          Закладки
-        </div>
-        <div class="d-flex align-items-center gap-3 py-2" (click)="navigateRoute('/profile')">
-          <img class="sidemenu-section-icon" src="assets/icons/settings.svg" alt="">
-          Настройки
-        </div>
-        <div class="d-flex align-items-center gap-3 py-2" (click)="logout()">
-          <img class="sidemenu-section-icon" src="assets/icons/exit_new.svg" alt="">
-          Выход
-        </div>
+      <div (click)="triggerMenu()" *ngIf="profile$ | async as profile" class="d-flex gap-2 sidemenu-section-text">
+
+        <div>Меню профиля</div>
+
+        <img class="sidemenu-section-text-icon" [class.expanded]="userMenu" src="assets/icons/down.svg">
+
+      </div>
+
+      <div @heightOutAnimation *ngIf="userMenu">
+
+        <ng-container *ngIf="profile$ | async as profile">
+
+          <div class="d-flex align-items-center gap-3 py-2" [class.active]="main === 'profile'"
+            (click)="navigateRoute('/profile')">
+            <img class="sidemenu-section-icon" src="assets/icons/user_new.svg" alt="">
+            Личный кабинет
+          </div>
+          <div class="d-flex align-items-center gap-3 py-2" (click)="navigateRoute('/profile')">
+            <img class="sidemenu-section-icon" src="assets/icons/folder.svg" alt="">
+            Закладки
+          </div>
+          <div class="d-flex align-items-center gap-3 py-2" (click)="navigateRoute('/profile')">
+            <img class="sidemenu-section-icon" src="assets/icons/settings.svg" alt="">
+            Настройки
+          </div>
+          <div class="d-flex align-items-center gap-3 py-2" (click)="logout()">
+            <img class="sidemenu-section-icon" src="assets/icons/exit_new.svg" alt="">
+            Выход
+          </div>
+
+        </ng-container>
 
         <hr>
 
-      </ng-container>
+      </div>
 
-      <div class="d-flex align-items-center gap-3 py-2" [class.active]="main === 'edu'" (click)="navigateRoute('/edu')">
+      <div class="d-flex align-items-center gap-3 py-2" [class.mt-4]="!userMenu" style="font-weight:700"
+        [class.active]="main === 'edu'" (click)="navigateRoute('/edu')">
         <img class="sidemenu-section-icon" src="assets/icons/edu.svg" alt="">
         Образование
       </div>
-      <div class="d-flex align-items-center gap-3 py-2" [class.active]="main === 'products'"
+      <div class="d-flex align-items-center gap-3 py-2" style="font-weight:700" [class.active]="main === 'products'"
         (click)="navigateRoute('/products')">
         <img class="sidemenu-section-icon" src="assets/icons/products.svg" alt="">
         Проекты
       </div>
-      <div class="d-flex align-items-center gap-3 py-2" [class.active]="main === 'shop'"
+      <div class="d-flex align-items-center gap-3 py-2" style="font-weight:700" [class.active]="main === 'shop'"
         (click)="navigateRoute('/shop')">
         <img class="sidemenu-section-icon" src="assets/icons/shop.svg" alt="">
         Магазин
       </div>
-      <div class="d-flex align-items-center gap-3 py-2" [class.active]="main === 'events'"
+      <div class="d-flex align-items-center gap-3 py-2" style="font-weight:700" [class.active]="main === 'events'"
         (click)="navigateRoute('/events')">
         <img class="sidemenu-section-icon" src="assets/icons/events.svg" alt="">
         Ивенты
       </div>
-      <div class="d-flex align-items-center gap-3 py-2" [class.active]="main === 'about'"
+      <div class="d-flex align-items-center gap-3 py-2" style="font-weight:700" [class.active]="main === 'about'"
         (click)="navigateRoute('/about')">
         <img class="sidemenu-section-icon" src="assets/icons/home.svg" alt="">
         О garyshker

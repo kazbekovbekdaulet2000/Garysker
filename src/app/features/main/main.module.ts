@@ -31,6 +31,11 @@ import { SupportComponent } from './support/support.component';
 import { SwiperModule } from "swiper/angular";
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { EduPopularComponent } from './edu/popular/popular.component';
+import { AboutComponent } from './about/about.component';
+import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
+import { NKOComponent } from './nko/nko.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { LangPipeModule } from 'src/app/shared/pipes/lang/lang-pipe.module';
 
 @NgModule({
   declarations: [
@@ -49,7 +54,10 @@ import { EduPopularComponent } from './edu/popular/popular.component';
     ProductsComponent,
     ShopComponent,
     EventsComponent,
-    SupportComponent
+    SupportComponent,
+    AboutComponent,
+    NKOComponent,
+    IokaPaymentComponent
   ],
   imports: [
     CommonModule,
@@ -61,8 +69,12 @@ import { EduPopularComponent } from './edu/popular/popular.component';
     IvyCarouselModule,
     SwiperModule,
     InfiniteScrollModule,
+    LangPipeModule,
     ReactiveFormsModule,
-    NgxStickySidebarModule,
+    TranslateModule,
+    NgxStickySidebarModule.withConfig({
+      minWidth: 257
+    }),
     NgxsModule.forFeature([MainState, ReportState, VideoState]),
     DatePipeModule,
     SanitizerPipeModule

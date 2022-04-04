@@ -18,6 +18,9 @@ import 'swiper/swiper.scss'
 import SwiperCore, { Autoplay, Navigation, Scrollbar, Mousewheel, SwiperOptions } from "swiper";
 import { ClearReportList, ListMoreReports } from './report-module/report.actions';
 import { filter, map } from 'rxjs/operators';
+import { UpdateTop } from '@core/states/scroll/scroll';
+import { ScrollState } from '@core/states/scroll/scroll.state';
+import { AppState } from '@core/states/app/app.state';
 
 SwiperCore.use([Autoplay, Navigation, Scrollbar, Mousewheel]);
 
@@ -27,19 +30,21 @@ SwiperCore.use([Autoplay, Navigation, Scrollbar, Mousewheel]);
   animations: [opacityAnimation, heightAnimation],
   encapsulation: ViewEncapsulation.None,
 })
-export class EduComponent implements OnDestroy {
+export class EduComponent implements AfterViewInit, OnDestroy {
 
   @Select(ReportState.reports) reports$!: Observable<ListResponseModel<ReportModel>>;
   @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>;
   @Select(MainState.selectedCategory) selectedCategory$!: Observable<number>
-  @Select(SidebarState.categories) categories$!: Observable<CategoryModel[]>;
+  @Select(AppState.categories) categories$!: Observable<CategoryModel[]>;
+
+  @Select(ScrollState.top) top$!: Observable<number>;
 
   @ViewChildren('image') images!: QueryList<ElementRef>;
   @ViewChildren('imageHolder') imageHolder!: QueryList<ElementRef>;
   @ViewChild('swiper', { static: false }) swiper: any;
 
   config!: SwiperOptions;
-
+  show_info: boolean = false;
   resizeObservable$!: Observable<Event>;
   resizeSubscription$!: Subscription;
   popular$!: Observable<any[]>;
@@ -64,19 +69,20 @@ export class EduComponent implements OnDestroy {
     })
 
     const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
-    this.updateContent(categoryId)
+    this.store.dispatch(new ChangeCategory(categoryId))
 
     this.popular$ = combineLatest([this.reports$, this.videos$])
       .pipe(
         filter(list => {
           return list.reduce((prev: boolean, curr: any) => {
-            return prev && curr.count > 0
+            return prev && curr.results.length > 0
           }, true)
         }),
         map(list => {
           const new_list = list.reduce((prev: any, curr: any) => {
             return [...prev, ...curr.results]
           }, [])
+          new_list.sort((a, b) => (a.views < b.views) ? 1 : ((b.views < a.views) ? -1 : 0))
           return new_list
         })
       )
@@ -86,7 +92,7 @@ export class EduComponent implements OnDestroy {
         spaceBetween: 24,
         loop: true,
         loopedSlides: data?.length,
-        initialSlide: 1,
+        initialSlide: 0,
         observer: true,
         autoplay: {
           delay: 5000
@@ -96,6 +102,12 @@ export class EduComponent implements OnDestroy {
         direction: 'horizontal',
       };
     })
+  }
+  ngAfterViewInit(): void {
+    this.top$.subscribe(top => {
+      window.scrollTo(0, top)
+    })
+    this.store.dispatch(new UpdateTop(0))
   }
 
   onScroll() {
@@ -111,7 +123,6 @@ export class EduComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(ClearReportList)
-    this.store.dispatch(ClearVideoList)
   }
 
   onNavigate(item: any) {
@@ -126,6 +137,10 @@ export class EduComponent implements OnDestroy {
     this.updateContent(NaN)
   }
 
+  onShow() {
+    this.show_info = !this.show_info
+  }
+
   updateContent(id: number) {
     this.store.dispatch(ClearReportList)
     this.store.dispatch(ClearVideoList)
@@ -133,13 +148,28 @@ export class EduComponent implements OnDestroy {
     const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
     if (categoryId !== id) {
       this.store.dispatch(new ChangeCategory(id))
-    }else{
+    } else {
       this.store.dispatch(new ChangeCategory(NaN))
     }
   }
 
   loadVideo(next: string) {
+    const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
     const pageNumber = Number(next.split('page=')[1])
-    this.store.dispatch(new ListMoreVideos({ page: pageNumber }))
+    let params = { page: pageNumber }
+    if (categoryId) {
+      params = { ...params, ...{ category: categoryId } }
+    }
+    this.store.dispatch(new ListMoreVideos(params))
+  }
+
+  onVideoRoute(id: number) {
+    this.store.dispatch(new UpdateTop(document.documentElement.scrollTop))
+    this.router.navigate(['edu/videos', id])
+  }
+
+  onReportRoute(id: number) {
+    this.store.dispatch(new UpdateTop(document.documentElement.scrollTop))
+    this.router.navigate(['edu/reports', id])
   }
 }

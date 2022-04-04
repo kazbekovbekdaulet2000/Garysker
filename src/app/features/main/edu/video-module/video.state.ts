@@ -6,6 +6,8 @@ import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
 import { ReportsService } from '@core/services/reports.service';
 import { VideosService } from '@core/services/videos.service';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
+import { MainState } from '../../main.state';
+import deleteComment from '../deleteComment';
 import getComment from '../getComment';
 import iterateComments from '../iterateComments';
 import {
@@ -23,17 +25,21 @@ import {
   ListRelatedVideos,
   ClearVideoList,
   ListMoreSavedVideos,
-  ClearVideoComments
+  ClearVideoComments,
+  ClearRelatedVideoList,
+  DeleteVideoComment
 } from './video.actions';
 
 interface StateModel {
   videos: ListResponseModel<VideoModel>;
+  related_videos: ListResponseModel<VideoModel>;
   video: VideoDetailModel | null;
   comments: ListResponseModel<CommentModel>;
 }
 
 const defaults = {
   videos: emptyListResponse,
+  related_videos: emptyListResponse,
   video: null,
   comments: emptyListResponse,
 };
@@ -56,6 +62,11 @@ export class VideoState {
   }
 
   @Selector()
+  static related_videos({ related_videos }: StateModel): ListResponseModel<VideoModel> {
+    return related_videos;
+  }
+
+  @Selector()
   static comments({ comments }: StateModel): ListResponseModel<CommentModel> {
     if (comments.count === 0) {
       comments.results = []
@@ -70,10 +81,12 @@ export class VideoState {
 
   @Action(ListVideos)
   ListVideos({ getState, patchState }: StateContext<StateModel>, { params }: ListVideos) {
-    this.videoService.list(params)
-      .subscribe(videos => {
-        patchState({ videos });
-      })
+    if (getState().videos.results.length === 0) {
+      this.videoService.list(params)
+        .subscribe(videos => {
+          patchState({ videos });
+        })
+    }
   }
 
   @Action(ListMoreVideos)
@@ -127,13 +140,18 @@ export class VideoState {
   @Action(ListRelatedVideos)
   ListRelatedVideos({ patchState, getState }: StateContext<StateModel>, { id, params }: ListRelatedVideos) {
     this.videoService.getRelated(id, params)
-      .subscribe(videos => {
-        // const list = getState().videos.results
-        // const new_list = getState().videos
-        // new_list.next = videos.next
-        // new_list.previous = videos.previous
-        // new_list.results = [...list, ...videos.results]
-        patchState({ videos })
+      .subscribe(related_videos => {
+        const list = getState().related_videos.results
+        const new_list = related_videos
+        new_list.count = related_videos.count
+        new_list.next = related_videos.next
+        new_list.previous = related_videos.previous
+        if (params.page !== 1) {
+          new_list.results = [...list, ...related_videos.results]
+        } else {
+          new_list.results = related_videos.results
+        }
+        patchState({ related_videos: new_list })
       })
   }
 
@@ -233,14 +251,35 @@ export class VideoState {
       })
   }
 
+  @Action(DeleteVideoComment)
+  DeleteVideoComment({ getState, patchState }: StateContext<StateModel>, { reportId, commentId }: DeleteVideoComment) {
+    this.videoService.deleteComment(reportId, commentId)
+      .toPromise().then(() => {
+        getState().video!.comments_count -= 1
+        patchState({
+          comments: {
+            ...getState().comments,
+            results: deleteComment(getState().comments.results, commentId)
+          }
+        })
+        // this.store.dispatch(new ListVideoComments(reportId))
+      })
+  }
+
   @Action(ClearVideoDetail)
   ClearReportDetail({ patchState }: StateContext<StateModel>) {
-    patchState({ video: null, videos: emptyListResponse });
+    patchState({ video: null });
   }
 
   @Action(ClearVideoList)
   ClearVideoList({ patchState, getState }: StateContext<StateModel>) {
     getState().videos.results = []
     patchState({ videos: emptyListResponse });
+  }
+
+  @Action(ClearRelatedVideoList)
+  ClearRelatedVideoList({ patchState, getState }: StateContext<StateModel>) {
+    getState().related_videos.results = []
+    patchState({ related_videos: emptyListResponse });
   }
 }

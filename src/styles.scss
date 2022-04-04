@@ -24,6 +24,10 @@ main {
   min-height: 90vh;
 }
 
+.plyr {
+  border-radius: 10px;
+}
+
 * {
   outline: none !important;
 }
@@ -64,18 +68,18 @@ a {
   color: #c4bdcf;
 }
 
+iframe{
+  border-radius: 16px;
+}
+
 .modal-content {
   position: relative;
-  background-color: #26212e;
+  background-color: #14131D;
   border-radius: 16px;
-  padding: 32px 64px;
+  padding: 24px 64px;
   h4 {
     font-weight: 700;
   }
-}
-
-.inner-wrapper-sticky {
-  top: 32px !important;
 }
 
 @media screen and (max-width: 640px) {
@@ -119,8 +123,8 @@ label:focus,
   box-shadow: none !important;
 }
 
-a{
-  &:hover{
+a {
+  &:hover {
     color: $color-orange;
   }
 }

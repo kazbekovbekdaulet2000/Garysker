@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
 import { AboutComponent } from './about/about.component';
 import { DobroAboutComponent } from './dobro/about/dobro-about.component';
 import { DobroComponent } from './dobro/dobro.component';
@@ -9,6 +10,7 @@ import { VideoModuleModule } from './edu/video-module/video-module.module';
 import { EventsComponent } from './events/events.component';
 
 import { MainComponent } from './main.component';
+import { NKOComponent } from './nko/nko.component';
 import { ProductsComponent } from './products/products.component';
 import { ProfileComponent } from './profile/profile.component';
 import { QuestionsComponent } from './questions/questions.component';
@@ -30,6 +32,10 @@ const routes: Routes = [
         component: AboutComponent
       },
       {
+        path: 'nko',
+        component: NKOComponent
+      },
+      {
         path: 'edu',
         component: EduComponent
       },
@@ -44,10 +50,6 @@ const routes: Routes = [
       {
         path: 'edu/videos/:id',
         loadChildren: () => VideoModuleModule,
-      },
-      {
-        path: 'questions',
-        component: QuestionsComponent
       },
       {
         path: 'products',
@@ -68,6 +70,14 @@ const routes: Routes = [
       {
         path: 'support',
         component: SupportComponent
+      },
+      {
+        path: 'questions',
+        component: QuestionsComponent
+      },
+      {
+        path: 'payment',
+        component: IokaPaymentComponent
       }
     ]
   },

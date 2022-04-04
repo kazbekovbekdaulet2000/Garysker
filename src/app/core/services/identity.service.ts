@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 import { TokenModel } from '../models/api/token.model';
 import { ApiService } from './api.service';
 import { UserModel } from '@core/models/api/user.model';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -28,7 +29,7 @@ export class IdentityService extends ApiService {
   }
 
   refresh(refresh: string): Observable<TokenModel> {
-    return this.http.post<TokenModel>(this.getUrl('refresh'), { refresh }, { params: { refresh_token: true } });
+    return this.http.post<TokenModel>(this.getUrl('refresh'), { refresh }, { params: { refresh_token: true } })
   }
 
   profile(): Observable<UserModel> {

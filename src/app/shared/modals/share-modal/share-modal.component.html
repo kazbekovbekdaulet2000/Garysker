@@ -1,15 +1,17 @@
-<img class="icon" src="assets/images/upside-down-face.png" alt="">
+<div class="d-flex flex-column justify-content-center align-items-center">
 
-<!-- <h4>Share</h4> -->
+  <img class="icon" src="assets/images/err_sticker_2.png" alt="">
 
-<div class="close">
-  <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
-</div>
-
-<div class="clipboard">
-  <div class="clipboard-text">{{location}}</div>
-  <img class="clipboard-image cursor-pointer" (click)="copy()" src="assets/images/clipboard.png" alt="">
-  <div @opacityAnimation *ngIf="copied" class="clipboard-copied">
-    скопирован
+  <div class="close">
+    <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
   </div>
+
+  <div class="clipboard cursor-pointer" (click)="copy()">
+    <div class="clipboard-text">{{location}}</div>
+    <img class="clipboard-image cursor-pointer" src="assets/images/clipboard.png" alt="">
+    <div @opacityAnimation *ngIf="copied" class="clipboard-copied">
+      скопирован
+    </div>
+  </div>
+
 </div>

@@ -55,6 +55,15 @@ export class PostReportComment {
   constructor(public id: number | undefined, public payload: any) { }
 }
 
+export class DeleteReportComment {
+  static readonly type = '[Report] DeleteReportComment'
+  constructor(
+    public reportId: number,
+    public commentId: number
+  ) { }
+}
+
+
 export class LikeReportComment {
   static readonly type = '[Report] LikeReportComment'
   constructor(

@@ -1,38 +1,59 @@
 <footer>
 
+  <!-- projects: {
+    title: "Проекты",
+    edu: "Образование",
+    project: "Проекты",
+    shop: "Магазин",
+    events: "Ивенты",
+  },
+  about: {
+    title: "О нас",
+    garysh: "О garyshker",
+    partners: "Партнеры",
+    faq: "FAQs",
+    docs: "Документация НКО",
+  },
+  requests: {
+    title: "По вопросам и предложениям",
+    email: "info@garyshker.com",
+    phone: "8 702 000 6369",
+  },
+  help: "Поддержать проект",
+  privacy_polycy: "Privacy Policy" -->
+
   <div class="content">
 
     <div class="content-info">
       <div class="content-info-item">
-        <a class="main">Продукты</a>
-        <a routerLink="/edu">Образование</a>
-        <a routerLink="/products">Проекты</a>
-        <a routerLink="/shop">Магазин</a>
-        <a routerLink="/events">Ивенты</a>
+        <a class="main">{{'footer.projects.title' | translate}}</a>
+        <a routerLink="/edu">{{'footer.projects.edu' | translate}}</a>
+        <a routerLink="/products">{{'footer.projects.project' | translate}}</a>
+        <a routerLink="/shop">{{'footer.projects.shop' | translate}}</a>
+        <a routerLink="/events">{{'footer.projects.events' | translate}}</a>
       </div>
       <div class="content-info-item">
-        <a class="main">О нас</a>
-        <a routerLink="/about">О garyshker</a>
-        <a routerLink="/about">Партнеры</a>
-        <a routerLink="/questions">FAQs</a>
-        <a routerLink="about">Документация НКО</a>
+        <a class="main">{{'footer.about.title' | translate}}</a>
+        <a routerLink="/about" [fragment]="'us'">{{'footer.about.garysh' | translate}}</a>
+        <a routerLink="/about" [fragment]="'partners'">{{'footer.about.partners' | translate}}</a>
+        <a routerLink="/questions">{{'footer.about.faq' | translate}}</a>
+        <a routerLink="/nko">{{'footer.about.docs' | translate}}</a>
       </div>
     </div>
 
     <div class="content-contacts">
-      <div class="content-contacts-main">По вопросам и предложениям</div>
-      <a href="mailto:info@garyshker.com">info@garyshker.com</a>
-      <a href="tel:8-702-000-6369">8 702 000 6369</a>
+      <div class="content-contacts-main">{{'footer.requests.title' | translate}}</div>
+      <a href="mailto:info@garyshker.com">{{'footer.requests.email' | translate}}</a>
+      <a href="tel:{{'footer.requests.phone' | translate}}">{{'footer.requests.phone' | translate}}</a>
     </div>
 
-    <button class="btn project-btn">Поддержать проект</button>
+    <button class="btn project-btn">{{'footer.help' | translate}}</button>
 
   </div>
 
   <div class="bottom">
     <div class="bottom-rules">
-      <a href=""> Terms & Conditions </a>
-      <a href=""> Privacy Policy </a>
+      <a href="https://storage.yandexcloud.net/garysh-app/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8.docx" target="_blank"> {{'footer.privacy_polycy' | translate}} </a>
     </div>
 
     <div class="bottom-social">

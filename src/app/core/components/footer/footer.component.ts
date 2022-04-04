@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'core-footer',
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
+
+  navigateAbout(stage: number) {
+    this.router.navigate(['/about'], { queryParams: { stage } })
+  }
 }

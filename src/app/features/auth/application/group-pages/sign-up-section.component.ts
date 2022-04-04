@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { opacityUpDownAnimation } from '@core/animations/opacity-up-down-animation';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -21,14 +21,20 @@ export class SignUpSectionComponent implements OnInit {
   @Output() next = new EventEmitter<any>();
   @Output() prev = new EventEmitter();
   selectedType: number = NaN;
+  politics!: FormGroup;
 
   cities: string[] = ['Алматы', 'Нур-Султан', 'Шымкент', 'Актобе', 'Караганда',
     'Тараз', 'Павлодар', 'Атырау', 'Усть-Каменогорск', 'Семей', 'Уральск', 'Кызылорда', 'Костанай',
     'Петропавловск', 'Актау', 'Темиртау', 'Туркестан', 'Кокшетау', 'Талдыкорган', 'Экибастуз', 'Рудный',
-    'Жанаозен', 'Жезказган', 'Балхаш']
+    'Жанаозен', 'Жезказган', 'Балхаш', 'Другое']
   constructor(
-    private bsService: BsModalService
-  ) { }
+    private bsService: BsModalService,
+    private formBuilder: FormBuilder
+  ) {
+    this.politics = this.formBuilder.group({
+      rules: []
+    })
+  }
 
   ngOnInit(): void {
     if (this.group.controls?.user_type) {
@@ -41,16 +47,19 @@ export class SignUpSectionComponent implements OnInit {
   }
 
   send() {
+    if(this.stage === 3 && this.politics.getRawValue().rules !== true){
+      this.bsService.show(MessageModalComponent, {
+        initialState: { message: "Надо принять условия использования сайта" },
+        class: 'modal-dialog-centered'
+      })
+      return
+    }
     if (this.group.get('password')?.value !== this.group.get('re_password')?.value) {
       this.group.get('re_password')?.setErrors({ 'incorrect': true })
     }
     if (this.group.valid) {
       this.next.emit(this.group.getRawValue())
     } else {
-      // this.bsService.show(MessageModalComponent, {
-      //   initialState: { message: "Данные не заполнены до конца" },
-      //   class: 'modal-dialog-centered'
-      // })
       this.form.config?.forEach((val: InputConfig) => {
         if (!this.group.get(val.key!)?.valid) {
           this.group.get(val.key!)?.setErrors({ 'incorrect': true });

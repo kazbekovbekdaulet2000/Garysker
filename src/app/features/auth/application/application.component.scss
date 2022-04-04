@@ -3,7 +3,7 @@
 .application {
   display: flex;
   margin: auto 200px;
-  padding-top: 48px;
+  padding-top: 112px;
   &-header {
     height: max-content;
     width: 100%;
@@ -57,10 +57,10 @@
   overflow: auto;
   display: flex;
   margin: auto 200px;
-  margin-top: 12px;
+  // margin-top: 12px;
   &-mobmenu {
     display: none;
-    margin-top: 18px;
+    padding-top: 112px;
     justify-content: space-between;
     &-item {
       position: relative;
@@ -85,16 +85,6 @@
     position: relative;
     padding-right: 40px;
     min-height: 70vh;
-    &::after {
-      content: "";
-      position: absolute;
-      width: 1px;
-      height: 100%;
-      opacity: 0.4;
-      background-color: #b9b8b5;
-      right: 0px;
-      top: 0px;
-    }
   }
   &-form {
     flex: 1;
@@ -128,13 +118,15 @@
     right: 9px;
     top: 0px;
     transform: translateY(48px) translateX(-14px);
-    height: 48px;
+    height: 100px;
     background-color: #33323e;
   }
   &-text {
     font-weight: 300;
+    max-width: 300px;
     font-size: 12px;
     opacity: 0.4;
+    text-align: right;
   }
   &-icon {
     background-color: #33323e;
@@ -165,11 +157,12 @@
 @media screen and (max-width: 1240px) {
   .application {
     margin: auto 80px;
-    margin-top: 48px;
+    // margin-top: 48px;
+    padding-top: 112px;
   }
   .app-body {
     margin: auto 80px;
-    margin-top: 12px;
+    // margin-top: 12px;
   }
 }
 
@@ -177,11 +170,12 @@
   .application {
     display: none;
     margin: auto 40px;
-    margin-top: 48px;
+    // margin-top: 48px;
+    padding-top: 112px;
   }
   .app-body {
     margin: auto 40px;
-    margin-top: 12px;
+    // margin-top: 12px;
     display: flex;
     flex-direction: column;
     &-mobmenu {
@@ -217,6 +211,6 @@
   }
   .app-body {
     margin: auto 16px;
-    margin-top: 12px;
+    // margin-top: 12px;
   }
 }

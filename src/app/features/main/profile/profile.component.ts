@@ -13,7 +13,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { ListMoreSavedReports, ListSavedReports } from '../edu/report-module/report.actions';
 import { ReportState } from '../edu/report-module/report.state';
-import { ListMoreSavedVideos, ListSavedVideos } from '../edu/video-module/video.actions';
+import { ClearVideoList, ListMoreSavedVideos, ListSavedVideos } from '../edu/video-module/video.actions';
 import { VideoState } from '../edu/video-module/video.state';
 import { ProfileChangeModalComponent } from './profile-change-modal/profile-change-modal.component';
 
@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.dispatch([ListSavedReports, ListSavedVideos, UpdateProfile])
+    this.store.dispatch([ListSavedReports, ListSavedVideos, UpdateProfile, ClearVideoList])
   }
 
   logout() {

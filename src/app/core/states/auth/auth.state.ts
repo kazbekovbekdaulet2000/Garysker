@@ -72,10 +72,17 @@ export class AuthState {
   }
 
   @Action(RemoveToken)
-  RemoveToken({ patchState }: StateContext<AuthStateModel>) {
-    patchState({ access: '', refresh: '', profile: null, accessTokenExpireDate: null })
+  RemoveToken({ patchState, setState }: StateContext<AuthStateModel>) {
+    setState({
+      access: '',
+      refresh: '',
+      profile: null,
+      accessTokenExpireDate: null
+    })
+
     if (window.location.href.includes('profile')) {
       this.store.dispatch(new Navigate(['']))
+      // window.history.back()
     }
   }
 

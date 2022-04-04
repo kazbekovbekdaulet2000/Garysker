@@ -7,4 +7,6 @@ export interface UserModel{
   surname: string,
   birth_date: string,
   city: string,
+  verified: boolean,
+  is_superuser: boolean
 }

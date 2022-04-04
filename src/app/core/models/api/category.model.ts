@@ -1,6 +1,7 @@
 export interface CategoryModel {
   id: number,
-  name: string,
+  name_ru: string,
+  name_kk: string,
   created_at: string,
   updated_at: string
   icon?: string

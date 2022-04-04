@@ -1,0 +1,40 @@
+@import "variables";
+
+.nko-holder {
+  font-size: 18px;
+  line-height: 28px;
+  margin-right: 300px;
+  .file {
+    display: flex;
+    flex-wrap: wrap;
+    &-item {
+      width: 312px;
+      padding: 64px 24px;
+      border-radius: 20px;
+      background-color: #1c1b29;
+      &-download {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 24px;
+        color: #ffa800;
+      }
+    }
+  }
+}
+
+.mail-link {
+  font-weight: 500;
+  color: #ffa800;
+}
+
+@media screen and (max-width: 768px) {
+  .nko-holder {
+    margin-left: 16px;
+    margin-right: 16px;
+    .file {
+      &-item {
+        width: 100%;
+      }
+    }
+  }
+}

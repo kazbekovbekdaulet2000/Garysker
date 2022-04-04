@@ -46,6 +46,14 @@ export class LikeVideoComment {
   ) { }
 }
 
+export class DeleteVideoComment {
+  static readonly type = '[Video] DeleteVideoComment'
+  constructor(
+    public reportId: number,
+    public commentId: number
+  ) { }
+}
+
 export class ListMoreVideoComments {
   static readonly type = '[Video] ListMoreVideoComments'
   constructor(public id: number) { }
@@ -76,4 +84,8 @@ export class ClearVideoDetail {
 
 export class ClearVideoList {
   static readonly type = '[Video] ClearVideoList';
+}
+
+export class ClearRelatedVideoList {
+  static readonly type = '[Video] ClearRelatedVideoList';
 }

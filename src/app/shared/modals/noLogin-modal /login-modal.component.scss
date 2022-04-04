@@ -1,9 +1,8 @@
 @import "variables";
 
 .icon {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 24px;
+  width: 100px;
+  height: 100px;
 }
 
 .close {
@@ -13,16 +12,25 @@
   right: 24px;
 }
 
-.group{
+.group {
   display: flex;
   flex-direction: row;
   gap: 12px;
-  &-btn{
+  width: 100%;
+  &-btn {
+    font-size: 18px;
+    line-height: 24px;
+    color: #ffffff;
+    opacity: 0.9;
     margin: 0px;
-    background-color:#b67906;
-    border-radius: 10px;
     color: white;
-    font-weight: 500;
+    font-weight: 400;
     flex: 1;
+  }
+  &-background {
+    font-weight: 700;
+    background-color: #b67906;
+    border-radius: 20px;
+    padding: 10px 22px;
   }
 }

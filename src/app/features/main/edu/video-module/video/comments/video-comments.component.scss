@@ -7,7 +7,6 @@
     margin-bottom: 16px;
   }
   .textfield {
-    position: relative;
     height: max-content;
     &-area {
       width: 100%;
@@ -22,12 +21,10 @@
       transition: 0.3s all;
     }
     .large{
-      height: 145px;
+      height: max-content;
       border: 1px solid $color-orange;
     }
     &-btn {
-      z-index: 99;
-      position: absolute;
       background-color: rgba(255, 168, 0, 0.71);
       color: white;
       bottom: 14px;

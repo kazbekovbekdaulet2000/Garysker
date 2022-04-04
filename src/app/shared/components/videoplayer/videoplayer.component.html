@@ -2,7 +2,9 @@
   plyr 
   class="videoplayer"  
   [plyrPlaysInline]="true" 
+  [plyrCrossOrigin]="true"
   [plyrSources]="videoSources"
+  [plyrTracks]="videoTracks"
   [plyrOptions]="videoOption"
   (plyrInit)="player = $event"
 ></div>

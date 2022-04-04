@@ -1,8 +1,15 @@
-<img class="icon" src="assets/images/upside-down-face.png" alt="">
-<div class="close">
-  <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
-</div>
+<div class="d-flex flex-column justify-content-center align-items-center">
 
-<div>
-  {{message}}
+  <img class="icon" [src]="getIcon" alt="">
+
+  <div class="close">
+    <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
+  </div>
+  
+  <div class="mt-0 title">{{title}}</div>
+
+  <div class="message">
+    {{message}}
+  </div>
+  
 </div>

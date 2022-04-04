@@ -14,10 +14,10 @@ export class LinkShareModalComponent {
     private bsModalRef: BsModalRef,
     private clipboard: Clipboard
   ) { }
-  
+
   copied: boolean = false;
   location: string = window.location.href
-  
+
   closeModal() {
     this.bsModalRef.hide()
   }
@@ -29,6 +29,10 @@ export class LinkShareModalComponent {
     setTimeout(() => {
       this.copied = false
     }, 1500)
+    setTimeout(() => {
+      this.closeModal()
+    }, 1000)
+    // Оте керемет код (нет чорт)
   }
 
 }

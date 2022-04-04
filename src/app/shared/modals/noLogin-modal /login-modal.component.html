@@ -1,12 +1,15 @@
-<img class="icon" src="assets/images/upside-down-face.png" alt="">
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <img class="icon" src="assets/images/err_sticker_1.png" alt="">
 
-<h4>Вы не зашли в свой аккаунт?</h4>
+  <h4 class="mb-0">Вы не зашли в свой аккаунт?</h4>
 
-<div class="close">
-  <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
-</div>
+  <div class="close">
+    <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
+  </div>
 
-<div class="group mt-4">
-  <button class="btn group-btn" (click)="application()">Регестрация</button>
-  <button class="btn group-btn" (click)="signIn()">Войти</button>
+  <div class="group mt-4">
+    <button class="btn group-btn group-background" (click)="application()">Регестрация</button>
+    <button class="btn group-btn group-background" (click)="signIn()">Войти</button>
+  </div>
+  
 </div>

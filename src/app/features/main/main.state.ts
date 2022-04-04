@@ -4,13 +4,9 @@ import { QuestionModel } from '@core/models/api/question.model';
 import { DobroService } from '@core/services/dobro.service';
 import { SupportService } from '@core/services/support.service';
 import { SidebarState } from '@core/states/sidebar/sidebar.state';
-import getImageDimenstion from '@core/utils/image-size';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import { combineLatest } from 'rxjs';
 import { ListReports } from './edu/report-module/report.actions';
-import { ReportState } from './edu/report-module/report.state';
 import { ListVideos } from './edu/video-module/video.actions';
-import { VideoState } from './edu/video-module/video.state';
 import {
   ChangeCategory,
   ClearDobroDetails,
@@ -45,7 +41,7 @@ export class MainState {
   static selectedCategory({ selectedCategory }: StateModel): number {
     return selectedCategory;
   }
-  
+
   @Selector()
   static dobro_projects({ dobro_projects }: StateModel): DobroProjectModel[] | [] {
     return dobro_projects;

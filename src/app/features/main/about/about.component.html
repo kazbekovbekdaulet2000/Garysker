@@ -1,86 +1,109 @@
-<div class="d-flex flex-column align-items-center holder pt-6">
+<div class="d-flex flex-column align-items-center holder py-6">
 
-  <img src="assets/images/garyshker.svg" alt="">
+  <div class="d-flex flex-row align-items-center justify-content-center menu">
 
-  <div class="d-flex flex-row justify-content-center gap-4 holder-sections">
-    <div *ngFor="let section of sections; let indx = index;"
-      class="d-flex flex-column align-items-center cursor-pointer" (click)="changeTabs(indx)">
+    <div *ngFor="let section of sections;" class="item cursor-pointer" (click)="changeFragment(section.fragment)"
+      [class.selected]="selectedSection===section.fragment">
       {{section.name}}
-      <div @opacityAnimation class="holder-more" *ngIf="selectedSection===indx">
-        <img src="assets/images/polygon.svg" alt="">
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div *ngIf="selectedSection === 0" class="section">
-
-
-  <h3 class="mb-4">Как устроен наш проект?</h3>
-
-  <p class="mr-4">Garyshker.com - это сообщество, которое объединяет вокруг себя творческих и социально-активных людей,
-    создавая при этом благоприятные условия для изучения важных тем и реализации благотворительных проектов.</p>
-
-  <div class="d-flex flex-column align-items-center">
-    <!-- <app-plyr-player></app-plyr-player> -->
-  </div>
-
-  <div class="section-products">
-
-    <h3>Наши продукты</h3>
-
-    <div class="section-products-items">
-
-      <div class="item cursor-pointer" routerLink="/edu">
-        <div class="d-flex align-items-center gap-2">
-          <img class="section-products-items-image" src="assets/icons/edu.svg" alt="">
-          <h5 class="mb-0">Образование</h5>
-        </div>
-        <p class="item-text mb-0 mt-2">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и
-          читать материалы в
-          интересном формате</p>
-      </div>
-
-
-      <div class="item cursor-pointer" routerLink="/products">
-        <div class="d-flex align-items-center gap-2">
-          <img src="assets/icons/products.svg" alt="">
-          <h5 class="mb-0">Проекты</h5>
-        </div>
-        <p class="item-text mb-0 mt-2">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и
-          читать материалы в интересном формате</p>
-      </div>
-
-      <div class="item cursor-pointer" routerLink="/shop">
-        <div class="d-flex align-items-center gap-2">
-          <img src="assets/icons/shop.svg" alt="">
-          <h5 class="mb-0">Магазин</h5>
-        </div>
-        <p class="item-text mb-0 mt-2">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и
-          читать материалы в интересном формате</p>
-      </div>
-
-      <div class="item cursor-pointer" routerLink="/events">
-        <div class="d-flex align-items-center gap-2">
-          <img src="assets/icons/events.svg" alt="">
-          <h5 class="mb-0">Ивенты</h5>
-        </div>
-        <p class="item-text mb-0 mt-2">Наше основное направление, где любой желающий может бесплатно изучать, смотреть и
-          читать материалы в интересном формате</p>
-      </div>
     </div>
 
   </div>
 
-  <h3 class="mb-4">Команда</h3>
+  <div *ngIf="selectedSection==='us'" class="content">
 
-</div>
+    <div class="section">
 
-<div *ngIf="selectedSection === 1" class="section">
+      <h1 class="mb-2">Как устроен наш проект</h1>
 
-</div>
+      <div class="section-text">
+        Garyshker.com – это сообщество, которое объединяет вокруг себя социально-активных людей, создавая при этом
+        благоприятные условия для изучения важных тем и реализации благотворительных проектов.
+      </div>
 
-<div *ngIf="selectedSection === 2" class="section">
+    </div>
+
+    <div class="content-video">
+      <app-plyr-player link="https://storage.yandexcloud.net/garysh-app/promo_garyshker.%20(1080p).mp4">
+      </app-plyr-player>
+    </div>
+
+    <h1 class="mb-4">Наши продукты</h1>
+
+    <div *ngFor="let router of routers" class="content-product">
+      <h3>{{router.name}}</h3>
+      <div class="content-product-text">
+        {{router.body}}
+      </div>
+      <div class="content-product-router cursor-pointer" [routerLink]="[router.route]">Перейти —</div>
+    </div>
+
+    <h1 class="mb-4">Кто делает Garyshker?</h1>
+
+    <div class="content-people">
+
+      <div *ngFor="let person of people" class="content-people-item">
+
+        <img class="content-people-item-image" [src]="person.img" alt="">
+        <div class="content-people-item-name">{{person.name}}</div>
+        <div>{{person.prop}}</div>
+
+      </div>
+
+    </div>
+
+    <div class="d-flex flex-column align-items-start gap-3 content-thanks">
+
+      <h3>Благодарности</h3>
+
+      <div class="content-thanks-text">Спасибо всем нашим бывшим коллегам, без которых Garyshker не был бы таким, какой
+        он есть: Акниет Кенес,
+        Фаина, Акмарал, Амир, Ермек Курбанов, Алижан Сагатов, Дмитрий Кан, Дарина, Аружан Кенжебек, Артур Ким, Айнур,
+        Камиля, Малика, Лейла, Тогжан, Куаныш Сагинтаев, Куаныш Нурнагым, Жансая, Султанбек Аубакиров, Вячеслав Ким,
+        Алибек Байм, Ассель, Руфат, Айжан, Алина, Дастан Аралбаев, Рамазан Абжамел.
+        <br><br>
+
+        Спасибо всем операторам, режиссерам, спикерам, методистам и другим внештатным сотрудникам, с которыми мы
+        постоянно работаем. Без вас не было бы всего этого.
+      </div>
+
+    </div>
+
+  </div>
+
+  <div *ngIf="selectedSection==='partners'" class="content">
+
+    <div [formGroup]="formData" class="content-partners">
+
+      <div class="content-partners-main">
+        Пока мы работаем и создаем все собственными силами. Но открыты к предложениям по сотрудничеству.
+      </div>
+
+      <div class="content-partners-hint">
+        Вы можете связаться с нами, написав нам на почту <a href="mailto:info@garyshker.com">info@garyshker.com</a> Либо
+        оставьте ниже ваш email для связи
+      </div>
+
+      <input formControlName="email" class="content-partners-input" type="text" placeholder="Введите почту">
+
+      <div class="d-flex justify-content-end mt-4">
+
+        <button (click)="save()" class="btn content-partners-btn">
+          Отправить
+        </button>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <div *ngIf="selectedSection==='contacts'" class="content">
+
+    <div *ngFor="let contact of contacts" class="mb-4 content-contacts">
+      {{contact.text}} - <a [href]="contact.hint" target="_blank">{{contact.prop}}</a>
+    </div>
+
+  </div>
 
 </div>

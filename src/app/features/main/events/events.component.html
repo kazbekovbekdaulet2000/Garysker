@@ -1,15 +1,13 @@
 <div @opacityAnimation class="d-flex flex-column align-items-center no-content">
 
-  <div class="no-content-text mb-3">Мы знаем, что ты ожидал увидеть что - то интересное. Но мы еще не закончили работу
-    над этим разделом. Вся команда делает, старается :)</div>
+  <div class="no-content-text mb-3">{{'events.sorry_text.text_1' | translate}}</div>
 
-  <div class="no-content-text mb-3">Скоро все будет, обещаем. А пока можешь пройти регистрацию, чтобы мы оповестили
-    тебя, когда все будет готово.</div>
+  <div class="no-content-text mb-3">{{'events.sorry_text.text_2' | translate}}</div>
 
   <img class="no-content-icon mb-3" src="assets/images/alien.png" alt="">
 
   <button [routerLink]="['auth/application']"  *ngIf="(access$ | async) === ''" class="no-content-register mb-3">
-    Зарегистрироваться
+    {{'events.register' | translate}}
   </button>
 
   <div class="no-content-social">

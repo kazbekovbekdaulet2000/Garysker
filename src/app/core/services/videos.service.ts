@@ -24,49 +24,19 @@ export class VideosService extends ApiService {
   }
 
   list(params?: any): Observable<ListResponseModel<VideoModel>> {
-    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl(), { params }).pipe(
-      map(videos => {
-        videos.results.forEach(res => {
-          res.category_icon = getCategoryIcon(res.category.substring(0, 2))
-          res.category = res.category.substring(3)
-        })
-        return videos
-      })
-    )
+    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl(), { params })
   }
 
   listSaved(params?: any): Observable<ListResponseModel<VideoModel>> {
-    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl('bookmarked'), { params }).pipe(
-      map(videos => {
-        videos.results.forEach(res => {
-          res.category_icon = getCategoryIcon(res.category.substring(0, 2))
-          res.category = res.category.substring(3)
-        })
-        return videos
-      })
-    )
+    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl('bookmarked'), { params })
   }
 
   get(id: number): Observable<VideoDetailModel> {
-    return this.http.get<VideoDetailModel>(this.getUrl(id)).pipe(
-      map(video => {
-        video.category_icon = getCategoryIcon(video.category.substring(0, 2))
-        video.category = video.category.substring(3)
-        return video
-      })
-    )
+    return this.http.get<VideoDetailModel>(this.getUrl(id))
   }
 
   getRelated(id: number, params?: any): Observable<ListResponseModel<VideoModel>> {
-    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl(`${id}/related`), { params }).pipe(
-      map(videos => {
-        videos.results.forEach(res => {
-          res.category_icon = getCategoryIcon(res.category.substring(0, 2))
-          res.category = res.category.substring(3)
-        })
-        return videos
-      })
-    )
+    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl(`${id}/related`), { params })
   }
 
   like(id: number): Observable<any> {
@@ -83,6 +53,10 @@ export class VideosService extends ApiService {
 
   likeComment(videoId: number, id: number): Observable<any> {
     return this.http.post<any>(this.getUrl(`${videoId}/comments/${id}/like`), {})
+  }
+
+  deleteComment(videoId: number, id: number): Observable<any> {
+    return this.http.delete<any>(this.getUrl(`${videoId}/comments/${id}`), {})
   }
 
   postComment(id: number, payload: any): Observable<CommentModel> {
