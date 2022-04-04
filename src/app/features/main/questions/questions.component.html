@@ -4,17 +4,19 @@
   <ng-container *ngIf="questions$ | async as questions">
     <div class="question" *ngFor="let question of questions">
       <div class="question-header">
-        <h5>{{question.question}}</h5>
+        <h5>{{question | lang: 'question' | async}}</h5>
         <div class="hide-show" [class.hide]='selected.includes(question.id)' (click)="showHideAns(question.id)"></div>
       </div>
-      <div [@expandAnimation]="selected.includes(question.id) ? 'in' : 'out'" [innerHTML]="question.answer" class="question-body">
+      <div [@expandAnimation]="selected.includes(question.id) ? 'in' : 'out'" [innerHTML]="question | lang: 'answer' | async"
+        class="question-body">
       </div>
     </div>
   </ng-container>
 
-  <div class="help">
-    * Если вы не нашли ответ на свой вопрос в нашем FAQ, вы всегда можете
-    <a href="mailto:info@garyshker.com">связаться с нами</a>
-    и мы вам ответим.
-  </div>
+</div>
+
+<div class="link-text">
+  * Если вы не нашли ответ на свой вопрос в нашем FAQ, вы всегда можете
+  <a href="mailto:info@garyshker.com">связаться с нами</a>
+  и мы вам ответим.
 </div>

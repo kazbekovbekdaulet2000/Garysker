@@ -1,20 +1,18 @@
 <div *ngIf="video$ | async as video" class="video-holder">
-  
   <div class="content">
     <app-plyr-player [entity]="video" #plyr></app-plyr-player>
     <app-video-details [entity]="video"></app-video-details>
     <app-video-comments [entity]="video"></app-video-comments>
   </div>
-
   <div class="content d-flex flex-column gap-4" *ngIf="videos$ | async as videos">
 
-    <app-video-card 
-      *ngFor="let video of videos.results" 
-      [small]="true" 
-      [video]="video" 
-      width="100%"
-      (click)="navigateVideo(video.id)"
-    ></app-video-card>
+    <div *ngIf="showTitle" class="content-title d-flex flex-row align-items-center gap-2"> <img class="icon"
+        src="assets/images/video-camera.png" alt="">
+      <h3 class="mb-0">Смотреть еще</h3>
+    </div>
+
+    <app-video-card *ngFor="let video of videos.results" [small]="true" [video]="video" width="100%"
+      (click)="navigateVideo(video.id)"></app-video-card>
 
     <div *ngIf="videos.next" class="content-more gap-2 cursor-pointer" (click)="loadVideo(videos.next)">
       Смотреть еще

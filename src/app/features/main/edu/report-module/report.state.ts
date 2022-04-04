@@ -9,6 +9,7 @@ import getComment from '../getComment';
 import {
   ClearReportDetail,
   ClearReportList,
+  DeleteReportComment,
   GetRelatedReports,
   GetReport,
   LikeReport,
@@ -23,6 +24,8 @@ import {
   SaveReport
 } from './report.actions';
 import { MainState } from '../../main.state';
+import { ListComments } from '@core/states/comments/comments.actions';
+import deleteComment from '../deleteComment';
 
 
 interface StateModel {
@@ -229,6 +232,20 @@ export class ReportState {
           comment!.likes_count -= 1
         }
         comment!.liked = liked
+      })
+  }
+
+  @Action(DeleteReportComment)
+  DeleteReportComment({ getState, patchState }: StateContext<StateModel>, { reportId, commentId }: DeleteReportComment) {
+    this.reportService.deleteComment(reportId, commentId)
+      .subscribe(() => {
+        getState().report!.comments_count -= 1
+        patchState({
+          comments: {
+            ...getState().comments,
+            results: deleteComment(getState().comments.results, commentId)
+          }
+        })
       })
   }
 

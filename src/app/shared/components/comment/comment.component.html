@@ -5,8 +5,11 @@
     <img class="comment-user-image" [src]="comment.owner?.image">
 
     <div class="comment-user-info">
-      <p class="comment-user-info-name">{{comment?.owner?.surname}} {{comment?.owner?.name}}</p>
-      <p *ngIf="comment.created_at" class="comment-user-info-date">{{comment.created_at | DateRemained}}</p>
+      <div class="d-flex gap-2">
+        <p class="comment-user-info-name">{{comment?.owner?.surname}} {{comment?.owner?.name}}</p>
+        <img *ngIf="comment?.owner?.verified" src="assets/icons/verified_user_new.svg">
+      </div>
+      <p *ngIf="comment.created_at" class="comment-user-info-date">{{comment.created_at | DateRemained | async}}</p>
     </div>
 
     <div class="comment-user-like cursor-pointer" (click)="likeComment(comment)">
@@ -27,18 +30,28 @@
       ответить
     </div>
 
+    <!-- <div *ngIf="(access$ | async) !=='' && (comment.owner.email === email || is_superuser)" class="comment-reply cursor-pointer"
+      (click)="deleteComment(comment)">
+      редактировать
+    </div> -->
+
+    <div
+      *ngIf="(access$ | async) !=='' && (comment.owner.email === email || is_superuser) && comment.replies.length === 0"
+      class="comment-reply cursor-pointer" (click)="deleteComment(comment)">
+      удалить
+    </div>
+
     <div @opacityAnimation class="comment-reply cursor-pointer" *ngIf="comment.replies.length > 0" (click)="showMore()">
       {{this.getCommentCount}}
     </div>
 
   </div>
 
-
   <ng-container *ngIf="!hideAns">
 
     <app-comment-module @heightOutAnimation *ngFor="let reply of comment.replies; let i = index"
       [isLast]="comment.replies.length-1 === i" [isReply]="true" [comment]='reply' (like)="likeComment($event)"
-      (reply)="addReply($event)">
+      (reply)="addReply($event)" (delete)="deleteComment($event)">
     </app-comment-module>
 
   </ng-container>

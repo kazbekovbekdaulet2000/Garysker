@@ -16,18 +16,14 @@ import { ChangeCategory } from 'src/app/features/main/main.actions';
 export class ReportMenuComponent {
 
   @Input() report!: ReportDetailModel;
-  @Select(SidebarState.categories) categories$!: Observable<CategoryModel[]>
 
   constructor(
     private store: Store,
     private router: Router
   ) { }
 
-  navigateEdu(item: string) {
-    this.categories$.subscribe(list => {
-      const category = list.find(val => val.name === item)
-      this.store.dispatch(new ChangeCategory(category!.id))
-      this.router.navigate(['/edu'])
-    })
+  navigateEdu(category: number) {
+    this.store.dispatch(new ChangeCategory(category))
+    this.router.navigate(['/edu'])
   }
 }

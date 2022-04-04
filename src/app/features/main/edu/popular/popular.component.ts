@@ -67,10 +67,12 @@ export class EduPopularComponent {
 
   slideNext() {
     this.swiper.swiperRef.slideNext();
+    this.swiper.swiperRef.autoplay.start()
   }
 
   slidePrev() {
     this.swiper.swiperRef.slidePrev();
+    this.swiper.swiperRef.autoplay.start()
   }
 
   onNavigate(item: any) {

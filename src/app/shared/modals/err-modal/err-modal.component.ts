@@ -5,19 +5,21 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   templateUrl: './err-modal.component.html',
   styleUrls: ['./err-modal.component.scss']
 })
-export class MessageModalComponent implements OnInit {
+export class MessageModalComponent {
 
-  message: string = ""
+  title: string = "";
+  message: string = "";
+  icon: string = ""
 
   constructor(
     private bsModalRef: BsModalRef
   ) { }
-  ngOnInit(): void {
-    
-  }
 
   closeModal() {
     this.bsModalRef.hide()
   }
 
+  get getIcon() {
+    return this.icon ? `assets/images/${this.icon}.png` : 'assets/images/err_sticker_1.png'
+  }
 }

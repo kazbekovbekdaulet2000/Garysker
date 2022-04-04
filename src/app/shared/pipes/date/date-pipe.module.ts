@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { DateAgePipe } from './date-age.pipe';
 import { DateRemainedPipe } from './date-remained.pipe';
 import { ReadTimePipe } from './read-time.pipe';
@@ -19,6 +20,9 @@ import { ReadTimePipe } from './read-time.pipe';
     DateRemainedPipe,
     ReadTimePipe,
     DateAgePipe
+  ],
+  imports: [
+    TranslateModule
   ]
 })
 export class DatePipeModule {

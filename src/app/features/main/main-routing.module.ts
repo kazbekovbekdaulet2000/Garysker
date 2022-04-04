@@ -10,6 +10,7 @@ import { VideoModuleModule } from './edu/video-module/video-module.module';
 import { EventsComponent } from './events/events.component';
 
 import { MainComponent } from './main.component';
+import { NKOComponent } from './nko/nko.component';
 import { ProductsComponent } from './products/products.component';
 import { ProfileComponent } from './profile/profile.component';
 import { QuestionsComponent } from './questions/questions.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'about',
         component: AboutComponent
+      },
+      {
+        path: 'nko',
+        component: NKOComponent
       },
       {
         path: 'edu',

@@ -6,7 +6,7 @@
 
       <div class="d-flex flex-row align-items-center gap-2">
         <img class="icon" src="assets/images/star.png" alt="">
-        <h3 class="mb-0">Интересное</h3>
+        <h3 class="mb-0">{{'main_screen.popular'| translate}}</h3>
       </div>
 
       <div class="swipe">
@@ -23,20 +23,20 @@
 
               <div class="content">
 
-                <h5>{{item.title}}</h5>
+                <h5>{{item | lang: 'title' | async}}</h5>
 
                 <div class="d-flex align-content-center content-category cursor-pointer">
 
                   <div class="content-category-icon">
-                    <img [src]="item.category_icon">
+                    <img [src]="item.category | categoryImage | async">
                   </div>
 
                   <div class="d-flex flex-column content-category-text">
-                    {{item.category}}
-                    <div *ngIf="item.read_time" class='content-category-text-time'>{{item.read_time | ReadTime}} •
+                    {{item.category | category | async}}
+                    <div *ngIf="item.read_time" class='content-category-text-time'>{{item.read_time | ReadTime | async}} •
                       {{item.created_at
-                      | DateRemained}}</div>
-                    <div *ngIf="!item.read_time" class='content-category-text-time'>{{item.created_at | DateRemained}}
+                      | DateRemained | async}}</div>
+                    <div *ngIf="!item.read_time" class='content-category-text-time'>{{item.created_at | DateRemained | async}}
                     </div>
                   </div>
 

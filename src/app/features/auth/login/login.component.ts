@@ -40,9 +40,9 @@ export class LoginComponent {
       .toPromise()
       .then(token => {
         this.store.dispatch(new Login(token))
-        this.router.navigate([''])
         this.store.dispatch(new UpdateProfile())
         this.store.dispatch(new ChangeCategory(NaN))
+        window.history.back()
       })
       .catch(error => {
         this.formGroup.controls['email'].setErrors({ 'incorrect': true });

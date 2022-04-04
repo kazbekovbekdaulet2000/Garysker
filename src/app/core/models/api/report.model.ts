@@ -5,8 +5,7 @@ export interface ReportModel {
   title: string,
   image: string,
   created_at: string,
-  category: string,
-  category_icon?: string,
+  category: number,
   read_time: string,
   likes_count: number,
   liked: boolean,
@@ -20,4 +19,6 @@ export interface ReportDetailModel extends ReportModel{
   author: UserModel,
   body: string,
   icon?: string,
+  preview_text_kk: string,
+  preview_text_ru: string
 }

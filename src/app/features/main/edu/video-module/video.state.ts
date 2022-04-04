@@ -7,6 +7,7 @@ import { ReportsService } from '@core/services/reports.service';
 import { VideosService } from '@core/services/videos.service';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { MainState } from '../../main.state';
+import deleteComment from '../deleteComment';
 import getComment from '../getComment';
 import iterateComments from '../iterateComments';
 import {
@@ -25,7 +26,8 @@ import {
   ClearVideoList,
   ListMoreSavedVideos,
   ClearVideoComments,
-  ClearRelatedVideoList
+  ClearRelatedVideoList,
+  DeleteVideoComment
 } from './video.actions';
 
 interface StateModel {
@@ -246,6 +248,21 @@ export class VideoState {
           comment!.likes_count -= 1
         }
         comment!.liked = liked
+      })
+  }
+
+  @Action(DeleteVideoComment)
+  DeleteVideoComment({ getState, patchState }: StateContext<StateModel>, { reportId, commentId }: DeleteVideoComment) {
+    this.videoService.deleteComment(reportId, commentId)
+      .toPromise().then(() => {
+        getState().video!.comments_count -= 1
+        patchState({
+          comments: {
+            ...getState().comments,
+            results: deleteComment(getState().comments.results, commentId)
+          }
+        })
+        // this.store.dispatch(new ListVideoComments(reportId))
       })
   }
 

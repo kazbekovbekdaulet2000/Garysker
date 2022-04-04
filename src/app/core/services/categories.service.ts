@@ -5,13 +5,16 @@ import { ApiService } from './api.service';
 import { CategoryModel } from '@core/models/api/category.model';
 import { map } from 'rxjs/operators';
 import getCategoryIcon from '@core/utils/category-icons';
+import { Select } from '@ngxs/store';
+import { AppState } from '@core/states/app/app.state';
+import { LangType } from '@core/types/lang.type';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriesService extends ApiService {
-
+  
   constructor(
     protected http: HttpClient
   ) {
@@ -23,13 +26,12 @@ export class CategoriesService extends ApiService {
       .pipe(
         map(res => {
           res = res.map(val => {
-            val.icon = getCategoryIcon(val.name.substring(0, 2));
-            val.name = val.name.substring(3)
+            val.icon = getCategoryIcon(val.name_ru.substring(0, 2));
+            val.name_ru = val.name_ru.substring(3)
             return val
           })
           return res
         })
       )
   }
-
 }

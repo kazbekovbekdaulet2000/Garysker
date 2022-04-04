@@ -5,7 +5,7 @@
     [src]="replyContent.owner.image">
   <div class="reply-info">
     <p class="reply-info-name">{{replyContent.owner.surname}} {{replyContent.owner.name}}</p>
-    <p class="reply-info-date">{{replyContent.created_at | DateRemained}}</p>
+    <p class="reply-info-date">{{replyContent.created_at | DateRemained | async}}</p>
   </div>
   <div class="reply-cancel cursor-pointer" (click)="removeReplyParent()">отменить</div>
 

@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
+import { UserModel } from '@core/models/api/user.model';
 import { AuthState } from '@core/states/auth/auth.state';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { LoginErrModalComponent } from '../../modals/noLogin-modal /login-modal.component';
+import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
 
 @Component({
   selector: 'app-comment-module',
@@ -16,8 +17,7 @@ import { LoginErrModalComponent } from '../../modals/noLogin-modal /login-modal.
 })
 export class CommentComponent {
 
-  @Select(AuthState.access)
-  access$!: Observable<string>;
+  @Select(AuthState.access) access$!: Observable<string>;
 
   hideAns = true;
   @Input() comment!: CommentModel;
@@ -25,14 +25,24 @@ export class CommentComponent {
   @Input() isLast: boolean = false;
 
   @Output() reply = new EventEmitter<CommentModel>();
+  @Output() delete = new EventEmitter<CommentModel>();
   @Output() like = new EventEmitter<CommentModel>();
 
   constructor(
+    private store: Store,
     private bsModalService: BsModalService
   ) { }
 
   addReply(value: CommentModel) {
     this.reply.emit(value)
+  }
+
+  deleteComment(value: CommentModel) {
+    this.delete.emit(value)
+  }
+
+  patchComment(value: CommentModel) {
+
   }
 
   showMore() {
@@ -47,6 +57,14 @@ export class CommentComponent {
         this.bsModalService.show(LoginErrModalComponent, { class: 'modal-dialog-centered' })
       }
     })
+  }
+
+  get email(): string | undefined {
+    return this.store.selectSnapshot(AuthState.profile)?.email
+  }
+
+  get is_superuser(): boolean | undefined {
+    return this.store.selectSnapshot(AuthState.profile)?.is_superuser
   }
 
   get getCommentCount() {

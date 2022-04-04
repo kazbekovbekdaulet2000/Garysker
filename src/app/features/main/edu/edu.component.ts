@@ -20,6 +20,7 @@ import { ClearReportList, ListMoreReports } from './report-module/report.actions
 import { filter, map } from 'rxjs/operators';
 import { UpdateTop } from '@core/states/scroll/scroll';
 import { ScrollState } from '@core/states/scroll/scroll.state';
+import { AppState } from '@core/states/app/app.state';
 
 SwiperCore.use([Autoplay, Navigation, Scrollbar, Mousewheel]);
 
@@ -34,7 +35,7 @@ export class EduComponent implements AfterViewInit, OnDestroy {
   @Select(ReportState.reports) reports$!: Observable<ListResponseModel<ReportModel>>;
   @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>;
   @Select(MainState.selectedCategory) selectedCategory$!: Observable<number>
-  @Select(SidebarState.categories) categories$!: Observable<CategoryModel[]>;
+  @Select(AppState.categories) categories$!: Observable<CategoryModel[]>;
 
   @Select(ScrollState.top) top$!: Observable<number>;
 

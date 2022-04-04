@@ -2,18 +2,20 @@
 
   <div class="logo"> G.</div>
   <img class="back" [class.small]="small" [src]="video.image_2 ? video.image_2 : video.image" draggable="false">
-  <div class="content" [class.small-content]="small">
+  <div class="content" [class.content-small]="small">
 
-    <div class="d-flex flex-row align-items-center gap-1 category" 
-      [style.margin-right]="small ? '18px' : '0px'"
-      [style.font-size]="small ? '12px' : '14px'">
-      <img class="category-icon" [src]="video.category_icon">
-      {{video.category}}
+    <div 
+      class="d-flex flex-row align-items-center gap-1 category" 
+      [style.font-size]="small ?? '12px'">
+      
+      <img class="category-icon" [src]="video.category | categoryImage | async">
+      
+      <span> {{video.category | category | async}} </span>
+      
+      <span class="category-duriation"> • {{getTime(video.duriation) | date:'m'}} минут</span>
     </div>
 
-    <h5 class="content-title" [class.small-text]="small">{{video.title}}</h5>
-
-    <div class="content-text" [innerHTML]="video.body | sanitizer"></div>
+    <h5 class="mb-0" [class]="small ? 'content-small-title' : 'content-title'">{{video | lang: 'title' | async}}</h5>
 
   </div>
 

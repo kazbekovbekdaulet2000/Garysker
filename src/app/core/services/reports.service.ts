@@ -23,51 +23,19 @@ export class ReportsService extends ApiService {
   }
 
   list(params?: any): Observable<ListResponseModel<ReportModel>> {
-    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(), { params }).pipe(
-      map(reports => {
-        reports.results.forEach(res => {
-          res.category_icon = getCategoryIcon(res.category.substring(0, 2))
-          res.category = res.category.substring(3)
-        })
-        return reports
-      })
-    )
+    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(), { params })
   }
 
   listSaved(params?: any): Observable<ListResponseModel<ReportModel>> {
-    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('bookmarked'), { params }).pipe(
-      map(reports => {
-        reports.results.forEach(res => {
-          res.category_icon = getCategoryIcon(res.category.substring(0, 2))
-          res.category = res.category.substring(3)
-        })
-        return reports
-      })
-    )
+    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('bookmarked'), { params })
   }
 
   get(id: number): Observable<ReportDetailModel> {
     return this.http.get<ReportDetailModel>(this.getUrl(id))
-      .pipe(
-        map(res => {
-          res.icon = getCategoryIcon(res.category.substring(0, 2))
-          res.category = res.category.substring(3)
-          return res
-        })
-      )
   }
 
   getRelated(id: number, params?: any): Observable<ListResponseModel<ReportModel>> {
     return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(`${id}/related`), { params })
-      .pipe(
-        map(reports => {
-          reports.results.forEach(res => {
-            res.category_icon = getCategoryIcon(res.category.substring(0, 2))
-            res.category = res.category.substring(3)
-          })
-          return reports
-        })
-      )
   }
 
   like(id: number): Observable<any> {
@@ -84,6 +52,10 @@ export class ReportsService extends ApiService {
 
   likeComment(reportId: number, id: number): Observable<any> {
     return this.http.post<any>(this.getUrl(`${reportId}/comments/${id}/like`), {})
+  }
+
+  deleteComment(reportId: number, id: number): Observable<any> {
+    return this.http.delete<any>(this.getUrl(`${reportId}/comments/${id}`))
   }
 
   postComment(id: number, payload: any): Observable<CommentModel> {

@@ -72,7 +72,7 @@
 
   <div *ngIf="selectedSection==='partners'" class="content">
 
-    <div class="content-partners">
+    <div [formGroup]="formData" class="content-partners">
 
       <div class="content-partners-main">
         Пока мы работаем и создаем все собственными силами. Но открыты к предложениям по сотрудничеству.
@@ -83,11 +83,11 @@
         оставьте ниже ваш email для связи
       </div>
 
-      <input class="content-partners-input" type="text" placeholder="Введите почту">
+      <input formControlName="email" class="content-partners-input" type="text" placeholder="Введите почту">
 
       <div class="d-flex justify-content-end mt-4">
 
-        <button class="btn content-partners-btn">
+        <button (click)="save()" class="btn content-partners-btn">
           Отправить
         </button>
 

@@ -14,6 +14,8 @@ import { VideoDetailsComponent } from './video/details/video-details.component';
 import { PlyrVideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
 import { CardModule } from 'src/app/shared/components/card/card.module';
 import { ReplyModule } from 'src/app/shared/components/reply/reply.module';
+import { LangPipeModule } from 'src/app/shared/pipes/lang/lang-pipe.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { ReplyModule } from 'src/app/shared/components/reply/reply.module';
     CardModule,
     ReplyModule,
     ReactiveFormsModule,
+    LangPipeModule,
+    TranslateModule,
     NgxsModule.forFeature([VideoState]),
     DatePipeModule,
     SanitizerPipeModule,

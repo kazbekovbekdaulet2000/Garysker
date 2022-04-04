@@ -4,12 +4,15 @@
   <img [src]="profile?.image" class="profile-image">
 
   <div class="d-flex flex-column profile-info">
-    <h3>
-      {{profile?.surname}} {{profile?.name}}
+    <h3 class="d-flex gap-2">
+      <div class="d-flex gap-2 justify-content-center align-items-left">
+        {{profile?.surname}} {{profile?.name}}
+        <img *ngIf="profile.verified" src="assets/icons/verified_user_new.svg">
+      </div>
       <img class="profile-info-change" src="assets/icons/pen.svg" (click)="onProfileChange()">
     </h3>
     <div class="profile-info-detail">{{profile?.email}}</div>
-    <div class="profile-info-detail">{{profile.birth_date | DateAge}}</div>
+    <div class="profile-info-detail">{{profile.birth_date | DateAge | async}}</div>
     <div class="profile-info-detail">
       <img src="assets/icons/location.svg" alt="">
       {{profile.city}}

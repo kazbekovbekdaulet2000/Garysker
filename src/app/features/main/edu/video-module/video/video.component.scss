@@ -1,11 +1,17 @@
 .video-holder {
   width: calc(100% - 32px);
   display: grid;
-  grid-template-columns: 1fr 345px;
+  grid-template-columns: calc(100% - 361px) 345px;
   gap: 24px;
   margin-bottom: 36px;
   margin-right: 16px;
   .content{
+    &-title{
+      img{
+        width: 32px;
+        height: 32px;
+      }
+    }
     &-more{
       display: flex;
       align-items: center;
@@ -18,7 +24,7 @@
   .video-holder {
     width: calc(100% - 32px);
     margin-right: 0px;
-    grid-template-columns: 1fr 250px;
+    grid-template-columns: calc(100% - 261px) 250px;
   }
 }
 
@@ -26,6 +32,7 @@
   .video-holder {
     width: calc(100% - 16px);
     margin-right: 0px;
+    gap: 48px;
     grid-template-columns: 1fr;
   }
 }

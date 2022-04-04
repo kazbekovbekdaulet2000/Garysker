@@ -1,16 +1,19 @@
 <ng-container *ngIf="comments$ | async as comments">
 
-  <div class="comment-holder" [formGroup]="formGroup">
+  <div #holder class="comment-holder" [formGroup]="formGroup">
 
-    <h5>{{report.comments_count}} {{report.comments_count===1 ? 'комментарий' : 'комментария'}}</h5>
+    <h5>{{report.comments_count}} комментарии </h5>
 
     <div @heightAnimation class="reply" *ngIf="replyContent">
 
       <img class="reply-sign" src="assets/icons/reply-sign.svg" draggable=false>
       <img class="reply-image" [src]="replyContent.owner.image">
       <div class="reply-info">
-        <p class="reply-info-name">{{replyContent.owner.surname}} {{replyContent.owner.name}}</p>
-        <p class="reply-info-date">{{replyContent.created_at | DateRemained}}</p>
+        <div class="d-flex gap-2">
+          <p class="reply-info-name">{{replyContent.owner.surname}} {{replyContent.owner.name}}</p>
+          <img *ngIf="replyContent?.owner?.verified" src="assets/icons/verified_user_new.svg">
+        </div>
+        <p class="reply-info-date">{{replyContent.created_at | DateRemained | async}}</p>
       </div>
       <div class="reply-cancel cursor-pointer" (click)="removeReplyParent()">отменить</div>
 
@@ -18,8 +21,8 @@
 
     <div *ngIf="(access$ | async) !== ''" class="textfield">
 
-      <textarea rows=3 placeholder="Написать комментарий..." class="textfield-area" [class.large]="textInputLarge"
-        formControlName="body" (click)="textareaTap()"></textarea>
+      <textarea #input rows=3 placeholder="Написать комментарий..." class="textfield-area" [class.large]="textInputLarge"
+        formControlName="body" (click)="textareaTap()" (keydown)="triggerFunction($event)"></textarea>
 
       <div class="d-flex justify-content-end">
         <button @opacityAnimation *ngIf="textInputLarge" class="btn textfield-btn"
@@ -30,7 +33,11 @@
 
     <ng-container *ngIf="report.comments_count>0; else empty">
 
-      <app-comment-module *ngFor="let comment of comments.results" [comment]="comment" (reply)="addReply($event)"
+      <app-comment-module 
+        *ngFor="let comment of comments.results" 
+        [comment]="comment" 
+        (reply)="addReply($event)"
+        (delete)="deleteComment($event)"
         (like)="postLike($event)">
       </app-comment-module>
 

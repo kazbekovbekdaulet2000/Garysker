@@ -1,20 +1,31 @@
-<div class="report-card cursor-pointer" [ngStyle]="{'background-image': 'url(' + report.image + ')', 'background-position': 'center center'}">
+<div 
+  class="report-card cursor-pointer"
+  [ngStyle]="{'background-image': 'url(' + report.image + ')', 'background-position': 'center center'}">
+  
   <div class="logo"> G.</div>
+  
   <div class="content">
-    
-    <h5 class="content-title">{{report.title}}</h5>
-    
-    <div class="d-flex flex-row align-items-center gap-1 category"> 
+
+    <h5 class="content-title">{{report | lang: 'title' | async}}</h5>
+
+    <div class="d-flex flex-row align-items-center gap-1 category">
+      
       <div class="category-icon">
-        <img class="category-icon-img" [src]="report.category_icon">
+        <img class="category-icon-img" [src]="report.category | categoryImage | async">
       </div>
+      
       <div class="d-flex flex-column gap-1">
-        {{report.category}}
-        <div class="category-text">{{report.read_time | ReadTime}} •
-          {{report.created_at
-          | DateRemained}}</div>
+        
+        <span> {{report.category | category | async}} </span>
+      
+        <div class="category-text">
+          {{report.read_time | ReadTime | async}} • {{report.created_at | DateRemained | async}}
+        </div>
+      
       </div>
+
     </div>
 
   </div>
+  
 </div>

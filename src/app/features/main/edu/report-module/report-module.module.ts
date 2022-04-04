@@ -15,6 +15,8 @@ import { CardModule } from 'src/app/shared/components/card/card.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ReportRelatedComponent } from './report/related/related.component';
 import { ReportCommentsComponent } from './report/comments/comments.component';
+import { LangPipeModule } from 'src/app/shared/pipes/lang/lang-pipe.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { ReportCommentsComponent } from './report/comments/comments.component';
     CardModule,
     InfiniteScrollModule,
     ReactiveFormsModule,
+    LangPipeModule,
+    TranslateModule,
     NgxsModule.forFeature([ReportState]),
     DatePipeModule,
     SanitizerPipeModule

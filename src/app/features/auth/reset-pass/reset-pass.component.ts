@@ -87,7 +87,10 @@ export class ResetPassComponent {
       } else {
         this.formGroup.get('email')?.setErrors({ 'incorrect': true })
         this.bsService.show(MessageModalComponent, {
-          initialState: { message: "Email пустой" },
+          initialState: {
+            title: 'Упс, ошибка!?',
+            message: "Email пустой"
+          },
           class: 'modal-dialog-centered'
         })
       }
@@ -107,7 +110,11 @@ export class ResetPassComponent {
           .toPromise()
           .then(res => {
             this.bsService.show(MessageModalComponent, {
-              initialState: { message: "Ваш пароль был успешно изменен" },
+              initialState: {
+                title: 'УРА!!',
+                message: "Ваш пароль был успешно изменен",
+                icon: 'err_sticker_2'
+              },
               class: 'modal-dialog-centered'
             })
             localStorage.removeItem('resetEmail')
@@ -123,13 +130,19 @@ export class ResetPassComponent {
             if (err.status === 408) {
               this.identityService.reset(payload).toPromise()
               this.bsService.show(MessageModalComponent, {
-                initialState: { message: "Прежнии код истек, мы отправили вам новый код на почту" },
+                initialState: {
+                  title: 'УПССС!!',
+                  message: "Прежнии код истек, мы отправили вам новый код на почту"
+                },
                 class: 'modal-dialog-centered'
               })
             }
             if (err.status === 400) {
               this.bsService.show(MessageModalComponent, {
-                initialState: { message: "Неправильный код" },
+                initialState: {
+                  title: 'УПССС!!',
+                  message: "Неправильный код"
+                },
                 class: 'modal-dialog-centered'
               })
             }
@@ -137,7 +150,7 @@ export class ResetPassComponent {
       } else {
         this.formGroup.get('email')?.setErrors({ 'incorrect': true })
         this.bsService.show(MessageModalComponent, {
-          initialState: { message: "Поставьте код" },
+          initialState: { message: "Напишите код" },
           class: 'modal-dialog-centered'
         })
       }

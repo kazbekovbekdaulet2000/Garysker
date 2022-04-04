@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Store } from '@ngxs/store';
-import { Observable, Subject, throwError } from 'rxjs';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { RemoveToken, UpdateProfile, UpdateToken } from '@core/states/auth/actions';
 import { AuthState } from '@core/states/auth/auth.state';
 import * as moment from 'moment';
 import { IdentityService } from '@core/services/identity.service';
 import { Navigate } from '@ngxs/router-plugin';
+import { environment } from '@env';
+import { TokenModel } from '@core/models/api/token.model';
 
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
   refreshTokenInProgress = false;
+  private isRefreshing = false;
+  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   tokenRefreshedSource = new Subject();
   tokenRefreshed$ = this.tokenRefreshedSource.asObservable();
@@ -21,40 +25,30 @@ export class RequestInterceptor implements HttpInterceptor {
   constructor(
     private store: Store,
     private identityService: IdentityService,
+    private http: HttpClient
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.isTokenExpired(req)) {
-      return this.refreshToken().pipe(
-        switchMap(() => {
-          req = this.setAuthHeader(req!);
-          return next.handle(req);
-        }),
-        catchError(e => {
-          this.store.dispatch(RemoveToken);
-          return throwError(e);
-        }));
+      return this.handle401Error(req, next);
     }
+    req = this.setAuthHeader(req, this.store.selectSnapshot(AuthState).access)
 
-    req = this.setAuthHeader(req)
-
-    return next.handle(req)
-      .pipe(
-        catchError(error => {
-          if (error instanceof HttpErrorResponse && !req.url.includes('auth/login/')) {
-            return this.handleResponseError(error, req, next);
-          }
-          return throwError(error);
-        })
-      );
+    return next.handle(req).pipe(
+      catchError(error => {
+        if (error instanceof HttpErrorResponse && !req.url.includes('auth/login/') && error.status === 401) {
+          return this.handle401Error(req, next);
+        }
+        return throwError(error);
+      })
+    );
   }
 
-  setAuthHeader(req: HttpRequest<any>) {
-    const { access } = this.store.selectSnapshot(AuthState);
-    if (!!access) {
+  setAuthHeader(req: HttpRequest<any>, token: string) {
+    if (!!token && !req.params.has('refresh_token')) {
       req = req.clone({
         setHeaders: {
-          'Authorization': `Bearer ${access}`
+          'Authorization': `Bearer ${token}`
         }
       });
     }
@@ -65,68 +59,56 @@ export class RequestInterceptor implements HttpInterceptor {
     if (request.params.has('refresh_token')) {
       return false;
     }
-
     const { access, accessTokenExpireDate } = this.store.selectSnapshot(AuthState);
-
     if (access !== '' || !accessTokenExpireDate) {
       return false;
     }
-
     const leftSeconds = moment().diff(accessTokenExpireDate, 'seconds');
-
     return leftSeconds > -30;
   }
 
-  refreshToken(): Observable<any> {
-    const { refresh } = this.store.selectSnapshot(AuthState);
-    if (refresh === '') {
-      return new Observable
-    }
-    if (this.refreshTokenInProgress) {
-      return new Observable(observer => {
-        return this.tokenRefreshed$.subscribe(() => {
-          observer.next();
-          observer.complete();
-        });
-      });
-    } else {
-      this.refreshTokenInProgress = true;
+  handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+    if (!this.isRefreshing) {
+      this.isRefreshing = true;
+      this.refreshTokenSubject.next(null);
 
-      if (refresh === '') {
-        this.refreshTokenInProgress = false;
-        return throwError(new Error('Нету токена'));
+      const { refresh } = this.store.selectSnapshot(AuthState);
+
+      if (refresh) {
+        const decodedRefreshToken = JSON.parse(window.atob(refresh.split('.')[1]));
+        if (moment().diff(moment.unix(decodedRefreshToken.exp), 'seconds') > -10) {
+          this.store.dispatch(RemoveToken)
+          this.isRefreshing = false;
+          this.refreshTokenSubject.next(null);
+          window.location.reload()
+        }
+
+        return this.identityService.refresh(refresh).pipe(
+          switchMap(token => {
+            this.isRefreshing = false;
+            this.refreshTokenSubject.next(token.access);
+            this.store.dispatch(new UpdateToken(token.access));
+            return next.handle(this.setAuthHeader(request, token.access));
+          }),
+          catchError((err) => {
+            this.isRefreshing = false;
+            this.store.dispatch(RemoveToken)
+            return throwError(err);
+          })
+        );
       }
-
-      return this.identityService.refresh(refresh).pipe(
-        map(token => {
-          this.store.dispatch(new UpdateToken(token.access));
-          this.store.dispatch(new UpdateProfile())
-          return token;
-        }),
-        tap(() => {
-          this.refreshTokenInProgress = false;
-          this.tokenRefreshedSource.next();
-        }),
-        catchError(error => {
-          this.refreshTokenInProgress = false;
-          this.store.dispatch(RemoveToken);
-          return throwError(error);
-        }));
     }
+
+    return this.refreshTokenSubject.pipe(
+      filter(token => token !== null),
+      take(1),
+      switchMap((token) => next.handle(this.setAuthHeader(request, token)))
+    );
   }
 
   handleResponseError(error: HttpErrorResponse, req?: HttpRequest<any>, next?: HttpHandler) {
     if (error.status === 401) {
-      return this.refreshToken().pipe(
-        take(1),
-        switchMap(() => {
-          req = this.setAuthHeader(req!);
-          return next!.handle(req);
-        }),
-        catchError(e => {
-          this.store.dispatch(RemoveToken);
-          return throwError(e);
-        }));
+
     } else if (error.status === 404) {
       // this.store.dispatch(new Navigate(["**"]))
     }

@@ -33,6 +33,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { EduPopularComponent } from './edu/popular/popular.component';
 import { AboutComponent } from './about/about.component';
 import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
+import { NKOComponent } from './nko/nko.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { LangPipeModule } from 'src/app/shared/pipes/lang/lang-pipe.module';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,7 @@ import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.
     EventsComponent,
     SupportComponent,
     AboutComponent,
+    NKOComponent,
     IokaPaymentComponent
   ],
   imports: [
@@ -65,7 +69,9 @@ import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.
     IvyCarouselModule,
     SwiperModule,
     InfiniteScrollModule,
+    LangPipeModule,
     ReactiveFormsModule,
+    TranslateModule,
     NgxStickySidebarModule.withConfig({
       minWidth: 257
     }),

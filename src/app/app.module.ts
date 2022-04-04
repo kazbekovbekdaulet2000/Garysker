@@ -13,6 +13,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { SwiperModule } from "swiper/angular";
+import { TranslateModule } from '@ngx-translate/core';
+import { LangPipeModule } from './shared/pipes/lang/lang-pipe.module';
+
 registerLocaleData(localeRu, 'ru');
 
 @NgModule({
@@ -28,6 +31,8 @@ registerLocaleData(localeRu, 'ru');
     MatSliderModule,
     SwiperModule,
     MatSidenavModule,
+    LangPipeModule,
+    TranslateModule,
     CoreModule.forRoot(),
     BrowserAnimationsModule,
   ],

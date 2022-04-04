@@ -6,11 +6,16 @@ import { opacityAnimation } from '@core/animations/opacity-animation';
 import { UserModel } from '@core/models/api/user.model';
 import { ReportsService } from '@core/services/reports.service';
 import { VideosService } from '@core/services/videos.service';
+import { UpdateLang } from '@core/states/app/app.actions';
+import { AppState } from '@core/states/app/app.state';
 import { RemoveToken } from '@core/states/auth/actions';
 import { AuthState } from '@core/states/auth/auth.state';
+import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { combineLatest, Observable, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
+import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'core-header',
@@ -51,7 +56,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private store: Store,
     private renderer: Renderer2,
     private reportService: ReportsService,
-    private videoService: VideosService
+    private videoService: VideosService,
+    private bsModalService: BsModalService,
+    private translateService: TranslateService
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
@@ -78,18 +85,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const lang = this.store.selectSnapshot(AppState.lang)
     this.searchText.valueChanges
       .pipe(
-        debounceTime(500),
+        debounceTime(100),
         distinctUntilChanged(),
         takeUntil(this.unsubscriber)
       )
       .subscribe(value => {
         if (value !== '') {
           this.showSearch = true
+          const search = lang === 'ru' ? { title_ru: value } : { title_kk: value }
           this.list$ = combineLatest([
-            this.reportService.list({ title: value }),
-            this.videoService.list({ title: value })
+            this.reportService.list(search),
+            this.videoService.list(search)
           ]).pipe(
             map(res => {
               const list = res.reduce((prev: any, curr: any) => {
@@ -176,10 +185,43 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     this.dropdown = false
-    this.store.dispatch(RemoveToken)
-    if (this.main === 'profile') {
-      this.activateMenu()
-      this.router.navigate(['/edu'])
-    }
+    const modal = this.bsModalService.show(ConfirmModalComponent, {
+      initialState: {
+        icon: "err_sticker_2",
+        message: "Вы уверены, что хотите выйти?",
+        false_ans: "Нет, остаться",
+        true_ans: "Да, выйти",
+      },
+      class: 'modal-dialog-centered'
+    })
+
+    modal.content!.onClose.subscribe(result => {
+      if (result === true) {
+        this.store.dispatch(RemoveToken)
+        if (this.main === 'profile') {
+          this.activateMenu()
+          this.router.navigate(['/edu'])
+        }
+      }
+    });
+  }
+
+  changeLang() {
+    const modal = this.bsModalService.show(ConfirmModalComponent, {
+      initialState: {
+        icon: "err_sticker_2",
+        message: "Выберите язык",
+        false_ans: "Қазақша",
+        true_ans: "Русский",
+      },
+      class: 'modal-dialog-centered'
+    })
+    modal.content!.onClose.subscribe(res => {
+      if (res === true) {
+        this.store.dispatch(new UpdateLang('ru'))
+      } else {
+        this.store.dispatch(new UpdateLang('kk'))
+      }
+    })
   }
 }

@@ -25,9 +25,9 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
   plyr!: PlyrComponent;
   player!: Plyr;
 
-  videoSources: Plyr.Source[] = []
-
+  videoSources: Plyr.Source[] = [];
   viderQuality!: Plyr.QualityOptions
+  videoTracks: Plyr.Track[] = []
 
   videoOption: Plyr.Options = {
     ratio: "16:9",
@@ -56,21 +56,42 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
     } else {
       this.video$.subscribe(link => {
         const new_link = link?.video?.split('/video-video/')[0]
-        this.videoSources.push({
-          src: link?.video,
-          provider: 'html5',
-          type: 'video/mp4',
-          size: this.get_quality(link?.original_quality),
-        })
-        link?.video_quality?.forEach((video: any) => {
-          const q_link = video.path
+        if (link.youtube) {
+          this.videoSources = [
+            {
+              src: link.youtube,
+              provider: 'youtube',
+            }
+          ];
+        } else {
+          if (link.subs_kk) {
+            this.videoTracks.push({
+              kind: 'subtitles',
+              label: 'Казахский',
+              srcLang: 'kk',
+              src: link.subs_kk,
+              default: true,
+            })
+          }
+
           this.videoSources.push({
-            src: `${new_link}/video-video/${q_link}`,
+            src: link?.video,
             provider: 'html5',
             type: 'video/mp4',
-            size: video.quality
+            size: this.get_quality(link?.original_quality),
           })
-        })
+
+          link?.video_quality?.forEach((video: any) => {
+            const q_link = video.path
+            this.videoSources.push({
+              src: `${new_link}/video-video/${q_link}`,
+              provider: 'html5',
+              type: 'video/mp4',
+              size: video.quality
+            })
+          })
+
+        }
       })
     }
   }

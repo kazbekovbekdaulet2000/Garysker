@@ -21,6 +21,9 @@ import { PlyrVideoPlayerModule } from '../shared/components/videoplayer/videopla
 import { AuthGuard } from './guards/auth.guard';
 import { ScrollState } from './states/scroll/scroll.state';
 import { IokaPaymentComponent } from '../shared/components/payment/payment.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { AppState } from './states/app/app.state';
+import { LangPipeModule } from '../shared/pipes/lang/lang-pipe.module';
 
 @NgModule({
   declarations: [
@@ -40,10 +43,14 @@ import { IokaPaymentComponent } from '../shared/components/payment/payment.compo
     PlyrModule,
     MatSliderModule,
     MatSidenavModule,
-    NgxsModule.forRoot([AuthState, SidebarState, LoaderState, ScrollState]),
-    NgxsStoragePluginModule.forRoot({ key: ['auth'] }),
+    NgxsModule.forRoot([AppState, AuthState, SidebarState, LoaderState, ScrollState]),
+    NgxsStoragePluginModule.forRoot({ key: ['auth', 'app'] }),
     NgxsRouterPluginModule.forRoot(),
     ModalModule.forRoot(),
+    LangPipeModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'ru'
+    }),
   ],
 })
 export class CoreModule {

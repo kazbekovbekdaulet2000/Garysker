@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
@@ -8,8 +8,10 @@ import { ListResponseModel } from '@core/models/api/list.model';
 import { VideoDetailModel } from '@core/models/api/video.model';
 import { AuthState } from '@core/states/auth/auth.state';
 import { Select, Store } from '@ngxs/store';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { LikeVideoComment, ListMoreVideoComments, PostVideoComment } from '../../video.actions';
+import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
+import { DeleteVideoComment, LikeVideoComment, ListMoreVideoComments, PostVideoComment } from '../../video.actions';
 import { VideoState } from '../../video.state';
 
 @Component({
@@ -24,6 +26,9 @@ export class VideoCommentsComponent {
   @Select(VideoState.comments) comments$!: Observable<ListResponseModel<CommentModel>>;
   @Select(AuthState.access) access$!: Observable<string>;
 
+  @ViewChild('holder') holder!: ElementRef
+  @ViewChild('input') textfield!: ElementRef;
+
   formGroup!: FormGroup;
 
   replyContent: any | null;
@@ -33,7 +38,8 @@ export class VideoCommentsComponent {
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private bsModalService: BsModalService
   ) {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.formGroup = this.formBuilder.group({
@@ -53,11 +59,20 @@ export class VideoCommentsComponent {
   addReply(reply: CommentModel) {
     if (this.replyContent?.id === reply.id) {
       this.replyContent = null
+
+      this.textfield.nativeElement.blur();
+      this.textInputLarge = false
+
       this.formGroup.patchValue({
         reply: null,
       });
     } else {
       this.replyContent = reply
+
+      window.scrollTo(0, this.holder.nativeElement.offsetTop - 120)
+      this.textfield.nativeElement.focus();
+      this.textInputLarge = true
+
       this.formGroup.patchValue({
         reply: this.replyContent.id,
       });
@@ -84,6 +99,35 @@ export class VideoCommentsComponent {
 
   likeComment(comment: CommentModel) {
     this.store.dispatch(new LikeVideoComment(this.entity.id, comment.id))
+  }
+
+  deleteComment(comment: CommentModel) {
+    const modal = this.bsModalService.show(ConfirmModalComponent, {
+      initialState: {
+        title: "",
+        message: "Вы уверены, что хотите удалить комментарии?",
+        false_ans: "Нет, оставить",
+        true_ans: "Да, удалить",
+      },
+      class: 'modal-dialog-centered'
+    })
+
+    modal.content!.onClose.subscribe(result => {
+      if (result === true) {
+        this.store.dispatch(new DeleteVideoComment(this.entity.id, comment.id))
+      }
+    });
+  }
+
+  triggerFunction(event: any) {
+    if (event.ctrlKey && event.key === 'Enter') {
+      this.formGroup.patchValue({
+        body: this.formGroup.get('body')?.value + '\n'
+      })
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      this.sendComment();
+    }
   }
 
   textareaTap() {

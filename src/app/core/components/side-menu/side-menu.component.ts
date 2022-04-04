@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
-import { ListCategories } from '@core/states/sidebar/actions';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
+import { ListCategories } from '@core/states/app/app.actions';
 
 
 @Component({
@@ -16,13 +16,14 @@ export class SideMenuComponent {
 
   currentRoute: string | undefined;
 
+  index: number = 1
   constructor(
     private store: Store,
     private router: Router,
     private bsModalService: BsModalService
   ) {
     this.addNavigationListener();
-    this.store.dispatch(new ListCategories())
+    this.store.dispatch(ListCategories)
   }
 
   addNavigationListener(): void {
@@ -59,8 +60,9 @@ export class SideMenuComponent {
     this.bsModalService.show(IokaPaymentComponent,
       {
         animated: true,
-        class: 'modal-content-payment'
-      })
+        class: 'modal-content-payment',
+    })
+    // window.open('http://localhost:4200/#/payment', "_blank");
     // this.router.navigate(['payment'])
   }
 }
