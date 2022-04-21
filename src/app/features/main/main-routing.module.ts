@@ -2,12 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
 import { AboutComponent } from './about/about.component';
-import { DobroAboutComponent } from './dobro/about/dobro-about.component';
-import { DobroComponent } from './dobro/dobro.component';
-import { EduComponent } from './edu/edu.component';
-import { ReportModuleModule } from './edu/report-module/report-module.module';
-import { VideoModuleModule } from './edu/video-module/video-module.module';
-import { EventsComponent } from './events/events.component';
 
 import { MainComponent } from './main.component';
 import { NKOComponent } from './nko/nko.component';
@@ -28,28 +22,16 @@ const routes: Routes = [
         redirectTo: 'edu'
       },
       {
+        path: 'edu',
+        loadChildren: () => import('./edu/edu.module').then(m => m.EduModule)
+      },
+      {
         path: 'about',
         component: AboutComponent
       },
       {
         path: 'nko',
         component: NKOComponent
-      },
-      {
-        path: 'edu',
-        component: EduComponent
-      },
-      {
-        path: 'edu/:id',
-        component: EduComponent
-      },
-      {
-        path: 'edu/reports/:id',
-        loadChildren: () => ReportModuleModule,
-      },
-      {
-        path: 'edu/videos/:id',
-        loadChildren: () => VideoModuleModule,
       },
       {
         path: 'products',
@@ -61,7 +43,7 @@ const routes: Routes = [
       },
       {
         path: 'events',
-        component: EventsComponent
+        loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
       },
       {
         path: 'profile',

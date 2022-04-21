@@ -1,3 +1,61 @@
-<div @opacityAnimation class="d-flex flex-column align-items-center no-content">
+<div @opacityAnimation class="support">
+  
+  <div class="d-flex flex-column support-content">
+    
+    <h5>{{'support.main_text.header' | translate}}</h5>
+
+    <p>{{'support.main_text.about' | translate}}</p>
+  
+  </div>
+
+  <div class="d-flex flex-column support-content" [formGroup]="formData">
+
+    <app-select
+      class="mb-2"
+      [label]="'support.type_hint' | translate"
+      [list]="type"
+      (selection)="selectType($event)">
+    </app-select>
+
+    <app-select
+      class="mb-2"
+      [label]="'support.amount_hint' | translate"
+      [list]="amount"
+      (selection)="selectAmount($event)">
+    </app-select>
+
+    <div class="d-flex align-items-center mb-2" (click)="rulesContr()">
+
+      <!-- <input type="checkbox" formControlName="rules"> -->
+    
+      <span class="ml-1" style="font-size: 14px;">Да, я готов щедро добавлять 200 тенге каждый месяц, на транзакционные сборы, чтобы Garyshker мог сохранить 100% моего пожертвования.</span>
+
+    </div>
+
+    <app-input
+      formControlName="name"
+      [required]="true"
+      [label]="'support.input.name' | translate"
+      [hint]="'support.input.name_placeholder' | translate"
+    ></app-input>
+
+    <app-input
+      formControlName="email"
+      [required]="true"
+      [label]="'support.input.email' | translate"
+      [hint]="'support.input.email_placeholder' | translate"
+    ></app-input>
+
+    <div class="d-flex flex-column justify-content-end align-items-end align-items-end">
+
+      <button class="btn support-content-enter mt-2" (click)="helpProject()">{{'support.enter' | translate}}</button>
+
+    </div>
+
+    <div 
+      [innerHTML]="'support.policy' | translate" 
+      style="margin-top: 4px; text-align: right; font-size: 14px;"></div>
+
+  </div>
 
 </div>

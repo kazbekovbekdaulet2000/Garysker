@@ -1,8 +1,9 @@
 @import "variables";
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
+@import "videoplayer";
+@import "font";
+@import "button";
+@import "image";
 @import "~bootstrap/dist/css/bootstrap.css";
-@import "./assets/font/stylesheet.scss";
 
 :root {
   --plyr-color-main: #ffa800;
@@ -11,9 +12,6 @@
 body {
   padding: 0;
   margin: 0;
-}
-
-body {
   background-color: $color-space;
   color: $color-primary;
 }
@@ -76,7 +74,7 @@ iframe{
   position: relative;
   background-color: #14131D;
   border-radius: 16px;
-  padding: 24px 64px;
+  padding: 24px 48px;
   h4 {
     font-weight: 700;
   }

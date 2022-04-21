@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { environment } from '@env';
 declare let IokaWidget: any;
 // const zoid = require('zoid');
@@ -7,17 +7,17 @@ declare let IokaWidget: any;
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
-export class IokaPaymentComponent implements OnInit, OnDestroy {
+export class IokaPaymentComponent implements AfterViewInit, OnDestroy {
 
   id!: number
-
+  orderId: string = '';
   IokaWidgetItem: any
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.IokaWidgetItem = new IokaWidget({
-      orderId: "ord_pEkvEPpdEf",
+      orderId: this.orderId,
       orderAccessToken: environment.iokaAccess,
       isSaveCard: false,
       elementId: "ioka-widget",
@@ -76,8 +76,8 @@ export class IokaPaymentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // console.log(Object.getOwnPropertyNames(IokaWidget.prototype));
-    window.location.reload()
+    console.log('loool')
+    // window.location.reload()
   }
 
   payFunction() {

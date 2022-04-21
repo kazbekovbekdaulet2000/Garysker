@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
@@ -23,17 +23,21 @@ import { ProfileChangeModalComponent } from './profile-change-modal/profile-chan
   styleUrls: ['./profile.component.scss'],
   animations: [opacityAnimation, heightAnimation]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
-  
   @Select(ReportState.reports) reports$!: Observable<ListResponseModel<ReportModel>>;
   @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>;
   @Select(AuthState.profile) profile$!: Observable<UserModel>
+
   constructor(
     private store: Store,
     private router: Router,
     private bsModalService: BsModalService
   ) { }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(ClearVideoList)
+  }
 
   ngOnInit(): void {
     this.store.dispatch([ListSavedReports, ListSavedVideos, UpdateProfile, ClearVideoList])

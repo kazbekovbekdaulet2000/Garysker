@@ -1,0 +1,34 @@
+<div class="placeholderReports">
+
+  <ng-container *ngIf="reports$ | async as reports">
+
+    <div @opacityAnimation *ngIf="reports.results.length > 0">
+
+      <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
+        <img class="icon" src="assets/images/open-book.png" alt="">
+        <h3 class="mb-0">{{'main_screen.read'| translate}}</h3>
+      </div>
+
+      <div 
+        *ngIf="reports.results.length > 0" 
+        infiniteScroll 
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="50" 
+        [scrollWindow]="false" 
+        [horizontal]="true" 
+        (scrolled)="onScroll()"
+        class="d-flex align-items-center gap-2 my-4 reading">
+
+        <report-card 
+          *ngFor="let report of reports.results" 
+          (click)="onReportRoute(report.id)" 
+          [report]='report'>
+        </report-card>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>

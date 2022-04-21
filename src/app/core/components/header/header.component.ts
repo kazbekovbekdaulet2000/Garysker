@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
@@ -10,7 +10,6 @@ import { UpdateLang } from '@core/states/app/app.actions';
 import { AppState } from '@core/states/app/app.state';
 import { RemoveToken } from '@core/states/auth/actions';
 import { AuthState } from '@core/states/auth/auth.state';
-import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { combineLatest, Observable, of, Subject } from 'rxjs';
@@ -58,7 +57,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private reportService: ReportsService,
     private videoService: VideosService,
     private bsModalService: BsModalService,
-    private translateService: TranslateService
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
@@ -188,9 +186,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const modal = this.bsModalService.show(ConfirmModalComponent, {
       initialState: {
         icon: "err_sticker_2",
-        message: "Вы уверены, что хотите выйти?",
-        false_ans: "Нет, остаться",
-        true_ans: "Да, выйти",
+        message: "auth.logout_modal.title",
+        false_ans: "auth.logout_modal.false",
+        true_ans: "auth.logout_modal.true",
       },
       class: 'modal-dialog-centered'
     })
@@ -210,16 +208,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const modal = this.bsModalService.show(ConfirmModalComponent, {
       initialState: {
         icon: "err_sticker_2",
-        message: "Выберите язык",
-        false_ans: "Қазақша",
-        true_ans: "Русский",
+        message: "app.change_lang",
+        false_ans: "app.lang.kk",
+        true_ans: "app.lang.ru",
       },
       class: 'modal-dialog-centered'
     })
     modal.content!.onClose.subscribe(res => {
       if (res === true) {
         this.store.dispatch(new UpdateLang('ru'))
-      } else {
+      } else if (res === false) {
         this.store.dispatch(new UpdateLang('kk'))
       }
     })

@@ -16,6 +16,7 @@ import { videoI18n } from './videoplayer.i18n';
   animations: [opacityAnimation, heightOutAnimation]
 })
 export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
+  
   @Input() entity: VideoDetailModel | any
   @Input() link: string | any;
 
@@ -36,7 +37,7 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
     volume: 1,
     fullscreen: {
       enabled: true,
-      iosNative: true
+      iosNative: true,
     },
   }
 
@@ -45,7 +46,6 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.videoSources = []
     if (this.link) {
       this.videoSources = [
         {
@@ -56,7 +56,7 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
     } else {
       this.video$.subscribe(link => {
         const new_link = link?.video?.split('/video-video/')[0]
-        if (link.youtube) {
+        if (link?.youtube) {
           this.videoSources = [
             {
               src: link.youtube,
@@ -64,7 +64,7 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
             }
           ];
         } else {
-          if (link.subs_kk) {
+          if (link?.subs_kk) {
             this.videoTracks.push({
               kind: 'subtitles',
               label: 'Казахский',

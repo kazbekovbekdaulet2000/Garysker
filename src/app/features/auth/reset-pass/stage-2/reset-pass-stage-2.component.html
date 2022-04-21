@@ -1,0 +1,40 @@
+<div class="center">
+
+  <div class="reset" [formGroup]="formGroup">
+
+      <h3 class="reset-header">{{'auth.reset.step_2.header' | translate}}</h3>
+
+    <div class="reset-text">
+      {{'auth.reset.step_2.hint' | translate}}
+    </div>
+
+
+    <ng-container>
+      <input type="text" class="reset-input" formControlName="code" [placeholder]="'auth.reset.step_2.code' | translate">
+    </ng-container>
+
+    <ng-container>
+      <input type="password" class="reset-input" formControlName="password" [placeholder]="'auth.reset.step_2.pass' | translate">
+    </ng-container>
+
+    <p *ngIf="getRequireMessage('password')" class="reset-error">{{'auth.required' | translate}}</p>
+
+    <ng-container>
+      <input type="password" class="reset-input" formControlName="re_password" [placeholder]="'auth.reset.step_2.pass_rep' | translate">
+    </ng-container>
+
+    <p *ngIf="getRequireMessage('code')" class="reset-error">{{'auth.required' | translate}}</p>
+    <p *ngIf="getRequireMessage('re_password')" class="reset-error">{{'auth.required' | translate}}</p>
+    <p *ngIf="getFalseMessage('re_password')" class="reset-error">{{'auth.pass_non_equal' | translate}}</p>
+
+    <div class="reset-menu">
+      <div class="reset-menu-force">
+        <div class="cursor-pointer"> {{'auth.reset.step_2.time' | translate : ({time: timer$ | async})}} </div>
+        <!-- <div class="cursor-pointer" (click)="forceReset()"> отправить новый код</div> -->
+      </div>
+      <button class="btn reset-menu-next" (click)="reset()">{{'auth.reset.step_2.next' | translate}}</button>
+    </div>
+
+  </div>
+
+</div>

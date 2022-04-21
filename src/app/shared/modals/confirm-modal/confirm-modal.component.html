@@ -2,19 +2,19 @@
 
   <img class="icon" [src]="getIcon" alt="">
 
-  <h4 class="mb-0">{{title}}</h4>
+  <h4 class="mb-0">{{title | translate}}</h4>
 
   <div class="close">
     <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
   </div>
 
   <div class="message">
-    {{message}}
+    {{message | translate}}
   </div>
 
   <div class="group mt-4">
-    <button class="btn group-btn group-background" (click)="onCancel()">{{false_ans}}</button>
-    <button class="btn group-btn" (click)="onConfirm()">{{true_ans}}</button>
+    <button *ngIf="false_ans" class="btn group-btn group-background" (click)="onCancel()">{{false_ans | translate}}</button>
+    <button *ngIf="true_ans" class="btn group-btn" (click)="onConfirm()">{{true_ans | translate}}</button>
   </div>
 
 </div>

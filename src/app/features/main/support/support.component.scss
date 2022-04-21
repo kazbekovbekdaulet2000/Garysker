@@ -1,11 +1,29 @@
 @import "variables";
 
-.no-content {
-  margin: 32px 120px;
+.support {
+  width: calc(100% - 64px);
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 30px;
+  margin-bottom: 36px;
+  margin-right: 64px;
+  &-content {
+    width: 100%;
+    min-height: 60vh;
+    position: relative;
+    justify-content: center;
+    &-enter {
+      font-family: "Spoof", sans-serif;
+      font-weight: 700;
+      background-color: #b67906;
+      text-align: center;
+      color: #fff;
+      padding: 8px 24px;
+      border-radius: 10px;
+    }
+  }
 }
 
 @media screen and (max-width: 640px) {
-  .no-content {
-    margin: 32px 32px;
-  }
 }

@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Action, Actions, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 
 import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
 import { CommentModel } from '@core/models/api/comment.model';
-import { CommentService } from '@core/services/comments.service';
-import { ClearComments, LikeComment, ListComments, PostComment } from './comments.actions';
+import { CommentsService } from '@core/services/comments.service';
 import iterateComments from 'src/app/features/main/edu/iterateComments';
 import getComment from 'src/app/features/main/edu/getComment';
+import deleteComment from 'src/app/features/main/edu/deleteComment';
+import { ClearComments, DeleteComment, LikeComment, ListComments, PostComment } from './comments.actions';
 
 
 interface StateModel {
   comments: ListResponseModel<CommentModel>
+  comment: CommentModel | null
 }
 
 const defaults = {
   comments: emptyListResponse,
+  comment: null
 };
 
 @State<StateModel>({
@@ -30,22 +33,38 @@ export class CommentsState {
   }
 
   constructor(
-    private commentService: CommentService
+    private commentsService: CommentsService
   ) {
   }
 
   @Action(ListComments)
-  ListComments({ patchState }: StateContext<StateModel>, { id, page, type }: ListComments) {
-    this.commentService.listComments(id, type)
-      .subscribe(comments => {
-        patchState({ comments });
-      })
+  ListComments({ getState, patchState }: StateContext<StateModel>, { type, id }: ListComments) {
+    if (getState().comments.next) {
+      const next = getState().comments.next
+      const page = next.split('page=')[1]
+      if (page) {
+        const params = { page }
+        this.commentsService.list(type, id, params)
+          .subscribe(comments => {
+            const list = getState().comments.results
+            getState().comments.next = comments.next
+            getState().comments.previous = comments.previous
+            getState().comments.results = [...list, ...comments.results]
+          })
+      }
+    } else {
+      this.commentsService.list(type, id)
+        .subscribe(comments => {
+          patchState({ comments })
+        })
+    }
   }
 
   @Action(PostComment)
-  PostComment({ getState, patchState }: StateContext<StateModel>, { id, payload, type }: PostComment) {
-    this.commentService.postComment(id, payload, type)
+  PostComment({ getState }: StateContext<StateModel>, { type, id, payload }: PostComment) {
+    this.commentsService.post(type, id!, payload)
       .subscribe(comment => {
+        getState().comments.count++
         if (comment.reply) {
           getState().comments.results.map(item => iterateComments(item, comment))
         } else {
@@ -56,24 +75,38 @@ export class CommentsState {
   }
 
   @Action(LikeComment)
-  LikeComment({ getState, patchState }: StateContext<StateModel>, { id, commentId, type }: LikeComment) {
-    this.commentService.likeComment(id, commentId, type)
+  LikeReportComment({ getState }: StateContext<StateModel>, { type, id, commentId }: LikeComment) {
+    this.commentsService.like(type, id, commentId)
       .subscribe(({ liked }) => {
         const comment = getComment(getState().comments.results, commentId)
         if (!comment) {
           return
         }
         if (liked) {
-          comment!.likes_count += 1
+          comment!.likes_count++
         } else {
-          comment!.likes_count -= 1
+          comment!.likes_count--
         }
         comment!.liked = liked
       })
   }
 
+  @Action(DeleteComment)
+  DeleteComment({ getState, patchState }: StateContext<StateModel>, {type, id, commentId }: DeleteComment) {
+    this.commentsService.delete(type, id, commentId)
+      .subscribe(() => {
+        patchState({
+          comments: {
+            ...getState().comments,
+            count: getState().comments.count - 1,
+            results: deleteComment(getState().comments.results, commentId)
+          }
+        })
+      })
+  }
+
   @Action(ClearComments)
-  ClearComments({ getState, patchState }: StateContext<StateModel>) {
-    patchState({ comments: emptyListResponse })
+  ClearComments({ patchState, getState }: StateContext<StateModel>) {
+    patchState({ comments: emptyListResponse, comment: null })
   }
 }

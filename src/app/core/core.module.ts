@@ -7,7 +7,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './states/auth/auth.state';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SidebarState } from './states/sidebar/sidebar.state';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderInterceptor } from './interceptors/loader.intercepter';
 import { LoaderState } from './states/loader/loader.state';
@@ -20,7 +19,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlyrVideoPlayerModule } from '../shared/components/videoplayer/videoplayer.module';
 import { AuthGuard } from './guards/auth.guard';
 import { ScrollState } from './states/scroll/scroll.state';
-import { IokaPaymentComponent } from '../shared/components/payment/payment.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppState } from './states/app/app.state';
 import { LangPipeModule } from '../shared/pipes/lang/lang-pipe.module';
@@ -43,7 +41,7 @@ import { LangPipeModule } from '../shared/pipes/lang/lang-pipe.module';
     PlyrModule,
     MatSliderModule,
     MatSidenavModule,
-    NgxsModule.forRoot([AppState, AuthState, SidebarState, LoaderState, ScrollState]),
+    NgxsModule.forRoot([AppState, AuthState, LoaderState, ScrollState]),
     NgxsStoragePluginModule.forRoot({ key: ['auth', 'app'] }),
     NgxsRouterPluginModule.forRoot(),
     ModalModule.forRoot(),

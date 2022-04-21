@@ -30,16 +30,6 @@ export class GetRelatedReports {
   ){}
 }
 
-export class ListReportComments {
-  static readonly type = '[Report] ListComments'
-  constructor(public id: number) { }
-}
-
-export class ListMoreReportComments {
-  static readonly type = '[Report] ListMoreReportComments'
-  constructor(public id: number) { }
-}
-
 export class LikeReport {
   static readonly type = '[Report] LikeReport'
   constructor(public id: number) { }
@@ -50,30 +40,20 @@ export class SaveReport {
   constructor(public id: number) { }
 }
 
-export class PostReportComment {
-  static readonly type = '[Report] PostReportComment'
-  constructor(public id: number | undefined, public payload: any) { }
+export class IncreaseReportComments {
+  static readonly type = '[Report] IncreaseReportComments'
 }
 
-export class DeleteReportComment {
-  static readonly type = '[Report] DeleteReportComment'
-  constructor(
-    public reportId: number,
-    public commentId: number
-  ) { }
-}
-
-
-export class LikeReportComment {
-  static readonly type = '[Report] LikeReportComment'
-  constructor(
-    public reportId: number,
-    public commentId: number
-  ) { }
+export class DecreaseReportComments {
+  static readonly type = '[Report] DecreaseReportComments'
 }
 
 export class ClearReportDetail {
   static readonly type = '[Report] ClearReportDetail';
+}
+
+export class ClearRelatedReportList {
+  static readonly type = '[Report] ClearRelatedReportList';
 }
 
 export class ClearReportList{

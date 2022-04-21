@@ -4,7 +4,7 @@ import { ReportComponent } from './report/report.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: ReportComponent
   }
 ];

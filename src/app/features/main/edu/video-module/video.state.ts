@@ -1,47 +1,34 @@
 import { Injectable } from '@angular/core';
-import { CommentModel } from '@core/models/api/comment.model';
 import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
-import { ReportDetailModel, ReportModel } from '@core/models/api/report.model';
 import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
-import { ReportsService } from '@core/services/reports.service';
 import { VideosService } from '@core/services/videos.service';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import { MainState } from '../../main.state';
-import deleteComment from '../deleteComment';
-import getComment from '../getComment';
-import iterateComments from '../iterateComments';
 import {
   ListVideos,
   GetVideo,
-  ListVideoComments,
   LikeVideo,
   SaveVideo,
-  PostVideoComment,
   ClearVideoDetail,
-  ListMoreVideoComments,
   ListSavedVideos,
   ListMoreVideos,
-  LikeVideoComment,
   ListRelatedVideos,
   ClearVideoList,
   ListMoreSavedVideos,
-  ClearVideoComments,
   ClearRelatedVideoList,
-  DeleteVideoComment
+  IncreaseVideoComments,
+  DecreaseVideoComments,
 } from './video.actions';
 
 interface StateModel {
   videos: ListResponseModel<VideoModel>;
   related_videos: ListResponseModel<VideoModel>;
   video: VideoDetailModel | null;
-  comments: ListResponseModel<CommentModel>;
 }
 
 const defaults = {
   videos: emptyListResponse,
   related_videos: emptyListResponse,
   video: null,
-  comments: emptyListResponse,
 };
 
 @State<StateModel>({
@@ -64,14 +51,6 @@ export class VideoState {
   @Selector()
   static related_videos({ related_videos }: StateModel): ListResponseModel<VideoModel> {
     return related_videos;
-  }
-
-  @Selector()
-  static comments({ comments }: StateModel): ListResponseModel<CommentModel> {
-    if (comments.count === 0) {
-      comments.results = []
-    }
-    return comments;
   }
 
   constructor(
@@ -155,6 +134,15 @@ export class VideoState {
       })
   }
 
+  @Action(IncreaseVideoComments)
+  IncreaseVideoComments({getState}: StateContext<StateModel>){
+    getState().video!.comments_count++
+  }
+
+  @Action(DecreaseVideoComments)
+  DecreaseVideoComments({getState}: StateContext<StateModel>){
+    getState().video!.comments_count--
+  }
 
   @Action(LikeVideo)
   LikeVideo({ getState, patchState }: StateContext<StateModel>, { id }: LikeVideo) {
@@ -183,86 +171,6 @@ export class VideoState {
           newVideo!.bookmarks_count -= 1
         }
         patchState({ video: newVideo })
-      })
-  }
-
-  @Action(ListVideoComments)
-  ListVideoComments({ patchState, getState }: StateContext<StateModel>, { id }: ListVideoComments) {
-    this.videoService.listComments(id)
-      .toPromise()
-      .then(comments => {
-        patchState({ comments: comments })
-      })
-  }
-
-  @Action(ClearVideoComments)
-  ClearVideoComments({ patchState, getState }: StateContext<StateModel>) {
-    getState().comments.results = []
-    patchState({ comments: emptyListResponse })
-  }
-
-  @Action(ListMoreVideoComments)
-  ListMoreVideoComments({ getState, patchState }: StateContext<StateModel>, { id }: ListMoreVideoComments) {
-    const next = getState().comments.next
-    if (next) {
-      const page = Number(next.split('page=')[1])
-      const params = { page }
-      this.videoService.listComments(id, params)
-        .subscribe(comments => {
-          const list = getState().comments.results
-          const new_list = getState().comments
-          new_list.next = comments.next
-          new_list.previous = comments.previous
-          new_list.results = [...list, ...comments.results]
-          patchState({ comments: new_list })
-        })
-    }
-  }
-
-  @Action(PostVideoComment)
-  PostVideoComment({ getState, patchState }: StateContext<StateModel>, { id, payload }: PostVideoComment) {
-    this.videoService.postComment(id, payload)
-      .subscribe(comment => {
-        getState().video!.comments_count += 1
-        getState().comments.count += 1
-        if (comment.reply) {
-          getState().comments.results.map(item => iterateComments(item, comment))
-        } else {
-          let list = [...[comment], ...getState().comments.results]
-          getState().comments.results = list
-        }
-      })
-  }
-
-  @Action(LikeVideoComment)
-  LikeVideoComment({ getState, patchState }: StateContext<StateModel>, { reportId, commentId }: LikeVideoComment) {
-    this.videoService.likeComment(reportId, commentId)
-      .subscribe(({ liked }) => {
-        const comment = getComment(getState().comments.results, commentId)
-        if (!comment) {
-          return
-        }
-        if (liked) {
-          comment!.likes_count += 1
-        } else {
-          comment!.likes_count -= 1
-        }
-        comment!.liked = liked
-      })
-  }
-
-  @Action(DeleteVideoComment)
-  DeleteVideoComment({ getState, patchState }: StateContext<StateModel>, { reportId, commentId }: DeleteVideoComment) {
-    this.videoService.deleteComment(reportId, commentId)
-      .toPromise().then(() => {
-        getState().video!.comments_count -= 1
-        patchState({
-          comments: {
-            ...getState().comments,
-            results: deleteComment(getState().comments.results, commentId)
-          }
-        })
-        // this.store.dispatch(new ListVideoComments(reportId))
       })
   }
 

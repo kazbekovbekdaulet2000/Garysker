@@ -1,0 +1,61 @@
+@import "variables";
+
+.event-detail {
+  padding: 12px 0px;
+  &-full {
+    width: 100%;
+  }
+  .rating {
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  &-item {
+    height: 360px;
+    padding: 24px;
+    padding-right: 50%;
+    background-color: $color-background;
+    border-radius: 15px;
+    line-height: 22px;
+    &-date {
+      font-weight: 500;
+      font-size: 24px;
+    }
+    &-title {
+      font-weight: 400;
+      font-size: 24px;
+    }
+    img {
+      height: 30px;
+      object-fit: cover;
+    }
+  }
+  &-desc {
+    white-space: pre-wrap;
+  }
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 12px;
+}
+
+.close {
+  cursor: pointer;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+@media screen and (max-width: 640px) {
+  .close {
+    right: 16px;
+    top: 16px;
+  }
+  .event-detail {
+    padding: 8px 0px;
+  }
+}

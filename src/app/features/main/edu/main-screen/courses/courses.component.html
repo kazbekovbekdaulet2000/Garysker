@@ -1,0 +1,21 @@
+<ng-container *ngIf="courses$ | async as courses">
+
+  <div @opacityAnimation *ngIf="courses.results.length > 0">
+
+    <div class="d-flex flex-row align-items-center gap-2" *ngIf="courses.results.length > 0">
+      <img class="icon" src="assets/images/educate_logo.png" alt="">
+      <h3 class="mb-0">{{'main_screen.educate'| translate}}</h3>
+    </div>
+
+    <div *ngIf="courses.results.length > 0" class="d-flex align-items-center gap-2 my-4 courses">
+
+      <app-course-card 
+        *ngFor ="let course of courses.results" 
+        (click)="onCourseRoute(course.id)" 
+        [course]="course"></app-course-card>
+
+    </div>
+
+  </div>
+
+</ng-container>

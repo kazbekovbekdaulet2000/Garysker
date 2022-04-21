@@ -23,61 +23,61 @@ export interface StageModel {
 }
 
 export const SignUpPageOne: StageModel = {
-  name: 'О вас',
-  small_text: 'пройти и зарегистрироваться',
-  title: "Давайте начнем со знакомства",
-  label: "Заполните форму ниже",
+  name: 'auth.registration.steps.one.name',
+  small_text: 'auth.registration.steps.one.small_text',
+  title: "auth.registration.steps.one.title",
+  label: "auth.registration.steps.one.label",
   icon: "assets/icons/person.svg",
   config: [
     {
       type: 'input',
-      placeholder: 'Введите имя',
+      placeholder: 'auth.registration.steps.one.config.name_p',
       key: 'name',
-      error: 'имя не заполнена'
+      error: 'auth.registration.steps.one.config.name_p_err'
     },
     {
       type: 'input',
-      placeholder: 'Введите фамилию',
+      placeholder: 'auth.registration.steps.one.config.surname_p',
       key: 'surname',
-      error: 'фамилия не заполнена'
+      error: 'auth.registration.steps.one.config.surname_p_err'
     },
     {
-      helper: 'Дата рождения',
+      helper: 'auth.registration.steps.one.config.birth_date_p_helper',
       type: 'birth-date',
-      placeholder: 'дд/мм/гггг',
+      placeholder: 'auth.registration.steps.one.config.birth_date_p',
       key: 'birth_date',
-      error: 'неправильный формат'
+      error: 'auth.registration.steps.one.config.birth_date_p_err'
     }
   ]
 }
 
 export const SignUpPageTwo: StageModel = {
-  name: 'Деятельность',
-  small_text: 'пройти и зарегистрироваться',
-  title: "Расскажите откуда вы и чем занимаетесь?",
-  label: "Заполните форму ниже",
+  name: 'auth.registration.steps.two.name',
+  small_text: 'auth.registration.steps.two.small_text',
+  title: "auth.registration.steps.two.title",
+  label: "auth.registration.steps.two.label",
   icon: "assets/icons/about-page.svg",
   config: [
     {
       type: 'city-selector',
-      placeholder: 'Выберите город',
+      placeholder: 'auth.registration.steps.two.config.city_p',
       key: 'city',
-      error: 'выберите город'
+      error: 'auth.registration.steps.two.config.city_p_err'
     },
     {
       type: 'user-type',
-      placeholder: 'Чем вы занимаетесь?',
+      placeholder: 'auth.registration.steps.two.config.user_type_p',
       key: 'user_type',
-      error: 'выберите чем вы занимаетесь'
+      error: 'auth.registration.steps.two.config.user_type_p_err'
     },
   ]
 }
 
 export const SignUpPageThree: StageModel = {
-  name: 'Ценности проекта',
-  small_text: 'пройти и зарегистрироваться',
-  title: "Наши ценности",
-  label: "Нажимая кнопку “принять”, вы соглашаетесь и разделяете наши ценности",
+  name: 'auth.registration.steps.three.name',
+  small_text: 'auth.registration.steps.three.small_text',
+  title: "auth.registration.steps.three.title",
+  label: "auth.registration.steps.three.label",
   icon: "assets/icons/star.svg",
   config: [
     {
@@ -85,19 +85,19 @@ export const SignUpPageThree: StageModel = {
       key: 'goals',
       userTypes: [
         {
-          name: 'Люди',
+          name: 'auth.registration.steps.three.config.name_1',
           icon: 'assets/images/nerd-face.png',
-          description: 'для нас важны люди, а не продукт'
+          description: 'auth.registration.steps.three.config.desc_1'
         },
         {
-          name: 'Саморазвитие',
+          name: 'auth.registration.steps.three.config.name_2',
           icon: 'assets/images/idea.png',
-          description: 'хочу предложить полезный продукт/компанию'
+          description: 'auth.registration.steps.three.config.desc_2'
         },
         {
-          name: 'Честность',
+          name: 'auth.registration.steps.three.config.name_3',
           icon: 'assets/images/wow-face.png',
-          description: 'хочу общаться с близкими по духу людьми'
+          description: 'auth.registration.steps.three.config.desc_3'
         }
       ]
     }
@@ -105,29 +105,29 @@ export const SignUpPageThree: StageModel = {
 }
 
 export const SignUpPageFour: StageModel = {
-  name: 'Данные для входа',
-  small_text: 'пройти и зарегистрироваться',
-  title: "Данные для входа",
-  label: "внимательно заполните формы ниже для завершения регистрации",
+  name: 'auth.registration.steps.four.name',
+  small_text: 'auth.registration.steps.four.small_text',
+  title: "auth.registration.steps.four.title",
+  label: "auth.registration.steps.four.label",
   icon: "assets/icons/message.svg",
   config: [
     {
       type: 'email',
-      placeholder: 'Введите электронную почту',
+      placeholder: 'auth.registration.steps.four.config.email_p',
       key: 'email',
-      error: 'напишите в правильном формате'
+      error: 'auth.registration.steps.four.config.email_p_err'
     },
     {
       type: 'password',
-      placeholder: 'Придумайте пароль',
+      placeholder: 'auth.registration.steps.four.config.password_p',
       key: 'password',
-      error: 'надо ввести больше 8 знаков для пароля'
+      error: 'auth.registration.steps.four.config.password_p_err'
     },
     {
       type: 'password',
-      placeholder: 'Повторно введите пароль',
+      placeholder: 'auth.registration.steps.four.config.re_password_p',
       key: 're_password',
-      error: 'пароли не совпадают'
+      error: 'auth.registration.steps.four.config.re_password_p_err'
     },
   ]
 } 

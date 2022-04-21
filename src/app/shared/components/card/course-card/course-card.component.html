@@ -1,0 +1,32 @@
+<div class="course-card cursor-pointer"
+  [ngStyle]="{'background-image': 'url(' + course.image + ')', 'background-size':'320px', 'background-position': 'center center'}">
+
+  <div class="course-card-logo">
+    <img [src]="course.organization.icon" alt="">
+  </div>
+
+  <div class="course-card-content">
+
+    <h5 class="mb-3"> {{course | lang: 'name' | async}}</h5>
+
+    <div class="d-flex gap-2 flex-column">
+
+      <div class="course-card-content-details">
+
+        <img src="assets/icons/document.svg" alt="">
+        <span>{{course.lesson_count | courseTime: 'lesson_cnt' | async}}</span>
+
+      </div>
+
+      <div class="course-card-content-details">
+
+        <img src="assets/icons/time_circle.svg" alt="">
+        <span>{{course.duriation | courseTime: 'time' | async}}</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

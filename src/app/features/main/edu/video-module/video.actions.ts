@@ -28,39 +28,17 @@ export class ListMoreSavedVideos {
   static readonly type = '[Video] ListMoreSavedVideos';
 }
 
+export class IncreaseVideoComments {
+  static readonly type = '[Video] IncreaseVideoComments'
+}
+
+export class DecreaseVideoComments {
+  static readonly type = '[Video] DecreaseVideoComments'
+}
+
 export class GetVideo {
   static readonly type = '[Video] GetVideo';
   constructor(public id: number) { }
-}
-
-export class ListVideoComments {
-  static readonly type = '[Video] ListVideoComments'
-  constructor(public id: number) { }
-}
-
-export class LikeVideoComment {
-  static readonly type = '[Video] LikeVideoComment'
-  constructor(
-    public reportId: number,
-    public commentId: number
-  ) { }
-}
-
-export class DeleteVideoComment {
-  static readonly type = '[Video] DeleteVideoComment'
-  constructor(
-    public reportId: number,
-    public commentId: number
-  ) { }
-}
-
-export class ListMoreVideoComments {
-  static readonly type = '[Video] ListMoreVideoComments'
-  constructor(public id: number) { }
-}
-
-export class ClearVideoComments {
-  static readonly type = '[Video] ClearVideoComments'
 }
 
 export class LikeVideo {
@@ -71,11 +49,6 @@ export class LikeVideo {
 export class SaveVideo {
   static readonly type = '[Video] SaveVideo'
   constructor(public id: number) { }
-}
-
-export class PostVideoComment {
-  static readonly type = '[Video] PostVideoComment'
-  constructor(public id: number, public payload: any) { }
 }
 
 export class ClearVideoDetail {

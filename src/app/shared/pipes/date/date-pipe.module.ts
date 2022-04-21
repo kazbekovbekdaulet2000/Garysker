@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { CourseTimePipe } from './course-time.pipe';
 import { DateAgePipe } from './date-age.pipe';
 import { DateRemainedPipe } from './date-remained.pipe';
 import { ReadTimePipe } from './read-time.pipe';
@@ -9,17 +10,20 @@ import { ReadTimePipe } from './read-time.pipe';
   declarations: [
     DateRemainedPipe,
     ReadTimePipe,
-    DateAgePipe
+    DateAgePipe,
+    CourseTimePipe
   ],
   exports: [
     DateRemainedPipe,
     ReadTimePipe,
-    DateAgePipe
+    DateAgePipe,
+    CourseTimePipe
   ],
   providers: [
     DateRemainedPipe,
     ReadTimePipe,
-    DateAgePipe
+    DateAgePipe,
+    CourseTimePipe
   ],
   imports: [
     TranslateModule

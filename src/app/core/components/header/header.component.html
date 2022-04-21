@@ -24,8 +24,8 @@
 
   <div class="align-items-center justify-content-center content" *ngIf="dataAvailable">
 
-    <!-- <button class="btn content-primary" (click)="changeLang()"> Изменить язык </button> -->
-
+    <button class="btn content-primary" (click)="changeLang()"> {{'app.change_pass'}} </button>
+    <!-- Изменить язык -->
     <button *ngIf="(access$ | async)?.length === 0 && main!=='application'" class="btn content-primary"
       routerLink='auth/application'> Регистрация </button>
 

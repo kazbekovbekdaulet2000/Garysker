@@ -1,16 +1,21 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
 import { ListResponseModel } from '@core/models/api/list.model';
+import { ReportDetailModel } from '@core/models/api/report.model';
+import { CommentsService } from '@core/services/comments.service';
 import { AuthState } from '@core/states/auth/auth.state';
+import { ClearComments, DeleteComment, LikeComment, ListComments, PostComment } from '@core/states/comments/comments.actions';
+import { CommentsState } from '@core/states/comments/comments.state';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
-import { ClearReportDetail, DeleteReportComment, LikeReportComment, ListMoreReportComments, PostReportComment, SaveReport } from '../../report.actions';
+import { DecreaseReportComments, IncreaseReportComments } from '../../report.actions';
 import { ReportState } from '../../report.state';
 
 @Component({
@@ -19,102 +24,121 @@ import { ReportState } from '../../report.state';
   styleUrls: ['./comments.component.scss'],
   animations: [opacityAnimation, heightAnimation]
 })
-export class ReportCommentsComponent implements OnInit {
+export class ReportCommentsComponent implements OnDestroy {
 
-  @Input() reportId!: number;
-  @Input() report: any;
+  reportId: number = NaN;
 
   @Select(AuthState.access) access$!: Observable<string>;
-  @Select(ReportState.comments) comments$!: Observable<ListResponseModel<CommentModel>>;
+  @Select(CommentsState.comments) comments$!: Observable<ListResponseModel<CommentModel>>;
+  @Select(ReportState.report) report$!: Observable<ReportDetailModel>;
 
   @ViewChild('holder') holder!: ElementRef
   @ViewChild('input') textfield!: ElementRef;
 
-  formGroup: FormGroup | any;
+  formGroup!: FormGroup;
   replyContent: any | null;
   textInputLarge: boolean = false;
 
   constructor(
     private store: Store,
-    private router: Router,
     private formBuilder: FormBuilder,
-    private bsModalService: BsModalService
-  ) { }
+    private bsModalService: BsModalService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.params.subscribe(({ id }) => {
+      this.reportId = id
+      this.formGroup = this.formBuilder.group({
+        body: ['', Validators.required],
+        reply: [null],
+        report: [this.reportId, Validators.required]
+      })
 
-  ngOnInit(): void {
-    this.formGroup = this.formBuilder.group({
-      body: [null, Validators.required],
-      reply: [null],
-      report: [this.reportId, Validators.required]
     })
   }
 
-  navigateReport(id: number) {
-    this.store.dispatch(ClearReportDetail)
-    this.router.navigate(['/edu/reports', id])
+  ngOnDestroy(): void {
+    this.store.dispatch(ClearComments)
+  }
+
+  loadMore() {
+    this.store.dispatch(new ListComments('reports', this.reportId!))
   }
 
   sendComment() {
     const payload = this.formGroup.getRawValue()
     if (payload.body !== '' && payload.body !== null) {
-      this.store.dispatch(new PostReportComment(this.reportId, payload))
+      this.store.dispatch(new PostComment('reports', this.reportId, payload))
+      this.store.dispatch(IncreaseReportComments)
       this.formGroup.patchValue({
         body: null,
         reply: null
       })
       this.replyContent = null
+      this.removeComment()
     } else {
       alert("нету коммента")
     }
   }
 
-  loadMore() {
-    this.store.dispatch(new ListMoreReportComments(this.reportId!))
-  }
-
   addReply(reply: CommentModel) {
     if (this.replyContent?.id === reply.id) {
       this.replyContent = null
-
-      this.textfield.nativeElement.blur();
-      this.textInputLarge = false
-
-      this.formGroup.patchValue({
-        reply: null,
-      });
+      this.removeComment()
+      this.patchReply(null)
     } else {
       this.replyContent = reply
-
-      window.scrollTo(0, this.holder.nativeElement.offsetTop - 120)
-      this.textfield.nativeElement.focus();
-      this.textInputLarge = true
-
-      this.formGroup.patchValue({
-        reply: this.replyContent.id,
-      });
+      this.toComment()
+      this.patchReply(this.replyContent.id)
     }
+  }
+
+  toComment() {
+    window.scrollTo(0, this.holder.nativeElement.offsetTop - 120)
+    this.textfield.nativeElement.focus();
+    this.textInputLarge = true
+  }
+
+  removeComment() {
+    this.textfield.nativeElement.blur();
+    this.textInputLarge = false
+  }
+
+  postLike(reply: CommentModel) {
+    this.store.dispatch(new LikeComment('reports', this.reportId!, reply.id))
   }
 
   deleteComment(comment: CommentModel) {
     const modal = this.bsModalService.show(ConfirmModalComponent, {
       initialState: {
         title: "",
-        message: "Вы уверены, что хотите удалить комментарии?",
-        false_ans: "Нет, оставить",
-        true_ans: "Да, удалить",
+        message: "app.comment.delete.title",
+        false_ans: "app.comment.delete.false",
+        true_ans: "app.comment.delete.true"
       },
       class: 'modal-dialog-centered'
     })
 
     modal.content!.onClose.subscribe(result => {
       if (result === true) {
-        this.store.dispatch(new DeleteReportComment(this.reportId, comment.id))
+        this.store.dispatch(new DeleteComment('reports', this.reportId, comment.id))
+        this.store.dispatch(DecreaseReportComments)
       }
     });
   }
 
-  postLike(reply: CommentModel) {
-    this.store.dispatch(new LikeReportComment(this.reportId!, reply.id))
+  removeReplyParent() {
+    this.replyContent = null
+    this.patchReply(null)
+  }
+
+  textareaTap() {
+    this.textInputLarge = true
+  }
+
+  patchReply(val: number | null) {
+    this.formGroup.patchValue({
+      reply: val,
+    });
   }
 
   triggerFunction(event: any) {
@@ -126,13 +150,5 @@ export class ReportCommentsComponent implements OnInit {
       event.preventDefault();
       this.sendComment();
     }
-  }
-
-  removeReplyParent() {
-    this.replyContent = null
-  }
-
-  textareaTap() {
-    this.textInputLarge = true
   }
 }

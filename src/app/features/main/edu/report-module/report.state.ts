@@ -1,45 +1,36 @@
 import { Injectable } from '@angular/core';
-import { CommentModel } from '@core/models/api/comment.model';
 import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
 import { ReportDetailModel, ReportModel } from '@core/models/api/report.model';
 import { ReportsService } from '@core/services/reports.service';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import iterateComments from '../iterateComments';
-import getComment from '../getComment';
 import {
+  ClearRelatedReportList,
   ClearReportDetail,
   ClearReportList,
-  DeleteReportComment,
+  DecreaseReportComments,
   GetRelatedReports,
   GetReport,
+  IncreaseReportComments,
   LikeReport,
-  LikeReportComment,
-  ListMoreReportComments,
   ListMoreReports,
   ListMoreSavedReports,
-  ListReportComments,
   ListReports,
   ListSavedReports,
-  PostReportComment,
   SaveReport
 } from './report.actions';
 import { MainState } from '../../main.state';
-import { ListComments } from '@core/states/comments/comments.actions';
-import deleteComment from '../deleteComment';
 
 
 interface StateModel {
   reports: ListResponseModel<ReportModel>;
-  reports_related: ListResponseModel<ReportModel>;
+  related_reports: ListResponseModel<ReportModel>;
   report: ReportDetailModel | null;
-  comments: ListResponseModel<CommentModel>;
 }
 
 const defaults = {
   reports: emptyListResponse,
-  reports_related: emptyListResponse,
+  related_reports: emptyListResponse,
   report: null,
-  comments: emptyListResponse,
 };
 
 @State<StateModel>({
@@ -55,8 +46,8 @@ export class ReportState {
   }
 
   @Selector()
-  static reports_related({ reports_related }: StateModel): ListResponseModel<ReportModel> {
-    return reports_related;
+  static related_reports({ related_reports }: StateModel): ListResponseModel<ReportModel> {
+    return related_reports;
   }
 
   @Selector()
@@ -64,16 +55,10 @@ export class ReportState {
     return report;
   }
 
-  @Selector()
-  static comments({ comments }: StateModel): ListResponseModel<CommentModel> {
-    return comments;
-  }
-
   constructor(
     private store: Store,
     private reportService: ReportsService,
-  ) {
-  }
+  ) { }
 
   @Action(ListReports)
   ListReports({ patchState }: StateContext<StateModel>, { params }: ListReports) {
@@ -139,14 +124,24 @@ export class ReportState {
   @Action(GetRelatedReports)
   GetRelatedReports({ patchState, getState }: StateContext<StateModel>, { id, params }: GetRelatedReports) {
     this.reportService.getRelated(id, params)
-      .subscribe(reports_related => {
-        const list = getState().reports_related
-        list.count = reports_related.count
-        list.next = reports_related.next
-        list.previous = reports_related.previous
-        list.results = [...list.results, ...reports_related.results]
-        return patchState({ reports_related: list })
+      .subscribe(related_reports => {
+        // const list = getState().related_reports
+        // list.count = related_reports.count
+        // list.next = related_reports.next
+        // list.previous = related_reports.previous
+        // list.results = [...list.results, ...related_reports.results]
+        return patchState({ related_reports })
       })
+  }
+
+  @Action(IncreaseReportComments)
+  IncreaseReportComments({ getState }: StateContext<StateModel>) {
+    getState().report!.comments_count++
+  }
+
+  @Action(DecreaseReportComments)
+  DecreaseReportComments({ getState }: StateContext<StateModel>) {
+    getState().report!.comments_count--
   }
 
   @Action(LikeReport)
@@ -179,80 +174,14 @@ export class ReportState {
       })
   }
 
-  @Action(ListReportComments)
-  ListReportComments({ patchState }: StateContext<StateModel>, { id }: ListReportComments) {
-    this.reportService.listComments(id)
-      .toPromise()
-      .then(comments => {
-        patchState({ comments })
-      })
-  }
-
-  @Action(ListMoreReportComments)
-  ListMoreReportComments({ getState, patchState }: StateContext<StateModel>, { id }: ListMoreReportComments) {
-    const next = getState().comments.next
-    const page = next.split('page=')[1]
-    if (page) {
-      const params = { page }
-      this.reportService.listComments(id, params)
-        .subscribe(comments => {
-          const list = getState().comments.results
-          getState().comments.next = comments.next
-          getState().comments.previous = comments.previous
-          getState().comments.results = [...list, ...comments.results]
-        })
-    }
-  }
-
-  @Action(PostReportComment)
-  PostReportComment({ getState, patchState }: StateContext<StateModel>, { id, payload }: PostReportComment) {
-    this.reportService.postComment(id!, payload)
-      .subscribe(comment => {
-        getState().report!.comments_count += 1
-        if (comment.reply) {
-          getState().comments.results.map(item => iterateComments(item, comment))
-        } else {
-          const list = [...[comment], ...getState().comments.results]
-          getState().comments.results = list
-        }
-      })
-  }
-
-  @Action(LikeReportComment)
-  LikeReportComment({ getState, patchState }: StateContext<StateModel>, { reportId, commentId }: LikeReportComment) {
-    this.reportService.likeComment(reportId, commentId)
-      .subscribe(({ liked }) => {
-        const comment = getComment(getState().comments.results, commentId)
-        if (!comment) {
-          return
-        }
-        if (liked) {
-          comment!.likes_count += 1
-        } else {
-          comment!.likes_count -= 1
-        }
-        comment!.liked = liked
-      })
-  }
-
-  @Action(DeleteReportComment)
-  DeleteReportComment({ getState, patchState }: StateContext<StateModel>, { reportId, commentId }: DeleteReportComment) {
-    this.reportService.deleteComment(reportId, commentId)
-      .subscribe(() => {
-        getState().report!.comments_count -= 1
-        patchState({
-          comments: {
-            ...getState().comments,
-            results: deleteComment(getState().comments.results, commentId)
-          }
-        })
-      })
-  }
-
   @Action(ClearReportDetail)
-  ClearReportDetail({ patchState, getState }: StateContext<StateModel>) {
-    getState().reports_related.results = []
-    patchState({ report: null, reports_related: emptyListResponse });
+  ClearReportDetail({ patchState }: StateContext<StateModel>) {
+    patchState({ report: null });
+  }
+
+  @Action(ClearRelatedReportList)
+  ClearRelatedReportList({ patchState }: StateContext<StateModel>) {
+    patchState({ related_reports: emptyListResponse });
   }
 
   @Action(ClearReportList)

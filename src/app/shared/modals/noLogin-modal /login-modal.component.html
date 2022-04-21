@@ -1,15 +1,16 @@
 <div class="d-flex flex-column justify-content-center align-items-center">
+  
   <img class="icon" src="assets/images/err_sticker_1.png" alt="">
 
-  <h4 class="mb-0">Вы не зашли в свой аккаунт?</h4>
+  <h4 class="mb-0">{{'app.err.login.header' | translate}}</h4>
 
   <div class="close">
     <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
   </div>
 
   <div class="group mt-4">
-    <button class="btn group-btn group-background" (click)="application()">Регестрация</button>
-    <button class="btn group-btn group-background" (click)="signIn()">Войти</button>
+    <button class="btn group-btn group-background" (click)="application()">{{'app.err.login.register' | translate}}</button>
+    <button class="btn group-btn group-background" (click)="signIn()">{{'app.err.login.login' | translate}}</button>
   </div>
   
 </div>

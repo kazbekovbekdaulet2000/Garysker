@@ -1,8 +1,8 @@
-<ng-container *ngIf="comments$ | async as comments">
+<ng-container *ngIf="(comments$ | async) as comments">
+  
+  <div #holder class="comment-holder">
 
-  <div #holder class="comment-holder" [formGroup]="formGroup">
-
-    <h5>{{report.comments_count}} комментарии </h5>
+    <h5>{{(report$ | async)!.comments_count}} комментарии </h5>
 
     <div @heightAnimation class="reply" *ngIf="replyContent">
 
@@ -19,19 +19,29 @@
 
     </div>
 
-    <div *ngIf="(access$ | async) !== ''" class="textfield">
+    <div *ngIf="(access$ | async) !== ''" class="textfield" [formGroup]="formGroup">
 
-      <textarea #input rows=3 placeholder="Написать комментарий..." class="textfield-area" [class.large]="textInputLarge"
-        formControlName="body" (click)="textareaTap()" (keydown)="triggerFunction($event)"></textarea>
+      <textarea 
+        #input 
+        rows=3 
+        placeholder="Написать комментарий..." 
+        class="textfield-area" 
+        [class.large]="textInputLarge"
+        formControlName="body" 
+        (click)="textareaTap()" 
+        (keydown)="triggerFunction($event)"></textarea>
 
       <div class="d-flex justify-content-end">
-        <button @opacityAnimation *ngIf="textInputLarge" class="btn textfield-btn"
+        <button 
+          @opacityAnimation 
+          *ngIf="textInputLarge" 
+          class="btn textfield-btn"
           (click)="sendComment()">Отправить</button>
       </div>
 
     </div>
 
-    <ng-container *ngIf="report.comments_count>0; else empty">
+    <ng-container *ngIf="comments.count>0; else empty">
 
       <app-comment-module 
         *ngFor="let comment of comments.results" 
@@ -44,7 +54,7 @@
     </ng-container>
 
     <ng-template #empty>
-      <div *ngIf="(access$ | async) !== ''" class="d-flex justify-content-center mt-2">напишите первый комментарий</div>
+      <div *ngIf="(access$ | async)! !== ''" class="d-flex justify-content-center mt-2">напишите первый комментарий</div>
     </ng-template>
 
     <a class="d-flex loadmore my-2 align-items-center justify-content-center cursor-pointer" *ngIf="comments.next"

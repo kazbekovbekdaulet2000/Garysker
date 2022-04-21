@@ -14,7 +14,7 @@
 
     <div class="report-stat mb-4">
 
-      <div>
+      <div class="cursor-pointer" (click)="onComment()">
         <img src="assets/icons/comment.svg" alt="">
         {{report.comments_count}}
       </div>
@@ -36,6 +36,7 @@
     <div class="report-author">
 
       <img class="report-author-photo" [src]="report.author.image">
+      
       <div class="d-flex flex-column">
         <div class="report-author-name">{{report.author.surname}} {{report.author.name}}</div>
         <div class="report-author-role">Автор</div>
@@ -47,13 +48,15 @@
 
     <div class="report-stat">
 
-      <div>
+      <div class="cursor-pointer" (click)="onComment()">
         <img src="assets/icons/comment.svg" alt="">
         {{report.comments_count}}
       </div>
 
-      <img class="cursor-pointer" (click)="onSave(report.id)"
-        [src]="report.bookmarked ? 'assets/icons/saved_new.svg' : 'assets/icons/save_new.svg'" alt="">
+      <img 
+        class="cursor-pointer" (click)="onSave(report.id)"
+        [src]="report.bookmarked ? 'assets/icons/saved_new.svg' : 'assets/icons/save_new.svg'" 
+        alt="">
 
       <img class="cursor-pointer" (click)="onShare()" src="assets/icons/new_share.svg" alt="">
 
@@ -66,7 +69,7 @@
 
   </div>
 
-  <app-report-comments [reportId]="reportId" [report]="report"></app-report-comments>
+  <app-report-comments #comments></app-report-comments>
 
   <app-report-related [reportId]="reportId"></app-report-related>
 

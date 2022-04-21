@@ -1,19 +1,29 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { DatePipeModule } from "../../pipes/date/date-pipe.module";
-import { CommentComponent } from "./comment.component";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { TranslateModule } from '@ngx-translate/core';
+import { InputComponent } from './text/input.component';
+import { SelectComponent } from './selections/select.component';
+import { TextareaComponent } from './textarea/textarea.component';
+
 
 @NgModule({
   declarations: [
-    CommentComponent,
+    InputComponent,
+    SelectComponent,
+    TextareaComponent
   ],
   exports: [
-    CommentComponent,
+    InputComponent,
+    SelectComponent,
+    TextareaComponent
   ],
   imports: [
     CommonModule,
-    DatePipeModule
+    FormsModule,
+    TranslateModule,
   ],
 })
-export class CommentModule {
+export class InputModule {
 }

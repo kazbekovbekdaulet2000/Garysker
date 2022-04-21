@@ -49,7 +49,7 @@ export class IdentityService extends ApiService {
   reset(payload: any): Observable<any> {
     return this.http.post<any>(this.getUrl('reset'), payload)
   }
-
+  
   resetConfirm(payload: any): Observable<any> {
     return this.http.post<any>(this.getUrl('reset/confirm'), payload)
   }

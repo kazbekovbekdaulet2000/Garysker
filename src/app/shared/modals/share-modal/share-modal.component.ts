@@ -32,7 +32,6 @@ export class LinkShareModalComponent {
     setTimeout(() => {
       this.closeModal()
     }, 1000)
-    // Оте керемет код (нет чорт)
   }
 
 }

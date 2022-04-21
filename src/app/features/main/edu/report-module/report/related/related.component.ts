@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { ReportModel } from '@core/models/api/report.model';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { ReportsService } from '@core/services/reports.service';
+import { Store } from '@ngxs/store';
 import { ClearReportDetail, GetRelatedReports } from '../../report.actions';
-import { ReportState } from '../../report.state';
 
 @Component({
   selector: 'app-report-related',
@@ -15,13 +14,27 @@ import { ReportState } from '../../report.state';
 export class ReportRelatedComponent {
 
   @Input() reportId!: number
-  @Select(ReportState.reports_related) reports$!: Observable<ListResponseModel<ReportModel>>
   page: number = 1;
+
+  reports!: ListResponseModel<ReportModel>
+
+  params: any = {
+    page: 1
+  }
 
   constructor(
     private store: Store,
-    private router: Router
-  ) { }
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private reportService: ReportsService
+  ) {
+    this.activatedRoute.params.subscribe(({ id }) => {
+      this.reportService.getRelated(id, this.params)
+        .subscribe(related_reports => {
+          this.reports = related_reports
+        })
+    })
+  }
 
   navigateReport(id: number) {
     this.store.dispatch(ClearReportDetail)
@@ -29,12 +42,13 @@ export class ReportRelatedComponent {
   }
 
   onScroll() {
-    this.reports$.subscribe(data => {
-      if (data.next) {
-        const page = data.next.split('page=')[1]
-        this.store.dispatch(new GetRelatedReports(this.reportId, { page: page }))
-      }
-    })
+    if (this.reports.next) {
+      this.params.page++
+      this.reportService.getRelated(this.reportId, this.params)
+        .subscribe(related_reports => {
+          this.reports = { ...related_reports, results: [...this.reports.results, ...related_reports.results] }
+        })
+    }
   }
 
 }

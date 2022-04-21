@@ -141,6 +141,16 @@
               "src/**/*.html"
             ]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "garyshker-front:build:production",
+            "firebaseProject": "garyshker-1c49e",
+            "firebaseHostingSite": "garyshker-dev"
+          }
         }
       }
     }

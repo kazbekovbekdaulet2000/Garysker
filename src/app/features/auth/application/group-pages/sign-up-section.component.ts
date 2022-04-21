@@ -49,7 +49,7 @@ export class SignUpSectionComponent implements OnInit {
   send() {
     if(this.stage === 3 && this.politics.getRawValue().rules !== true){
       this.bsService.show(MessageModalComponent, {
-        initialState: { message: "Надо принять условия использования сайта" },
+        initialState: { message: "auth.message.err.policy" },
         class: 'modal-dialog-centered'
       })
       return

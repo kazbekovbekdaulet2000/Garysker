@@ -1,0 +1,54 @@
+@import "variables";
+
+.course-card {
+  width: 320px;
+  height: 424px;
+  border-radius: 24px;
+  padding: 16px 12px 52px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  
+  &-logo {
+    height: 35px;
+    width: max-content;
+    background-color: #ffd2dd;
+    border-radius: 20px;
+    padding: 8px 24px;
+    display: flex;
+    align-self: flex-end;
+    margin-right: 4px;
+    img {
+      max-width: 100px;
+      object-fit: cover;
+    }
+  }
+
+  &-content {
+    &-details {
+      display: flex;
+      align-items: center;
+      img {
+        width: 24px;
+        height: 24px;
+        object-fit: cover;
+      }
+      span {
+        color: $color-orange;
+        margin-left: 8px;
+        font-weight: 500;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .modal-content {
+    padding: 32px 16px;
+  }
+}

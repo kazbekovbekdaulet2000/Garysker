@@ -1,13 +1,13 @@
 <div @opacityAnimation class="d-flex flex-column align-items-center no-content">
 
-  <div class="no-content-text mb-3">{{'events.sorry_text.text_1' | translate}}</div>
+  <div class="no-content-text mb-3">{{'projects.sorry_text.text_1' | translate}}</div>
 
-  <div class="no-content-text mb-3">{{'events.sorry_text.text_2' | translate}}</div>
+  <div class="no-content-text mb-3">{{'projects.sorry_text.text_2' | translate}}</div>
 
   <img class="no-content-icon mb-3" src="assets/images/alien.png" alt="">
 
   <button *ngIf="(access$ | async) === ''" class="no-content-register mb-3" (click)="goRegister()">
-    {{'events.register' | translate}}
+    {{'projects.register' | translate}}
   </button>
 
   <div class="no-content-social">

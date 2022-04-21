@@ -28,7 +28,7 @@ export class DateAgePipe implements PipeTransform {
       prefix = "year_5"
     }
 
-    return this.translate.get(`sections.date.age.${prefix}`, { age }).pipe(
+    return this.translate.stream(`sections.date.age.${prefix}`, { age }).pipe(
       map(data => {
         return <string>data
       }))

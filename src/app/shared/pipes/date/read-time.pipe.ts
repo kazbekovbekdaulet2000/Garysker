@@ -29,7 +29,7 @@ export class ReadTimePipe implements PipeTransform {
     if (minutes >= 5) {
       prefix = 'min_5'
     }
-    return this.translate.get(`sections.date.read.${prefix}`, { time: minutes }).pipe(
+    return this.translate.stream(`sections.date.read.${prefix}`, { time: minutes }).pipe(
       map(data => {
         return <string>data
       }))

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { VideoModuleRoutingModule } from './video-module-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxsModule } from '@ngxs/store';
+import { NgxsModule, Store } from '@ngxs/store';
 import { CommentModule } from 'src/app/shared/components/comment/comment.module';
 import { DatePipeModule } from 'src/app/shared/pipes/date/date-pipe.module';
 import { SanitizerPipeModule } from 'src/app/shared/pipes/sanitizer/sanitizer-pipe.module';
@@ -16,6 +16,9 @@ import { CardModule } from 'src/app/shared/components/card/card.module';
 import { ReplyModule } from 'src/app/shared/components/reply/reply.module';
 import { LangPipeModule } from 'src/app/shared/pipes/lang/lang-pipe.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommentsService } from '@core/services/comments.service';
+import { HttpClient } from '@angular/common/http';
+import { CommentsState } from '@core/states/comments/comments.state';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     LangPipeModule,
     TranslateModule,
-    NgxsModule.forFeature([VideoState]),
+    NgxsModule.forFeature([VideoState, CommentsState]),
     DatePipeModule,
     SanitizerPipeModule,
     PlyrVideoPlayerModule,

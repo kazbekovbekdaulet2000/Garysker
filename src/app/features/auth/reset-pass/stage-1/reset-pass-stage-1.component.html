@@ -1,0 +1,22 @@
+<div class="center">
+
+  <div class="reset" [formGroup]="formGroup">
+
+    <h3 class="reset-header"> {{'auth.reset.step_1.header' | translate}} </h3>
+    <div class="reset-text">
+      {{'auth.reset.step_1.hint' | translate}}
+    </div>
+
+    <ng-container>
+      <input type="email" class="reset-input" [email]="true" formControlName="email" [placeholder]="'auth.reset.step_1.email' | translate">
+    </ng-container>
+
+    <p *ngIf="getRequireMessage('email')" class="reset-error">{{'auth.required' | translate}}</p>
+
+    <div class="reset-menu">
+      <button class="btn reset-menu-next" (click)="reset()">{{'auth.reset.step_1.next' | translate}}</button>
+    </div>
+
+  </div>
+
+</div>

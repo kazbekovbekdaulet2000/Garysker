@@ -8,8 +8,8 @@ import { AuthState } from '@core/states/auth/auth.state';
 import * as moment from 'moment';
 import { IdentityService } from '@core/services/identity.service';
 import { Navigate } from '@ngxs/router-plugin';
-import { environment } from '@env';
-import { TokenModel } from '@core/models/api/token.model';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
 
 
 @Injectable()
@@ -25,7 +25,8 @@ export class RequestInterceptor implements HttpInterceptor {
   constructor(
     private store: Store,
     private identityService: IdentityService,
-    private http: HttpClient
+    private http: HttpClient,
+    private bsModalService: BsModalService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -36,6 +37,10 @@ export class RequestInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError(error => {
+        if (req.url.includes('/courses/') && req.url.includes('/participate/') && error.status === 401) {
+          this.bsModalService.show(LoginErrModalComponent, { class: 'modal-dialog-centered' })
+        }
+
         if (error instanceof HttpErrorResponse && !req.url.includes('auth/login/') && error.status === 401) {
           return this.handle401Error(req, next);
         }

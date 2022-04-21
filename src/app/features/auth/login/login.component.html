@@ -1,19 +1,18 @@
 <div class="center">
   <div class="auth-card" [formGroup]="formGroup">
     
-    <h3> Авторизация </h3>
+    <h3> {{'auth.login.header' | translate}} </h3>
   
-    <input type="email" class="user-info" formControlName="email" placeholder="Почта"> 
-    <p *ngIf="getRequireMessage('email')">*обязательно к заполнению</p>
-    <!-- <p *ngIf="getFalseMessage('email')">*Неправильный логин или пароль</p> -->
+    <input type="email" class="user-info" formControlName="email" [placeholder]="'auth.login.email' | translate"> 
+    <p *ngIf="getRequireMessage('email')">{{'auth.required' | translate}}</p>
   
-    <input type="password" class="user-info" formControlName="password" placeholder="Пароль"> 
-    <p *ngIf="getRequireMessage('password')">*обязательно к заполнению</p>
-    <p *ngIf="getFalseMessage('password')">*Неправильный логин или пароль</p>
+    <input type="password" class="user-info" formControlName="password" [placeholder]="'auth.login.password' | translate"> 
+    <p *ngIf="getRequireMessage('password')">{{'auth.required' | translate}}</p>
+    <p *ngIf="getFalseMessage('password')">{{'auth.login.err_400' | translate}}</p>
     
     <div class="menu mt-4"> 
-      <div class="cursor-pointer" routerLink="/auth/reset">Забыли пароль?</div> 
-      <button class="btn login" (click)="login()">Войти</button>
+      <div class="cursor-pointer" routerLink="/auth/reset">{{'auth.login.reset_pass' | translate}}</div> 
+      <button class="btn login" (click)="login()">{{'auth.login.submit' | translate}}</button>
     </div>
   
   </div>

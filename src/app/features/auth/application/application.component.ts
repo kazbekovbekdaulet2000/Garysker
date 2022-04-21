@@ -87,7 +87,7 @@ export class ApplicationComponent {
       }
     } else {
       this.bsService.show(MessageModalComponent, {
-        initialState: { message: "Данные не заполнены до конца" },
+        initialState: { message: "app.err.empty" },
         class: 'modal-dialog-centered'
       })
     }
@@ -111,7 +111,7 @@ export class ApplicationComponent {
           .toPromise()
           .then(() => {
             this.bsService.show(MessageModalComponent, {
-              initialState: { message: "Вы успешно зарегистрировались" },
+              initialState: { message: "auth.message.success.login" },
               class: 'modal-dialog-centered'
             })
             this.router.navigate(['/auth'])
@@ -119,7 +119,7 @@ export class ApplicationComponent {
           .catch(err => {
             if (err.error?.email) {
               this.bsService.show(MessageModalComponent, {
-                initialState: { message: "Email адрес уже существует" },
+                initialState: { message: "auth.message.err.email" },
                 class: 'modal-dialog-centered'
               })
             }

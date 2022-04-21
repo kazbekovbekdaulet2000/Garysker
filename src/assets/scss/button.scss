@@ -1,0 +1,11 @@
+@import "variables";
+
+.orange-btn {
+  background-color: $color-orange-dark;
+  color: $color-white !important;
+  border-radius: 12px;
+  padding: 8px 24px;
+  &:hover {
+    background-color: $color-orange-dark-800;
+  }
+}
