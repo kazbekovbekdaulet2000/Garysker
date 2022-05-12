@@ -9,3 +9,12 @@
     background-color: $color-orange-dark-800;
   }
 }
+
+.red-btn {
+  background-color: rgba(255, 255, 255, 0);
+  color: $color-red !important;
+  font-size: 18px;
+  line-height: 21px;
+  border-radius: 12px;
+  padding: 0px 4px;
+}

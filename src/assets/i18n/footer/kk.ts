@@ -6,14 +6,14 @@ const footer: LocaleDataModel = {
     edu: "Білім",
     project: "Жобалар",
     shop: "Дүкен",
-    events: "Оқиғалар",
+    events: "Іс шаралар",
   },
   about: {
     title: "Біз туралы",
     garysh: "Garyshker туралы",
     partners: "Серіктестер",
     faq: "FAQs",
-    docs: "НКО құжаттамасы",
+    docs: "КЕҰ құжаттамасы",
   },
   requests: {
     title: "Сұрақтар мен ұсыныстар үшін",

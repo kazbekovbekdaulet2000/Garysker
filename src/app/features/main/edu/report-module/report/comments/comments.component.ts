@@ -9,7 +9,7 @@ import { ListResponseModel } from '@core/models/api/list.model';
 import { ReportDetailModel } from '@core/models/api/report.model';
 import { CommentsService } from '@core/services/comments.service';
 import { AuthState } from '@core/states/auth/auth.state';
-import { ClearComments, DeleteComment, LikeComment, ListComments, PostComment } from '@core/states/comments/comments.actions';
+import { ClearComments, DeleteComment, LikeComment, ListComments, PatchComment, PostComment } from '@core/states/comments/comments.actions';
 import { CommentsState } from '@core/states/comments/comments.state';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -52,7 +52,6 @@ export class ReportCommentsComponent implements OnDestroy {
         reply: [null],
         report: [this.reportId, Validators.required]
       })
-
     })
   }
 
@@ -75,21 +74,16 @@ export class ReportCommentsComponent implements OnDestroy {
       })
       this.replyContent = null
       this.removeComment()
-    } else {
-      alert("нету коммента")
     }
   }
 
   addReply(reply: CommentModel) {
-    if (this.replyContent?.id === reply.id) {
-      this.replyContent = null
-      this.removeComment()
-      this.patchReply(null)
-    } else {
-      this.replyContent = reply
-      this.toComment()
-      this.patchReply(this.replyContent.id)
-    }
+    this.store.dispatch(new PostComment('reports', this.reportId, reply))
+    this.store.dispatch(IncreaseReportComments)
+  }
+
+  patchComment(comment: CommentModel) {
+    this.store.dispatch(new PatchComment('reports', this.reportId, comment.id, comment))
   }
 
   toComment() {

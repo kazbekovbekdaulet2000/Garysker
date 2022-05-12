@@ -1,0 +1,38 @@
+@import "variables";
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 312px);
+  gap: 24px;
+  .product {
+    height: 400px;
+    width: 312px;
+    border-radius: 20px;
+    background-color: $color-background;
+    padding: 12px;
+    &-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+    &-price {
+      font-size: 18px;
+      &-token {
+        font-size: 14px;
+        opacity: 0.7s;
+        color: $color-orange;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(1, 100%);
+    .product{
+      width: 100%;
+    }
+  }
+}

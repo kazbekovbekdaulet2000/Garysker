@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import events from '@assets/i18n/events/kk';
 import { EventModel } from '@core/models/api/event.model';
 import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
 import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
 import { EventService } from '@core/services/event.service';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
+import * as moment from 'moment';
 import { ClearEvents, ListEvents } from './events.actions';
 
 interface StateModel {
@@ -30,7 +30,6 @@ export class EventsState {
   }
 
   constructor(
-    private store: Store,
     private eventService: EventService
   ) { }
 

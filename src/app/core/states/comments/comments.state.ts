@@ -7,7 +7,7 @@ import { CommentsService } from '@core/services/comments.service';
 import iterateComments from 'src/app/features/main/edu/iterateComments';
 import getComment from 'src/app/features/main/edu/getComment';
 import deleteComment from 'src/app/features/main/edu/deleteComment';
-import { ClearComments, DeleteComment, LikeComment, ListComments, PostComment } from './comments.actions';
+import { ClearComments, DeleteComment, LikeComment, ListComments, PatchComment, PostComment } from './comments.actions';
 
 
 interface StateModel {
@@ -46,10 +46,9 @@ export class CommentsState {
         const params = { page }
         this.commentsService.list(type, id, params)
           .subscribe(comments => {
-            const list = getState().comments.results
-            getState().comments.next = comments.next
-            getState().comments.previous = comments.previous
-            getState().comments.results = [...list, ...comments.results]
+            const prevList = getState().comments.results
+            const newCommentList = { ...comments, ...{ results: [...prevList, ...comments.results] } }
+            patchState({ comments: newCommentList })
           })
       }
     } else {
@@ -74,6 +73,18 @@ export class CommentsState {
       })
   }
 
+  @Action(PatchComment)
+  PatchComment({ getState }: StateContext<StateModel>, { type, id, commentId, payload }: PatchComment) {
+    this.commentsService.patch(type, id, commentId, payload)
+      .subscribe(patchedComment => {
+        const comment = getComment(getState().comments.results, commentId)
+        if (!comment) {
+          return
+        }
+        comment.body = patchedComment.body
+      })
+  }
+
   @Action(LikeComment)
   LikeReportComment({ getState }: StateContext<StateModel>, { type, id, commentId }: LikeComment) {
     this.commentsService.like(type, id, commentId)
@@ -92,7 +103,7 @@ export class CommentsState {
   }
 
   @Action(DeleteComment)
-  DeleteComment({ getState, patchState }: StateContext<StateModel>, {type, id, commentId }: DeleteComment) {
+  DeleteComment({ getState, patchState }: StateContext<StateModel>, { type, id, commentId }: DeleteComment) {
     this.commentsService.delete(type, id, commentId)
       .subscribe(() => {
         patchState({

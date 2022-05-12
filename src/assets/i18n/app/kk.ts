@@ -7,8 +7,14 @@ const app: LocaleDataModel = {
     ru: 'Русский'
   },
   comment: {
+    reply: 'жауап беру',
+    delete_comment: 'жою',
+    change: 'өзгерту',
+    hint: 'Пікіріңізді жазыңыз',
+    show: '{{count}} жауап көрсету',
+    hide: '{{count}} жауап көрсету',
     delete: {
-      titla: 'Комментарииді шынымен жойғыңыз келе ме?',
+      title: 'Комментарииді шынымен жойғыңыз келе ме?',
       false: 'Жоқ',
       true: 'Иә, жою'
     }
@@ -26,12 +32,26 @@ const app: LocaleDataModel = {
       register: 'Тіркелу',
       login: 'Кіру'
     },
+    no_res: 'Нәтиже жоқ',
     empty: 'Деректер толық емес'
   },
   about: {
     success_save_message: 'Деректер сәтті жазылды',
     fail_save_message: 'Деректер толық емес',
-  }
+  },
+  change_language: 'Тілді өзгерту',
+  registration: 'Регистрация',
+  login: 'Кіру',
+  profile_name: 'Профиль',
+  profile_menu: 'Профиль мәзірі',
+  profile: {
+    name: 'Жеке кабинет',
+    bookmarks: 'Бетбелгілер',
+    settings: 'Баптаулар',
+    logout: 'Шығу',
+    reading: 'Оқып жатырмын',
+    watching: 'Көріп жатырмын'
+  },
 };
 
 export default app;

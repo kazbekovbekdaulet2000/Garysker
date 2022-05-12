@@ -19,11 +19,10 @@ import { ReportState } from '../../report-module/report.state';
 export class EduReportsComponent {
 
   @Select(ReportState.reports) reports$!: Observable<ListResponseModel<ReportModel>>;
-  
   constructor(
     private store: Store,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   onScroll() {
     this.store.dispatch(ListMoreReports)

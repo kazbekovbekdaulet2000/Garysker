@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventModel } from '@core/models/api/event.model';
 import { EventService } from '@core/services/event.service';
-import { RatingsService } from '@core/services/rating.service';
 import { AuthState } from '@core/states/auth/auth.state';
 import { Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { MessageModalComponent } from 'src/app/shared/modals/err-modal/err-modal.component';
 import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
-import { ClearEvents, ListEvents, ParticipateEvent } from '../../events.actions';
+import { ClearEvents, ListEvents } from '../../events.actions';
+import { EventDetailFormModalComponent } from './form/detail-modal-form.component';
 
 @Component({
   templateUrl: './detail-modal.component.html',
@@ -22,6 +22,8 @@ export class EventDetailModalComponent implements OnInit {
   event!: EventModel
   type: string | null = null
 
+  action: string | null | number = null
+
   constructor(
     private store: Store,
     private bsModalRef: BsModalRef,
@@ -32,6 +34,9 @@ export class EventDetailModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.onClose = new Subject();
+    if (this.action) {
+      this.onPost()
+    }
   }
 
   onConfirm(): void {
@@ -53,33 +58,46 @@ export class EventDetailModalComponent implements OnInit {
   }
 
   onPost() {
-    if (!!!this.store.selectSnapshot(AuthState.access)) {
-      this.bsModalService.show(LoginErrModalComponent, {
-        class: 'modal-dialog-centered'
-      })
-      return
-    }
-    this.eventService.participate(this.event.id).subscribe(
-      data => {
-        const message = data.bookmarked ? 'events.user_bookmarked' : 'events.user_removed'
-        const sticker = data.bookmarked ? 'err_sticker_2' : 'err_sticker_1'
-        this.closeModal()
-        this.store.dispatch(ClearEvents)
+    this.bsModalRef.hide()
+    const modal = this.bsModalService.show(EventDetailFormModalComponent, {
+      ignoreBackdropClick: true,
+      initialState: {
+        eventId: this.event.id
+      },
+      class: 'modal-dialog-centered'
+    })
+
+    modal.content?.onClose.subscribe((res) => {
+      if (res) {
+        this.bsModalService.show(EventDetailModalComponent, {
+          class: 'modal-dialog-centered modal-lg',
+          ignoreBackdropClick: true,
+          initialState: {
+            event: this.event,
+            type: this.type
+          }
+        })
+      } else {
         const params = this.type ? { time: this.type } : {}
         this.store.dispatch(new ListEvents(params))
-        this.bsModalService.show(MessageModalComponent, {
-          initialState: {
-            icon: sticker,
-            message: message,
-          },
-          class: 'modal-dialog-centered'
-        })
-      })
+      }
+    });
+  }
+
+  saveAction() {
+    localStorage.setItem('saved_event_add_action', `${this.event.id}`)
   }
 
   openLink(link: string) {
     if (link) {
       window.open(link, '_blank');
     }
+  }
+
+  isPast(event: EventModel): boolean {
+    var event_date = new Date(event.event_date);
+    var today = new Date();
+    console.log(event_date < today)
+    return event_date < today
   }
 }

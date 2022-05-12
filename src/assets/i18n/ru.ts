@@ -12,6 +12,8 @@ import about from "./about/ru";
 import projects from "./projects/ru";
 import auth from "./auth/ru";
 import app from "./app/ru";
+import nko from "./nko/ru";
+import shop from "./shop/ru";
 
 const localeRu: LocaleModel = {
   lang: 'ru',
@@ -28,7 +30,9 @@ const localeRu: LocaleModel = {
     about,
     projects,
     auth,
-    app
+    app,
+    nko,
+    shop
   }
 };
 

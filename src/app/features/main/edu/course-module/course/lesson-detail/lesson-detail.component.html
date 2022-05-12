@@ -4,27 +4,27 @@
 
     <div class="d-flex">
 
-      <span class="item cursor-pointer" (click)="changeSection(1)" [class.selected]="seletedSection===1 && getTest">
+      <span class="item pointer" (click)="changeSection(1)" [class.selected]="seletedSection===1 && getTest">
         {{'course.description_header' | translate}}
       </span>
 
-      <span class="item cursor-pointer" (click)="changeSection(2)" [class.selected]="seletedSection===2 && getTest">
+      <span class="item pointer" (click)="changeSection(2)" [class.selected]="seletedSection===2 && getTest">
         {{'course.resources_header' | translate}}
       </span>
 
     </div>
 
-    <span *ngIf="getTest && lesson.test_id; else nextLesson" style="text-align: right;" class="cursor-pointer test"
+    <span *ngIf="getTest && lesson.test_id; else nextLesson" style="text-align: right;" class="pointer test"
       (click)="openTest()">
       {{'course.pass_test' | translate}}
     </span>
 
     <ng-template #nextLesson>
-      <span *ngIf="getTest && !(lastLesson | async)!" style="text-align: right;" class="cursor-pointer test"
+      <span *ngIf="getTest && !(lastLesson | async)!" style="text-align: right;" class="pointer test"
         (click)="passLesson()">
         {{'course.pass' | translate}}
       </span>
-      <span *ngIf="getTest && (lastLesson | async)!" style="text-align: right;" class="cursor-pointer test"
+      <span *ngIf="getTest && (lastLesson | async)!" style="text-align: right;" class="pointer test"
         (click)="passLesson()">
         {{'course.finish_course' | translate}}
       </span>

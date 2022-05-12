@@ -18,7 +18,7 @@
         [horizontal]="true" 
         (scrolled)="onScroll()"
         class="d-flex align-items-center gap-2 my-4 reading">
-
+      
         <report-card 
           *ngFor="let report of reports.results" 
           (click)="onReportRoute(report.id)" 

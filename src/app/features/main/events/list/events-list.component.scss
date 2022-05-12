@@ -1,55 +1,10 @@
 @import "variables";
+@import "page-picker";
 
 .body {
   overflow: visible;
   position: relative;
   width: 100%;
-
-  &-header {
-    margin-right: 16px;
-    &-name {
-      font-family: "Spoof", sans-serif;
-      font-weight: 700;
-      font-size: 48px;
-      font-style: normal;
-      margin-bottom: 8px;
-      h1 {
-        margin-bottom: 0px;
-      }
-      img {
-        transition: 0.3s ease-in-out 0s;
-      }
-    }
-    .expanded {
-      transform: rotate(180deg);
-    }
-    &-text {
-      max-width: 850px;
-      font-size: 18px;
-      font-style: normal;
-      font-weight: normal;
-    }
-  }
-}
-
-.time-type {
-  font-weight: 500;
-  &-item {
-    background-color: $color-background;
-    border-radius: 20px;
-    padding: 8px 12px;
-    font-size: 14px;
-    transition: all 0.3s ease-in-out;
-    &-icon {
-      width: 16px;
-      height: 16px;
-      margin-right: 4px;
-    }
-  }
-  .active {
-    color: $color-black;
-    background-color: $color-white;
-  }
 }
 
 .events-holder {
@@ -100,19 +55,19 @@
   .body {
     padding-left: 16px;
     padding-right: 16px;
-    &-header {
-      &-name {
-        font-size: 36px;
-        margin-bottom: 8px;
-        h1 {
-          margin-bottom: 0px;
-        }
-        img {
-          transition: 0.3s ease-in-out 0s;
-        }
-      }
-      .expanded {
-        transform: rotate(180deg);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .events-holder {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin-right: 0px !important;
+    &-item {
+      &-image {
+        flex: 1;
+        padding: 24px;
+        padding-right: 24px !important;
       }
     }
   }

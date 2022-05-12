@@ -7,6 +7,12 @@ const app: LocaleDataModel = {
     ru: 'Русский'
   },
   comment: {
+    reply: 'ответить',
+    delete_comment: 'удалить',
+    change: 'редактировать',
+    hint: 'Напишите комментарии',
+    show: 'Показать',
+    hide: 'Скрыть',
     delete: {
       titla: 'Вы уверены, что хотите удалить комментарии?',
       false: 'Нет, оставить',
@@ -26,12 +32,26 @@ const app: LocaleDataModel = {
       register: 'Регистрация',
       login: 'Войти'
     },
+    no_res: 'Нету результата',
     empty: 'Данные не заполнены до конца'
   },
   about: {
     success_save_message: 'Данные успешно записаны',
     fail_save_message: 'Данные не заполнены до конца',
-  }
+  },
+  change_language: 'Изменить язык',
+  registration: 'Регистрация',
+  login: 'Войти',
+  profile_name: 'Профиль',
+  profile_menu: 'Меню профиля',
+  profile: {
+    name: 'Личный кабинет',
+    bookmarks: 'Закладки',
+    settings: 'Настройки',
+    logout: 'Выйти',
+    reading: 'Читаю',
+    watching: 'Смотрю'
+  },
 };
 
 export default app;

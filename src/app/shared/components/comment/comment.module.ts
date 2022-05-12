@@ -1,6 +1,9 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
+import { TranslateModule } from "@ngx-translate/core";
 import { DatePipeModule } from "../../pipes/date/date-pipe.module";
+import { InputModule } from "../input/input.module";
 import { CommentComponent } from "./comment.component";
 
 @NgModule({
@@ -12,7 +15,10 @@ import { CommentComponent } from "./comment.component";
   ],
   imports: [
     CommonModule,
-    DatePipeModule
+    DatePipeModule,
+    TranslateModule,
+    InputModule,
+    ReactiveFormsModule
   ],
 })
 export class CommentModule {

@@ -23,10 +23,6 @@ export class SignUpSectionComponent implements OnInit {
   selectedType: number = NaN;
   politics!: FormGroup;
 
-  cities: string[] = ['Алматы', 'Нур-Султан', 'Шымкент', 'Актобе', 'Караганда',
-    'Тараз', 'Павлодар', 'Атырау', 'Усть-Каменогорск', 'Семей', 'Уральск', 'Кызылорда', 'Костанай',
-    'Петропавловск', 'Актау', 'Темиртау', 'Туркестан', 'Кокшетау', 'Талдыкорган', 'Экибастуз', 'Рудный',
-    'Жанаозен', 'Жезказган', 'Балхаш', 'Другое']
   constructor(
     private bsService: BsModalService,
     private formBuilder: FormBuilder

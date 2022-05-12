@@ -15,7 +15,7 @@
     </div>
 
     <div *ngIf="videos.next"
-      class="d-flex show_more flex-column align-content-center align-items-center cursor-pointer mb-5"
+      class="d-flex show_more flex-column align-content-center align-items-center pointer mb-5"
       (click)="loadVideo(videos.next)">
       {{'main_screen.view_more' | translate}}
       <img src="assets/icons/down.svg" alt="">

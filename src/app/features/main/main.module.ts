@@ -13,11 +13,10 @@ import { SanitizerPipeModule } from 'src/app/shared/pipes/sanitizer/sanitizer-pi
 import { CommentModule } from 'src/app/shared/components/comment/comment.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from "./profile/ProfileComponent";
 import { PlyrVideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
 import { ProfileChangeModalComponent } from './profile/profile-change-modal/profile-change-modal.component';
 import { ProductsComponent } from './products/products.component';
-import { ShopComponent } from './shop/shop.component';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { SupportComponent } from './support/support.component';
 import { SwiperModule } from "swiper/angular";
@@ -29,6 +28,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LangPipeModule } from 'src/app/shared/pipes/lang/lang-pipe.module';
 import { InputModule } from 'src/app/shared/components/input/input.module';
 import { BsModalsTemplateModule } from 'src/app/shared/modals/modals.module';
+import { ReportState } from './edu/report-module/report.state';
+import { VideoState } from './edu/video-module/video.state';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,6 @@ import { BsModalsTemplateModule } from 'src/app/shared/modals/modals.module';
     ProfileComponent,
     ProfileChangeModalComponent,
     ProductsComponent,
-    ShopComponent,
     SupportComponent,
     AboutComponent,
     NKOComponent,
@@ -63,7 +63,7 @@ import { BsModalsTemplateModule } from 'src/app/shared/modals/modals.module';
     NgxStickySidebarModule.withConfig({
       minWidth: 257
     }),
-    NgxsModule.forFeature([MainState]),
+    NgxsModule.forFeature([MainState, ReportState, VideoState]),
     DatePipeModule,
     SanitizerPipeModule
   ],

@@ -30,7 +30,7 @@ main {
   outline: none !important;
 }
 
-.cursor-pointer {
+.pointer {
   cursor: pointer;
 }
 
@@ -66,13 +66,28 @@ a {
   color: #c4bdcf;
 }
 
-iframe{
+iframe {
   border-radius: 16px;
+}
+
+.bs-datepicker-container {
+  padding: 0px !important;
+}
+
+@media screen and (max-width: 600px) {
+  .bs-datepicker-container {
+    display: block;
+    position: fixed !important;
+    top: 0px;
+    left: 0px;
+    transform: translateX(50%);
+    transform: translateY(50%);
+  }
 }
 
 .modal-content {
   position: relative;
-  background-color: #14131D;
+  background-color: #14131d;
   border-radius: 16px;
   padding: 24px 48px;
   h4 {
@@ -94,6 +109,10 @@ body {
 body {
   margin: 0;
   font-family: "Formular", sans-serif;
+}
+
+.hidden {
+  overflow: hidden;
 }
 
 .no-select {

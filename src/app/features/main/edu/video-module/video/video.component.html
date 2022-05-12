@@ -8,14 +8,14 @@
 
     <div *ngIf="showTitle" class="content-title d-flex flex-row align-items-center gap-2"> <img class="icon"
         src="assets/images/video-camera.png" alt="">
-      <h3 class="mb-0">Смотреть еще</h3>
+      <h3 class="mb-0">{{'main_screen.view_more' | translate}}</h3>
     </div>
 
     <app-video-card *ngFor="let video of videos.results" [small]="true" [video]="video" width="100%"
       (click)="navigateVideo(video.id)"></app-video-card>
 
-    <div *ngIf="videos.next" class="content-more gap-2 cursor-pointer" (click)="loadVideo(videos.next)">
-      Смотреть еще
+    <div *ngIf="videos.next" class="content-more gap-2 pointer" (click)="loadVideo(videos.next)">
+      {{'main_screen.view_more' | translate}}
       <img src="assets/icons/down.svg" alt="">
     </div>
 

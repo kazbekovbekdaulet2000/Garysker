@@ -6,8 +6,9 @@ import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { VideoDetailModel } from '@core/models/api/video.model';
+import { CommentsService } from '@core/services/comments.service';
 import { AuthState } from '@core/states/auth/auth.state';
-import { DeleteComment, LikeComment, ListComments, PostComment } from '@core/states/comments/comments.actions';
+import { DeleteComment, LikeComment, ListComments, PatchComment, PostComment } from '@core/states/comments/comments.actions';
 import { CommentsState } from '@core/states/comments/comments.state';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -28,6 +29,7 @@ export class VideoCommentsComponent {
   videoId: number = NaN
 
   @Select(CommentsState.comments) comments$!: Observable<ListResponseModel<CommentModel>>;
+
   @Select(VideoState.video) video$!: Observable<VideoDetailModel>;
   @Select(AuthState.access) access$!: Observable<string>;
 
@@ -77,24 +79,12 @@ export class VideoCommentsComponent {
         reply: null
       })
       this.replyContent = null
-    } else {
-      alert("нету коммента")
     }
   }
 
   addReply(reply: CommentModel) {
-    if (this.replyContent?.id === reply.id) {
-      this.replyContent = null
-      this.textfield.nativeElement.blur();
-      this.textInputLarge = false
-      this.patchReply(null)
-    } else {
-      this.replyContent = reply
-      window.scrollTo(0, this.holder.nativeElement.offsetTop - 120)
-      this.textfield.nativeElement.focus();
-      this.textInputLarge = true
-      this.patchReply(this.replyContent.id)
-    }
+    this.store.dispatch(new PostComment('videos', this.videoId, reply))
+    this.store.dispatch(IncreaseVideoComments)
   }
 
   postLike(reply: CommentModel) {
@@ -118,6 +108,10 @@ export class VideoCommentsComponent {
         this.store.dispatch(DecreaseVideoComments)
       }
     });
+  }
+
+  patchComment(comment: CommentModel) {
+    this.store.dispatch(new PatchComment('videos', this.videoId, comment.id, comment))
   }
 
   removeReplyParent() {

@@ -25,8 +25,8 @@ export class EventService extends ApiService {
     return this.http.get<EventModel>(this.getUrl(eventId))
   }
 
-  participate(eventId: number): Observable<any> {
-    return this.http.post<any>(this.getUrl(`${eventId}/participate`), {})
+  participate(eventId: number, payload: any): Observable<any> {
+    return this.http.post<any>(this.getUrl(`${eventId}/participate`), payload)
   }
 
   save(eventId: number): Observable<any> {

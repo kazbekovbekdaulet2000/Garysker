@@ -18,7 +18,7 @@ export class IokaPaymentComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.IokaWidgetItem = new IokaWidget({
       orderId: this.orderId,
-      orderAccessToken: environment.iokaAccess,
+      orderAccessToken: '',
       isSaveCard: false,
       elementId: "ioka-widget",
       options: {
@@ -76,8 +76,7 @@ export class IokaPaymentComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('loool')
-    // window.location.reload()
+    window.location.reload()
   }
 
   payFunction() {

@@ -11,10 +11,23 @@ const events: LocaleDataModel = {
   },
   register: {
     count: 'Зарезервировано: {{count}}',
+    count_limit: 'Зарезервировано: {{count}}/{{max_users}}',
+    completed: 'Завершено',
     more: 'Посмотреть',
     canceled: 'Отменен',
     submit: 'Участвую',
-    cancel: 'Отменить участие'
+    cancel: 'Отменить участие',
+    apply: {
+      success: "Вы зареганы на участие",
+      error: "Ошибка",
+      email: "Email",
+      email_placeholder: "Email",
+      name: "Ваше имя",
+      name_placeholder: "имя",
+      phone: "Телефон номера",
+      phone_placeholder: "телефон номера",
+      post: 'отправить'
+    }
   },
   months: {
     _1: 'Январь',

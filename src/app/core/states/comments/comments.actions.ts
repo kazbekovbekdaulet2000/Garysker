@@ -17,6 +17,16 @@ export class PostComment {
   ) { }
 }
 
+export class PatchComment {
+  static readonly type = '[Comments] PatchComment';
+  constructor(
+    public type: CommentType,
+    public id: number,
+    public commentId: number,
+    public payload: any
+  ) { }
+}
+
 export class LikeComment {
   static readonly type = '[Comments] LikeComment';
   constructor(

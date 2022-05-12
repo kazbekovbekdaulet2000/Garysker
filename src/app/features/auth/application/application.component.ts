@@ -43,8 +43,10 @@ export class ApplicationComponent {
       birth_date: [null, [Validators.minLength(10), Validators.required]],
     }),
     this.formBuilder.group({
-      city: [null, Validators.required],
+      city: null,
+      country: null,
       user_type: [null, Validators.required],
+      edu_place: null,
     }),
     this.formBuilder.group({
     }),
@@ -120,6 +122,12 @@ export class ApplicationComponent {
             if (err.error?.email) {
               this.bsService.show(MessageModalComponent, {
                 initialState: { message: "auth.message.err.email" },
+                class: 'modal-dialog-centered'
+              })
+            }
+            if (err.error?.birth_date) {
+              this.bsService.show(MessageModalComponent, {
+                initialState: { message: "auth.message.err.birth_date" },
                 class: 'modal-dialog-centered'
               })
             }

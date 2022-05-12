@@ -1,11 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { IdentityService } from '@core/services/identity.service';
-import { Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable, of, timer } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -64,7 +63,7 @@ export class ResetPassStageTwoComponent {
       }
     })
   }
-  
+
   setTimer(expiry: number, nowTime: number) {
     const time = Math.floor((expiry - nowTime) / 1000)
     this.startTimer(time);

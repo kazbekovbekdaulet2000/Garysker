@@ -5,7 +5,8 @@ const video: LocaleDataModel = {
   comment: {
     cancel: "отменить",
     send: "Отправить",
-    placeholder:"Написать комментарий..."
+    placeholder:"Написать комментарий...",
+    load_more: 'Загрузить еще'
   }
 };
 

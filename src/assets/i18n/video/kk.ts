@@ -5,7 +5,8 @@ const video: LocaleDataModel = {
   comment: {
     cancel: "бас тарту",
     send: "Жіберу",
-    placeholder:"Пікір жазыңыз..."
+    placeholder:"Пікір жазыңыз...",
+    load_more: 'Тағы'
   }
 };
 

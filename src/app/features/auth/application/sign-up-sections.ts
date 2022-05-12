@@ -6,7 +6,7 @@ export interface UserTypes {
 
 export interface InputConfig {
   helper?: string
-  type: 'birth-date' | 'input' | 'city-selector' | 'user-type' | 'goals' | 'password' | 'email'
+  type: 'birth-date' | 'input' | 'city-selector' | 'user-type' | 'goals' | 'password' | 'email' | 'country-selector'
   placeholder?: string
   key?: string
   userTypes?: UserTypes[]
@@ -59,6 +59,12 @@ export const SignUpPageTwo: StageModel = {
   icon: "assets/icons/about-page.svg",
   config: [
     {
+      type: 'country-selector',
+      placeholder: 'auth.registration.steps.two.config.country_p',
+      key: 'country',
+      error: 'auth.registration.steps.two.config.country_p_err'
+    },
+    {
       type: 'city-selector',
       placeholder: 'auth.registration.steps.two.config.city_p',
       key: 'city',
@@ -70,6 +76,13 @@ export const SignUpPageTwo: StageModel = {
       key: 'user_type',
       error: 'auth.registration.steps.two.config.user_type_p_err'
     },
+    {
+      type: 'input',
+      placeholder: 'auth.registration.steps.two.config.edu_p',
+      key: 'edu_place',
+      error: 'auth.registration.steps.two.config.edu_p_err'
+    },
+    // edu_place
   ]
 }
 

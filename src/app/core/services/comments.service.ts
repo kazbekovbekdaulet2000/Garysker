@@ -23,7 +23,7 @@ export class CommentsService extends ApiService {
   }
 
   list(type: CommentType, id: number, params?: any): Observable<ListResponseModel<CommentModel>> {
-    return this.http.get<ListResponseModel<CommentModel>>(this.getUrl(`${type}/${id}/comments`), {params});
+    return this.http.get<ListResponseModel<CommentModel>>(this.getUrl(`${type}/${id}/comments`), { params });
   }
 
   post(type: CommentType, id: number, payload: any): Observable<CommentModel> {
@@ -40,6 +40,10 @@ export class CommentsService extends ApiService {
           return res
         })
       )
+  }
+
+  patch(type: CommentType, id: number, commentId: number, payload: any): Observable<CommentModel> {
+    return this.http.patch<CommentModel>(this.getUrl(`${type}/${id}/comments/${commentId}`), payload)
   }
 
   like(type: CommentType, id: number, commentId: number): Observable<any> {

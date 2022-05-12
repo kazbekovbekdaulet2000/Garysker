@@ -1,11 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AppState } from '@core/states/app/app.state';
-import { LangType } from '@core/types/lang.type';
-import { DefaultLangChangeEvent, LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { Select } from '@ngxs/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { Interval, intervals } from './intervals';
+import { map } from 'rxjs/operators';
+import { intervals } from './intervals';
 
 @Pipe({
   name: 'DateRemained'

@@ -40,6 +40,7 @@ export class TextareaComponent implements ControlValueAccessor, OnInit {
       this.value = this.value + "\n"
       this.onValueChange(this.value)
     } else if (event.key === 'Enter') {
+      event.preventDefault();
       this.send.emit()
     }
   }

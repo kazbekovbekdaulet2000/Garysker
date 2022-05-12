@@ -11,11 +11,15 @@ import { EventsState } from './events.state';
 import { BackgroundImageModule } from 'src/app/shared/directives/background-image.module';
 import { LangPipeModule } from 'src/app/shared/pipes/lang/lang-pipe.module';
 import { EventDetailModalComponent } from './list/detail/detail-modal.component';
+import { EventDetailFormModalComponent } from './list/detail/form/detail-modal-form.component';
+import { InputModule } from 'src/app/shared/components/input/input.module';
+import { ComponentHeaderModule } from 'src/app/shared/components/component-header/component-header.module';
 
 @NgModule({
   declarations: [
     EventListComponent,
-    EventDetailModalComponent
+    EventDetailModalComponent,
+    EventDetailFormModalComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +30,8 @@ import { EventDetailModalComponent } from './list/detail/detail-modal.component'
     NgxsModule.forFeature([EventsState]),
     DatePipeModule,
     TranslateModule,
+    ComponentHeaderModule,
+    InputModule,
     LangPipeModule,
     BackgroundImageModule
   ]

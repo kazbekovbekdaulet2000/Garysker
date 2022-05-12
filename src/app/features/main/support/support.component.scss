@@ -2,7 +2,8 @@
 
 .support {
   width: calc(100% - 64px);
-  max-width: 1200px;
+  padding-top: 48px;
+  max-width: 1600px;
   display: grid;
   grid-template-columns: 40% 60%;
   gap: 30px;
@@ -10,7 +11,6 @@
   margin-right: 64px;
   &-content {
     width: 100%;
-    min-height: 60vh;
     position: relative;
     justify-content: center;
     &-enter {
@@ -25,5 +25,22 @@
   }
 }
 
-@media screen and (max-width: 640px) {
+.form-check-input {
+  min-width: 25px;
+  min-height: 25px;
+  vertical-align: top;
+  border: 1px solid #ffa800;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-print-color-adjust: exact;
+}
+
+@media screen and (max-width: 768px) {
+  .support {
+    padding: 16px;
+    width: 100%;
+    grid-template-columns: 100%;
+  }
 }

@@ -1,0 +1,19 @@
+<div class="event-detail-form d-flex flex-column justify-content-center" [formGroup]="formData">
+
+  <div class="close">
+    <img src="assets/icons/close.svg" (click)="closeModal(true)" alt="">
+  </div>
+
+  <app-input formControlName="email" [required]="true" [label]="'events.register.apply.email' | translate"
+    [hint]="'events.register.apply.email_placeholder' | translate"></app-input>
+
+  <app-input formControlName="name" [required]="true" [label]="'events.register.apply.name' | translate"
+    [hint]="'events.register.apply.name_placeholder' | translate"></app-input>
+  
+  <app-input formControlName="phone" [required]="true" [label]="'events.register.apply.phone' | translate"
+    [hint]="'events.register.apply.phone_placeholder' | translate"></app-input>
+
+  <div class="d-flex justify-content-end">
+    <button class="btn orange-btn" (click)="onPost()">{{'events.register.apply.post' | translate}}</button>
+  </div>
+</div>

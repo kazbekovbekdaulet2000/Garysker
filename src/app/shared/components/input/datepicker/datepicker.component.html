@@ -1,0 +1,6 @@
+<div *ngIf="label" class="label" [class.required]="required">
+  {{label | translate}}
+</div>
+
+<input class="form-control user-input {{class}}" placement="bottom" [(ngModel)]="value" [placeholder]="hint | translate" bsDatepicker [disabled]="disabled"
+  [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-orange' }" (bsValueChange)="onValueChange($event)">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Init } from '@core/states/app/app.actions';
+import { UpdateProfile } from '@core/states/auth/actions';
 import { Store } from '@ngxs/store';
 
 @Component({
@@ -14,5 +15,6 @@ export class AppComponent {
     private store: Store
   ) {
     this.store.dispatch(Init);
+    this.store.dispatch(UpdateProfile)
   }
 }

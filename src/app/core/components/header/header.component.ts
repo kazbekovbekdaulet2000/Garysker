@@ -6,7 +6,6 @@ import { opacityAnimation } from '@core/animations/opacity-animation';
 import { UserModel } from '@core/models/api/user.model';
 import { ReportsService } from '@core/services/reports.service';
 import { VideosService } from '@core/services/videos.service';
-import { UpdateLang } from '@core/states/app/app.actions';
 import { AppState } from '@core/states/app/app.state';
 import { RemoveToken } from '@core/states/auth/actions';
 import { AuthState } from '@core/states/auth/auth.state';
@@ -60,7 +59,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
-      .subscribe((val) => {
+      .subscribe(() => {
         this.sidebar = '100%'
       })
     this.renderer.listen('window', 'click', (e: Event) => {
@@ -202,24 +201,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
     });
-  }
-
-  changeLang() {
-    const modal = this.bsModalService.show(ConfirmModalComponent, {
-      initialState: {
-        icon: "err_sticker_2",
-        message: "app.change_lang",
-        false_ans: "app.lang.kk",
-        true_ans: "app.lang.ru",
-      },
-      class: 'modal-dialog-centered'
-    })
-    modal.content!.onClose.subscribe(res => {
-      if (res === true) {
-        this.store.dispatch(new UpdateLang('ru'))
-      } else if (res === false) {
-        this.store.dispatch(new UpdateLang('kk'))
-      }
-    })
   }
 }

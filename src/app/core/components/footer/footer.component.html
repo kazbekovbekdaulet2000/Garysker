@@ -23,9 +23,11 @@
       <div class="content-contacts-main">{{'footer.requests.title' | translate}}</div>
       <a href="mailto:info@garyshker.com">{{'footer.requests.email' | translate}}</a>
       <a href="tel:{{'footer.requests.phone' | translate}}">{{'footer.requests.phone' | translate}}</a>
+      <button class="btn orange-btn" (click)="changeLang()"> {{'app.change_language' | translate}} </button>
+
     </div>
 
-    <button class="btn project-btn">{{'footer.help' | translate}}</button>
+    <button routerLink="support" class="btn project-btn">{{'footer.help' | translate}}</button>
 
   </div>
 

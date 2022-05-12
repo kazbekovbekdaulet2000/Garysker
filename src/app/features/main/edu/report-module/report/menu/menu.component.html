@@ -3,7 +3,7 @@
     <img class="icon-image" [src]="report.category | categoryImage | async" alt="">
   </div>
   <div class="menu-category flex-fill">
-    <p class="cursor-pointer" (click)="navigateEdu(report.category)">{{report.category | category | async}}</p>
+    <p class="pointer" (click)="navigateEdu(report.category)">{{report.category | category | async}}</p>
   </div>
   <div>
     <p>{{report.created_at | DateRemained | async}}</p>

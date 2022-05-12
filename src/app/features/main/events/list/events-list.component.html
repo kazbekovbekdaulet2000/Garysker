@@ -1,20 +1,10 @@
 <div @opacityAnimation class="body">
 
-  <div class="d-flex flex-column body-header">
+  <app-component-header header="events.main_header" detail="events.main_description"></app-component-header>
 
-    <div (click)="onShow()" class="d-flex cursor-pointer gap-2 body-header-name">
-      <h1>{{'events.main_header'| translate}}</h1>
-      <img [class.expanded]="show_info" src="assets/icons/down.svg">
-    </div>
+  <div class="d-flex align-items-center gap-2 mt-4 page-picker">
 
-    <span @heightAnimation *ngIf="show_info" class="body-header-text mb-0 mr-4">{{'events.main_description'| translate}}
-    </span>
-
-  </div>
-
-  <div class="d-flex align-items-center gap-2 mt-4 time-type">
-
-    <div *ngFor="let type of types" class="d-flex align-items-center cursor-pointer time-type-item"
+    <div *ngFor="let type of types" class="d-flex align-items-center pointer page-picker-item"
       [class.active]="type===selected_type" (click)="onTypeSelect(type)">
       <span>{{type.name | translate}}</span>
     </div>
@@ -23,9 +13,10 @@
 
   <div class="events-holder" *ngIf="events$ | async as events">
 
-    <div class="events-holder-item" *ngFor="let event of events.results">
+    <div class="events-holder-item pointer" *ngFor="let event of events.results">
 
       <div [backgroundImage]="event.poster"
+        (click)="onDetail(event)"
         class="d-flex flex-column align-items-start justify-content-between events-holder-item-image background">
 
         <div class="d-flex flex-column">
@@ -33,6 +24,8 @@
             {{event.event_date | date: 'd'}}
             <br>
             {{(event.event_date | date: "M" | langMonth | async)! | translate}}
+            <br>
+            {{event.event_date | date: "hh:mm"}}
           </span>
         </div>
 
@@ -44,7 +37,8 @@
 
           <img class="event-holder-item-image-location" src="assets/icons/location2.svg" alt="">
 
-          <span class="cursor-pointer" (click)="openLink(event.address_link)">{{event | lang: 'address' | async}}</span>
+          <span class="pointer">{{event | lang: 'address' | async}}</span>
+          <!-- (click)="openLink(event.address_link)" -->
 
         </div>
 
@@ -52,19 +46,26 @@
 
       <div class="d-flex justify-content-between flex-wrap mt-4">
 
-        <div class="d-flex gap-2 align-items-center mb-2">
+        <div *ngIf="!isPast(event)" class="d-flex gap-2 align-items-center mb-2">
           <img class="ml-2" src="assets/icons/2_user.svg" alt="">
-          <span>{{'events.register.count' | translate: ({count: event.participants_count})}} </span>
+          <span *ngIf="!event.max_user_count">{{'events.register.count' | translate: ({count: event.participants_count})}} </span>
+          <span *ngIf="event.max_user_count">{{'events.register.count_limit' | translate: ({count: event.participants_count, max_users: event.max_user_count})}} </span>
         </div>
 
-        <button class="btn orange-btn" (click)="onDetail(event)">{{'events.register.more' | translate }}</button>
+        <div *ngIf="isPast(event)" class="d-flex gap-2 align-items-center mb-2">
+          <!-- <img class="ml-2" src="assets/icons/2_user.svg" alt=""> -->
+          <span><b>{{'events.register.completed' | translate}}</b></span>
+        </div>
+
+        <button class="btn orange-btn" *ngIf="!event.canceled" (click)="onDetail(event)">{{'events.register.more' |
+          translate }}</button>
+        <button class="btn red-btn" *ngIf="event.canceled" (click)="onDetail(event)">{{'events.register.canceled' |
+          translate }}</button>
 
       </div>
 
     </div>
 
   </div>
-
-  <!-- <img src="assets/icons/location.svg" alt=""> -->
 
 </div>

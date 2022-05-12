@@ -23,6 +23,7 @@ import { EduCousesComponent } from './main-screen/courses/courses.component';
 import { EduReportsComponent } from './main-screen/reports/reports.component';
 import { EduVideosComponent } from './main-screen/videos/videos.component';
 import { RatingsService } from '@core/services/rating.service';
+import { ComponentHeaderModule } from 'src/app/shared/components/component-header/component-header.module';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { RatingsService } from '@core/services/rating.service';
     InfiniteScrollModule,
     LangPipeModule,
     ReactiveFormsModule,
+    ComponentHeaderModule,
     TranslateModule,
     NgxStickySidebarModule.withConfig({
       minWidth: 257

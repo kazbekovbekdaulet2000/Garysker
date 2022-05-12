@@ -37,10 +37,14 @@ const registration: LocaleDataModel = {
       title: 'Расскажите откуда вы и чем занимаетесь?',
       label: 'Заполните форму ниже',
       config: {
-        city_p: 'Выберите город',
-        city_p_err: 'выберите город',
+        country_p: 'Введите страну',
+        country_p_err: 'Введите страну',
+        city_p: 'Введите город',
+        city_p_err: 'Введите город',
         user_type_p: 'Чем вы занимаетесь?',
         user_type_p_err: 'выберите чем вы занимаетесь',
+        edu_p: 'Учебное заведение',
+        edu_p_err: 'Учебное заведение',
       }
     },
     three: {

@@ -16,7 +16,7 @@
           <div class="d-flex flex-row gap-1 flex-wrap">
 
             <div 
-              class="progress-item cursor-pointer mb-2" 
+              class="progress-item pointer mb-2" 
               [class.current]="val.id === question.id" 
               [class.answered]="val.user_answer && !(val.id === question.id)"
               *ngFor="let val of questions"
@@ -49,7 +49,7 @@
             
             <div 
               *ngIf="((result.points / result.max_points)*100) <= 70"
-              class="reset-btn cursor-pointer" 
+              class="reset-btn pointer" 
               (click)="resetTest()"> {{'course.test.reset' | translate}} </div>
             
           </div>      

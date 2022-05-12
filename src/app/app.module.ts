@@ -43,7 +43,7 @@ registerLocaleData(localeRu, 'ru');
     providePerformance(() => getPerformance()),
   ],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    // { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'ru' },
   ],
   bootstrap: [AppComponent]

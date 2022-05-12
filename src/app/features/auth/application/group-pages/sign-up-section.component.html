@@ -11,7 +11,8 @@
 
     <ng-container *ngFor="let config of form.config">
 
-      <label *ngIf="config.type !== 'user-type' && config.helper" class="form-content-title" [for]="config.key"> {{'auth.registration.steps.one.config.birth_date_p_helper' | translate}} </label>
+      <label *ngIf="config.type !== 'user-type' && config.helper" class="form-content-title" [for]="config.key">
+        {{'auth.registration.steps.one.config.birth_date_p_helper' | translate}} </label>
 
       <input *ngIf="(config.type === 'input' || config.type === 'email' || config.type === 'password') && config.key"
         class="form-content-input" [id]="config.key" [type]="config.type" [formControlName]="config.key"
@@ -21,11 +22,10 @@
         class="form-content-input date" type="text" mask="d0/M0/0000" [placeholder]="config.placeholder! | translate"
         [dropSpecialCharacters]="false" value="">
 
-      <select class="form-content-input" *ngIf="config.type === 'city-selector' && config.key"
-        (change)="updateSelection(config.key, $event)">
-        <option value="" disabled selected>{{'Город' | translate}}</option>
-        <option *ngFor="let city of cities" [value]="city">{{city! | translate}}</option>
-      </select>
+      <app-input-ahead class="form-content-input2" *ngIf="(config.type === 'city-selector' ||config.type === 'country-selector') && config.key"
+        [formControlName]="config.key" [required]="true" [hint]="config.placeholder! | translate"
+        [listType]="config.type === 'city-selector' ? 'cities' : 'countries'">
+      </app-input-ahead>
 
       <select class="form-content-input" *ngIf="config.type === 'user-type' && config.key"
         (change)="updateSelection(config.key, $event)">
@@ -68,11 +68,14 @@
 
     <div class="d-flex justify-content-end align-items-end">
 
-      <button *ngIf="stage > 0" class="btn form-content-prev" (click)="back()">{{'auth.registration.prev' | translate}}</button>
+      <button *ngIf="stage > 0" class="btn form-content-prev" (click)="back()">{{'auth.registration.prev' |
+        translate}}</button>
 
-      <button *ngIf="stage !== 2" class="btn form-content-next" (click)="send()">{{'auth.registration.next' | translate}}</button>
+      <button *ngIf="stage !== 2" class="btn form-content-next" (click)="send()">{{'auth.registration.next' |
+        translate}}</button>
 
-      <button *ngIf="stage === 2" class="btn form-content-next" (click)="send()">{{'auth.registration.apply' | translate}}</button>
+      <button *ngIf="stage === 2" class="btn form-content-next" (click)="send()">{{'auth.registration.apply' |
+        translate}}</button>
 
     </div>
 

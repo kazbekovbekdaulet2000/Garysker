@@ -14,7 +14,7 @@
       <p class="reply-info-date">{{replyContent.created_at | DateRemained | async}}</p>
     </div>
     
-    <div class="reply-cancel cursor-pointer" (click)="removeReplyParent()">{{'video.comment.cancel' | translate}}</div>
+    <div class="reply-cancel pointer" (click)="removeReplyParent()">{{'video.comment.cancel' | translate}}</div>
 
   </div>
 
@@ -30,6 +30,7 @@
     </div>
 
   </div>
+  
   <ng-container *ngIf="comments.count>0; else empty">
  
     <app-comment-module 
@@ -37,16 +38,18 @@
       [comment]="comment" 
       (reply)="addReply($event)"
       (like)="postLike($event)" 
-      (delete)="deleteComment($event)">
+      (delete)="deleteComment($event)"
+      (patch)="patchComment($event)">
     </app-comment-module>
 
   </ng-container>
 
+  <!-- TODO -->
   <ng-template #empty>
     <div *ngIf="(access$ | async)! !== ''" class="d-flex justify-content-center mt-2">напишите первый комментарий</div>
   </ng-template>
 
-  <a class="d-flex loadmore my-2 align-items-center justify-content-center cursor-pointer" *ngIf="comments.next"
+  <a class="d-flex loadmore my-2 align-items-center justify-content-center pointer" *ngIf="comments.next"
     (click)="loadMore()">
     {{'video.comment.load_more' | translate}}
   </a>

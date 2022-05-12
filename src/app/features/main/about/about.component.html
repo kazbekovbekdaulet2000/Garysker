@@ -4,7 +4,7 @@
 
     <div 
       *ngFor="let section of sections;" 
-      class="item cursor-pointer" 
+      class="item pointer" 
       (click)="changeFragment(section.fragment)"
       [class.selected]="selectedSection===section.fragment">
       {{section.name | translate}}
@@ -36,7 +36,7 @@
       <div class="content-product-text">
         {{router.body | translate}}
       </div>
-      <div class="content-product-router cursor-pointer" [routerLink]="[router.route]">
+      <div class="content-product-router pointer" [routerLink]="[router.route]">
         {{'about.go' | translate}}
       </div>
     </div>

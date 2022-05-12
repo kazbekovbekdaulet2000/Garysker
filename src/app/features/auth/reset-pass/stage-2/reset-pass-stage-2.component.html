@@ -29,8 +29,8 @@
 
     <div class="reset-menu">
       <div class="reset-menu-force">
-        <div class="cursor-pointer"> {{'auth.reset.step_2.time' | translate : ({time: timer$ | async})}} </div>
-        <!-- <div class="cursor-pointer" (click)="forceReset()"> отправить новый код</div> -->
+        <div class="pointer"> {{'auth.reset.step_2.time' | translate : ({time: timer$ | async})}} </div>
+        <!-- <div class="pointer" (click)="forceReset()"> отправить новый код</div> -->
       </div>
       <button class="btn reset-menu-next" (click)="reset()">{{'auth.reset.step_2.next' | translate}}</button>
     </div>

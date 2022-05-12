@@ -1,7 +1,7 @@
 <div class="ml-4 d-flex flex-column gap-2" *ngIf="question">
   
   <div 
-    class="d-flex gap-2 cursor-pointer align-items-center" 
+    class="d-flex gap-2 pointer align-items-center" 
     *ngFor="let answer of question.answers"
     (click)="changeAnswer(answer.id)">
 
@@ -19,11 +19,11 @@
 
   <div 
     *ngIf="questions.length > question.index!; else endTest" 
-    class="nxt-btn cursor-pointer" 
+    class="nxt-btn pointer" 
     (click)="next()"> {{'course.test.next' | translate}} </div>
   
   <ng-template #endTest>
-    <div class="nxt-btn cursor-pointer" (click)="finish()"> {{'course.test.finish' | translate}} </div>
+    <div class="nxt-btn pointer" (click)="finish()"> {{'course.test.finish' | translate}} </div>
   </ng-template>
 
 </div>

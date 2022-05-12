@@ -1,0 +1,15 @@
+<div class="product-list">
+
+  <div class="d-flex flex-column gap-2 product pointer" *ngFor="let product of products.results">
+  
+    <img class="product-image" [src]="product.images[0].image_thumb480" alt="product.name_ru">
+    <h4 class="mb-0">{{product | lang: 'name' | async }}</h4>
+    <div class="d-flex gap-1 align-items-center product-price">
+      <span>{{product.price}} тг</span>
+      <span>/</span>
+      <span class="product-price-token">{{product.g_token_price}} g.coins </span>
+    </div>
+  
+  </div>
+
+</div>

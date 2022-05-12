@@ -3,7 +3,7 @@ import { environment } from "@env";
 export class ApiService {
 
   constructor(
-    protected uri: string
+    protected uri: string | null
   ) { }
 
   protected getUrl(branch?: string | number): string {

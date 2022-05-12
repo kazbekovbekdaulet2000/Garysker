@@ -11,7 +11,7 @@
     <p *ngIf="getFalseMessage('password')">{{'auth.login.err_400' | translate}}</p>
     
     <div class="menu mt-4"> 
-      <div class="cursor-pointer" routerLink="/auth/reset">{{'auth.login.reset_pass' | translate}}</div> 
+      <div class="pointer" routerLink="/auth/reset">{{'auth.login.reset_pass' | translate}}</div> 
       <button class="btn login" (click)="login()">{{'auth.login.submit' | translate}}</button>
     </div>
   

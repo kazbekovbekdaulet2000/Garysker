@@ -1,4 +1,5 @@
 @import "variables";
+@import "background-image";
 
 .course-card {
   width: 320px;
@@ -12,7 +13,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  
+
   &-logo {
     height: 35px;
     width: max-content;
@@ -22,8 +23,8 @@
     display: flex;
     align-self: flex-end;
     margin-right: 4px;
-    img {
-      max-width: 100px;
+    &-img {
+      width: 100px;
       object-fit: cover;
     }
   }

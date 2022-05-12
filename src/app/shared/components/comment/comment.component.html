@@ -1,4 +1,4 @@
-<div @heightOutAnimation class="comment" [class.reply]="isReply" [class.last]="isLast">
+<div @heightOutAnimation [formGroup]="formData" class="comment" [class.reply]="isReply" [class.last]="isLast">
 
   <div class="comment-user">
 
@@ -12,7 +12,7 @@
       <p *ngIf="comment.created_at" class="comment-user-info-date">{{comment.created_at | DateRemained | async}}</p>
     </div>
 
-    <div class="comment-user-like cursor-pointer" (click)="likeComment(comment)">
+    <div class="comment-user-like pointer" (click)="likeComment(comment)">
       <img class="comment-user-like-icon"
         [src]="comment.liked ? 'assets/icons/liked_new.svg' : 'assets/icons/like_new.svg'">
       <div class="comment-user-like-count">{{comment.likes_count}}</div>
@@ -26,32 +26,48 @@
 
   <div class="handle">
 
-    <div *ngIf="(access$ | async) !==''" class="comment-reply cursor-pointer" (click)="addReply(comment)">
-      ответить
+    <div *ngIf="(access$ | async) !==''" class="comment-reply pointer" (click)="toggleReply()">
+      {{'app.comment.reply' | translate}}
     </div>
 
-    <!-- <div *ngIf="(access$ | async) !=='' && (comment.owner.email === email || is_superuser)" class="comment-reply cursor-pointer"
-      (click)="deleteComment(comment)">
-      редактировать
-    </div> -->
+    <div *ngIf="(access$ | async) !=='' && (comment.owner.email === email || is_superuser)"
+      class="comment-reply pointer" (click)="togglePatch(comment)">
+      {{'app.comment.change' | translate}}
+    </div>
 
     <div
       *ngIf="(access$ | async) !=='' && (comment.owner.email === email || is_superuser) && comment.replies.length === 0"
-      class="comment-reply cursor-pointer" (click)="deleteComment(comment)">
-      удалить
+      class="comment-reply pointer" (click)="deleteComment(comment)">
+      {{'app.comment.delete_comment' | translate}}
     </div>
 
-    <div @opacityAnimation class="comment-reply cursor-pointer" *ngIf="comment.replies.length > 0" (click)="showMore()">
+    <div @opacityAnimation class="comment-reply pointer" *ngIf="comment.replies.length > 0" (click)="showMore()">
       {{this.getCommentCount}}
     </div>
 
   </div>
 
+  <ng-container *ngIf="editComment">
+
+    <app-textarea @heightOutAnimation class="mt-2" formControlName="body" [required]="true" hint="app.comment.hint"
+      (send)="sendPatchComment(comment)">
+    </app-textarea>
+
+  </ng-container>
+
+  <ng-container *ngIf="replyComment">
+
+    <app-textarea @heightOutAnimation class="mt-2" formControlName="body" [required]="true" hint="app.comment.hint"
+      (send)="sendReplyComment(comment)">
+    </app-textarea>
+
+  </ng-container>
+
   <ng-container *ngIf="!hideAns">
 
     <app-comment-module @heightOutAnimation *ngFor="let reply of comment.replies; let i = index"
       [isLast]="comment.replies.length-1 === i" [isReply]="true" [comment]='reply' (like)="likeComment($event)"
-      (reply)="addReply($event)" (delete)="deleteComment($event)">
+      (reply)="sendReplyComment2($event)" (delete)="deleteComment($event)" (patch)="sendPatchComment2($event)">
     </app-comment-module>
 
   </ng-container>

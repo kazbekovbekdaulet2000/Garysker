@@ -1,0 +1,18 @@
+<div @opacityAnimation class="d-flex flex-column align-items-start shop-wrapper">
+
+  <app-component-header header="shop.header" detail="shop.header_detail"></app-component-header>
+
+  <div class="d-flex align-items-center gap-2 mt-4 page-picker">
+
+    <div *ngFor="let type of types" class="d-flex align-items-center pointer page-picker-item"
+      [class.active]="type.route===selected_type" (click)="onTypeSelect(type)">
+      <span [style.color]="type.color">{{type.name | translate}}</span>
+    </div>
+
+  </div>
+
+  <div style="width:100%;" class="mt-4">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

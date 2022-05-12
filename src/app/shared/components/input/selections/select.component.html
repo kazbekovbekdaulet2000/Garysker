@@ -5,7 +5,7 @@
 <div class="select gap-2 {{class}}">
 
   <div 
-    class="select-item cursor-pointer" 
+    class="select-item pointer" 
     *ngFor="let item of list" 
     [class.selected]="item.selected" 
     (click)="changeSelection(item)">

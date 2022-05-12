@@ -15,7 +15,7 @@
         </div>
         <p class="reply-info-date">{{replyContent.created_at | DateRemained | async}}</p>
       </div>
-      <div class="reply-cancel cursor-pointer" (click)="removeReplyParent()">отменить</div>
+      <div class="reply-cancel pointer" (click)="removeReplyParent()">отменить</div>
 
     </div>
 
@@ -48,7 +48,8 @@
         [comment]="comment" 
         (reply)="addReply($event)"
         (delete)="deleteComment($event)"
-        (like)="postLike($event)">
+        (like)="postLike($event)"
+        (patch)="patchComment($event)">
       </app-comment-module>
 
     </ng-container>
@@ -57,7 +58,7 @@
       <div *ngIf="(access$ | async)! !== ''" class="d-flex justify-content-center mt-2">напишите первый комментарий</div>
     </ng-template>
 
-    <a class="d-flex loadmore my-2 align-items-center justify-content-center cursor-pointer" *ngIf="comments.next"
+    <a class="d-flex loadmore my-2 align-items-center justify-content-center pointer" *ngIf="comments.next"
       (click)="loadMore()">
       загрузить больше
     </a>

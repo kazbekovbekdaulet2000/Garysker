@@ -12,13 +12,13 @@
 
       <div class="progress-graph d-flex flex-row mb-2">
 
-        <div class="progress-graph-item mb-2 cursor-pointer" *ngFor="let i of lessons.results" (click)="changeLesson(i)"
+        <div class="progress-graph-item mb-2 pointer" *ngFor="let i of lessons.results" (click)="changeLesson(i)"
           [class.active]="i.finished && lesson.course_participation"
           [class.onstage]="(lesson.id === i.id) && lesson.course_participation"></div>
 
       </div>
 
-      <div class="d-flex lessons align-items-center gap-2 mb-2 cursor-pointer"
+      <div class="d-flex lessons align-items-center gap-2 mb-2 pointer"
         [class.current-lesson]="les.id === lesson.id && lesson.course_participation"
         *ngFor="let les of lessons.results; let i=index"
         [style.opacity]="(!les.accessible || !lesson.course_participation) ? 0.6 : 1" (click)="changeLesson(les)">
@@ -40,7 +40,7 @@
 
         <h5 class="mb-0"> {{'course.progress.rating_header' | translate}}</h5>
 
-        <span *ngIf="(ratings$ | async)!.count>=4" class="cursor-pointer" (click)="showRatings()"> {{'course.progress.rating_show' | translate}}</span>
+        <span *ngIf="(ratings$ | async)!.count>=4" class="pointer" (click)="showRatings()"> {{'course.progress.rating_show' | translate}}</span>
 
       </div>
 

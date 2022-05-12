@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { environment } from '@env';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -10,7 +11,7 @@ import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.
 @Component({
   templateUrl: './support.component.html',
   styleUrls: ['./support.component.scss'],
-  animations: [opacityAnimation]
+  animations: [opacityAnimation, heightOutAnimation],
 })
 
 
@@ -54,17 +55,21 @@ export class SupportComponent {
       id: 2
     },
   ]
-
+  selfAmount = false
+  
   formData = this.formBuilder.group({
-    type: [1, Validators.required],
+    type: [2, Validators.required],
     amount: [1000, Validators.required],
     name: [null, Validators.required],
     email: [null, [Validators.required, Validators.email]],
-    rules: [false]
+    rules: []
   });
+
+  reqAmount: number = 1000 * 0.038
 
   constructor(
     private formBuilder: FormBuilder,
+    private http: HttpClient
   ) { }
 
   selectAmount(selection: SelectListConfig) {
@@ -72,6 +77,9 @@ export class SupportComponent {
       this.formData.patchValue({
         amount: selection.id
       })
+      this.reqAmount = 0.038 * selection.id
+    } else {
+      this.selfAmount = true
     }
   }
 
@@ -90,23 +98,16 @@ export class SupportComponent {
   }
 
   helpProject() {
-    console.log(this.formData.getRawValue())
-    // this.http.post('https://stage-api.ioka.kz/v2/orders', {
-    //   "amount": 240000,
-    //   "capture_method": "AUTO",
-    //   "success_url": 'https://garyshker-dev.web.app',
-    //   "failure_url": 'https://garyshker-dev.web.app',
-    // }, {
-    //   headers: {
-    //     'API-KEY': `${environment.iokaAccess}`
-    //   }
-    // }).subscribe((data: any) => {
-    //   window.open(data.order.checkout_url);
-    //   this.bsModalService.show(IokaPaymentComponent, {
-    //     initialState: {
-    //       orderId: data.order.id
-    //     }
-    //   })
-    // })
+    const payload = this.formData.getRawValue()
+    if (payload.rules) {
+      payload.amount = (Number(payload.amount) + Number((this.formData.get('amount')?.value || 1000) * 0.038)) * 100
+    } else {
+      payload.amount = (payload.amount) * 100
+    }
+    const url = `${environment.API}/payment/donation/`;
+    const link = window.location.href
+    this.http.post(url, { amount: payload.amount, back_url: link }).subscribe((data: any) => {
+      window.open(data.order.checkout_url)
+    })
   }
 }

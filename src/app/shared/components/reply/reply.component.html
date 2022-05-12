@@ -7,6 +7,6 @@
     <p class="reply-info-name">{{replyContent.owner.surname}} {{replyContent.owner.name}}</p>
     <p class="reply-info-date">{{replyContent.created_at | DateRemained | async}}</p>
   </div>
-  <div class="reply-cancel cursor-pointer" (click)="removeReplyParent()">отменить</div>
+  <div class="reply-cancel pointer" (click)="removeReplyParent()">отменить</div>
 
 </div>

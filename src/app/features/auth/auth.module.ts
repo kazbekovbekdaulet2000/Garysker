@@ -11,6 +11,7 @@ import { SignUpSectionComponent } from './application/group-pages/sign-up-sectio
 import { ResetPassStageOneComponent } from './reset-pass/stage-1/reset-pass-stage-1.component';
 import { ResetPassStageTwoComponent } from './reset-pass/stage-2/reset-pass-stage-2.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { InputModule } from 'src/app/shared/components/input/input.module';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -29,6 +30,7 @@ const maskConfig: Partial<IConfig> = {
     CommonModule,
     AuthRoutingModule,
     FormsModule,
+    InputModule,
     ReactiveFormsModule,
     TranslateModule,
     NgxMaskModule.forRoot(),

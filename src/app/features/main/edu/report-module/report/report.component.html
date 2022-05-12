@@ -14,17 +14,17 @@
 
     <div class="report-stat mb-4">
 
-      <div class="cursor-pointer" (click)="onComment()">
+      <div class="pointer" (click)="onComment()">
         <img src="assets/icons/comment.svg" alt="">
         {{report.comments_count}}
       </div>
 
-      <img class="cursor-pointer" (click)="onSave(report.id)"
+      <img class="pointer" (click)="onSave(report.id)"
         [src]="report.bookmarked ? 'assets/icons/saved_new.svg' : 'assets/icons/save_new.svg'" alt="">
 
-      <img class="cursor-pointer" (click)="onShare()" src="assets/icons/new_share.svg" alt="">
+      <img class="pointer" (click)="onShare()" src="assets/icons/new_share.svg" alt="">
 
-      <div class="report-stat-views cursor-pointer" (click)="likeReport(report.id)">
+      <div class="report-stat-views pointer" (click)="likeReport(report.id)">
         <img [src]="report.liked ? 'assets/icons/liked_new.svg' : 'assets/icons/like_new.svg'" alt="">
         {{report.likes_count}}
       </div>
@@ -48,19 +48,19 @@
 
     <div class="report-stat">
 
-      <div class="cursor-pointer" (click)="onComment()">
+      <div class="pointer" (click)="onComment()">
         <img src="assets/icons/comment.svg" alt="">
         {{report.comments_count}}
       </div>
 
       <img 
-        class="cursor-pointer" (click)="onSave(report.id)"
+        class="pointer" (click)="onSave(report.id)"
         [src]="report.bookmarked ? 'assets/icons/saved_new.svg' : 'assets/icons/save_new.svg'" 
         alt="">
 
-      <img class="cursor-pointer" (click)="onShare()" src="assets/icons/new_share.svg" alt="">
+      <img class="pointer" (click)="onShare()" src="assets/icons/new_share.svg" alt="">
 
-      <div class="report-stat-views cursor-pointer" (click)="likeReport(report.id)">
+      <div class="report-stat-views pointer" (click)="likeReport(report.id)">
         <img [src]="report.liked ? 'assets/icons/liked_new.svg' : 'assets/icons/like_new.svg'" alt="">
         {{report.likes_count}}
       </div>

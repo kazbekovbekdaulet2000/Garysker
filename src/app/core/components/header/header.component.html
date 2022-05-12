@@ -7,7 +7,7 @@
     <input type="text" [formControl]="searchText" class="search-bar-input" [placeholder]="'header.search' | translate">
     <ng-container *ngIf="list$ | async as list">
       <div #search @opacityAnimation class="search-bar-result" *ngIf="(showSearch && list.length>0); else noRes">
-        <div (click)="navigateRes(res)" class="search-bar-result-item cursor-pointer" *ngFor="let res of list">
+        <div (click)="navigateRes(res)" class="search-bar-result-item pointer" *ngFor="let res of list">
           {{res | lang: 'title' | async}}
         </div>
       </div>
@@ -15,7 +15,7 @@
     <ng-template #noRes>
       <div #search @opacityAnimation class="search-bar-result" *ngIf="showSearch">
         <div class="d-flex justify-content-center search-bar-result-error">
-          Нету результата
+          {{'app.err.no_res' | translate}}
         </div>
       </div>
     </ng-template>
@@ -24,13 +24,11 @@
 
   <div class="align-items-center justify-content-center content" *ngIf="dataAvailable">
 
-    <button class="btn content-primary" (click)="changeLang()"> {{'app.change_pass'}} </button>
-    <!-- Изменить язык -->
     <button *ngIf="(access$ | async)?.length === 0 && main!=='application'" class="btn content-primary"
-      routerLink='auth/application'> Регистрация </button>
+      routerLink='auth/application'> {{'app.registration' | translate}} </button>
 
     <button *ngIf="(access$ | async)?.length === 0 && main!=='auth'" class="btn content-primary" routerLink='auth'>
-      Войти </button>
+      {{'app.login' | translate}} </button>
 
     <div *ngIf="profile$ | async as profile">
 
@@ -38,7 +36,7 @@
 
         <img class="content-profile-image" (click)="dropdownToggle()" [src]="profile.image">
 
-        <div #toggleDiv class="d-flex content-profile-text gap-1 cursor-pointer">
+        <div #toggleDiv class="d-flex content-profile-text gap-1 pointer">
           {{profile.surname}} {{profile.name}}
           <img *ngIf="profile.verified" src="assets/icons/verified_user_new.svg">
           <img class="content-profile-text-drop" src="assets/icons/dropdown.svg" alt="">
@@ -46,26 +44,26 @@
 
         <div #menu @opacityAnimation *ngIf="dropdown" class="dropdown">
 
-          <div class="dropdown-desc">Профиль</div>
+          <div class="dropdown-desc">{{'app.profile_name' | translate}}</div>
 
           <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
             <img class="dropdown-item-image" src="assets/icons/user_new.svg" alt="">
-            Личный кабинет
+            {{'app.profile.name' | translate}}
           </div>
 
           <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
             <img class="d-flex align-items-center  dropdown-item-image" src="assets/icons/folder.svg" alt="">
-            Закладки
+            {{'app.profile.bookmarks' | translate}}
           </div>
 
           <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
             <img class="dropdown-item-image" src="assets/icons/settings.svg" alt="">
-            Настройки
+            {{'app.profile.settings' | translate}}
           </div>
 
           <div class="d-flex align-items-center gap-1 dropdown-item" (click)="logout()">
             <img class="dropdown-item-image" src="assets/icons/exit_new.svg" alt="">
-            Выйти
+            {{'app.profile.logout' | translate}}
           </div>
 
         </div>
@@ -103,12 +101,12 @@
     <div *ngIf="(access$ | async)?.length === 0" class="sidemenu-auth">
       <div class="d-flex align-items-center gap-3 item" (click)="navigateRoute('/auth')">
         <img class="sidemenu-auth-icon" src="assets/icons/exit_new.svg" alt="">
-        Войти
+        {{'app.login' | translate}}
       </div>
 
       <div class="d-flex align-items-center gap-3 item" (click)="navigateRoute('/auth/application')">
         <img class="sidemenu-auth-icon" src="assets/icons/3_user.svg" alt="">
-        Регистрация
+        {{'app.registration' | translate}}
       </div>
     </div>
 
@@ -116,7 +114,7 @@
 
       <div (click)="triggerMenu()" *ngIf="profile$ | async as profile" class="d-flex gap-2 sidemenu-section-text">
 
-        <div>Меню профиля</div>
+        <div>{{'app.profile_menu' | translate}}</div>
 
         <img class="sidemenu-section-text-icon" [class.expanded]="userMenu" src="assets/icons/down.svg">
 
@@ -129,19 +127,19 @@
           <div class="d-flex align-items-center gap-3 py-2" [class.active]="main === 'profile'"
             (click)="navigateRoute('/profile')">
             <img class="sidemenu-section-icon" src="assets/icons/user_new.svg" alt="">
-            Личный кабинет
+            {{'app.profile.name' | translate}}
           </div>
           <div class="d-flex align-items-center gap-3 py-2" (click)="navigateRoute('/profile')">
             <img class="sidemenu-section-icon" src="assets/icons/folder.svg" alt="">
-            Закладки
+            {{'app.profile.bookmarks' | translate}}
           </div>
           <div class="d-flex align-items-center gap-3 py-2" (click)="navigateRoute('/profile')">
             <img class="sidemenu-section-icon" src="assets/icons/settings.svg" alt="">
-            Настройки
+            {{'app.profile.settings' | translate}}
           </div>
           <div class="d-flex align-items-center gap-3 py-2" (click)="logout()">
             <img class="sidemenu-section-icon" src="assets/icons/exit_new.svg" alt="">
-            Выход
+            {{'app.profile.logout' | translate}}
           </div>
 
         </ng-container>
@@ -153,34 +151,34 @@
       <div class="d-flex align-items-center gap-3 py-2" [class.mt-4]="!userMenu" style="font-weight:700"
         [class.active]="main === 'edu'" (click)="navigateRoute('/edu')">
         <img class="sidemenu-section-icon" src="assets/icons/edu.svg" alt="">
-        Образование
+        {{'sections.edu' | translate}}
       </div>
       <div class="d-flex align-items-center gap-3 py-2" style="font-weight:700" [class.active]="main === 'products'"
         (click)="navigateRoute('/products')">
         <img class="sidemenu-section-icon" src="assets/icons/products.svg" alt="">
-        Проекты
+        {{'sections.project' | translate}}
       </div>
       <div class="d-flex align-items-center gap-3 py-2" style="font-weight:700" [class.active]="main === 'shop'"
         (click)="navigateRoute('/shop')">
         <img class="sidemenu-section-icon" src="assets/icons/shop.svg" alt="">
-        Магазин
+        {{'sections.shop' | translate}}
       </div>
       <div class="d-flex align-items-center gap-3 py-2" style="font-weight:700" [class.active]="main === 'events'"
         (click)="navigateRoute('/events')">
         <img class="sidemenu-section-icon" src="assets/icons/events.svg" alt="">
-        Ивенты
+        {{'sections.events' | translate}}
       </div>
       <div class="d-flex align-items-center gap-3 py-2" style="font-weight:700" [class.active]="main === 'about'"
         (click)="navigateRoute('/about')">
         <img class="sidemenu-section-icon" src="assets/icons/home.svg" alt="">
-        О garyshker
+        {{'sections.about_g' | translate}}
       </div>
 
     </div>
 
     <div class="sidemenu-support">
-      <button class="btn">
-        Поддержать проект
+      <button routerLink="support" class="btn">
+        {{'sections.help' | translate}}
       </button>
     </div>
 

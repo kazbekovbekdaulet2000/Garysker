@@ -30,13 +30,13 @@
 
     <div class="d-flex gap-4">
 
-      <img (click)="onShare()" class="cursor-pointer" src="assets/icons/new_share.svg" alt="">
+      <img (click)="onShare()" class="pointer" src="assets/icons/new_share.svg" alt="">
 
-      <img (click)="onSave()" class="cursor-pointer"
+      <img (click)="onSave()" class="pointer"
         [src]="entity.bookmarked ? 'assets/icons/saved_new.svg' : 'assets/icons/save_new.svg'" alt="">
 
       <div>
-        <img (click)="onLike()" class="cursor-pointer"
+        <img (click)="onLike()" class="pointer"
           [src]="entity.liked ? 'assets/icons/liked_new.svg' : 'assets/icons/like_new.svg'" alt="">
 
         {{entity.likes_count}}

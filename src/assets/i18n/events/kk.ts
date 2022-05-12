@@ -11,9 +11,23 @@ const events: LocaleDataModel = {
   },
   register: {
     count: 'Тіркелді: {{count}}',
+    count_limit: 'Тіркелді: {{count}}/{{max_users}}',
+    completed: 'Аяқталды',
     more: 'Толығырақ',
     canceled: 'Болмайды',
-    submit: 'Тіркелу'
+    submit: 'Тіркелу',
+    cancel: 'Бас тарту',
+    apply: {
+      success: "Сіз іс шараға тіркелдеңіз",
+      error: "Қате",
+      email: "Email",
+      email_placeholder: "Email",
+      name: "Аты жөніңіз",
+      name_placeholder: "Аты жөніңіз",
+      phone: "Телефон номеріңіз",
+      phone_placeholder: "телефон",
+      post: 'Тіркелу'
+    }
   },
   months: {
     _1: 'Қаңтар',
@@ -30,7 +44,7 @@ const events: LocaleDataModel = {
     _12: 'Желтоқсан',
   },
   user_bookmarked: 'Сіз іс шараға тіркелдеңіз',
-  user_removed: 'Сіз іс шарадан бас тарттыңыз'
+  user_removed: 'Сіз іс шарадан бас тарттыңыз',
 };
 
 export default events;

@@ -6,9 +6,9 @@
     <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
   </div>
 
-  <div class="clipboard cursor-pointer" (click)="copy()">
+  <div class="clipboard pointer" (click)="copy()">
     <div class="clipboard-text">{{location}}</div>
-    <img class="clipboard-image cursor-pointer" src="assets/images/clipboard.png" alt="">
+    <img class="clipboard-image pointer" src="assets/images/clipboard.png" alt="">
     <div @opacityAnimation *ngIf="copied" class="clipboard-copied">
       {{'скопирован' | translate}}
     </div>

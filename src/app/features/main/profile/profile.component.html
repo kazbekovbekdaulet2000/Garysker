@@ -29,7 +29,7 @@
 
       <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
         <img class="icon" src="assets/images/open-book.png" alt="">
-        <h3 class="mb-0">Читаю</h3>
+        <h3 class="mb-0">{{'app.profile.reading' | translate}}</h3>
       </div>
 
       <div *ngIf="reports.results.length > 0" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
@@ -53,7 +53,7 @@
 
       <div class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
         <img class="icon" src="assets/images/video-camera.png" alt="">
-        <h3 class="mb-0">Смотреть</h3>
+        <h3 class="mb-0">{{'app.profile.watching' | translate}}</h3>
       </div>
 
       <div *ngIf="videos.results.length > 0" class="videos">
@@ -63,9 +63,9 @@
 
       </div>
 
-      <div *ngIf="videos.next" class="d-flex flex-column align-content-center align-items-center cursor-pointer mb-5"
+      <div *ngIf="videos.next" class="d-flex flex-column align-content-center align-items-center pointer mb-5"
         (click)="loadVideo()">
-        Смотреть еще
+        {{'main_screen.view_more' | translate}}
         <img src="assets/icons/down.svg" alt="">
       </div>
 

@@ -6,9 +6,8 @@ import { AboutComponent } from './about/about.component';
 import { MainComponent } from './main.component';
 import { NKOComponent } from './nko/nko.component';
 import { ProductsComponent } from './products/products.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from "./profile/ProfileComponent";
 import { QuestionsComponent } from './questions/questions.component';
-import { ShopComponent } from './shop/shop.component';
 import { SupportComponent } from './support/support.component';
 
 const routes: Routes = [
@@ -39,7 +38,7 @@ const routes: Routes = [
       },
       {
         path: 'shop',
-        component: ShopComponent
+        loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
       },
       {
         path: 'events',

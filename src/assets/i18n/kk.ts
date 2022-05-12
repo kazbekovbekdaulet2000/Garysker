@@ -12,6 +12,8 @@ import about from "./about/kk";
 import projects from "./projects/kk";
 import auth from "./auth/kk";
 import app from "./app/kk";
+import nko from "./nko/kk";
+import shop from "./shop/kk";
 
 const localeKk: LocaleModel = {
   lang: 'kk',
@@ -28,7 +30,9 @@ const localeKk: LocaleModel = {
     about,
     projects,
     auth,
-    app
+    app,
+    nko,
+    shop
   }
 };
 

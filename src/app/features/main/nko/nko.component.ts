@@ -11,28 +11,13 @@ import { opacityAnimation } from '@core/animations/opacity-animation';
 })
 export class NKOComponent {
 
-  constructor(
-    private http: HttpClient,
-    // private fileSaver: FileSaverService,
-  ) { }
+  constructor() { }
 
   downloadReport() {
-    const url = `https://storage.yandexcloud.net/garysh-app/course/course_3/abdi`;
-    const options: any = { responseType: 'blob' };
-    this.http.get(url, options)
-      .subscribe((res: any) => {
-        // this.fileSaver.save(res.body, 'file');
-      });
+    window.open('https://storage.yandexcloud.net/garysh-app/course/course_3/abdi', "_blank");
   }
 
   downloadNKO() {
     window.open('https://storage.yandexcloud.net/garysh-app/course/course_3/abdi', "_blank");
-
-    // const url = `https://storage.yandexcloud.net/garysh-app/course/course_3/abdi`;
-    // const options: any = { responseType: 'blob' };
-    // this.http.get(url, options)
-    //   .subscribe((res: any) => {
-    //     this.fileSaver.save(res.body, 'file');
-    //   });
   }
 }
