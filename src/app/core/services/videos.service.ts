@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
 import { ListResponseModel } from '@core/models/api/list.model';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { CommentModel } from '@core/models/api/comment.model';
 import { AuthState } from '@core/states/auth/auth.state';
-import getCategoryIcon from '@core/utils/category-icons';
+import { AppState } from '@core/states/app/app.state';
+import { LangType } from '@core/types/lang.type';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class VideosService extends ApiService {
+
+  @Select(AppState.lang) lang$!: Observable<LangType>
 
   constructor(
     protected http: HttpClient,
@@ -24,11 +27,17 @@ export class VideosService extends ApiService {
   }
 
   list(params?: any): Observable<ListResponseModel<VideoModel>> {
-    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl(), { params })
+    return this.lang$.pipe(switchMap(lang => {
+      params = { ...params, languages: lang }
+      return this.http.get<ListResponseModel<VideoModel>>(this.getUrl(), { params })
+    }))
   }
 
   listSaved(params?: any): Observable<ListResponseModel<VideoModel>> {
-    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl('bookmarked'), { params })
+    return this.lang$.pipe(switchMap(lang => {
+      params = { ...params, languages: lang }
+      return this.http.get<ListResponseModel<VideoModel>>(this.getUrl('bookmarked'), { params })
+    }))
   }
 
   get(id: number): Observable<VideoDetailModel> {
@@ -36,7 +45,10 @@ export class VideosService extends ApiService {
   }
 
   getRelated(id: number, params?: any): Observable<ListResponseModel<VideoModel>> {
-    return this.http.get<ListResponseModel<VideoModel>>(this.getUrl(`${id}/related`), { params })
+    return this.lang$.pipe(switchMap(lang => {
+      params = { ...params, languages: lang }
+      return this.http.get<ListResponseModel<VideoModel>>(this.getUrl(`${id}/related`), { params })
+    }))
   }
 
   like(id: number): Observable<any> {

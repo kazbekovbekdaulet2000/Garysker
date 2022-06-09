@@ -8,8 +8,9 @@ import 'swiper/swiper.scss'
 import SwiperCore, { Autoplay, Navigation, Scrollbar, Mousewheel, SwiperOptions } from "swiper";
 import { MainState } from '../../../main.state';
 import { UpdateTop } from '@core/states/scroll/scroll';
+import FreeMode from 'swiper'
 
-SwiperCore.use([Autoplay, Navigation, Scrollbar, Mousewheel]);
+SwiperCore.use([FreeMode, Autoplay, Navigation, Scrollbar, Mousewheel]);
 
 @Component({
   selector: 'app-popular',
@@ -59,6 +60,9 @@ export class EduPopularComponent {
       autoplay: {
         delay: 5000
       },
+      // freeMode: true, 
+      freeModeSticky: true,
+      freeModeMomentumBounce: true,
       centeredSlides: true,
       navigation: false,
       direction: 'horizontal'

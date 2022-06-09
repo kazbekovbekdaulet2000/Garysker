@@ -100,6 +100,9 @@
           line-height: 24px;
           margin-bottom: 4px;
         }
+        &-border {
+          border-radius: 48px;
+        }
       }
     }
 
@@ -138,7 +141,7 @@
       }
       &-btn {
         font-family: "Spoof", sans-serif;
-        background-color: #b67906;
+        background-color: $color-orange-dark;
         border-radius: 20px;
         color: #fff;
         font-size: 18px;

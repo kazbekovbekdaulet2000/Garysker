@@ -1,6 +1,7 @@
+<div class="line line-top"></div>
 <div #holder *ngIf="comments$ | async as comments" class="comment">
 
-  <h5>{{(video$ | async)!.comments_count}} комментарии</h5>
+  <h6 class="mb-3">{{(video$ | async)!.comments_count}} комментарии</h6>
 
   <div @heightAnimation class="reply" *ngIf="replyContent">
 
@@ -46,7 +47,7 @@
 
   <!-- TODO -->
   <ng-template #empty>
-    <div *ngIf="(access$ | async)! !== ''" class="d-flex justify-content-center mt-2">напишите первый комментарий</div>
+    <div *ngIf="(access$ | async)! !== ''" class="d-flex justify-content-center mt-2">{{'app.comment.comment_req' | translate}}</div>
   </ng-template>
 
   <a class="d-flex loadmore my-2 align-items-center justify-content-center pointer" *ngIf="comments.next"
@@ -55,3 +56,4 @@
   </a>
 
 </div>
+<div class="line line-bottom"></div>

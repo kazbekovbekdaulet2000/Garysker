@@ -72,6 +72,9 @@ export class CommentComponent {
 
   toggleReply() {
     this.replyComment = !this.replyComment
+    this.formData.patchValue({
+      body: ''
+    })
     if (this.replyComment) {
       this.editComment = false
     }

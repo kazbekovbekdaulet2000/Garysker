@@ -57,9 +57,9 @@
           <span><b>{{'events.register.completed' | translate}}</b></span>
         </div>
 
-        <button class="btn orange-btn" *ngIf="!event.canceled" (click)="onDetail(event)">{{'events.register.more' |
+        <button class="btn btn-orange" *ngIf="!event.canceled" (click)="onDetail(event)">{{'events.register.more' |
           translate }}</button>
-        <button class="btn red-btn" *ngIf="event.canceled" (click)="onDetail(event)">{{'events.register.canceled' |
+        <button class="btn btn-red" *ngIf="event.canceled" (click)="onDetail(event)">{{'events.register.canceled' |
           translate }}</button>
 
       </div>

@@ -18,8 +18,8 @@ export class AboutComponent {
 
   sections: any = [
     { fragment: 'us', name: 'about.sections.project' },
-    { fragment: 'partners', name: 'about.sections.project' },
-    { fragment: 'contacts', name: 'about.sections.project' }
+    { fragment: 'partners', name: 'about.sections.partners' },
+    { fragment: 'contacts', name: 'about.sections.contacts' }
   ];
 
   routers: any = [
@@ -30,10 +30,10 @@ export class AboutComponent {
   ]
 
   people: any = [
-    { img: 'assets/images/birzhan.png', name: 'Birzhan Shakarim', prop: 'about.people.one' },
-    { img: 'assets/images/abdi.png', name: 'Abdi Rinat', prop: 'about.people.two' },
-    { img: 'assets/images/beks.png', name: 'Бекдаулет Казбеков', prop: 'about.people.three' },
-    { img: 'assets/images/lui.png', name: 'Луи (кот)', prop: 'about.people.four' },
+    { img: 'assets/images/birzhan.png', name: 'Birzhan Shakarim', prop: 'about.people.one', border: false },
+    { img: 'assets/images/abdi.png', name: 'Abdi Rinat', prop: 'about.people.two', border: false },
+    { img: 'assets/images/beks.jpg', name: 'Бекдаулет Казбеков', prop: 'about.people.three', border: true },
+    { img: 'assets/images/lui.png', name: 'Луи (кот)', prop: 'about.people.four', border: false },
   ]
 
   contacts: any = [

@@ -8,6 +8,8 @@ const sections: LocaleDataModel = {
   events: 'Іс шаралар',
   about_g: 'Garyshker жайлы',
   help: 'Жобаны қолдау',
+  login: 'Кіру',
+  register: 'Тіркелу',
   date,
 };
 

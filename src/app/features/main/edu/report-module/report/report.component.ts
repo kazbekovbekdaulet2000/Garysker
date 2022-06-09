@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
@@ -7,13 +8,15 @@ import { CommentModel } from '@core/models/api/comment.model';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { ReportDetailModel, ReportModel } from '@core/models/api/report.model';
 import { CommentsService } from '@core/services/comments.service';
+import { AppState } from '@core/states/app/app.state';
 import { AuthState } from '@core/states/auth/auth.state';
 import { ClearComments, LikeComment, ListComments } from '@core/states/comments/comments.actions';
 import { CommentsState } from '@core/states/comments/comments.state';
+import { LangType } from '@core/types/lang.type';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
 import { LinkShareModalComponent } from 'src/app/shared/modals/share-modal/share-modal.component';
 import { ClearRelatedReportList, ClearReportDetail, GetRelatedReports, GetReport, LikeReport, SaveReport } from '../report.actions';
@@ -30,6 +33,7 @@ export class ReportComponent implements OnDestroy {
 
   @Select(AuthState.access) access$!: Observable<string>;
   @Select(ReportState.report) report$!: Observable<ReportDetailModel>;
+  @Select(AppState.lang) lang$!: Observable<LangType>;
 
   @ViewChild('body') body!: ElementRef<any>
 
@@ -41,11 +45,32 @@ export class ReportComponent implements OnDestroy {
     private store: Store,
     private activatedRoute: ActivatedRoute,
     private bsService: BsModalService,
+    private meta: Meta,
+    private title: Title,
   ) {
+    window.scrollTo(0, 0)
     this.activatedRoute.params.subscribe(({ id }) => {
       this.reportId = id
       this.store.dispatch(new GetReport(id))
       this.store.dispatch(new ListComments('reports', id))
+    })
+    this.lang$.subscribe(lang => {
+      this.store.select(ReportState.report).pipe(filter(obj => !!obj)).subscribe(report => {
+        this.title.setTitle(lang === 'ru' ? report.title_ru : report.title_kk)
+        this.meta.updateTag({ name: 'keywords', content: report.tags.join(", ") })
+        this.meta.updateTag({ name: 'description', content: lang === 'ru' ? report.preview_text_ru : report.preview_text_kk })
+        this.meta.updateTag({ property: 'og:description', content: lang === 'ru' ? report.preview_text_ru : report.preview_text_kk })
+        this.meta.updateTag({ property: 'twitter:description', content: lang === 'ru' ? report.preview_text_ru : report.preview_text_kk })
+        this.meta.updateTag({ name: 'robots', content: 'index, follow' })
+        this.meta.updateTag({ name: 'author', content: report.author.email })
+        this.meta.updateTag({ name: 'brand', content: 'Garyshker' })
+        this.meta.updateTag({ property: "og:url", content: location.href })
+        this.meta.updateTag({ property: 'og:type', content: 'website' })
+        this.meta.updateTag({ name: 'twitter:title', content: lang === 'ru' ? report.title_ru : report.title_kk})
+        this.meta.updateTag({ property: 'og:title', content: lang === 'ru' ? report.title_ru : report.title_kk })
+        this.meta.updateTag({ property: 'og:image', content: report.image })
+        this.meta.updateTag({ name: 'twitter:image', content: report.image })
+      })
     })
   }
 
@@ -77,7 +102,7 @@ export class ReportComponent implements OnDestroy {
     })
   }
 
-  onComment(){
+  onComment() {
     this.comments.toComment()
   }
 

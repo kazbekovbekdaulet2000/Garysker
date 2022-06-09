@@ -17,7 +17,13 @@ export class LangTextPipe implements PipeTransform {
   transform(value: any, key: string): Observable<string> {
     return this.lang$.pipe(
       map(lang => {
-        return value[`${key}_${lang}`]
+        if(!!value.languages && value.languages.includes(lang)){
+          return value[`${key}_${lang}`]
+        }else if(!!value.languages){
+          return value[`${key}_${value.languages[0]}`]
+        }else{
+          return value[`${key}_${lang}`]
+        }
       })
     );
   }

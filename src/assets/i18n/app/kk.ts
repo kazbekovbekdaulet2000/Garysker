@@ -10,6 +10,8 @@ const app: LocaleDataModel = {
     reply: 'жауап беру',
     delete_comment: 'жою',
     change: 'өзгерту',
+    send_changed: "Өзгерту",
+    send: "Жауап беру",
     hint: 'Пікіріңізді жазыңыз',
     show: '{{count}} жауап көрсету',
     hide: '{{count}} жауап көрсету',
@@ -17,7 +19,9 @@ const app: LocaleDataModel = {
       title: 'Комментарииді шынымен жойғыңыз келе ме?',
       false: 'Жоқ',
       true: 'Иә, жою'
-    }
+    },
+    comment_req: "бірінші пікіріңізді жазыңыз",
+    load_more: "тағы",
   },
   link: {
     redirect: {
@@ -40,7 +44,7 @@ const app: LocaleDataModel = {
     fail_save_message: 'Деректер толық емес',
   },
   change_language: 'Тілді өзгерту',
-  registration: 'Регистрация',
+  registration: 'Тіркелу',
   login: 'Кіру',
   profile_name: 'Профиль',
   profile_menu: 'Профиль мәзірі',

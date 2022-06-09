@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from '@core/components/header/header.component';
 import { NotFoundComponent } from './features/notfound/notfound.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { SwiperModule } from "swiper/angular";
@@ -19,6 +20,9 @@ import { LangPipeModule } from './shared/pipes/lang/lang-pipe.module';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { providePerformance, getPerformance } from '@angular/fire/performance';
+import { HeaderSearchComponent } from '@core/components/header/search/header-search.component';
+import { HeaderProfileComponent } from '@core/components/header/profile/header-profile.component';
+import { SidenavComponent } from '@core/components/sidenav/sidenav.component';
 
 registerLocaleData(localeRu, 'ru');
 
@@ -26,6 +30,9 @@ registerLocaleData(localeRu, 'ru');
   declarations: [
     AppComponent,
     HeaderComponent,
+    SidenavComponent,
+    HeaderSearchComponent,
+    HeaderProfileComponent,
     NotFoundComponent,
   ],
   imports: [
@@ -35,6 +42,7 @@ registerLocaleData(localeRu, 'ru');
     MatSliderModule,
     SwiperModule,
     MatSidenavModule,
+    MatToolbarModule,
     LangPipeModule,
     TranslateModule,
     CoreModule.forRoot(),
@@ -43,7 +51,6 @@ registerLocaleData(localeRu, 'ru');
     providePerformance(() => getPerformance()),
   ],
   providers: [
-    // { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'ru' },
   ],
   bootstrap: [AppComponent]

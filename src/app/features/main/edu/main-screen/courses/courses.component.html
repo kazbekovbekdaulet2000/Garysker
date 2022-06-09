@@ -1,4 +1,4 @@
-<ng-container *ngIf="courses$ | async as courses">
+<ng-container *ngIf="courses$ | async as courses; else loader">
 
   <div @opacityAnimation *ngIf="courses.results.length > 0">
 
@@ -9,13 +9,17 @@
 
     <div *ngIf="courses.results.length > 0" class="d-flex align-items-center gap-2 my-4 courses">
 
-      <app-course-card 
-        *ngFor ="let course of courses.results" 
-        (click)="onCourseRoute(course.id)" 
-        [course]="course"></app-course-card>
+      <app-course-card style="overflow: hidden;border-radius: 24px; min-width: 320px;"
+        *ngFor="let course of courses.results" (click)="onCourseRoute(course.id)" [course]="course"></app-course-card>
 
     </div>
 
   </div>
 
 </ng-container>
+
+<ng-template #loader>
+  <div class="course-placeholder">
+    <app-loader height="100%"></app-loader>
+  </div>
+</ng-template>

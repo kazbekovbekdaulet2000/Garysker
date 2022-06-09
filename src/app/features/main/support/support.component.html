@@ -10,8 +10,8 @@
 
   <div class="d-flex flex-column support-content" [formGroup]="formData">
 
-    <app-select class="mb-2" [label]="'support.type_hint' | translate" [list]="type" (selection)="selectType($event)">
-    </app-select>
+    <!-- <app-select class="mb-2" [label]="'support.type_hint' | translate" [list]="type" (selection)="selectType($event)">
+    </app-select> -->
 
     <app-select class="mb-2" [label]="'support.amount_hint' | translate" [list]="amount"
       (selection)="selectAmount($event)">

@@ -40,7 +40,6 @@ export class LoginComponent {
       .toPromise()
       .then(token => {
         this.store.dispatch(new Login(token))
-        this.store.dispatch(new UpdateProfile())
         this.store.dispatch(new ChangeCategory(NaN))
         window.history.back()
       })
@@ -56,5 +55,6 @@ export class LoginComponent {
         this.getFalseMessage("email")
         this.getFalseMessage("password")
       })
+    this.store.dispatch(new UpdateProfile())
   }
 }

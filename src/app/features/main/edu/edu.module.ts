@@ -24,6 +24,7 @@ import { EduReportsComponent } from './main-screen/reports/reports.component';
 import { EduVideosComponent } from './main-screen/videos/videos.component';
 import { RatingsService } from '@core/services/rating.service';
 import { ComponentHeaderModule } from 'src/app/shared/components/component-header/component-header.module';
+import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ComponentHeaderModule } from 'src/app/shared/components/component-heade
     SwiperModule,
     InfiniteScrollModule,
     LangPipeModule,
+    LoaderModule,
     ReactiveFormsModule,
     ComponentHeaderModule,
     TranslateModule,

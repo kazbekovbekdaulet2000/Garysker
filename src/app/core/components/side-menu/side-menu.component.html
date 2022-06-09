@@ -1,4 +1,5 @@
 <div class="sidemenu">
+  
   <div class="main-menu">
 
     <div class="section pointer" routerLink="/edu" [class.active]="currentRoute === 'edu'">
@@ -39,8 +40,13 @@
     </div>
   </div>
 
+  <div class="language-switcher d-flex justify-content-center gap-1" *ngIf="lang$ | async as lang">
+    <span class="pointer" [class.selected]="lang==='kk'" (click)="changeLang('kk')">Қаз</span>
+    <span class="pointer" [class.selected]="lang==='ru'" (click)="changeLang('ru')">Рус</span>
+  </div>
+
   <div class="dynamic-menu visable top-margin">
-    <!-- (click)="helpProject()" -->
+
     <div routerLink="support" class="d-flex justify-content-center category support pointer">
       {{'sections.help'| translate}}
     </div>

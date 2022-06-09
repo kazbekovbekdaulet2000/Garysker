@@ -24,7 +24,7 @@
       <textarea 
         #input 
         rows=3 
-        placeholder="Написать комментарий..." 
+        [placeholder]="'video.comment.placeholder' | translate" 
         class="textfield-area" 
         [class.large]="textInputLarge"
         formControlName="body" 
@@ -36,7 +36,7 @@
           @opacityAnimation 
           *ngIf="textInputLarge" 
           class="btn textfield-btn"
-          (click)="sendComment()">Отправить</button>
+          (click)="sendComment()">{{'app.comment.send' | translate}}</button>
       </div>
 
     </div>
@@ -54,13 +54,13 @@
 
     </ng-container>
 
-    <ng-template #empty>
-      <div *ngIf="(access$ | async)! !== ''" class="d-flex justify-content-center mt-2">напишите первый комментарий</div>
+  <ng-template #empty>
+      <div *ngIf="(access$ | async)! !== ''" class="d-flex justify-content-center mt-2">{{'app.comment.comment_req' | translate}}</div>
     </ng-template>
 
     <a class="d-flex loadmore my-2 align-items-center justify-content-center pointer" *ngIf="comments.next"
       (click)="loadMore()">
-      загрузить больше
+      {{app.comment.load_more' | translate}}
     </a>
 
   </div>

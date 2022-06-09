@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
-import { ListCategories } from '@core/states/app/app.actions';
+import { ListCategories, UpdateLang } from '@core/states/app/app.actions';
+import { LangType } from '@core/types/lang.type';
+import { AppState } from '@core/states/app/app.state';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -17,6 +20,9 @@ export class SideMenuComponent {
   currentRoute: string | undefined;
 
   index: number = 1
+
+  @Select(AppState.lang) lang$!: Observable<LangType>
+  
   constructor(
     private store: Store,
     private router: Router,
@@ -64,5 +70,9 @@ export class SideMenuComponent {
     })
     // window.open('http://localhost:4200/#/payment', "_blank");
     // this.router.navigate(['payment'])
+  }
+
+  changeLang(lang: LangType){
+    this.store.dispatch(new UpdateLang(lang))
   }
 }

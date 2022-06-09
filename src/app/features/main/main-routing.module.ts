@@ -38,6 +38,7 @@ const routes: Routes = [
       },
       {
         path: 'shop',
+        // component: ProductsComponent
         loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
       },
       {

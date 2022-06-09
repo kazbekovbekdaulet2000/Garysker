@@ -1,0 +1,41 @@
+<div *ngIf="profile$ | async as profile">
+
+  <div *ngIf="main!=='auth'" (click)="dropdownToggle()" class="content-profile">
+
+    <img class="content-profile-image" (click)="dropdownToggle()" [src]="profile.image">
+
+    <div #toggleDiv class="d-flex content-profile-text gap-1 pointer">
+      {{profile.surname}} {{profile.name}}
+      <img *ngIf="profile.verified" src="assets/icons/verified_user_new.svg">
+      <img class="content-profile-text-drop" src="assets/icons/dropdown.svg" alt="">
+    </div>
+
+    <div #menu @opacityAnimation *ngIf="dropdown" class="dropdown">
+
+      <div class="dropdown-desc">{{'app.profile_name' | translate}}</div>
+
+      <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
+        <img class="dropdown-item-image" src="assets/icons/user_new.svg" alt="">
+        {{'app.profile.name' | translate}}
+      </div>
+
+      <!-- <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
+        <img class="d-flex align-items-center dropdown-item-image" src="assets/icons/folder.svg" alt="">
+        {{'app.profile.bookmarks' | translate}}
+      </div>
+
+      <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
+        <img class="dropdown-item-image" src="assets/icons/settings.svg" alt="">
+        {{'app.profile.settings' | translate}}
+      </div> -->
+
+      <div class="d-flex align-items-center gap-1 dropdown-item" (click)="logout()">
+        <img class="dropdown-item-image" src="assets/icons/exit_new.svg" alt="">
+        {{'app.profile.logout' | translate}}
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

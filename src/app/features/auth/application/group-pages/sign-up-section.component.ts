@@ -72,4 +72,26 @@ export class SignUpSectionComponent implements OnInit {
     this.selectedType = i
     this.group.get('user_type')?.setValue(i)
   }
+
+  getSelectedUserType(){
+    const user_type = this.group.getRawValue()['user_type']
+    if(user_type===null){
+      return false
+    }else if(!!user_type){
+      return [0,1].includes(Number(user_type))
+    }else{
+      return true
+    }
+  }
+
+  getSelected(){
+    const user_type = this.group.getRawValue()['user_type']
+    if(user_type===null){
+      return false
+    }else if(!!user_type){
+      return [0,1].includes(Number(user_type))
+    }else{
+      return true
+    }
+  }
 }

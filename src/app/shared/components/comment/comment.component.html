@@ -49,18 +49,26 @@
 
   <ng-container *ngIf="editComment">
 
-    <app-textarea @heightOutAnimation class="mt-2" formControlName="body" [required]="true" hint="app.comment.hint"
-      (send)="sendPatchComment(comment)">
-    </app-textarea>
+    <div @heightOutAnimation class="d-flex flex-column align-items-end">
+      <app-textarea class="mt-2" formControlName="body" [required]="true" hint="app.comment.hint"
+        (send)="sendPatchComment(comment)">
+      </app-textarea>
+
+      <button class="btn btn-orange justify-content-end" (click)="sendPatchComment(comment)">{{'app.comment.send_changed' | translate}}</button>
+    </div>
 
   </ng-container>
 
   <ng-container *ngIf="replyComment">
 
-    <app-textarea @heightOutAnimation class="mt-2" formControlName="body" [required]="true" hint="app.comment.hint"
-      (send)="sendReplyComment(comment)">
-    </app-textarea>
+    <div @heightOutAnimation class="d-flex flex-column align-items-end">
+      <app-textarea class="mt-2" formControlName="body" [required]="true" hint="app.comment.hint"
+        (send)="sendReplyComment(comment)">
+      </app-textarea>
 
+      <button class="btn btn-orange justify-content-end" (click)="sendReplyComment(comment)">{{'app.comment.send' | translate}}</button>
+    </div>
+  
   </ng-container>
 
   <ng-container *ngIf="!hideAns">

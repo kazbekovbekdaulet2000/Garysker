@@ -1,3 +1,5 @@
+@import "variables";
+
 .no-content {
   margin: 32px 120px;
   text-align: center;
@@ -15,7 +17,7 @@
     outline: none;
     border-radius: 10px;
     border: none;
-    background-color: #b67906;
+    background-color: $color-orange-dark;
     color: white;
     padding: 12px 24px;
     font-size: 14px;

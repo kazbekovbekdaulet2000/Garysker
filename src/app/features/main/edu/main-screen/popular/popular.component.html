@@ -1,6 +1,6 @@
 <div *ngIf="!!!(selectedCategory$ | async)" class="placeholderPopular">
 
-  <ng-container *ngIf="popular && !!!(selectedCategory$ | async)">
+  <ng-container *ngIf="popular && !!!(selectedCategory$ | async); else loader">
 
     <div @opacityAnimation>
 
@@ -62,5 +62,9 @@
     </div>
 
   </ng-container>
+
+  <ng-template #loader>
+    <app-loader height="100%"></app-loader>
+  </ng-template>
 
 </div>

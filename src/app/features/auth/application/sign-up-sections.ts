@@ -82,7 +82,6 @@ export const SignUpPageTwo: StageModel = {
       key: 'edu_place',
       error: 'auth.registration.steps.two.config.edu_p_err'
     },
-    // edu_place
   ]
 }
 

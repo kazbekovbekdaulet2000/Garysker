@@ -4,9 +4,9 @@ const main_screen: LocaleDataModel = {
   title: "Білім",
   description: 'Жаңа форматтағы материалдарды тегін оқу, көру және оқу мүмкіндігін ашатын бағыт.',
   popular: 'Қызықты',
-  all_categories: 'барлығы',
+  all_categories: 'Барлығы',
   read: 'Оқу',
-  view: 'Қарау',
+  view: 'Көру',
   view_more: 'Тағы',
   educate: 'Үйрену'
 };

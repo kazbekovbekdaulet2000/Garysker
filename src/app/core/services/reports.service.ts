@@ -4,16 +4,20 @@ import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { ReportDetailModel, ReportModel } from '@core/models/api/report.model';
 import { ListResponseModel } from '@core/models/api/list.model';
-import { map } from 'rxjs/operators';
-import { Store } from '@ngxs/store';
+import { map, switchMap } from 'rxjs/operators';
+import { Select, Store } from '@ngxs/store';
 import { CommentModel } from '@core/models/api/comment.model';
 import { AuthState } from '@core/states/auth/auth.state';
 import getCategoryIcon from '@core/utils/category-icons';
+import { AppState } from '@core/states/app/app.state';
+import { LangType } from '@core/types/lang.type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportsService extends ApiService {
+
+  @Select(AppState.lang) lang$!: Observable<LangType>
 
   constructor(
     protected http: HttpClient,
@@ -23,11 +27,17 @@ export class ReportsService extends ApiService {
   }
 
   list(params?: any): Observable<ListResponseModel<ReportModel>> {
-    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(), { params })
+    return this.lang$.pipe(switchMap(lang => {
+      params = { ...params, languages: lang }
+      return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(), { params })
+    }))
   }
 
   listSaved(params?: any): Observable<ListResponseModel<ReportModel>> {
-    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('bookmarked'), { params })
+    return this.lang$.pipe(switchMap(lang => {
+      params = { ...params, languages: lang }
+      return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('bookmarked'), { params })
+    }))
   }
 
   get(id: number): Observable<ReportDetailModel> {
@@ -35,7 +45,10 @@ export class ReportsService extends ApiService {
   }
 
   getRelated(id: number, params?: any): Observable<ListResponseModel<ReportModel>> {
-    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(`${id}/related`), { params })
+    return this.lang$.pipe(switchMap(lang => {
+      params = { ...params, languages: lang }
+      return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(`${id}/related`), { params })
+    }))
   }
 
   like(id: number): Observable<any> {

@@ -47,7 +47,7 @@
 
       <div *ngFor="let person of people" class="content-people-item">
 
-        <img class="content-people-item-image" [src]="person.img" alt="">
+        <img class="content-people-item-image" [class.content-people-item-border]="person.border" [src]="person.img" alt="">
         <div class="content-people-item-name">{{person.name}}</div>
         <div>{{person.prop | translate}}</div>
 

@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Meta } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './states/auth/auth.state';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoaderComponent } from './components/loader/loader.component';
+// import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderInterceptor } from './interceptors/loader.intercepter';
 import { LoaderState } from './states/loader/loader.state';
 import { RequestInterceptor } from './interceptors/request.intercepter';
@@ -22,6 +22,9 @@ import { ScrollState } from './states/scroll/scroll.state';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppState } from './states/app/app.state';
 import { LangPipeModule } from '../shared/pipes/lang/lang-pipe.module';
+import { ShopState } from '../features/main/shop/shop.state';
+// import { LoaderModule } from '../shared/components/loader/loader.module';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -41,15 +44,17 @@ import { LangPipeModule } from '../shared/pipes/lang/lang-pipe.module';
     PlyrModule,
     MatSliderModule,
     MatSidenavModule,
-    NgxsModule.forRoot([AppState, AuthState, LoaderState, ScrollState]),
-    NgxsStoragePluginModule.forRoot({ key: ['auth', 'app'] }),
+    NgxsModule.forRoot([AppState, AuthState, LoaderState, ScrollState, ShopState]),
+    NgxsStoragePluginModule.forRoot({ key: ['auth', 'app', 'shop'] }),
     NgxsRouterPluginModule.forRoot(),
     ModalModule.forRoot(),
     LangPipeModule,
+    // LoaderModule,
     TranslateModule.forRoot({
       defaultLanguage: 'ru'
     }),
   ],
+  providers: [Meta],
 })
 export class CoreModule {
   static forRoot(): ModuleWithProviders<CoreModule> {

@@ -1,0 +1,98 @@
+<div class="sidemenu">
+
+  <ng-container *ngIf="(access$ | async)?.length === 0; else profile">
+
+    <div class="sidemenu-auth d-flex align-items-center gap-3 py-2 active">
+      <img class="sidemenu-section-icon no-back p-2" src="assets/icons/3_user.svg" alt="">
+      <span class="sidemenu-section">
+        <a href="/auth">{{'sections.login' | translate}}</a> / <a href="/auth/application">{{'sections.register' |
+          translate}}</a>
+      </span>
+    </div>
+
+  </ng-container>
+
+  <ng-template #profile>
+
+    <div class="d-flex align-items-center gap-2 sidemenu-profile" *ngIf="profile$ | async as profile">
+      <img class="sidemenu-profile-image" [src]="profile.image" alt="">
+      <div class="d-flex gap-2 justify-content-center">
+
+        <h6 class="mb-0">{{profile.surname}} {{profile.name}}</h6>
+        <img *ngIf="profile.verified" src="assets/icons/verified_user_new.svg">
+
+      </div>
+    </div>
+
+
+    <div (click)="triggerMenu()" *ngIf="profile$ | async as profile"
+      class="d-flex gap-2 my-3 pointer sidemenu-section-text">
+
+      <div>{{'app.profile_menu' | translate}}</div>
+
+      <img class="sidemenu-section-text-icon" [class.expanded]="userMenu" src="assets/icons/down.svg">
+
+    </div>
+
+    <div @heightOutAnimation class="overflow" *ngIf="userMenu">
+
+      <ng-container *ngIf="profile$ | async as profile">
+
+        <div class="d-flex align-items-center gap-3 py-2 mt-2 pointer" [class.active]="main === 'profile'"
+          (click)="navigateRoute('/profile')">
+          <img class="sidemenu-section-icon" src="assets/icons/user_new.svg" alt="">
+          {{'app.profile.name' | translate}}
+        </div>
+        <div class="d-flex align-items-center gap-3 py-2 pointer" (click)="logout()">
+          <img class="sidemenu-section-icon" src="assets/icons/exit_new.svg" alt="">
+          {{'app.profile.logout' | translate}}
+        </div>
+
+      </ng-container>
+
+      <hr>
+
+    </div>
+
+  </ng-template>
+
+  <div class="d-flex align-items-center gap-3 py-2 pointer" [class.mt-4]="(access$ | async)?.length === 0"
+    [class.active]="main === 'edu'" (click)="navigateRoute('/edu')">
+    <img class="sidemenu-section-icon" src="assets/icons/edu.svg" alt="">
+    <span class="sidemenu-section">{{'sections.edu' | translate}}</span>
+  </div>
+
+  <div class="d-flex align-items-center gap-3 py-2 pointer" [class.active]="main === 'products'"
+    (click)="navigateRoute('/products')">
+    <img class="sidemenu-section-icon" src="assets/icons/products.svg" alt="">
+    <span class="sidemenu-section">{{'sections.project' | translate}}</span>
+  </div>
+
+  <div class="d-flex align-items-center gap-3 py-2 pointer" [class.active]="main === 'shop'"
+    (click)="navigateRoute('/shop')">
+    <img class="sidemenu-section-icon" src="assets/icons/shop.svg" alt="">
+    <span class="sidemenu-section">{{'sections.shop' | translate}}</span>
+  </div>
+
+  <div class="d-flex align-items-center gap-3 py-2 pointer" [class.active]="main === 'events'"
+    (click)="navigateRoute('/events')">
+    <img class="sidemenu-section-icon" src="assets/icons/events.svg" alt="">
+    <span class="sidemenu-section">{{'sections.events' | translate}}</span>
+  </div>
+
+  <div class="d-flex align-items-center gap-3 py-2 pointer" [class.active]="main === 'about'"
+    (click)="navigateRoute('/about')">
+    <img class="sidemenu-section-icon" src="assets/icons/home.svg" alt="">
+    <span class="sidemenu-section">{{'sections.about_g' | translate}}</span>
+  </div>
+
+  <div class="language-switcher d-flex justify-content-start gap-1" *ngIf="lang$ | async as lang">
+    <span class="pointer" [class.selected]="lang==='kk'" (click)="changeLang('kk')">Қаз</span>
+    <span class="pointer" [class.selected]="lang==='ru'" (click)="changeLang('ru')">Рус</span>
+  </div>
+
+  <button routerLink="support" class="btn btn-orange sidemenu-support mt-4 ">
+    {{'sections.help' | translate}}
+  </button>
+
+</div>

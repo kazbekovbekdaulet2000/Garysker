@@ -16,9 +16,8 @@ import { CardModule } from 'src/app/shared/components/card/card.module';
 import { ReplyModule } from 'src/app/shared/components/reply/reply.module';
 import { LangPipeModule } from 'src/app/shared/pipes/lang/lang-pipe.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommentsService } from '@core/services/comments.service';
-import { HttpClient } from '@angular/common/http';
 import { CommentsState } from '@core/states/comments/comments.state';
+import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +35,7 @@ import { CommentsState } from '@core/states/comments/comments.state';
     ReactiveFormsModule,
     LangPipeModule,
     TranslateModule,
+    LoaderModule,
     NgxsModule.forFeature([VideoState, CommentsState]),
     DatePipeModule,
     SanitizerPipeModule,

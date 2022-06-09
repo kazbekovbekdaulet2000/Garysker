@@ -97,7 +97,6 @@ export class EventDetailModalComponent implements OnInit {
   isPast(event: EventModel): boolean {
     var event_date = new Date(event.event_date);
     var today = new Date();
-    console.log(event_date < today)
     return event_date < today
   }
 }

@@ -17,12 +17,20 @@ import { ComponentHeaderModule } from 'src/app/shared/components/component-heade
 import { ShopProductComponent } from './list/own-product-list/product-list.component';
 import { ShopOrganizationRequestComponent } from './list/organization-request/organization-request.component';
 import { InputModule } from 'src/app/shared/components/input/input.module';
+import { ProductDetailModalComponent } from './detail/product-detail-modal.component';
+import { ProductDetailImagesComponent } from './detail/images/product-detail-images.component';
+import { CardModalComponent } from './card/card-modal.component';
+import { ShopState } from './shop.state';
+import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
 
 @NgModule({
   declarations: [
     ShopComponent,
     ShopProductComponent,
-    ShopOrganizationRequestComponent
+    ProductDetailModalComponent,
+    ProductDetailImagesComponent,
+    ShopOrganizationRequestComponent,
+    CardModalComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +44,7 @@ import { InputModule } from 'src/app/shared/components/input/input.module';
     ReactiveFormsModule,
     TranslateModule,
     ComponentHeaderModule,
-    NgxsModule.forFeature([]),
+    LoaderModule,
     DatePipeModule,
     InputModule,
     SanitizerPipeModule

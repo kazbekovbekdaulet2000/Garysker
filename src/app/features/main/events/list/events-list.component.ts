@@ -27,7 +27,7 @@ export interface EventType {
 export class EventListComponent implements OnDestroy, AfterViewInit {
 
   @Select(EventsState.events) events$!: Observable<ListResponseModel<EventModel>>
-  
+
   types: EventType[] = [
     {
       id: 1,
@@ -63,6 +63,11 @@ export class EventListComponent implements OnDestroy, AfterViewInit {
         this.onDetail(event)
       })
       localStorage.removeItem('saved_event_add_action')
+    }
+    if (this.store.selectSnapshot(EventsState.events).count === 0) {
+      this.selected_type = this.types[2]
+      const params = {}
+      this.store.dispatch(new ListEvents(params))
     }
   }
 
@@ -100,7 +105,7 @@ export class EventListComponent implements OnDestroy, AfterViewInit {
   onDetail(event: EventModel) {
     this.bsModalService.show(EventDetailModalComponent, {
       class: 'modal-dialog-centered modal-lg',
-      ignoreBackdropClick: true,
+      // ignoreBackdropClick: true,
       initialState: {
         event: event,
         type: this.selected_type.type

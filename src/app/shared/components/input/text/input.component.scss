@@ -1,3 +1,5 @@
+@import "variables";
+
 .label {
   font-weight: 400;
   font-size: 16px;
@@ -9,9 +11,9 @@
   outline: none;
   border: none;
   height: 40px;
-  font-size: 16px;
+  font-size: 14px;
   width: 100%;
-  color: #817b8b;
+  color: $color-white !important;
   padding: 0px auto;
   border: 1px solid transparent;
   border-radius: 8px;

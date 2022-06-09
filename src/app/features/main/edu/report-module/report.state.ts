@@ -51,8 +51,8 @@ export class ReportState {
   }
 
   @Selector()
-  static report({ report }: StateModel): ReportDetailModel | null {
-    return report;
+  static report({ report }: StateModel): ReportDetailModel {
+    return report!;
   }
 
   constructor(

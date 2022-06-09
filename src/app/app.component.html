@@ -1,7 +1,19 @@
-<core-header> </core-header>
+<mat-sidenav-container>
 
-<core-loader></core-loader>
+  <mat-sidenav #sidenav>
+    <app-core-sidenav></app-core-sidenav>
+  </mat-sidenav>
 
-<main>
-  <router-outlet></router-outlet>
-</main>
+  <mat-sidenav-content>
+
+    <app-core-header (sidenav)="sidenav.toggle()"> </app-core-header>
+
+    <core-loader></core-loader>
+
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

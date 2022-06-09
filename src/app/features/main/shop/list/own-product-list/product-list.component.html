@@ -1,6 +1,6 @@
-<div class="product-list">
+<div class="product-list" *ngIf="products$ | async as products">
 
-  <div class="d-flex flex-column gap-2 product pointer" *ngFor="let product of products.results">
+  <div class="d-flex flex-column gap-2 product pointer" (click)="openProduct(product)" *ngFor="let product of products.results">
   
     <img class="product-image" [src]="product.images[0].image_thumb480" alt="product.name_ru">
     <h4 class="mb-0">{{product | lang: 'name' | async }}</h4>

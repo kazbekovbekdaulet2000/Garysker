@@ -14,20 +14,20 @@
       <label *ngIf="config.type !== 'user-type' && config.helper" class="form-content-title" [for]="config.key">
         {{'auth.registration.steps.one.config.birth_date_p_helper' | translate}} </label>
 
-      <input *ngIf="(config.type === 'input' || config.type === 'email' || config.type === 'password') && config.key"
+      <input @opacityUpDownAnimation *ngIf="(config.type === 'input' || config.type === 'email' || config.type === 'password') && config.key && getSelectedUserType()"
         class="form-content-input" [id]="config.key" [type]="config.type" [formControlName]="config.key"
         [placeholder]="config.placeholder! | translate" [email]="config.key === 'email'">
 
-      <input *ngIf="config.type === 'birth-date' && config.key" [formControlName]="config.key"
+      <input @opacityUpDownAnimation *ngIf="config.type === 'birth-date' && config.key" [formControlName]="config.key"
         class="form-content-input date" type="text" mask="d0/M0/0000" [placeholder]="config.placeholder! | translate"
         [dropSpecialCharacters]="false" value="">
 
-      <app-input-ahead class="form-content-input2" *ngIf="(config.type === 'city-selector' ||config.type === 'country-selector') && config.key"
+      <app-input-ahead @opacityUpDownAnimation class="form-content-input2" *ngIf="(config.type === 'city-selector' ||config.type === 'country-selector') && config.key"
         [formControlName]="config.key" [required]="true" [hint]="config.placeholder! | translate"
         [listType]="config.type === 'city-selector' ? 'cities' : 'countries'">
       </app-input-ahead>
 
-      <select class="form-content-input" *ngIf="config.type === 'user-type' && config.key"
+      <select @opacityUpDownAnimation class="form-content-input" *ngIf="config.type === 'user-type' && config.key"
         (change)="updateSelection(config.key, $event)">
         <option value="" disabled selected>{{config.placeholder! | translate}}</option>
         <option value="0">{{'auth.registration.user_type.school' | translate}}</option>
@@ -36,13 +36,13 @@
         <option value="3">{{'auth.registration.user_type.other' | translate}}</option>
       </select>
 
-      <ng-container *ngIf="config.key">
+      <ng-container @opacityUpDownAnimation *ngIf="config.key">
         <div class="form-content-err" *ngIf="group.controls[config.key]?.errors?.incorrect">
           *{{config.error! | translate}}
         </div>
       </ng-container>
 
-      <ng-container *ngIf="config.type === 'goals'">
+      <ng-container @opacityUpDownAnimation *ngIf="config.type === 'goals'">
 
         <div class="d-flex align-items-center gap-2 user-type" *ngFor="let type of config.userTypes; let i = index">
 

@@ -11,6 +11,11 @@
 
   </div>
 
+  <div class="shop-wrapper-card pointer" (click)="openCard()">
+    <img src="assets/icons/Bag.svg" alt="">
+    <div *ngIf="products$ | async as products" class="shop-wrapper-card-count">{{products.length}}</div>
+  </div>
+
   <div style="width:100%;" class="mt-4">
     <router-outlet></router-outlet>
   </div>

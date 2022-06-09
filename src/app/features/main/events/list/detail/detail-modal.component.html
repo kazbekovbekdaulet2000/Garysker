@@ -45,9 +45,9 @@
 
   <div class="d-flex justify-content-end" *ngIf="type !== 'past' && !isPast(event)">
   
-    <button class="btn orange-btn" (click)="onPost()" *ngIf="!event.participant && !event.canceled">{{'events.register.submit' | translate}}</button>
-    <button class="btn orange-btn" (click)="onPost()" *ngIf="event.participant">{{'events.register.cancel' | translate}}</button>
-    <button class="btn red-btn" *ngIf="event.canceled">{{'events.register.canceled' | translate }}</button>
+    <button class="btn btn-orange" (click)="onPost()" *ngIf="!event.participant && !event.canceled">{{'events.register.submit' | translate}}</button>
+    <button class="btn btn-orange" (click)="onPost()" *ngIf="event.participant">{{'events.register.cancel' | translate}}</button>
+    <button class="btn btn-red" *ngIf="event.canceled">{{'events.register.canceled' | translate }}</button>
   </div>
 
 </div>

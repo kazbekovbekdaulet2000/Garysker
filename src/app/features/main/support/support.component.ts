@@ -4,9 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { environment } from '@env';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { SelectListConfig } from 'src/app/shared/components/input/selections/select.config';
-import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
 
 @Component({
   templateUrl: './support.component.html',
@@ -58,7 +56,7 @@ export class SupportComponent {
   selfAmount = false
   
   formData = this.formBuilder.group({
-    type: [2, Validators.required],
+    // type: [2, Validators.required],
     amount: [1000, Validators.required],
     name: [null, Validators.required],
     email: [null, [Validators.required, Validators.email]],

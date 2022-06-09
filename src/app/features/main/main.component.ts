@@ -14,7 +14,7 @@ export class MainComponent implements AfterViewInit {
   destroy$ = this.destroy.asObservable();
 
   constructor(
-    private renderer: Renderer2,
+    private renderer: Renderer2
   ) {
     this.renderer.listen("window", "scroll", event => {
       let contentLength = this.content.nativeElement.offsetHeight

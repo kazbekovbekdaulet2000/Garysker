@@ -2,10 +2,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
-import { ListResponseModel } from '@core/models/api/list.model';
+import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
 import { ProductModel } from '@core/models/api/shop/product.model';
 import { ShopProductsService } from '@core/services/shop-products.service';
 import { Select, Store } from '@ngxs/store';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { Observable, of } from 'rxjs';
+import { ProductDetailModalComponent } from '../../detail/product-detail-modal.component';
 
 
 @Component({
@@ -15,15 +18,21 @@ import { Select, Store } from '@ngxs/store';
 })
 export class ShopProductComponent {
 
-  products!: ListResponseModel<ProductModel>
+  products$: Observable<ListResponseModel<ProductModel>> = of(emptyListResponse)
 
   constructor(
-    private store: Store,
-    private router: Router,
+    private bsModalService: BsModalService,
     private productsService: ShopProductsService
   ) { 
-    this.productsService.list().subscribe(data=>{
-      this.products = data
-    })  
+    this.products$ = this.productsService.list()
+  }
+
+  openProduct(product: ProductModel){
+    this.bsModalService.show(ProductDetailModalComponent, {
+      class: 'modal-dialog-centered modal-xl',
+      initialState: { 
+        productId: product.id
+      }
+    })
   }
 }

@@ -1,9 +1,23 @@
 @import "variables";
 
-.comment{
+.line {
+  height: 16px;
+  display: none;
+  width: calc(100% + 32px);
+  transform: translateX(-16px);
+  // background-color: $color-background;
+  &-top {
+    display: none;
+  }
+  &-bottom {
+    display: none;
+  }
+}
+.comment {
+  position: relative;
   margin-top: 56px;
-  h5{
-    font-size: 24px;
+  h6 {
+    font-size: 18px;
     margin-bottom: 16px;
   }
   .textfield {
@@ -20,7 +34,7 @@
       color: $color-secondary;
       transition: 0.3s all;
     }
-    .large{
+    .large {
       height: max-content;
       border: 1px solid $color-orange;
     }
@@ -71,11 +85,37 @@
       color: #ffa800;
     }
   }
-  .loadmore{
+  .loadmore {
     color: #ffa800;
     font-size: 12px;
   }
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 768px) {
+  .line {
+    display: flex;
+    &-top {
+      margin-top: 24px;
+      box-shadow: 0px -5px 10px -5px rgba(255, 255, 255, 0.3) inset;
+      display: flex;
+    }
+    &-bottom {
+      margin-top: 24px;
+      box-shadow: 0px 5px 10px -5px rgba(255, 255, 255, 0.3) inset;
+      display: flex;
+    }
+  }
+  .comment { 
+    margin-top: 16px;
+    // &::after{
+    //   content: '';
+    //   position: absolute;
+    //   z-index: -1;
+    //   background-color: #1c1b29;
+    //   top: -16px;
+    //   left: -16px;
+    //   width: calc(100% + 32px);
+    //   height: calc(100% + 48px);
+    // }
+  }
 }

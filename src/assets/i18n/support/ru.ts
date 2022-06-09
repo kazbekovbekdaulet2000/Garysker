@@ -11,7 +11,7 @@ const support: LocaleDataModel = {
   another_amount: 'другое',
   main_text: {
     header: "Помогите нам делать больше",
-    about: "We'll get right to the point: we're asking you to help support Khan Academy. We're a nonprofit that relies on support from people like you. If everyone reading this gives $12 monthly, Khan Academy can continue to thrive for years. Please help keep Khan Academy free, for anyone, anywhere forever."
+    about: "Мы некоммерческий образовательный фонд, который надеется на поддержку таких людей как вы. Помогая проекту вы, даете возможность нам создавать больше и качественнее."
   },
   input: {
     summ: 'Введите сумму',

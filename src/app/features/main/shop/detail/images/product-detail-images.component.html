@@ -1,0 +1,11 @@
+<swiper *ngIf="images" [zoom]="true" [loop]="false" [spaceBetween]="10" [navigation]="true" [thumbs]="{ swiper: thumbsSwiper }" class="productSwiper">
+  <ng-template *ngFor="let image of images" swiperSlide>
+    <img class="productSwiper-item" [src]="image.image_thumb720" />
+  </ng-template>
+</swiper>
+<!-- <swiper *ngIf="images" (swiper)="thumbsSwiper = $event" [loop]="false" [spaceBetween]="10" [slidesPerView]="4"
+  [freeMode]="true" [watchSlidesProgress]="true" class="productThumbSwiper">
+  <ng-template *ngFor="let image of images" swiperSlide>
+    <img class="productThumbSwiper-item" [src]="image.image_thumb720" />
+  </ng-template>
+</swiper> -->
