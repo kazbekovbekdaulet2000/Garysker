@@ -17,8 +17,8 @@ import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confi
 
 @Component({
   selector: 'core-header-mobile',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  templateUrl: './header-mobile.component.html',
+  styleUrls: ['./header-mobile.component.scss'],
   animations: [opacityAnimation, heightOutAnimation],
 })
 export class HeaderMobileComponent implements OnInit, OnDestroy {

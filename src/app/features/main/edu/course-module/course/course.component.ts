@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
@@ -9,11 +9,9 @@ import { RatingModel } from '@core/models/api/rating.model';
 import { ListRatings } from '@core/states/ratings/ratings.actions';
 import { RatingsState } from '@core/states/ratings/ratings.state';
 import { Select, Store } from '@ngxs/store';
-import { PlyrComponent } from 'ngx-plyr';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { videoI18n } from 'src/app/shared/components/videoplayer/videoplayer.i18n';
-import { ChangeCategory } from '../../../main.actions';
+import { map } from 'rxjs/operators';
+import { ChangeCategory } from 'src/app/features/auth/main.actions';
 import { ClearCourse, ClearLesson, GetCourse, GetCurrentCourseLesson, ListCourseLessons } from '../course.actions';
 import { CourseState } from '../course.state';
 
@@ -23,32 +21,12 @@ import { CourseState } from '../course.state';
   encapsulation: ViewEncapsulation.None,
   animations: [opacityAnimation, heightAnimation]
 })
-export class CourseComponent implements AfterViewInit, OnDestroy {
+export class CourseComponent implements OnDestroy {
 
   @Select(CourseState.course) course$!: Observable<CourseDetailModel>;
   @Select(CourseState.lesson) lesson$!: Observable<LessonDetailModel>;
   @Select(CourseState.lessons) lessons$!: Observable<ListResponseModel<LessonModel>>;
   @Select(RatingsState.ratings) ratings$!: Observable<ListResponseModel<RatingModel>>;
-
-
-  @ViewChild(PlyrComponent)
-  plyr!: PlyrComponent;
-  player!: Plyr;
-
-  videoSources: Plyr.Source[] = [];
-  viderQuality!: Plyr.QualityOptions
-  videoTracks: Plyr.Track[] = []
-
-  videoOption: Plyr.Options = {
-    ratio: "16:9",
-    i18n: videoI18n,
-    autoplay: false,
-    volume: 1,
-    fullscreen: {
-      enabled: true,
-      iosNative: true,
-    },
-  }
 
   constructor(
     private store: Store,
@@ -64,17 +42,6 @@ export class CourseComponent implements AfterViewInit, OnDestroy {
     })
   }
 
-  ngAfterViewInit(): void {
-    this.lesson$.pipe(filter(obj => obj !== null)).subscribe(lesson => {
-      this.videoSources = [
-        {
-          src: lesson.video,
-          provider: 'html5'
-        }
-      ]
-    })
-  }
-
   changeCategory(id?: number) {
     if (id) {
       this.store.dispatch(new ChangeCategory(id))
@@ -85,7 +52,6 @@ export class CourseComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.videoSources = []
     this.store.dispatch([ClearCourse, ClearLesson])
   }
 

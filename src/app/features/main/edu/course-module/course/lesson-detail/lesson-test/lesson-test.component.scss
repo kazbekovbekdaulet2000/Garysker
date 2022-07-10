@@ -1,9 +1,9 @@
-@import "variables";
+@import "colors";
 
 .lesson-test {
   height: max-content;
   width: 100%;
-  background-color: #1c1b29;
+  background-color: $color-steel-gray;
   border-radius: 15px;
   padding: 24px;
 
@@ -19,7 +19,7 @@
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      border: 2px solid #1c1b29;
+      border: 2px solid $color-steel-gray;
     }
   }
   .current{

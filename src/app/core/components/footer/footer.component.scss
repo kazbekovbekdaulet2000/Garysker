@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 @import "button";
 
 footer {
@@ -6,7 +6,7 @@ footer {
   display: flex;
   flex-direction: column;
   padding: 36px 135px 12px;
-  background-color: #26212e;
+  background-color: $color-ebony-clay;
   bottom: 0px;
   width: 100%;
   font-size: 14px;
@@ -30,7 +30,7 @@ footer {
           font-weight: 600;
           font-size: 18px;
           margin-top: 0px;
-          color: #ffd2dd;
+          color: $color-pink;
         }
         a {
           margin-top: 8px;
@@ -50,7 +50,7 @@ footer {
       }
       a {
         font-size: 16px;
-        color: #9f9f9f;
+        color: $color-silver-chalicea;
         &:hover {
           color: $color-orange;
         }

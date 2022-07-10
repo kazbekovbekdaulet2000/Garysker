@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .center {
   width: 100%;
@@ -28,7 +28,7 @@
     line-height: 22px;
   }
   &-input {
-    background-color: #33323e;
+    background-color: $color-tuna;
     outline: none;
     border: none;
     height: 52px;

@@ -9,7 +9,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CourseModuleRoutingModule } from './course-module-routing.module';
 import { CourseState } from './course.state';
 import { CourseComponent } from './course/course.component';
-import { PlyrVideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
 import { RatingsService } from '@core/services/rating.service';
 import { RatingsState } from '@core/states/ratings/ratings.state';
 import { CourseProgressComponent } from './course/course-progress/course-progress.component';
@@ -23,6 +22,7 @@ import { LessonTest } from './course/lesson-detail/lesson-test/lesson-test.state
 import { BackgroundImageModule } from 'src/app/shared/directives/background-image.module';
 import { FinishCourseModalComponent } from './course/lesson-detail/finish-modal/finish-modal.component';
 import { PlyrModule } from 'ngx-plyr';
+import { VideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { PlyrModule } from 'ngx-plyr';
     InputModule,
     NgxsModule.forFeature([CourseState, LessonTest, RatingsState]),
     DatePipeModule,
-    PlyrVideoPlayerModule,
+    VideoPlayerModule,
     PlyrModule,
     BackgroundImageModule
   ],

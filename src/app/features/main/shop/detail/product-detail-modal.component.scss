@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .product {
   overflow: hidden;
@@ -46,7 +46,7 @@
         right: 0px;
         width: 100%;
         padding: 8px 12px;
-        background-color: $color-background;
+        background-color: $color-steel-gray;
         border-radius: 10px;
         &-option {
           font-weight: 400;

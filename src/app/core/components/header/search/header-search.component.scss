@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .search-bar {
   max-width: 360px;
@@ -22,7 +22,7 @@
     position: absolute;
     z-index: 100;
     border-radius: 10px;
-    background-color: #33323e;
+    background-color: $color-tuna;
     padding: 4px;
     top: 48px;
     left: 0px;

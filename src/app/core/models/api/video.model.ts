@@ -1,4 +1,5 @@
 import { UserModel } from "./user.model";
+import { VideoTranscodeModel } from "./video/video-transcode.model";
 
 
 export interface VideoModel {
@@ -23,7 +24,6 @@ export interface VideoModel {
 
 export interface VideoDetailModel extends VideoModel {
   author: UserModel,
-  video: string,
   video_quality: Array<{
     path: string,
     quality: number
@@ -31,4 +31,5 @@ export interface VideoDetailModel extends VideoModel {
   original_quality: number,
   subs_kk: string,
   youtube: string,
+  video: VideoTranscodeModel
 }

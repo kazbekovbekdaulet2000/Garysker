@@ -1,6 +1,11 @@
-import { NameModel } from "@core/services/location.service";
+import { NameModel } from "../name.model";
 
-export const cities_list: NameModel[] = [
+interface CityModel extends NameModel {
+  id: number;
+  country: number
+}
+
+export const cities_list: CityModel[] = [
   {
     "id": 1,
     "name_ru": "Абай",

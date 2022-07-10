@@ -62,10 +62,9 @@ export class ReportState {
 
   @Action(ListReports)
   ListReports({ patchState }: StateContext<StateModel>, { params }: ListReports) {
-    this.reportService.list(params)
-      .subscribe(reports => {
-        patchState({ reports });
-      })
+    this.reportService.list(params).subscribe(reports => {
+      patchState({ reports });
+    })
   }
 
   @Action(ListMoreReports)
@@ -74,16 +73,9 @@ export class ReportState {
     if (getState().reports.next) {
       const pageNumber = Number(getState().reports.next.split('page=')[1])
       const params = { page: pageNumber, category: categoryId ? categoryId : '' }
-      this.reportService.list(params)
-        .subscribe(reports => {
-          const { count, results, next, previous } = reports
-          const newReports = getState().reports
-          newReports.count = count
-          newReports.next = next
-          newReports.results = [...newReports.results, ...results]
-          newReports.previous = previous
-          patchState({ reports: newReports })
-        })
+      this.reportService.list(params).subscribe(reports => {
+        patchState({ reports: { ...reports, results: [...getState().reports.results, ...reports.results] } })
+      })
     }
   }
 
@@ -122,16 +114,10 @@ export class ReportState {
   }
 
   @Action(GetRelatedReports)
-  GetRelatedReports({ patchState, getState }: StateContext<StateModel>, { id, params }: GetRelatedReports) {
-    this.reportService.getRelated(id, params)
-      .subscribe(related_reports => {
-        // const list = getState().related_reports
-        // list.count = related_reports.count
-        // list.next = related_reports.next
-        // list.previous = related_reports.previous
-        // list.results = [...list.results, ...related_reports.results]
-        return patchState({ related_reports })
-      })
+  GetRelatedReports({ patchState }: StateContext<StateModel>, { id, params }: GetRelatedReports) {
+    this.reportService.getRelated(id, params).subscribe(related_reports => {
+      return patchState({ related_reports })
+    })
   }
 
   @Action(IncreaseReportComments)

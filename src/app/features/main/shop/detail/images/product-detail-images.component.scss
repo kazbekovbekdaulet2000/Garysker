@@ -1,67 +1,13 @@
-@import "./node_modules/swiper/swiper.scss";
-@import "variables";
 
-.productSwiper {
-  width: 100%;
-  height: 600px;
-  &-item {
+.product-swiper{
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  &-image{
     width: 100%;
     height: 100%;
     border-radius: 20px;
-    object-fit: cover;
-  }
-  .swiper-slide {
-    height: 600px;
-    background: #fff;
-    border-radius: 20px !important;
-    overflow: hidden;
-    position: relative;
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-  }
-}
-
-.productThumbSwiper{
-  width: 100%;
-  height: 100px;
-  box-sizing: border-box;
-  padding: 10px 0;
-  &-item {
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    object-fit: cover;
-  }
-  .swiper-slide {
-    height: 100px;
-    background: #fff;
-    border-radius: 20px !important;
-    overflow: hidden;
-    position: relative;
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-  }
-  .swiper-slide {
-    width: 25%;
-    height: 100%;
-    opacity: 0.4;
-  }
-  .swiper-slide-thumb-active {
-    opacity: 1;
-  }
-}
-
-.template {
-  width: 100%;
-  height: 100%;
-  background-color: $color-white;
-}
-
-@media screen and (max-width: 992px) {
-  .productSwiper {
-    height: 400px;
-    .swiper-slide {
-      height: 400px;
-    }
+    object-fit: scale-down;
   }
 }

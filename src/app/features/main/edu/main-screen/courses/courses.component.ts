@@ -33,12 +33,9 @@ export class EduCousesComponent {
   ) { }
 
   onScroll() {
-    // this.store.dispatch(ListMoreReports)
   }
 
   onCourseRoute(id: number) {
-    // this.store.dispatch(new UpdateTop(document.documentElement.scrollTop))
-    // this.router.navigate(['edu/courses', id])
     this.profile$.subscribe(user => {
       if (user?.is_superuser) {
         this.store.dispatch(new UpdateTop(document.documentElement.scrollTop))

@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .label {
   font-weight: 400;
@@ -7,7 +7,7 @@
 }
 
 .user-input {
-  background-color: #33323e;
+  background-color: $color-tuna;
   outline: none;
   border: none;
   height: 40px;

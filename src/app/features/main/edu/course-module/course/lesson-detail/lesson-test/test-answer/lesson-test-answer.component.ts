@@ -1,13 +1,11 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { TestModel } from '@core/models/api/course-test.model';
 import { TestQuestionDetailModel } from '@core/models/api/test-question.model';
-import { AnswerModel, TestService } from '@core/services/courses-test.service';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { CourseState } from '../../../../course.state';
 import { PostLessonTestQuestionAnwer } from '../lesson-test.actions';
 import { LessonTest } from '../lesson-test.state';
 
@@ -18,8 +16,8 @@ import { LessonTest } from '../lesson-test.state';
   animations: [opacityAnimation, heightAnimation]
 })
 export class CourseLessonTestQuestionComponent implements OnChanges {
-  @Input() question!: TestQuestionDetailModel
-  @Input() testId!: number
+  @Input() question: TestQuestionDetailModel
+  @Input() testId: number
 
   @Select(LessonTest.test) test$!: Observable<TestModel>
   @Select(LessonTest.questions) questions$!: Observable<TestQuestionDetailModel[]>;

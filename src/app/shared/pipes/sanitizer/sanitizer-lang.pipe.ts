@@ -20,10 +20,12 @@ export class SanitizerLangPipe implements PipeTransform {
       map(lang => {
         var re = /\/media\/uploads\//gi;
         let html = value[`${key}_${lang}`]
-        if(value.languages.includes(lang)){
-          html = value[`${key}_${lang}`]
-        }else{
-          html = value[`${key}_${value.languages[0]}`]
+        if (value.hasOwnProperty('languages')) {
+          if (value.languages.includes(lang)) {
+            html = value[`${key}_${lang}`]
+          } else {
+            html = value[`${key}_${value.languages[0]}`]
+          }
         }
         var newHtml = html.replace(re, `${environment.API}/media/uploads/`);
         return this.sanitizer.bypassSecurityTrustHtml(newHtml);

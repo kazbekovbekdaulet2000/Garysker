@@ -8,7 +8,6 @@ import { map, switchMap } from 'rxjs/operators';
 import { Select, Store } from '@ngxs/store';
 import { CommentModel } from '@core/models/api/comment.model';
 import { AuthState } from '@core/states/auth/auth.state';
-import getCategoryIcon from '@core/utils/category-icons';
 import { AppState } from '@core/states/app/app.state';
 import { LangType } from '@core/types/lang.type';
 

@@ -1,15 +1,16 @@
-@import "variables";
+@import "colors";
 
 .video-card {
   position: relative;
   overflow: hidden;
   border-radius: 20px;
+  color: white;
 
   .back {
     width: 100%;
     height: 278px;
     object-fit: cover;
-    background-color: $color-border;
+    background-color: $color-mako;
   }
 
   .small {
@@ -92,7 +93,7 @@
 }
 
 .category {
-  color: #ffd2dd;
+  color: $color-pink;
   mix-blend-mode: normal;
   font-weight: 500;
   font-size: 14px;

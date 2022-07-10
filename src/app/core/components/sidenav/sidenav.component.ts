@@ -49,8 +49,8 @@ export class SidenavComponent{
           case route.url.includes('edu'):
             this.main = 'edu'
             break;
-          case route.url.includes('products'):
-            this.main = 'products'
+          case route.url.includes('projects'):
+            this.main = 'projects'
             break;
           case route.url.includes('events'):
             this.main = 'events'

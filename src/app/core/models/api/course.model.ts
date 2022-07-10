@@ -1,9 +1,9 @@
-import { CategoryModel } from "./category.model";
+import { DescriptionModel, NameModel } from "../name.model";
 import { LectorModel } from "./lector.model";
 import { OrganizationModel } from "./organization.model";
 
 
-export interface CourseModel {
+export interface CourseModel extends NameModel, DescriptionModel {
   id: number
   organization: OrganizationModel
   category: number
@@ -12,10 +12,6 @@ export interface CourseModel {
   closed_lessons: number
   created_at: string
   updated_at: string
-  name_kk: string
-  name_ru: string
-  description_kk: string
-  description_ru: string
   duriation: number
   views: number
   image: string

@@ -3,7 +3,6 @@ import { NavigationEnd, Router } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { UserBagProductsModel } from '@core/models/api/shop-bag/product-detail.model';
-import { LocalStorageService } from '@core/services/localStorage.service';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';

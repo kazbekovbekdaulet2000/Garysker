@@ -1,3 +1,5 @@
+@import "colors";
+
 router-outlet {
   width: 100%;
   height: 100vh;
@@ -5,7 +7,7 @@ router-outlet {
 mat-sidenav {
   max-width: 320px;
   width: 100%;
-  background-color: #0c0b15;
+  background-color: $color-space;
 }
 .mat-drawer {
   position: fixed !important;

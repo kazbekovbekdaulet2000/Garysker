@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .icon {
   width: 26px;
@@ -6,7 +6,7 @@
 }
 
 .report {
-  background: #1c1b29;
+  background: $color-steel-gray;
   border-radius: 30px;
   max-width: 912px;
   position: relative;

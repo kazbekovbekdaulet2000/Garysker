@@ -1,10 +1,7 @@
+import { DescriptionModel, NameModel } from "../name.model"
 
-export interface LessonResourceModel{
+export interface LessonResourceModel extends NameModel, DescriptionModel {
   id: number
-  name_kk: string
-  name_ru: string
-  description_kk: string
-  description_ru: string
   file: string
   link: string
   course: number

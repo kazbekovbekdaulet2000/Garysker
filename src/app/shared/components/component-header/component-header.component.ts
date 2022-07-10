@@ -12,7 +12,7 @@ export class ComponentHeaderComponent {
   @Input() header: string = '';
   @Input() detail: string = '';
 
-  show_detail: boolean = false;
+  @Input() show_detail: boolean = false;
 
   constructor(
   ) { }

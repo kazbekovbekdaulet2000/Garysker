@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .breadcrumbs {
   flex: 1;
@@ -10,7 +10,7 @@
   .item {
     position: relative;
     font-size: 14px;
-    color: $color-text-100;
+    color: $color-mercury;
     font-weight: 500;
     margin-right: 12px;
     cursor: pointer;
@@ -34,7 +34,7 @@
       left: calc(100% + 4px);
       z-index: -1;
       font-size: 14px;
-      color: $color-text-100;
+      color: $color-mercury;
     }
 
     &:last-child {

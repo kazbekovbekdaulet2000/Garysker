@@ -20,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommentsState } from '@core/states/comments/comments.state';
 import { BackgroundImageModule } from 'src/app/shared/directives/background-image.module';
 import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
+import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
     CardModule,
     InfiniteScrollModule,
     ReactiveFormsModule,
+    CarouselModule,
     LangPipeModule,
     LoaderModule,
     TranslateModule,

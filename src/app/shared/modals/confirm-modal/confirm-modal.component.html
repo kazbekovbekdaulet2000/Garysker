@@ -13,7 +13,6 @@
   </div>
 
   <div class="group mt-4">
-    <!-- group-background -->
     <button *ngIf="false_ans" class="btn group-btn {{false_ans_background}}" (click)="onCancel()">{{false_ans | translate}}</button>
     <button *ngIf="true_ans" class="btn group-btn {{true_ans_background}}" (click)="onConfirm()">{{true_ans | translate}}</button>
   </div>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
+import { DonationService } from '@core/services/donation.service';
 import { environment } from '@env';
 import { SelectListConfig } from 'src/app/shared/components/input/selections/select.config';
 
@@ -56,26 +57,34 @@ export class SupportComponent {
   selfAmount = false
   
   formData = this.formBuilder.group({
-    // type: [2, Validators.required],
     amount: [1000, Validators.required],
-    name: [null, Validators.required],
+    full_name: [null, Validators.required],
+    donation: [4],
     email: [null, [Validators.required, Validators.email]],
-    rules: []
+    rules: [false, Validators.required]
   });
 
-  reqAmount: number = 1000 * 0.038
+  reqAmount: number = 1000 / 0.982
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient
+    private donationService: DonationService
   ) { }
+
+  get getAmount(): number {
+    return parseFloat(this._amount.toFixed(0))
+  }
+
+  get _amount(): number {
+    return this.formData.get('amount')?.value / 0.982 - this.formData.get('amount')?.value
+  }
 
   selectAmount(selection: SelectListConfig) {
     if (selection.id) {
       this.formData.patchValue({
         amount: selection.id
       })
-      this.reqAmount = 0.038 * selection.id
+      this.reqAmount = selection.id / 0.982
     } else {
       this.selfAmount = true
     }
@@ -98,14 +107,10 @@ export class SupportComponent {
   helpProject() {
     const payload = this.formData.getRawValue()
     if (payload.rules) {
-      payload.amount = (Number(payload.amount) + Number((this.formData.get('amount')?.value || 1000) * 0.038)) * 100
-    } else {
-      payload.amount = (payload.amount) * 100
-    }
-    const url = `${environment.API}/payment/donation/`;
-    const link = window.location.href
-    this.http.post(url, { amount: payload.amount, back_url: link }).subscribe((data: any) => {
-      window.open(data.order.checkout_url)
+      payload.amount = Number((this.formData.get('amount')?.value || 1000) / 0.982).toFixed(0)
+    } 
+    this.donationService.fetch(payload).subscribe(data=>{
+      window.open(data.ioka_answer.order.checkout_url)
     })
   }
 }

@@ -1,9 +1,9 @@
-@import "variables";
+@import "colors";
 
 .progress {
   height: max-content;
   width: 100%;
-  background-color: #1c1b29;
+  background-color: $color-steel-gray;
   border-radius: 15px;
   padding: 24px;
 

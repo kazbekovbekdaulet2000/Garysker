@@ -9,62 +9,51 @@
         <h3 class="mb-0">{{'main_screen.popular'| translate}}</h3>
       </div>
 
-      <div class="swipe">
+      <app-swiper [slides]="popular" [activeIndex]="1" [loop]="true" [spaceBetween]="spaceBetween"
+        [slidesPerView]="cellCount" [centeredSlides]="true" [horizontalPadding]="16">
 
-        <swiper #swiper [config]="config" [slidesPerView]="cellCount" [spaceBetween]="spaceBetween" class="mySwiper">
+        <ng-template let-item="item">
 
-          <ng-template swiperSlide *ngFor="let item of popular; let indx = index">
+          <div class="card-item" (click)="onNavigate(item)" [backgroundImage]="item.image" [style.height.px]="height">
 
-            <div class="mySwiper-item" (click)="onNavigate(item)">
+            <div class="logo"> G.</div>
 
-              <img [src]="item.image" alt="">
+            <div class="content">
 
-              <div class="logo"> G.</div>
+              <div class="content-header" ellipsis [ellipsis-content]="(item | lang: 'title' | async)!"></div>
 
-              <div class="content">
+              <div class="d-flex align-content-center content-category pointer">
 
-                <h5>{{item | lang: 'title' | async}}</h5>
+                <div class="content-category-icon">
+                  <img [src]="item.category | categoryImage | async">
+                </div>
 
-                <div class="d-flex align-content-center content-category pointer">
-
-                  <div class="content-category-icon">
-                    <img [src]="item.category | categoryImage | async">
+                <div class="d-flex flex-column content-category-text">
+                  {{item.category | category | async}}
+                  <div *ngIf="item.read_time" class='content-category-text-time'>{{item.read_time | ReadTime | async}} •
+                    {{item.created_at
+                    | DateRemained | async}}</div>
+                  <div *ngIf="!item.read_time" class='content-category-text-time'>{{item.created_at | DateRemained |
+                    async}}
                   </div>
-
-                  <div class="d-flex flex-column content-category-text">
-                    {{item.category | category | async}}
-                    <div *ngIf="item.read_time" class='content-category-text-time'>{{item.read_time | ReadTime | async}} •
-                      {{item.created_at
-                      | DateRemained | async}}</div>
-                    <div *ngIf="!item.read_time" class='content-category-text-time'>{{item.created_at | DateRemained | async}}
-                    </div>
-                  </div>
-
                 </div>
 
               </div>
 
             </div>
 
-          </ng-template>
+          </div>
 
-        </swiper>
+        </ng-template>
 
-        <div class="navigation no-select" (click)="slidePrev()">
-          <img src="assets/icons/arrow.svg">
-        </div>
-        <div class="navigation next no-select next" (click)="slideNext()">
-          <img src="assets/icons/arrow.svg">
-        </div>
-
-      </div>
+      </app-swiper>
 
     </div>
 
   </ng-container>
 
   <ng-template #loader>
-    <app-loader height="100%"></app-loader>
+    <app-loader height="{{height}}px"></app-loader>
   </ng-template>
 
 </div>

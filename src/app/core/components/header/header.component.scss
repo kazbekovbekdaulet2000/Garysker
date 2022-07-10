@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 nav {
   position: fixed;
@@ -8,8 +8,7 @@ nav {
   display: flex;
   flex-direction: row;
   align-items: center;
-  // background-color: $color-background;
-  background-color: #0f0e1d;
+  background-color: $color-vulcan;
   padding: 0px 50px;
 }
 
@@ -53,7 +52,7 @@ nav {
     position: absolute;
     z-index: 100;
     border-radius: 10px;
-    background-color: #33323e;
+    background-color: $color-tuna;
     padding: 4px;
     top: 48px;
     left: 0px;
@@ -141,7 +140,7 @@ nav {
   min-width: 182px;
   top: 50px;
   right: 0px;
-  background-color: #33323e;
+  background-color: $color-tuna;
   border-radius: 12px;
   padding: 16px;
   padding-top: 12px;

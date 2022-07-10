@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .event-detail {
   padding: 12px 0px;
@@ -16,7 +16,7 @@
     height: 360px;
     padding: 24px;
     padding-right: 50%;
-    background-color: $color-background;
+    background-color: $color-steel-gray;
     border-radius: 15px;
     line-height: 22px;
     &-date {

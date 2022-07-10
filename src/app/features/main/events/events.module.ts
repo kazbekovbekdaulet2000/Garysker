@@ -14,6 +14,7 @@ import { EventDetailModalComponent } from './list/detail/detail-modal.component'
 import { EventDetailFormModalComponent } from './list/detail/form/detail-modal-form.component';
 import { InputModule } from 'src/app/shared/components/input/input.module';
 import { ComponentHeaderModule } from 'src/app/shared/components/component-header/component-header.module';
+import { VideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ComponentHeaderModule } from 'src/app/shared/components/component-heade
     ComponentHeaderModule,
     InputModule,
     LangPipeModule,
-    BackgroundImageModule
+    BackgroundImageModule,
+    VideoPlayerModule
   ]
 })
 export class EventsModule {

@@ -5,6 +5,6 @@
     <img [class.expanded]="show_detail" src="assets/icons/down.svg">
   </div>
 
-  <span @heightAnimation *ngIf="show_detail" class="component-header-text mb-0 mr-4 hidden">{{detail| translate}} </span>
+  <span @heightAnimation *ngIf="show_detail" [innerHTML]="detail| translate" class="component-header-text mb-0 mr-4 hidden"></span>
 
 </div>

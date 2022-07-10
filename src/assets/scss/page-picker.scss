@@ -1,9 +1,9 @@
-@import "variables";
+@import "colors";
 
 .page-picker {
   font-weight: 500;
   &-item {
-    background-color: $color-background;
+    background-color: $color-steel-gray;
     border-radius: 20px;
     padding: 8px 12px;
     font-size: 14px;

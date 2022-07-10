@@ -22,6 +22,7 @@ import { ProductDetailImagesComponent } from './detail/images/product-detail-ima
 import { CardModalComponent } from './card/card-modal.component';
 import { ShopState } from './shop.state';
 import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
+import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
     LangPipeModule,
     ReactiveFormsModule,
     TranslateModule,
+    CarouselModule,
     ComponentHeaderModule,
     LoaderModule,
     DatePipeModule,

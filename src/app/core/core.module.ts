@@ -7,7 +7,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './states/auth/auth.state';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderInterceptor } from './interceptors/loader.intercepter';
 import { LoaderState } from './states/loader/loader.state';
 import { RequestInterceptor } from './interceptors/request.intercepter';
@@ -16,14 +15,12 @@ import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { ModalModule } from 'ngx-bootstrap/modal'
 import { PlyrModule } from 'ngx-plyr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PlyrVideoPlayerModule } from '../shared/components/videoplayer/videoplayer.module';
 import { AuthGuard } from './guards/auth.guard';
 import { ScrollState } from './states/scroll/scroll.state';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppState } from './states/app/app.state';
 import { LangPipeModule } from '../shared/pipes/lang/lang-pipe.module';
 import { ShopState } from '../features/main/shop/shop.state';
-// import { LoaderModule } from '../shared/components/loader/loader.module';
 import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
@@ -39,7 +36,6 @@ import { LoaderComponent } from './components/loader/loader.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    PlyrVideoPlayerModule,
     HttpClientModule,
     PlyrModule,
     MatSliderModule,

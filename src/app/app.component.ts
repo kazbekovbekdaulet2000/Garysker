@@ -13,8 +13,6 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'garyshker-front';
-
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
 
   constructor(
@@ -23,7 +21,6 @@ export class AppComponent {
     private observer: BreakpointObserver,
   ) {
     this.store.dispatch(Init);
-    this.store.dispatch(UpdateProfile)
     this.observer
       .observe(['(max-width: 320px)'])
       .pipe(delay(1))

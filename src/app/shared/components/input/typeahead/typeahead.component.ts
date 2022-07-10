@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { ListResponseModel } from '@core/models/api/list.model';
-import { LocationService, NameModel } from '@core/services/location.service';
+import { NameModel } from '@core/models/name.model';
+import { LocationService } from '@core/services/location.service';
 import { AppState } from '@core/states/app/app.state';
 import { LangType } from '@core/types/lang.type';
 import { Select } from '@ngxs/store';

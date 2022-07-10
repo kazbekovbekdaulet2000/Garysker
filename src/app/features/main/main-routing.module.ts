@@ -5,8 +5,7 @@ import { AboutComponent } from './about/about.component';
 
 import { MainComponent } from './main.component';
 import { NKOComponent } from './nko/nko.component';
-import { ProductsComponent } from './products/products.component';
-import { ProfileComponent } from "./profile/ProfileComponent";
+import { ProfileComponent } from "./profile/profile.component";
 import { QuestionsComponent } from './questions/questions.component';
 import { SupportComponent } from './support/support.component';
 
@@ -33,12 +32,11 @@ const routes: Routes = [
         component: NKOComponent
       },
       {
-        path: 'products',
-        component: ProductsComponent
+        path: 'projects',
+        loadChildren: () => import('./projects/project.module').then(m => m.ProjectsModule)
       },
       {
         path: 'shop',
-        // component: ProductsComponent
         loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
       },
       {

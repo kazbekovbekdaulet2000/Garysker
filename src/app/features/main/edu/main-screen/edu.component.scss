@@ -1,5 +1,5 @@
-@import "./node_modules/swiper/swiper.scss";
-@import "variables";
+@import "colors";
+
 h3 {
   font-family: "Spoof", sans-serif;
   font-weight: 700;
@@ -54,9 +54,11 @@ h3 {
     display: none;
   }
   &-item {
-    background-color: #1c1b29;
+    width: max-content;
+    background-color: $color-steel-gray;
     border-radius: 20px;
-    padding: 8px 7px;
+    padding: 8px 12px;
+    font-weight: 600 !important;
     font-size: 14px;
     transition: all 0.3s ease-in-out;
     &-icon {
@@ -66,8 +68,8 @@ h3 {
     }
   }
   .active {
-    color: rgba(0, 0, 0);
-    background-color: white;
+    color: $color-black;
+    background-color: $color-white;
   }
 }
 

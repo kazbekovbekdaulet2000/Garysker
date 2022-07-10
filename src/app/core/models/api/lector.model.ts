@@ -1,3 +1,5 @@
+import { DescriptionModel } from "../name.model"
+
 export interface LectorModel {
   id: number
   fullname: string
@@ -6,12 +8,10 @@ export interface LectorModel {
   role_ru: string
 }
 
-export interface LectorDetailModel {
+export interface LectorDetailModel extends DescriptionModel {
   id: number
   fullname: string
   icon: string
   role_kk: string
   role_ru: string
-  description_kk: string
-  description_ru: string
 }

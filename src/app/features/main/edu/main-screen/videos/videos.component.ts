@@ -18,8 +18,13 @@ import { Component } from '@angular/core';
   animations: [opacityAnimation, heightAnimation],
 })
 export class EduVideosComponent {
-  
+
   @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>;
+
+  params: any = {
+    page: 1,
+    page_size: 10
+  }
 
   constructor(
     private store: Store,
@@ -27,13 +32,14 @@ export class EduVideosComponent {
   ) { }
 
   loadVideo(next: string) {
-    const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
-    const pageNumber = Number(next.split('page=')[1])
-    let params = { page: pageNumber }
-    if (categoryId) {
-      params = { ...params, ...{ category: categoryId } }
+    if (next) {
+      this.params.page++;
+      const category = this.store.selectSnapshot(MainState.selectedCategory)
+      if (category) {
+        this.params = { ...this.params, category }
+      }
+      this.store.dispatch(new ListMoreVideos(this.params))
     }
-    this.store.dispatch(new ListMoreVideos(params))
   }
 
   onVideoRoute(id: number) {

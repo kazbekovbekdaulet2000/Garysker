@@ -1,12 +1,10 @@
+import { DescriptionModel, NameModel } from "../name.model"
 import { LectorDetailModel, LectorModel } from "./lector.model"
 import { OrganizationModel } from "./organization.model"
+import { VideoTranscodeModel } from "./video/video-transcode.model"
 
-export interface LessonModel{
+export interface LessonModel extends NameModel, DescriptionModel{
   id: number
-  name_kk: string
-  name_ru: string
-  description_kk: string
-  description_ru: string
   duriation: string
   finished: boolean
   accessible: boolean
@@ -18,7 +16,7 @@ export interface LessonDetailModel extends LessonModel{
   organization: OrganizationModel
   category: number
   lector: LectorDetailModel
-  video: string
+  video: VideoTranscodeModel
   modules: number[]
   participated: boolean
   test_id: number

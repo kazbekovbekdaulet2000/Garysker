@@ -2,10 +2,7 @@
 
   <div class="d-flex flex-row align-items-center justify-content-center menu">
 
-    <div 
-      *ngFor="let section of sections;" 
-      class="item pointer" 
-      (click)="changeFragment(section.fragment)"
+    <div *ngFor="let section of sections;" class="item pointer" (click)="changeFragment(section.fragment)"
       [class.selected]="selectedSection===section.fragment">
       {{section.name | translate}}
     </div>
@@ -19,17 +16,17 @@
       <h1 class="mb-2">{{'about.main_heading' | translate}}</h1>
 
       <div class="section-text">
-        {{'about.slogan' | translate}}  
+        {{'about.slogan' | translate}}
       </div>
 
     </div>
 
     <div class="content-video">
-      <app-plyr-player link="https://storage.yandexcloud.net/garysh-app/promo_garyshker.%20(1080p).mp4">
-      </app-plyr-player>
+      <video-player link="https://storage.yandexcloud.net/garysh-app/promo_garyshker.%20(1080p).mp4">
+      </video-player>
     </div>
 
-    <h1 class="mb-4"> {{'about.second_heading' | translate}}  </h1>
+    <h1 class="mb-4"> {{'about.second_heading' | translate}} </h1>
 
     <div *ngFor="let router of routers" class="content-product">
       <h3>{{router.name | translate}}</h3>
@@ -47,7 +44,8 @@
 
       <div *ngFor="let person of people" class="content-people-item">
 
-        <img class="content-people-item-image" [class.content-people-item-border]="person.border" [src]="person.img" alt="">
+        <img class="content-people-item-image" [class.content-people-item-border]="person.border" [src]="person.img"
+          alt="">
         <div class="content-people-item-name">{{person.name}}</div>
         <div>{{person.prop | translate}}</div>
 
@@ -78,15 +76,17 @@
       </div>
 
       <div class="content-partners-hint">
-        {{'about.partners.helper_start' | translate}} <a href="mailto:info@garyshker.com">info@garyshker.com</a> {{'about.partners.helper_end' | translate}}
+        {{'about.partners.helper_start' | translate}} <a href="mailto:info@garyshker.com">info@garyshker.com</a>
+        {{'about.partners.helper_end' | translate}}
       </div>
 
-      <input formControlName="email" class="content-partners-input" type="text" [placeholder]="'about.partners.input_placeholder' | translate">
+      <input formControlName="email" class="content-partners-input" type="text"
+        [placeholder]="'about.partners.input_placeholder' | translate">
 
       <div class="d-flex justify-content-end mt-4">
 
         <button (click)="save()" class="btn content-partners-btn">
-          {{'about.partners.send_btn'}}
+          {{'about.partners.send_btn' | translate}}
         </button>
 
       </div>

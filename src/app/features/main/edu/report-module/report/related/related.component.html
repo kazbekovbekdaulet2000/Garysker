@@ -2,23 +2,20 @@
 
   <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
     <img class="icon" src="assets/images/open-book.png" alt="">
-    <h3 class="mb-0">Читать еще</h3>
+    <h3 class="mb-0">{{'report.read_more' | translate}}</h3>
   </div>
 
-  <div 
-    @opacityAnimation 
-    *ngIf="reports.results.length > 0" 
-    infiniteScroll 
-    [infiniteScrollDistance]="4"
-    [infiniteScrollThrottle]="50" 
-    [scrollWindow]="false" 
-    [horizontal]="true" 
-    (scrolled)="onScroll()"
-    class="d-flex align-items-center gap-2 my-4 mb-5 reading">
+  <app-swiper @opacityAnimation *ngIf="reports.results.length > 0" [bottomMargin]="48" [slides]="reports.results" [activeIndex]="0"
+    [loop]="false" [navigation]="false" [spaceBetween]="24" [slidesPerView]="'auto'" [centeredSlides]="false"
+    [horizontalPadding]="16" [autoplay]="false" (isEnd)="onScroll($event)">
 
-    <report-card *ngFor="let report of reports.results" (click)="navigateReport(report.id)" [report]='report'>
-    </report-card>
+    <ng-template let-item="item">
 
-  </div>
+      <report-card (click)="navigateReport(item.id)" [report]='item'>
+      </report-card>
+
+    </ng-template>
+
+  </app-swiper>
 
 </ng-container>

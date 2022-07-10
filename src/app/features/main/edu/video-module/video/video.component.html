@@ -2,7 +2,12 @@
 
   <div class="video-holder">
     <div class="content">
-      <app-plyr-player [entity]="video" #plyr></app-plyr-player>
+      <ng-container *ngIf="video.video else alternative">
+        <video-player [video]="video.video"></video-player>
+      </ng-container>
+      <ng-template #alternative>
+        alternative
+      </ng-template>
       <app-video-details [entity]="video"></app-video-details>
       <app-video-comments [entity]="video"></app-video-comments>
     </div>

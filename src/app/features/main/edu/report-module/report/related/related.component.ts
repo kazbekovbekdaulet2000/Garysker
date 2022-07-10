@@ -4,6 +4,8 @@ import { ListResponseModel } from '@core/models/api/list.model';
 import { ReportModel } from '@core/models/api/report.model';
 import { ReportsService } from '@core/services/reports.service';
 import { Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { ClearReportDetail, GetRelatedReports } from '../../report.actions';
 
 @Component({
@@ -41,8 +43,8 @@ export class ReportRelatedComponent {
     this.router.navigate(['/edu/reports', id])
   }
 
-  onScroll() {
-    if (this.reports.next) {
+  onScroll(event: boolean) {
+    if (!!this.reports.next && event) {
       this.params.page++
       this.reportService.getRelated(this.reportId, this.params)
         .subscribe(related_reports => {

@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .item {
   position: relative;
@@ -45,7 +45,7 @@
 .resource {
   width: 100%;
   padding: 24px;
-  background-color: #1c1b29;
+  background-color: $color-steel-gray;
   border-radius: 15px;
   &-image {
     width: 100px;

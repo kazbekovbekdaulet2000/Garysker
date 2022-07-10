@@ -2,15 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
-import { ListResponseModel } from '@core/models/api/list.model';
-import { environment } from '@env';
 import { cities_list } from '@core/models/local/cities.list';
 import { countries_list } from '@core/models/local/countries.list';
+import { NameModel } from '@core/models/name.model';
 
-export interface NameModel {
+export interface CountryModel extends NameModel {
   id: number,
-  name_kk: string,
-  name_ru: string,
   country?: number
 }
 

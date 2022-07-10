@@ -1,0 +1,29 @@
+<div class="swiper-carousel" [style.width]="width" [style.margin-left]="marginLeft">
+
+  <!-- [loopedSlides]="loop ? (swiper?.swiperRef?.slides?.length || 10) : null" -->
+
+  <swiper 
+    [loop]="loop" 
+    [slidesPerView]="slidesPerView" 
+    [pagination]="pagination" 
+    [centeredSlides]="centeredSlides"
+    [spaceBetween]="spaceBetween" 
+    [navigation]="navigation"
+    [freeModeSticky]="true"
+    [freeModeMomentumBounce]="true"
+    [autoplay]="autoplay"
+    [speed]="500"
+    [mousewheel]="mousewheel"
+    class="swiper-carousel-inner"
+    (touchStart)="onSwiper($event)"
+    [style.margin-bottom.px]="pagination ? 48 : bottomMargin">
+
+    <ng-template swiperSlide *ngFor="let slide of slides; let index=index">
+
+      <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{item: slide, index: index}"></ng-template>
+
+    </ng-template>
+
+  </swiper>
+
+</div>

@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .finish-screen {
   padding: 32px 64px;
@@ -28,16 +28,16 @@
   &-btn {
     font-size: 18px;
     line-height: 24px;
-    color: #ffffff;
+    color: $color-white;
     opacity: 0.9;
     margin: 0px;
-    color: white;
     font-weight: 400;
   }
   &-background {
     font-weight: 700;
     background-color: $color-orange-dark;
     border-radius: 20px;
+    color: white;
     padding: 10px 22px;
   }
 }

@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .sidemenu {
   max-width: $sidemenu-width;
@@ -34,7 +34,7 @@
         background-color: $color-section;
       }
       &:hover {
-        background-color: $color-background;
+        background-color: $color-steel-gray;
       }
     }
 
@@ -50,7 +50,7 @@
       position: absolute;
       margin-top: 16px;
       margin-bottom: 24px;
-      background-color: $color-border;
+      background-color: $color-mako;
     }
   }
 
@@ -90,7 +90,7 @@
       }
 
       &:hover {
-        background-color: $color-background;
+        background-color: $color-steel-gray;
       }
     }
     .support {

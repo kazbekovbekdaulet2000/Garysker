@@ -1,0 +1,76 @@
+@import "colors";
+@import "page-picker";
+
+.project {
+  &-card {
+    width: 100% !important;
+    margin-bottom: 24px;
+    border-radius: 24px;
+    height: 288px;
+    &:first-child {
+      margin-top: 24px;
+    }
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+  &-first {
+    padding: 24px 64px;
+    margin-right: 12px;
+    .heading {
+      color: #faff01;
+      font-size: 36px;
+    }
+  }
+  &-second {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: end;
+    color: white !important;
+    text-align: right;
+    .title {
+      font-family: Acrobat;
+      font-weight: 700;
+    }
+    .desc {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 28px;
+    }
+  }
+}
+
+.projects-wrapper {
+  margin-right: 50px;
+  margin-bottom: 64px;
+}
+
+@media screen and (max-width: 768px) {
+  .project {
+    &-card {
+      margin-bottom: 16px;
+      border-radius: 24px;
+      height: 212px;
+      &:first-child {
+        margin-top: 16px;
+      }
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
+    &-first {
+      padding: 24px;
+    }
+    &-second {
+      padding: 24px;
+    }
+  }
+  .projects-wrapper {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

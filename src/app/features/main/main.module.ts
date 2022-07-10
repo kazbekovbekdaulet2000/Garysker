@@ -13,10 +13,8 @@ import { SanitizerPipeModule } from 'src/app/shared/pipes/sanitizer/sanitizer-pi
 import { CommentModule } from 'src/app/shared/components/comment/comment.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
-import { ProfileComponent } from "./profile/ProfileComponent";
-import { PlyrVideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
+import { ProfileComponent } from "./profile/profile.component";
 import { ProfileChangeModalComponent } from './profile/profile-change-modal/profile-change-modal.component';
-import { ProductsComponent } from './products/products.component';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { SupportComponent } from './support/support.component';
 import { SwiperModule } from "swiper/angular";
@@ -30,6 +28,8 @@ import { InputModule } from 'src/app/shared/components/input/input.module';
 import { BsModalsTemplateModule } from 'src/app/shared/modals/modals.module';
 import { ReportState } from './edu/report-module/report.state';
 import { VideoState } from './edu/video-module/video.state';
+import { VideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
+import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,6 @@ import { VideoState } from './edu/video-module/video.state';
     QuestionsComponent,
     ProfileComponent,
     ProfileChangeModalComponent,
-    ProductsComponent,
     SupportComponent,
     AboutComponent,
     NKOComponent,
@@ -50,7 +49,7 @@ import { VideoState } from './edu/video-module/video.state';
     MainRoutingModule,
     CardModule,
     CommentModule,
-    PlyrVideoPlayerModule,
+    VideoPlayerModule,
     FormsModule,
     IvyCarouselModule,
     SwiperModule,
@@ -63,6 +62,7 @@ import { VideoState } from './edu/video-module/video.state';
     NgxStickySidebarModule.withConfig({
       minWidth: 257
     }),
+    CarouselModule,
     NgxsModule.forFeature([MainState, ReportState, VideoState]),
     DatePipeModule,
     SanitizerPipeModule

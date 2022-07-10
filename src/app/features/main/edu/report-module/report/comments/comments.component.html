@@ -58,9 +58,8 @@
       <div *ngIf="(access$ | async)! !== ''" class="d-flex justify-content-center mt-2">{{'app.comment.comment_req' | translate}}</div>
     </ng-template>
 
-    <a class="d-flex loadmore my-2 align-items-center justify-content-center pointer" *ngIf="comments.next"
-      (click)="loadMore()">
-      {{app.comment.load_more' | translate}}
+    <a class="d-flex loadmore my-2 align-items-center justify-content-center pointer" *ngIf="comments.next" (click)="loadMore()">
+      {{'app.comment.load_more' | translate}}
     </a>
 
   </div>

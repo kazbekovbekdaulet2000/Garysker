@@ -17,7 +17,7 @@
 
   <div class="content" *ngIf="lesson$ | async as lesson">
 
-    <ng-container *ngIf="lesson.course_participation; else teaser">
+    <ng-container *ngIf="lesson.course_participation else teaser">
 
       <div class="d-flex align-items-center justify-content-between mb-2">
 
@@ -35,19 +35,15 @@
         {{lesson.lector.fullname}}, {{lesson.lector | lang: 'role' | async}}
       </div>
 
-      <div 
-        plyr 
-        class="videoplayer"  
-        [plyrPlaysInline]="true" 
-        [plyrCrossOrigin]="true"
-        [plyrSources]="videoSources"
-        [plyrTracks]="videoTracks"
-        [plyrOptions]="videoOption"
-        (plyrInit)="player = $event"
-      ></div>
+      <ng-container *ngIf="lesson.video else noVideo">
+        <video-player [video]="lesson.video"></video-player>
+      </ng-container>
+      <ng-template #noVideo>
+        noVideo
+      </ng-template>
 
       <app-course-lesson-detail></app-course-lesson-detail>
-      
+
       <router-outlet></router-outlet>
 
     </ng-container>
@@ -67,19 +63,16 @@
         </ng-container>
       </div>
 
-      <app-plyr-player *ngIf="!lesson.course_participation" [link]="course.teaser"></app-plyr-player>
+      <video-player *ngIf="!lesson.course_participation" [link]="course.teaser"></video-player>
 
       <app-course-detail></app-course-detail>
 
     </ng-template>
-    
+
     <div class="d-flex mt-4 flex-row gap-2">
-      
+
       <div class="d-flex flex-row gap-1">
-        <div 
-          class="rating" 
-          *ngFor="let r of [1,2,3,4,5]" 
-          [style.opacity]="course.rating >= r ? 1 : 0.6" 
+        <div class="rating" *ngFor="let r of [1,2,3,4,5]" [style.opacity]="course.rating >= r ? 1 : 0.6"
           backgroundImage="assets/images/rocket.png"> </div>
       </div>
       <div> {{course.rating}}/5.00 ({{(rating | async)! | translate}}) </div>

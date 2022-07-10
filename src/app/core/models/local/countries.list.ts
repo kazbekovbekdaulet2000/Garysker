@@ -1,4 +1,4 @@
-import { NameModel } from "@core/services/location.service";
+import { NameModel } from "../name.model";
 
 export const countries_list: NameModel[] = [
   {

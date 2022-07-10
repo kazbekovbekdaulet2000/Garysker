@@ -47,19 +47,19 @@ export class AuthState {
   }
 
   constructor(
-    private store: Store,
     private identityService: IdentityService,
-  ) {
-  }
+    private store: Store
+  ) { }
 
   @Action(Login)
   Login({ patchState }: StateContext<AuthStateModel>, { token }: Login) {
     const decodedAccessToken = JSON.parse(window.atob(token.access.split('.')[1]));
-    return patchState({
+    patchState({
       access: token.access,
       refresh: token.refresh,
       accessTokenExpireDate: moment.unix(decodedAccessToken.exp)
     });
+    this.store.dispatch(UpdateProfile)
   }
 
   @Action(UpdateToken)
@@ -72,44 +72,28 @@ export class AuthState {
   }
 
   @Action(RemoveToken)
-  RemoveToken({ patchState, setState }: StateContext<AuthStateModel>) {
-    setState({
-      access: '',
-      refresh: '',
-      profile: null,
-      accessTokenExpireDate: null
-    })
-
-    if (window.location.href.includes('profile')) {
-      this.store.dispatch(new Navigate(['']))
-      // window.history.back()
-    }
+  RemoveToken({ patchState }: StateContext<AuthStateModel>) {
+    patchState({ access: '', refresh: '', profile: null, accessTokenExpireDate: null })
   }
 
   @Action(UpdateProfile)
   UpdateProfile({ patchState }: StateContext<AuthStateModel>) {
-    this.identityService.profile()
-      .toPromise()
-      .then(profile => {
-        patchState({ profile })
-      })
+    this.identityService.profile().subscribe(profile => {
+      patchState({ profile })
+    })
   }
 
   @Action(PatchUser)
   PatchUser({ patchState }: StateContext<AuthStateModel>, { payload }: PatchUser) {
-    this.identityService.update_profile(payload)
-      .toPromise()
-      .then(profile => {
-        patchState({ profile })
-      })
+    this.identityService.update_profile(payload).subscribe(profile => {
+      patchState({ profile })
+    })
   }
 
   @Action(UpdateAvatar)
   UpdateAvatar({ patchState }: StateContext<AuthStateModel>, { file }: UpdateAvatar) {
-    this.identityService.update_profile_image(file)
-      .toPromise()
-      .then(profile => {
-        patchState({ profile })
-      })
+    this.identityService.update_profile_image(file).subscribe(profile => {
+      patchState({ profile })
+    })
   }
 }

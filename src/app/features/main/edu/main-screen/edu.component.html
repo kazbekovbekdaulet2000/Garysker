@@ -4,20 +4,15 @@
 
   <div *ngIf="categories$ | async as categories" class="d-flex align-items-center gap-2 mt-4 categories">
 
-    <div 
-      class="d-flex align-items-center categories-item" 
-      (click)="removeRouteCategory()"
+    <div class="d-flex align-items-center categories-item" (click)="removeRouteCategory()"
       [class.active]="!!!(selectedCategory$ | async)">
-        
+
       <span>{{'main_screen.all_categories'| translate}}</span>
-    
+
     </div>
 
-    <div 
-      *ngFor="let category of categories" 
-      class="d-flex align-items-center pointer categories-item"
-      (click)="updateContent(category.id)" 
-      [class.active]="(selectedCategory$ | async) === category.id">
+    <div *ngFor="let category of categories" class="d-flex align-items-center pointer categories-item"
+      (click)="updateContent(category.id)" [class.active]="(selectedCategory$ | async) === category.id">
 
       <img [src]="category.icon" class="categories-item-icon">
 

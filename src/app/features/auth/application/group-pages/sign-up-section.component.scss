@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .form {
   width: 100%;
@@ -37,9 +37,9 @@
       height: 40px;
       border-radius: 12px;
       border: 1px solid transparent;
-      background-color: #33323e;
+      background-color: $color-tuna;
       font-size: 14px;
-      color: #ffffff;
+      color: $color-white;
       transition: all 0.3s;
       margin-top: 16px;
       &:first-child {
@@ -52,9 +52,9 @@
       padding: 0 16px;
       border-radius: 12px;
       border: 1px solid transparent;
-      background-color: #33323e;
+      background-color: $color-tuna;
       font-size: 14px;
-      color: #ffffff;
+      color: $color-white;
       transition: all 0.3s;
       margin-top: 16px;
       &:first-child {
@@ -97,7 +97,6 @@
 }
 
 .user-type {
-  // border: 1px solid #515055;
   border-radius: 10px;
   padding: 12px 16px;
   margin-bottom: 8px;
@@ -108,14 +107,14 @@
     width: 35px;
     height: 35px;
     padding: 5px;
-    background-color: #1c1b29;
+    background-color: $color-steel-gray;
     border-radius: 50%;
   }
   &-info {
     h6 {
       font-size: 16px;
       font-weight: 700;
-      color: #ffffff;
+      color: $color-white;
     }
     font-size: 13px;
     font-weight: 300;

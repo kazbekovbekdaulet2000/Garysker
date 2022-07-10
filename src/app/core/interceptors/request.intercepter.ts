@@ -25,7 +25,6 @@ export class RequestInterceptor implements HttpInterceptor {
   constructor(
     private store: Store,
     private identityService: IdentityService,
-    private http: HttpClient,
     private bsModalService: BsModalService
   ) { }
 
@@ -64,10 +63,12 @@ export class RequestInterceptor implements HttpInterceptor {
     if (request.params.has('refresh_token')) {
       return false;
     }
-    const { access, accessTokenExpireDate } = this.store.selectSnapshot(AuthState);
-    if (access !== '' || !accessTokenExpireDate) {
+    const access = this.store.selectSnapshot(AuthState).access
+    const accessTokenExpireDate = this.store.selectSnapshot(AuthState).accessTokenExpireDate
+    if (!access || !accessTokenExpireDate) {
       return false;
     }
+
     const leftSeconds = moment().diff(accessTokenExpireDate, 'seconds');
     return leftSeconds > -30;
   }

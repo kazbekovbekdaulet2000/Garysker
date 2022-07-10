@@ -24,7 +24,7 @@ export class AboutComponent {
 
   routers: any = [
     { name: 'about.edu.heading', body: 'about.edu.text', route: '/edu' },
-    { name: 'about.projects.heading', body: 'about.projects.text', route: '/products' },
+    { name: 'about.projects.heading', body: 'about.projects.text', route: '/projects' },
     { name: 'about.shop.heading', body: 'about.shop.text', route: '/shop' },
     { name: 'about.event.heading', body: 'about.event.text', route: '/events' },
   ]

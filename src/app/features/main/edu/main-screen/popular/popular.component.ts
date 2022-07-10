@@ -9,6 +9,7 @@ import SwiperCore, { Autoplay, Navigation, Scrollbar, Mousewheel, SwiperOptions 
 import { MainState } from '../../../main.state';
 import { UpdateTop } from '@core/states/scroll/scroll';
 import FreeMode from 'swiper'
+import { SwiperComponent } from 'swiper/angular';
 
 SwiperCore.use([FreeMode, Autoplay, Navigation, Scrollbar, Mousewheel]);
 
@@ -21,15 +22,15 @@ SwiperCore.use([FreeMode, Autoplay, Navigation, Scrollbar, Mousewheel]);
 })
 export class EduPopularComponent {
   @Input() popular: any
-  @ViewChild('swiper', { static: false }) swiper: any;
+  @ViewChild(SwiperComponent, { static: false }) swiper: SwiperComponent | undefined;
 
   @Select(MainState.selectedCategory) selectedCategory$!: Observable<boolean>
-  config!: SwiperOptions;
 
   resizeObservable$!: Observable<Event>
   resizeSubscription$!: Subscription
   cellCount: number = window.innerWidth > 1000 ? 2 : (window.innerWidth > 640 ? 1.5 : 1.075);
   spaceBetween: number = window.innerWidth > 1000 ? 24 : (window.innerWidth > 640 ? 16 : 12);
+  height: number = window.innerWidth > 640 ? 300 : 200;
 
   constructor(
     private router: Router,
@@ -41,42 +42,29 @@ export class EduPopularComponent {
       if (Number(evt.target?.innerWidth) < 1000 && Number(evt.target?.innerWidth) >= 640) {
         this.cellCount = 1.5
         this.spaceBetween = 16
+        this.height = 300
         return
       }
       if (Number(evt.target?.innerWidth) < 640) {
         this.cellCount = 1.075
         this.spaceBetween = 12
+        this.height = 200
         return
       }
       this.cellCount = 2
+      this.height = 300
       this.spaceBetween = 24
     })
-
-    this.config = {
-      loop: true,
-      loopedSlides: 10,
-      initialSlide: 1,
-      observer: true,
-      autoplay: {
-        delay: 5000
-      },
-      // freeMode: true, 
-      freeModeSticky: true,
-      freeModeMomentumBounce: true,
-      centeredSlides: true,
-      navigation: false,
-      direction: 'horizontal'
-    };
   }
 
   slideNext() {
-    this.swiper.swiperRef.slideNext();
-    this.swiper.swiperRef.autoplay.start()
+    this.swiper?.swiperRef.slideNext();
+    this.swiper?.swiperRef.autoplay.start()
   }
 
   slidePrev() {
-    this.swiper.swiperRef.slidePrev();
-    this.swiper.swiperRef.autoplay.start()
+    this.swiper?.swiperRef.slidePrev();
+    this.swiper?.swiperRef.autoplay.start()
   }
 
   onNavigate(item: any) {

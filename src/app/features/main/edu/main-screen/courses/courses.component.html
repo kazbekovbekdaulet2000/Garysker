@@ -7,12 +7,17 @@
       <h3 class="mb-0">{{'main_screen.educate'| translate}}</h3>
     </div>
 
-    <div *ngIf="courses.results.length > 0" class="d-flex align-items-center gap-2 my-4 courses">
+    <app-swiper [slides]="courses.results" [activeIndex]="0" [loop]="false" [navigation]="false" [spaceBetween]="24"
+      [slidesPerView]="'auto'" [centeredSlides]="false" [horizontalPadding]="16" [autoplay]="false">
 
-      <app-course-card style="overflow: hidden;border-radius: 24px; min-width: 320px;"
-        *ngFor="let course of courses.results" (click)="onCourseRoute(course.id)" [course]="course"></app-course-card>
+      <ng-template let-item="item">
 
-    </div>
+        <app-course-card style="overflow: hidden;border-radius: 24px; min-width: 320px;"
+          (click)="onCourseRoute(item.id)" [course]="item"></app-course-card>
+
+      </ng-template>
+
+    </app-swiper>
 
   </div>
 

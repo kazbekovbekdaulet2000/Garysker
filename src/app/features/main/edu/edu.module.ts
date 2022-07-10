@@ -8,7 +8,6 @@ import { SanitizerPipeModule } from 'src/app/shared/pipes/sanitizer/sanitizer-pi
 import { CommentModule } from 'src/app/shared/components/comment/comment.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
-import { PlyrVideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
 import { VideoState } from './video-module/video.state';
 import { ReportState } from './report-module/report.state';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
@@ -25,6 +24,9 @@ import { EduVideosComponent } from './main-screen/videos/videos.component';
 import { RatingsService } from '@core/services/rating.service';
 import { ComponentHeaderModule } from 'src/app/shared/components/component-header/component-header.module';
 import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
+import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
+import { BackgroundImageModule } from 'src/app/shared/directives/background-image.module';
+import { EllipsisModule } from 'ngx-ellipsis';
 
 @NgModule({
   declarations: [
@@ -39,13 +41,15 @@ import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
     EduRoutingModule,
     CardModule,
     CommentModule,
-    PlyrVideoPlayerModule,
     FormsModule,
     IvyCarouselModule,
     SwiperModule,
     InfiniteScrollModule,
     LangPipeModule,
     LoaderModule,
+    CarouselModule,
+    EllipsisModule,
+    BackgroundImageModule,
     ReactiveFormsModule,
     ComponentHeaderModule,
     TranslateModule,

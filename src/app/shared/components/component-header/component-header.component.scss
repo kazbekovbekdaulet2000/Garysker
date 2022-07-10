@@ -1,15 +1,15 @@
-@import "variables";
+@import "colors";
 
 .component-header {
   margin-right: 50px;
   &-name {
     font-family: "Spoof", sans-serif;
-    font-weight: 700;
-    font-size: 48px;
     font-style: normal;
     margin-bottom: 8px;
     h1 {
       margin-bottom: 0px;
+      font-weight: 700 !important;
+      font-size: 36px !important;
     }
     img {
       transition: 0.3s ease-in-out 0s;

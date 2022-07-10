@@ -92,7 +92,7 @@ export class EventListComponent implements OnDestroy, AfterViewInit {
         false_ans: "app.link.redirect.false",
         true_ans: "app.link.redirect.true"
       },
-      class: 'modal-dialog-centered'
+      class: 'modal-dialog-centered',
     })
 
     modal.content!.onClose.subscribe(result => {
@@ -105,7 +105,7 @@ export class EventListComponent implements OnDestroy, AfterViewInit {
   onDetail(event: EventModel) {
     this.bsModalService.show(EventDetailModalComponent, {
       class: 'modal-dialog-centered modal-lg',
-      // ignoreBackdropClick: true,
+      ignoreBackdropClick: !!event.video,
       initialState: {
         event: event,
         type: this.selected_type.type

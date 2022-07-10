@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .icon {
   width: 100px;
@@ -17,19 +17,19 @@
   flex-direction: row;
   gap: 12px;
   width: 100%;
+  color: $color-white;
   &-btn {
     font-size: 18px;
     line-height: 24px;
-    color: #ffffff;
     opacity: 0.9;
     margin: 0px;
-    color: white;
     font-weight: 400;
     flex: 1;
   }
   &-background {
     font-weight: 700;
     background-color: $color-orange-dark;
+    color: white !important;
     border-radius: 20px;
     padding: 10px 22px;
   }

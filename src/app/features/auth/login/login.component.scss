@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .center {
   width: 100%;
@@ -14,7 +14,7 @@
   margin: auto;
 
   h3 {
-    color: $color-text-pink;
+    color: $color-gray-suit;
     font-size: 28px;
     font-family: "Spoof", sans-serif;
   }
@@ -38,7 +38,7 @@
 
   .user-info {
     margin-top: 18px;
-    background-color: #33323e;
+    background-color: $color-tuna;
     outline: none;
     border: none;
     height: 52px;

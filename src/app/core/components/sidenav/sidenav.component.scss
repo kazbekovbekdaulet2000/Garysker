@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 @import "button";
 
 .sidemenu {
@@ -51,7 +51,7 @@
     width: calc(100% + 32px);
     margin-left: -16px;
     padding: 8px 16px;
-    background-color: #33323e;
+    background-color: $color-tuna;
   }
   .language-switcher {
     padding: 16px 0px;

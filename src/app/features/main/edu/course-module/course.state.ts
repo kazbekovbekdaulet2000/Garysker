@@ -70,15 +70,14 @@ export class CourseState {
   constructor(
     private store: Store,
     private courseService: CourseService,
-    private ratingService: RatingsService,
     private bsModalService: BsModalService,
     private testService: TestService
   ) { }
 
   @Action(ListCourses)
-  ListCourses({ getState, patchState }: StateContext<StateModel>, { params }: ListCourses) {
+  ListCourses({ patchState }: StateContext<StateModel>, { params }: ListCourses) {
     this.courseService.list(params)
-      .subscribe(courses => {
+      .toPromise().then(courses => {
         patchState({ courses });
       })
   }
@@ -86,7 +85,7 @@ export class CourseState {
   @Action(GetCourse)
   GetCourse({ patchState }: StateContext<StateModel>, { courseId }: GetCourse) {
     this.courseService.get(courseId)
-      .subscribe(course => {
+      .toPromise().then(course => {
         patchState({ course });
         if (course.closed_lessons === course.lesson_count) {
           this.bsModalService.show(MessageModalComponent, {
@@ -103,7 +102,7 @@ export class CourseState {
   @Action(ListCourseLessons)
   ListCourseLessons({ patchState }: StateContext<StateModel>, { courseId }: ListCourseLessons) {
     this.courseService.listLessons(courseId)
-      .subscribe(lesson_list => {
+      .toPromise().then(lesson_list => {
         patchState({ lesson_list });
       })
   }
@@ -112,7 +111,7 @@ export class CourseState {
   @Action(GetCourseLesson)
   GetCourseLesson({ patchState }: StateContext<StateModel>, { courseId, lessonId }: GetCourseLesson) {
     this.courseService.getLesson(courseId, lessonId)
-      .subscribe(lesson => {
+      .toPromise().then(lesson => {
         patchState({ lesson });
       })
   }
@@ -120,7 +119,7 @@ export class CourseState {
   @Action(GetLessonTest)
   GetLessonTest({ patchState }: StateContext<StateModel>, { testId }: GetLessonTest) {
     this.testService.get(testId)
-      .subscribe(test => {
+      .toPromise().then(test => {
         patchState({ test });
       })
   }
@@ -128,7 +127,7 @@ export class CourseState {
   @Action(GetCurrentCourseLesson)
   GetCurrentCourseLesson({ patchState }: StateContext<StateModel>, { courseId }: GetCurrentCourseLesson) {
     this.courseService.getCurrentLesson(courseId)
-      .subscribe(lesson => {
+      .toPromise().then(lesson => {
         patchState({ lesson });
         this.store.dispatch(new GetCourseLessonResources(courseId, lesson.id))
       })
@@ -137,7 +136,7 @@ export class CourseState {
   @Action(GetCourseLessonResources)
   GetCourseLessonResources({ patchState }: StateContext<StateModel>, { courseId, lessonId }: GetCourseLessonResources) {
     this.courseService.getResources(courseId, lessonId)
-      .subscribe(resourses => {
+      .toPromise().then(resourses => {
         patchState({ resourses });
       })
   }

@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.store.selectSnapshot(AuthState.access)) {
+    if (this.store.selectSnapshot(AuthState).access) {
       this.store.dispatch([UpdateProfile]);
       this.router.navigate(['/edu'])
       return false;

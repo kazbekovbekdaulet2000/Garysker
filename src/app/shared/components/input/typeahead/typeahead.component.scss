@@ -1,3 +1,5 @@
+@import "colors";
+
 .label {
   font-weight: 400;
   font-size: 16px;
@@ -5,13 +7,13 @@
 }
 
 .user-input {
-  background-color: #33323e;
+  background-color: $color-tuna;
   outline: none;
   border: none;
   height: 40px;
   font-size: 14px;
   width: 100%;
-  color: white !important;
+  color: $color-white !important;
   padding: 0px 16px;
   border: 1px solid transparent;
   border-radius: 8px;

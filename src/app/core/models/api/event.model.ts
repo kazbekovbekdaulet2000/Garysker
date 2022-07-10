@@ -1,9 +1,8 @@
-export interface EventModel {
+import { DescriptionModel, NameModel } from "../name.model";
+import { VideoTranscodeModel } from "./video/video-transcode.model";
+
+export interface EventModel extends NameModel, DescriptionModel {
   id: number,
-  name_ru: string,
-  name_kk: string,
-  description_ru: string,
-  description_kk: string,
   address_ru: string,
   address_kk: string,
   address_link: string,
@@ -15,5 +14,6 @@ export interface EventModel {
   canceled: boolean,
   max_user_count: number | null,
   participants_count: number,
-  participant: boolean
+  participant: boolean,
+  video: VideoTranscodeModel
 }

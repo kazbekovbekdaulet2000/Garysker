@@ -1,9 +1,6 @@
-import { UserModel } from "./user.model";
+import { NameModel } from "../name.model";
 
-
-export interface OrganizationModel {
+export interface OrganizationModel extends NameModel {
   id: number
-  name_kk: string
-  name_ru: string
   icon: string
 }
