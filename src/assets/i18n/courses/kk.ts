@@ -1,6 +1,10 @@
 import { LocaleDataModel } from "@core/models/local/locale.model";
+import teaser from './teaser/kk'
+import lesson from './lesson/kk'
 
 const course: LocaleDataModel = {
+  teaser,
+  lesson,
   time: {
     min_1: 'бір минут',
     min_2_4: '{{time}} минут',
@@ -21,21 +25,14 @@ const course: LocaleDataModel = {
     year_2_4: '{{time}} жыл',
     year_5: '{{time}} жыл',
   },
-  lesson: {
-    cnt_1: "{{count}} сабақ",
-    cnt_2_4: "{{count}} сабақ",
-    cnt_5: "{{count}} сабақ",
-    access_message: 'Келесі сабақ енді қолжетімді',
-    access_ans: 'жақсы'
-  },
   progress: {
     lesson_ended: '{{number}}/{{count}} аяқталды',
     rating_header: 'Пікірлер',
     rating_show: 'барлығын көру'
   },
   lesson_num: 'Сабақ {{number}}/{{count}}',
-  description_header: 'Сипаттама',
-  resources_header: 'Материалдар',
+  description_tab: 'Сипаттама',
+  resources_tab: 'Материалдар',
   lectors: 'Лекторлар:',
   lector_header: 'Лектор туралы',
   pass_test: 'Сынақтан өтіп, әрі қарай өту',

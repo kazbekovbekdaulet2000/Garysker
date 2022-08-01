@@ -1,17 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
-import { ListResponseModel } from '@core/models/api/list.model';
-import { ReportDetailModel, ReportModel } from '@core/models/api/report.model';
-import { CommentsService } from '@core/services/comments.service';
+import { ReportDetailModel } from '@core/models/api/report.model';
 import { AppState } from '@core/states/app/app.state';
 import { AuthState } from '@core/states/auth/auth.state';
 import { ClearComments, LikeComment, ListComments } from '@core/states/comments/comments.actions';
-import { CommentsState } from '@core/states/comments/comments.state';
 import { LangType } from '@core/types/lang.type';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -26,7 +22,6 @@ import { ReportCommentsComponent } from './comments/comments.component';
 @Component({
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss'],
-  encapsulation: ViewEncapsulation.None,
   animations: [opacityAnimation, heightAnimation]
 })
 export class ReportComponent implements OnDestroy {
@@ -49,11 +44,13 @@ export class ReportComponent implements OnDestroy {
     private title: Title,
   ) {
     window.scrollTo(0, 0)
+    
     this.activatedRoute.params.subscribe(({ id }) => {
       this.reportId = id
       this.store.dispatch(new GetReport(id))
       this.store.dispatch(new ListComments('reports', id))
     })
+
     this.lang$.subscribe(lang => {
       this.store.select(ReportState.report).pipe(filter(obj => !!obj)).subscribe(report => {
         this.title.setTitle(lang === 'ru' ? report.title_ru : report.title_kk)

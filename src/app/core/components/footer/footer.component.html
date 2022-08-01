@@ -1,53 +1,50 @@
-<footer>
+<footer class="gap-2">
 
-  <div class="content">
-
-    <div class="content-info">
-      <div class="content-info-item">
-        <a class="main">{{'footer.projects.title' | translate}}</a>
-        <a routerLink="/edu">{{'footer.projects.edu' | translate}}</a>
-        <a routerLink="/projects">{{'footer.projects.project' | translate}}</a>
-        <a routerLink="/shop">{{'footer.projects.shop' | translate}}</a>
-        <a routerLink="/events">{{'footer.projects.events' | translate}}</a>
-      </div>
-      <div class="content-info-item">
-        <a class="main">{{'footer.about.title' | translate}}</a>
-        <a routerLink="/about" [fragment]="'us'">{{'footer.about.garysh' | translate}}</a>
-        <a routerLink="/about" [fragment]="'partners'">{{'footer.about.partners' | translate}}</a>
-        <a routerLink="/questions">{{'footer.about.faq' | translate}}</a>
-        <a routerLink="/nko">{{'footer.about.docs' | translate}}</a>
-      </div>
-    </div>
-
-    <div class="content-contacts">
-      <div class="content-contacts-main">{{'footer.requests.title' | translate}}</div>
-      <a href="mailto:info@garyshker.com">{{'footer.requests.email' | translate}}</a>
-      <a href="tel:{{'footer.requests.phone' | translate}}">{{'footer.requests.phone' | translate}}</a>
-    </div>
-
-    <button routerLink="support" class="btn project-btn">{{'footer.help' | translate}}</button>
-
+  <div class="main">
+    <div class="icon" routerLink=''></div>
+    <div class="copyright" translate="Copyright © Garyshker 2022"></div>
+    <a class="confidental"
+      href="https://storage.yandexcloud.net/garysh-app/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8.docx"
+      target="_blank"> {{'footer.privacy_polycy' | translate}} </a>
   </div>
 
-  <div class="bottom">
-    <div class="bottom-rules">
-      <a href="https://storage.yandexcloud.net/garysh-app/%D0%9F%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BA%D0%BE%D0%BD%D1%84%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8.docx" target="_blank"> {{'footer.privacy_polycy' | translate}} </a>
+  <div class="content">
+    <div class="content-header" routerLink="edu" translate="footer.projects.title"></div>
+    <div class="d-flex flex-column">
+      <a class="content-item" routerLink="/edu" translate="footer.projects.edu"></a>
+      <a class="content-item" routerLink="/projects" translate="footer.projects.project"></a>
+      <a class="content-item" routerLink="/shop" translate="footer.projects.shop"></a>
+      <a class="content-item" routerLink="/events" translate="footer.projects.events"></a>
     </div>
+  </div>
 
-    <div class="bottom-social">
-      <a href="https://www.youtube.com/c/GARYSHKER" target="_blank">
-        <img src="assets/icons/youtube.svg" draggable=false>
-      </a>
-
-      <a href="https://t.me/garyshkerchat" target="_blank">
-        <img src="assets/icons/telegram.svg" draggable=false>
-      </a>
-
-      <a href="https://www.instagram.com/garyshkerr/" target="_blank">
-        <img src="assets/icons/insta.svg" draggable=false>
-      </a>
+  <div class="content">
+    <div class="content-header" routerLink="edu" translate="footer.about.title"></div>
+    <div class="d-flex flex-column">
+      <a class="content-item" routerLink="/about" [fragment]="'us'" translate="footer.about.garysh"></a>
+      <a class="content-item" routerLink="/about" [fragment]="'partners'" translate="footer.about.partners"></a>
+      <a class="content-item" routerLink="/questions" translate="footer.about.faq"></a>
+      <a class="content-item" routerLink="/nko" translate="footer.about.docs"></a>
     </div>
+  </div>
 
+  <div class="content">
+    <div class="content-header" routerLink="edu" translate="footer.requests.title"></div>
+    <div class="d-flex flex-column">
+      <a class="content-item" [href]="'tel:' + ('footer.requests.phone' | translate)" translate="footer.requests.phone"></a>
+      <a class="content-item" target="_blank" [href]="'mailto:' + ('footer.requests.email' | translate)" translate="footer.requests.email"></a>
+      <a class="content-item" target="_blank" [href]="'mailto:' + ('footer.requests.email2' | translate)" translate="footer.requests.email2"></a>
+      <a class="content-item" target="_blank" href="https://go.2gis.com/gygevb" translate="footer.requests.address"></a>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="content-header" routerLink="edu" translate="footer.projects.title"></div>
+    <div class="social">
+      <a href="https://www.instagram.com/garyshkerr/" target="_blank" class="social-item"><i class="g-icon-instagram"></i></a>
+      <a href="https://t.me/garyshkerchat" target="_blank" class="social-item"><i class="g-icon-telegram"></i></a>
+      <a href="https://www.youtube.com/c/GARYSHKER" target="_blank" class="social-item"><i class="g-icon-youtube"></i></a>
+    </div>
   </div>
 
 </footer>

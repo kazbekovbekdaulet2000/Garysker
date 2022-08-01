@@ -42,7 +42,7 @@ export class EventDetailFormModalComponent implements OnInit {
     payload.event = this.eventId
     this.eventService.participate(this.eventId, payload).subscribe(data => {
       this.bsModalService.show(MessageModalComponent, {
-        initialState: { message: "events.register.apply.success", icon: 'err_sticker_2' },
+        initialState: { message: "events.register.apply.success", icon: 'sticker2' },
         class: 'modal-dialog-centered'
       })
       this.closeModal(false)

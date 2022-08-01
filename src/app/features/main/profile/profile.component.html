@@ -27,13 +27,10 @@
 
     <div @heightAnimation *ngIf="reports.results.length > 0">
 
-      <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
-        <img class="icon" src="assets/images/open-book.png" alt="">
-        <h3 class="mb-0">{{'app.profile.reading' | translate}}</h3>
-      </div>
+      <app-section-header text="app.profile.reading" icon="assets/images/open-book.png" *ngIf="reports.results.length > 0"></app-section-header>
 
       <app-swiper [mousewheel]="false" [slides]="reports.results" [activeIndex]="0" [loop]="false" [navigation]="false" [spaceBetween]="24"
-        [slidesPerView]="'auto'" [centeredSlides]="false" [horizontalPadding]="16" [autoplay]="false" (isEnd)="onScroll($event)">
+        [slidesPerView]="'auto'" [centeredSlides]="false" [horizontalPadding]="0" [autoplay]="false" (isEnd)="onScroll($event)">
 
         <ng-template let-item="item">
 
@@ -52,10 +49,8 @@
 
     <div @heightAnimation *ngIf="videos.results.length > 0">
 
-      <div class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
-        <img class="icon" src="assets/images/video-camera.png" alt="">
-        <h3 class="mb-0">{{'app.profile.watching' | translate}}</h3>
-      </div>
+      <app-section-header text="app.profile.watching" icon="assets/images/video-camera.png" *ngIf="videos.results.length > 0"></app-section-header>
+
 
       <div *ngIf="videos.results.length > 0" class="videos">
 
@@ -66,7 +61,7 @@
 
       <div *ngIf="videos.next" class="d-flex flex-column align-content-center align-items-center pointer mb-5"
         (click)="loadVideo()">
-        {{'main_screen.view_more' | translate}}
+        <span>{{'main_screen.view_more' | translate}}</span>
         <img src="assets/icons/down.svg" alt="">
       </div>
 

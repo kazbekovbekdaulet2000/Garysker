@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { VideoTranscodeModel } from '@core/models/api/video/video-transcode.model';
@@ -7,18 +7,23 @@ import * as Plyr from 'plyr';
 import { videoI18n } from './videoplayer.i18n';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'video-player',
+  selector: 'app-video-player',
   templateUrl: './videoplayer.component.html',
   styleUrls: ['./videoplayer.component.scss'],
   animations: [opacityAnimation, heightOutAnimation]
 })
-export class VideoPlayerComponent implements OnInit, OnDestroy {
-  
+export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.video) {
+      this.ngOnInit()
+    }
+  }
+
   @Input() video: VideoTranscodeModel | undefined;
   @Input() link: string | undefined;
   @ViewChild(PlyrComponent) plyr: PlyrComponent | undefined;
-  
+
   player!: Plyr;
   videoSources: Plyr.Source[] = [];
   viderQuality!: Plyr.QualityOptions
@@ -40,15 +45,15 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if(this.video){
-      this.videoSources = this.video.qualities.map(obj=>{
+    if (this.video) {
+      this.videoSources = this.video.qualities.map(obj => {
         return {
           src: obj.url.split('?')[0],
           provider: 'html5',
           size: obj.quality
         }
       })
-      this.videoSources.push({src: this.video.video, provider:'html5'})
+      this.videoSources.push({ src: this.video.video, provider: 'html5' })
     }
     if (this.link) {
       this.videoSources = [

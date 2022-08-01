@@ -1,4 +1,7 @@
 import { LocaleDataModel } from "@core/models/local/locale.model";
+import teaser from './teaser/ru'
+import lesson from './lesson/ru'
+
 
 const course: LocaleDataModel = {
   time: {
@@ -21,21 +24,14 @@ const course: LocaleDataModel = {
     year_2_4: '{{time}} года',
     year_5: '{{time}} лет',
   },
-  lesson: {
-    cnt_1: "{{count}} урок",
-    cnt_2_4: "{{count}} урока",
-    cnt_5: "{{count}} уроков",
-    access_message: 'След урок теперь доступен',
-    access_ans:'хорошо'
-  },
   progress: {
     lesson_ended: '{{number}}/{{count}} Завершено',
     rating_header: 'Отзывы',
     rating_show: 'смотреть все'
   },
   lesson_num: 'Урок {{number}}/{{count}}',
-  description_header: 'Описание',
-  resources_header: 'Материалы',
+  description_tab: 'Описание',
+  resources_tab: 'Материалы',
   lectors: 'Лекторы:',
   lector_header: 'О лекторе',
   pass_test: 'Сдать тест и перейти далее',
@@ -72,6 +68,8 @@ const course: LocaleDataModel = {
     back: 'Окей, хочу назад',
     forward: `LET'S GOOO`
   },
+  teaser,
+  lesson
 };
 
 export default course;

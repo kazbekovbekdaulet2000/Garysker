@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { QuestionModel } from '@core/models/api/question.model';
+import { CourseService } from '@core/services/courses.service';
 import { SupportService } from '@core/services/support.service';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import { ListCourses } from '../main/edu/course-module/course.actions';
 import { ListReports } from '../main/edu/report-module/report.actions';
 import { ListVideos } from '../main/edu/video-module/video.actions';
 import {
@@ -40,7 +40,8 @@ export class MainState {
 
   constructor(
     private store: Store,
-    private supportService: SupportService
+    private supportService: SupportService,
+    private courseService: CourseService
   ) {
   }
 
@@ -52,7 +53,7 @@ export class MainState {
     }
     this.store.dispatch(new ListReports(params))
     this.store.dispatch(new ListVideos(params))
-    this.store.dispatch(new ListCourses(params))
+    this.courseService.list(params).subscribe(()=>{})
     patchState({ selectedCategory: id })
   }
 

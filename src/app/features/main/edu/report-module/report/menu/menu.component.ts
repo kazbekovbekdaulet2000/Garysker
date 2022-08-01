@@ -11,7 +11,7 @@ import { ChangeCategory } from 'src/app/features/main/main.actions';
 })
 export class ReportMenuComponent {
 
-  @Input() report!: ReportDetailModel;
+  @Input() report: ReportDetailModel;
 
   constructor(
     private store: Store,

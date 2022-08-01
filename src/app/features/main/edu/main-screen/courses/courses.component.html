@@ -1,14 +1,11 @@
-<ng-container *ngIf="courses$ | async as courses; else loader">
+<ng-container *ngIf="courseService.courses else loader">
 
-  <div @opacityAnimation *ngIf="courses.results.length > 0">
+  <div @opacityAnimation *ngIf="courseService.courses.results.length > 0">
 
-    <div class="d-flex flex-row align-items-center gap-2" *ngIf="courses.results.length > 0">
-      <img class="icon" src="assets/images/educate_logo.png" alt="">
-      <h3 class="mb-0">{{'main_screen.educate'| translate}}</h3>
-    </div>
+    <app-section-header text="main_screen.educate" icon="assets/images/educate_logo.png"></app-section-header>
 
-    <app-swiper [slides]="courses.results" [activeIndex]="0" [loop]="false" [navigation]="false" [spaceBetween]="24"
-      [slidesPerView]="'auto'" [centeredSlides]="false" [horizontalPadding]="16" [autoplay]="false">
+    <app-swiper [slides]="courseService.courses.results" [activeIndex]="0" [loop]="false" [navigation]="false" [spaceBetween]="24"
+      [slidesPerView]="'auto'" [centeredSlides]="false" [horizontalPadding]="0" [autoplay]="false">
 
       <ng-template let-item="item">
 

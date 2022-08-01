@@ -84,7 +84,7 @@ export class AboutComponent {
       this.bsModalService.show(MessageModalComponent, {
         initialState: {
           message: "app.about.success_save_message",
-          icon: 'err_sticker_2'
+          icon: 'sticker2'
         },
         class: 'modal-dialog-centered'
       })

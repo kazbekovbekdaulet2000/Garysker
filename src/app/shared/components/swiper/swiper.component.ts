@@ -16,6 +16,7 @@ export class CarouselComponent implements AfterViewInit {
   @Input() activeIndex: number = 0;
   @Input() horizontalPadding: number = 0;
   @Input() loop: boolean = false;
+  @Input() class: 'swiper-carousel' | 'swiper-carousel-inner' = 'swiper-carousel-inner';
   @Input() pagination: any = false
   @Input() slidesPerView: number | 'auto' = 'auto';
   @Input() spaceBetween: number = 8;

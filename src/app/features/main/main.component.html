@@ -1,8 +1,6 @@
 <div class="wrapper">
 
-  <div #sidebar class="sidebar">
-    <core-sidemenu></core-sidemenu>
-  </div>
+  <app-sidemenu [contentHeight]="contentHeight"></app-sidemenu>
 
   <div #content class="main">
     <router-outlet></router-outlet>
@@ -10,4 +8,4 @@
 
 </div>
 
-<core-footer></core-footer>
+<app-footer></app-footer>

@@ -5,7 +5,7 @@
   </div>
 
   <ng-container *ngIf="event.video else poster">
-    <video-player [video]="event.video"></video-player>
+    <app-video-player [video]="event.video"></app-video-player>
   </ng-container>
   <ng-template #poster>
 
@@ -23,7 +23,7 @@
       </div>
 
       <div class="event-detail-item-title">
-        {{event | lang: 'name' | async}}
+        {{event | lang | async}}
       </div>
 
       <div class="d-flex gap-2 align-items-center">

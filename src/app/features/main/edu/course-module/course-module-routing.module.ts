@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CourseComponent } from './course/course.component';
-import { CourseLessonTestComponent } from './course/lesson-detail/lesson-test/lesson-test.component';
+import { CourseLessonComponent } from './course/lesson/course-lesson.component';
+import { CourseLessonQuizComponent } from './course/lesson/quiz/course-lesson-quiz.component';
+import { CourseLessonTabsComponent } from './course/lesson/tabs/course-lesson-tabs.component';
 
 const routes: Routes = [
   {
@@ -9,11 +11,19 @@ const routes: Routes = [
     component: CourseComponent,
     children: [
       {
-        path: 'test',
-        component: CourseLessonTestComponent
+        path: '',
+        component: CourseLessonTabsComponent
       },
+      {
+        path: 'quiz',
+        component: CourseLessonQuizComponent
+      }
     ]
   },
+  {
+    path: ':id/current_lesson',
+    component: CourseLessonComponent
+  }
 ];
 
 @NgModule({

@@ -18,7 +18,9 @@ const footer: LocaleDataModel = {
   requests: {
     title: "Сұрақтар мен ұсыныстар үшін",
     email: "info@garyshker.com",
-    phone: "8 702 000 6369",
+    email2: "volunteer@garyshker.com",
+    phone: "+7 702 000 63 69",
+    address: 'г.Алматы пр.Достык 162к4'
   },
   help: "Жобаны қолдау",
   privacy_polycy: "Privacy Policy"

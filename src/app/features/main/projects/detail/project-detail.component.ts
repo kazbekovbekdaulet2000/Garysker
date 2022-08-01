@@ -64,7 +64,7 @@ export class ProjectDetailComponent {
             this.bsModalService.show(MessageModalComponent, {
               initialState: {
                 message: "projects.error.not_found",
-                icon: 'err_sticker_1'
+                icon: 'sticker1'
               },
               class: 'modal-dialog-centered'
             })

@@ -184,7 +184,7 @@ export class HeaderMobileComponent implements OnInit, OnDestroy {
     this.dropdown = false
     const modal = this.bsModalService.show(ConfirmModalComponent, {
       initialState: {
-        icon: "err_sticker_2",
+        icon: "stickers/sticker2",
         message: "auth.logout_modal.title",
         false_ans: "auth.logout_modal.false",
         true_ans: "auth.logout_modal.true",

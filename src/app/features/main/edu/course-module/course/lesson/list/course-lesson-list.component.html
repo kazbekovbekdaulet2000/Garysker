@@ -1,0 +1,59 @@
+<div @opacityAnimation class="wrapper" *ngIf="courseService.lessons as lessons">
+
+  <div class="header" *ngIf="courseService.lesson">{{courseService.lesson | lang | async}}</div>
+
+  <div class="count" *ngIf="courseService.lesson" translate="course.progress.lesson_ended" [translateParams]="{number: completedCount, count: lessons.length}"></div>
+
+  <div class="d-flex flex-row mb-3" *ngIf="courseService.lesson">
+
+    <div 
+      class="progress pointer" 
+      [class.active]="lesson.id === courseService.lesson.id" 
+      *ngFor="let lesson of lessons"
+      (click)="changeLesson(lesson.id)">
+    </div>
+
+  </div>
+  
+  <ng-container *ngIf="courseService.lesson else teaser">
+
+    <div class="d-flex flex-column">
+      <div 
+        class="lesson" 
+        [class.pointer]="courseService.lesson"
+        [class.active]="lesson.id === courseService.lesson.id" 
+        [class.disabled]="!(lesson.finished || lesson.current)" 
+        (click)="changeLesson(lesson.id)"
+        *ngFor="let lesson of lessons; let i=index;">
+
+        <div class="lesson-pagination">{{i+1}}</div>
+
+        <div class="lesson-name">{{lesson | lang | async}}</div>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+  <ng-template #teaser>
+
+    <div class="header">{{'course.teaser.lessons_list' | translate}}</div>
+
+    <div class="d-flex flex-column">
+
+      <div 
+        class="lesson no-hover pointer" 
+        *ngFor="let lesson of lessons; let i=index;">
+
+        <div class="lesson-pagination">{{i+1}}</div>
+
+        <div class="lesson-name">{{lesson | lang | async}}</div>
+
+      </div>
+
+    </div>
+
+  </ng-template>
+
+</div>

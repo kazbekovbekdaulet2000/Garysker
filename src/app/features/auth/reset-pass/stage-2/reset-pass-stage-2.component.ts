@@ -40,7 +40,7 @@ export class ResetPassStageTwoComponent {
         this.timer$ = of(0)
         const modal = this.bsService.show(ConfirmModalComponent, {
           initialState: {
-            icon: "err_sticker_2",
+            icon: "stickers/sticker2",
             message: "auth.error.expire",
             false_ans: "auth.buttons.back",
             true_ans: "auth.buttons.force_reset",
@@ -125,7 +125,7 @@ export class ResetPassStageTwoComponent {
             initialState: {
               title: 'auth.reset.success.title',
               message: "auth.reset.success.message",
-              icon: 'err_sticker_2'
+              icon: 'sticker2'
             },
             class: 'modal-dialog-centered'
           })

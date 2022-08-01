@@ -21,11 +21,14 @@ import { CommentsState } from '@core/states/comments/comments.state';
 import { BackgroundImageModule } from 'src/app/shared/directives/background-image.module';
 import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
 import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
+import { ReportContentComponent } from './report/content/report-content.component';
+import { SectionHeaderModule } from 'src/app/shared/components/section-header/section-header.module';
 
 
 @NgModule({
   declarations: [
     ReportComponent,
+    ReportContentComponent,
     ReportMenuComponent,
     ReportRelatedComponent,
     ReportCommentsComponent,
@@ -40,6 +43,7 @@ import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
     InfiniteScrollModule,
     ReactiveFormsModule,
     CarouselModule,
+    SectionHeaderModule,
     LangPipeModule,
     LoaderModule,
     TranslateModule,

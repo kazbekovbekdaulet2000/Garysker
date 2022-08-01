@@ -4,8 +4,6 @@ import { ListResponseModel } from '@core/models/api/list.model';
 import { ReportModel } from '@core/models/api/report.model';
 import { ReportsService } from '@core/services/reports.service';
 import { Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { ClearReportDetail, GetRelatedReports } from '../../report.actions';
 
 @Component({

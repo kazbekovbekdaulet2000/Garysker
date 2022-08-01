@@ -1,25 +1,27 @@
 import { DescriptionModel, NameModel } from "../name.model";
-import { LectorModel } from "./lector.model";
 import { OrganizationModel } from "./organization.model";
+import { VideoTranscodeModel } from "./video/video-transcode.model";
 
 
 export interface CourseModel extends NameModel, DescriptionModel {
-  id: number
-  organization: OrganizationModel
-  category: number
-  lectors: LectorModel[]
-  inprogress: boolean
-  closed_lessons: number
-  created_at: string
-  updated_at: string
-  duriation: number
-  views: number
-  image: string
-  rating: number
-  lesson_count: number
-  teaser: string
+  organization: OrganizationModel;
+  created_at: string;
+  updated_at: string;
+  participant: boolean;
+  likes_count: number;
+  comments_count: number;
+  reviews_count: number;
+  bookmarks_count: number;
+  duriation: string;
+  views: number;
+  image: string;
+  lesson_count: number;
+  languages: string;
+  category: number;
+  teaser: VideoTranscodeModel
 }
 
 export interface CourseDetailModel extends CourseModel {
-  ratings_count: number
+  rating: number;
+  ratings_count: number;
 }

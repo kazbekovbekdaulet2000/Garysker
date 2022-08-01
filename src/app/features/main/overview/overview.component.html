@@ -1,0 +1,52 @@
+<div class="overview" backgroundImage="assets/icons/main-background.svg" size="contain" position="center top">
+
+  <div class="header">
+    <div class="header-title">Здесь мы <span style="color: var(--color-orange);">развиваемся</span> <br>и делимся пользой</div>
+    <div class="header-desc"> Garyshker - это образовательный проект, где мы обсуждаем важные темы для общества. Здесь мы развиваемся и делимся пользой </div>
+    <div class="header-btns">
+      <button class="btn btn-orange-outline btn-orange-transparent">О проекте</button>
+      <button class="btn btn-orange-outline btn-orange-transparent">Стать частью комьюнити</button>
+    </div>
+  </div>
+
+  <div class="pages">
+    <div class="pages-item pointer" [class.top]="i%2===0" *ngFor="let project of projects; let i=index">
+      <div class="title" [translate]="project.title"></div>
+      <div class="desc" [translate]="project.desc"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="edu">
+  <div class="edu-title">Образование</div>
+  <div class="edu-desc">Направление, открывающее возможность бесплатно изучать, смотреть и читать материалы в свежем формате</div>
+
+  <app-swiper [mousewheel]="true" [slides]="courses" [activeIndex]="0" [loop]="false" [navigation]="true" [spaceBetween]="24"
+    slidesPerView="auto" [horizontalPadding]="0" class="swiper-carousel" [autoplay]="false" [bottomMargin]="0">
+
+    <ng-template let-item="item">
+
+      <div class="edu-course" [style]="'background:'+ item.background + ';' + 'color:'+item.color+';'">
+
+        <div class="content">
+          <div class="content-category">{{item.category}}</div>
+          <div class="content-text">
+            <div class="content-text-topic">{{item.title}}</div>
+            <div class="content-text-duriation">
+              <div>{{item.duriation}}</div>
+              <div>{{item.tag}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo" [backgroundImage]="item.photo"></div>
+
+      </div>
+
+    </ng-template>
+
+  </app-swiper>
+
+
+</div>

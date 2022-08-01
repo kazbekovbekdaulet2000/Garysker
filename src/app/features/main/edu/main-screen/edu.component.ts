@@ -11,13 +11,12 @@ import { ChangeCategory } from '../../main.actions';
 import { MainState } from '../../main.state';
 import { ReportState } from '../report-module/report.state';
 import { VideoState } from '../video-module/video.state';
-import { Component, ViewEncapsulation, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { ClearReportList } from '../report-module/report.actions';
 import { ClearVideoList } from '../video-module/video.actions';
 import { AppState } from '@core/states/app/app.state';
 import { CategoryModel } from '@core/models/api/category.model';
-import { ClearCourseList } from '../course-module/course.actions';
 import { Meta, Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -26,7 +25,6 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './edu.component.html',
   styleUrls: ['./edu.component.scss'],
   animations: [opacityAnimation, heightAnimation],
-  encapsulation: ViewEncapsulation.None,
 })
 export class EduComponent implements AfterViewInit, OnDestroy {
 
@@ -90,7 +88,7 @@ export class EduComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch([ClearReportList, ClearCourseList])
+    this.store.dispatch([ClearReportList])
   }
 
   removeRouteCategory() {
@@ -102,7 +100,7 @@ export class EduComponent implements AfterViewInit, OnDestroy {
   }
 
   updateContent(id: number) {
-    this.store.dispatch([ClearReportList, ClearCourseList, ClearVideoList])
+    this.store.dispatch([ClearReportList, ClearVideoList])
 
     const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
     if (categoryId !== id) {

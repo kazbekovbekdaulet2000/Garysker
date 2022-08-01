@@ -73,7 +73,7 @@ nav {
   &-input {
     flex: 1;
     color: #595967;
-    transition: 0.2s all;
+    transition: 0.25s all;
     &:focus {
       color: #dadada;
     }
@@ -295,7 +295,7 @@ mat-sidenav-container {
     font-weight: 500;
     color: #ffa800;
     &-icon {
-      transition: 0.3s ease-in-out;
+      transition: 0.25s ease-in-out;
       filter: brightness(0) saturate(100%) invert(72%) sepia(28%) saturate(5948%) hue-rotate(360deg) brightness(106%)
         contrast(103%);
     }

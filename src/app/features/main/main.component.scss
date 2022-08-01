@@ -3,42 +3,17 @@
 .wrapper {
   min-height: 100vh;
   display: flex;
-  margin: 0px 50px;
-  margin-right: 0px;
+  flex-direction: row;
   overflow: visible;
-
-  .sidebar {
-    width: $sidemenu-width;
-    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: fixed;
-  }
+  padding-top: 96px;
+  padding-bottom: 32px;
 
   .main {
     flex: 1;
     overflow-x: hidden;
-    margin-top: 96px;
-    margin-left: 257px;
 
     &.light {
       background-color: #fff;
     }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .wrapper {
-    margin: 0px;
-    .main{
-      margin-left: 0px;
-    }
-  }
-  .sidebar {
-    width: 0px;
-    display: none;
-  }
-  .main {
-    overflow: visible;
-    margin: 0px;
-    margin-top: 64px;
   }
 }

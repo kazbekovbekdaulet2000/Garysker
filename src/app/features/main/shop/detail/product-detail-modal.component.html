@@ -10,7 +10,7 @@
 
     <div class="product-content">
 
-      <h3 class="mb-3">{{product | lang: 'name' | async}}</h3>
+      <h3 class="mb-3">{{product | lang | async}}</h3>
 
       <p class="mb-3">{{product.price}} тг / <span class="g-coin">{{product.g_token_price}} g.coins</span></p>
 

@@ -1,13 +1,10 @@
 <ng-container *ngIf="reports">
 
-  <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
-    <img class="icon" src="assets/images/open-book.png" alt="">
-    <h3 class="mb-0">{{'report.read_more' | translate}}</h3>
-  </div>
+  <app-section-header text="report.read_more" icon="assets/images/open-book.png" *ngIf="reports.results.length > 0"></app-section-header>
 
   <app-swiper @opacityAnimation *ngIf="reports.results.length > 0" [bottomMargin]="48" [slides]="reports.results" [activeIndex]="0"
     [loop]="false" [navigation]="false" [spaceBetween]="24" [slidesPerView]="'auto'" [centeredSlides]="false"
-    [horizontalPadding]="16" [autoplay]="false" (isEnd)="onScroll($event)">
+    [horizontalPadding]="0" [autoplay]="false" (isEnd)="onScroll($event)">
 
     <ng-template let-item="item">
 

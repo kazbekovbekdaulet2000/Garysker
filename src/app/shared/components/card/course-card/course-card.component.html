@@ -1,18 +1,15 @@
-<div class="course-card pointer"
-  [ngStyle]="{'background-size':'320px', 'background-position': 'center center'}">
-  <!-- [backgroundImage]="course.image" -->
+<div class="course-card pointer" [ngStyle]="{'background-size':'320px', 'background-position': 'center center'}">
   <img class="course-card-image" [src]="course.image" alt="">
 
   <div class="course-card-logo">
-    Cкоро
-    <!-- <div class="course-card-logo-img background" [backgroundImage]="course.organization.icon"></div> -->
+    <div class="course-card-logo-img background" [backgroundImage]="course.organization.icon"></div>
   </div>
   <div></div>
   <div class="course-card-content">
 
-    <h5 class="mb-3"> {{course | lang: 'name' | async}}</h5>
+    <h5 class="mb-3"> {{course | lang | async}}</h5>
 
-    <!-- <div class="d-flex gap-2 flex-column">
+    <div class="d-flex gap-2 flex-column">
 
       <div class="course-card-content-details">
 
@@ -28,7 +25,7 @@
 
       </div>
 
-    </div> -->
+    </div>
 
   </div>
 

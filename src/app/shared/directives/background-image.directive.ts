@@ -10,6 +10,8 @@ export class BackgroundImageDirective implements AfterViewInit, OnChanges {
   private htmlElement: HTMLElement;
 
   @Input() backgroundImage: string = '';
+  @Input() position: string = 'center center'
+  @Input() size: string = 'cover'
   @Input() temp: 'cover' | 'avatar' = 'cover';
 
   tempImg = {
@@ -36,8 +38,8 @@ export class BackgroundImageDirective implements AfterViewInit, OnChanges {
   }
 
   setBackgroundImage() {
-    this.renderer.setStyle(this.htmlElement, 'backgroundSize', 'cover');
-    this.renderer.setStyle(this.htmlElement, 'backgroundPosition', 'center');
+    this.renderer.setStyle(this.htmlElement, 'backgroundSize', this.size);
+    this.renderer.setStyle(this.htmlElement, 'backgroundPosition', this.position);
     this.renderer.setStyle(this.htmlElement, 'backgroundRepeat', 'no-repeat');
 
     if (this.backgroundImage) {

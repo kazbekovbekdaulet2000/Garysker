@@ -113,7 +113,7 @@ export class ApplicationComponent {
           .toPromise()
           .then(() => {
             this.bsService.show(MessageModalComponent, {
-              initialState: { message: "auth.message.success.login", icon: 'err_sticker_2' },
+              initialState: { message: "auth.message.success.login", icon: 'sticker2' },
               class: 'modal-dialog-centered'
             })
             this.router.navigate(['/auth'])

@@ -14,7 +14,7 @@ export class LangTextPipe implements PipeTransform {
 
   constructor() {}
 
-  transform(value: any, key: string): Observable<string> {
+  transform(value: any, key: string = 'name'): Observable<string> {
     return this.lang$.pipe(
       map(lang => {
         if(!!value.languages && value.languages.includes(lang)){

@@ -66,7 +66,7 @@ export class ShopState {
     this.shopBagService.addProduct(uuid, body).subscribe(() => {
       this.store.dispatch(new GetUserBagProductList(uuid))
       this.bsModalService.show(MessageModalComponent, {
-        initialState: { message: "shop.detail.message.added", icon: 'err_sticker_2' },
+        initialState: { message: "shop.detail.message.added", icon: 'sticker2' },
         class: 'modal-dialog-centered'
       })
     }, (err) => {
@@ -107,7 +107,7 @@ export class ShopState {
         this.shopBagService.deleteProduct(getState().user_uuid!, obj.id).subscribe()
       })
       this.bsModalService.show(MessageModalComponent, {
-        initialState: { message: "shop.detail.message.success", icon: 'err_sticker_2' },
+        initialState: { message: "shop.detail.message.success", icon: 'sticker2' },
         class: 'modal-dialog-centered'
       })
       this.store.dispatch(new GetUserBagProductList(getState().user_uuid!))

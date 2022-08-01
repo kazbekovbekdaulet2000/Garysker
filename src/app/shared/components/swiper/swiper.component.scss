@@ -4,15 +4,15 @@
 @import "./node_modules/swiper/components/navigation/navigation.scss";
 
 .swiper-carousel {
-  overflow: hidden;
-  &-inner {
-    margin: 16px 20px 48px;
-    overflow: visible;
-  }
+  overflow: visible !important;
+  margin: 24px 0 !important;
 }
 
 .swiper-slide {
   width: max-content;
+  &:last-child {
+    margin-right: 16px;
+  }
 }
 
 .swiper-pagination {
@@ -34,13 +34,13 @@
     }
   }
   &-prev {
-    left: -4px !important;
+    left: 12px !important;
     padding-right: 3px;
     margin-top: 0px !important;
     top: calc(50% - 20px) !important;
   }
   &-next {
-    right: -4px !important;
+    right: 12px !important;
     padding-left: 3px;
     margin-top: 0px !important;
     top: calc(50% - 20px) !important;
@@ -54,7 +54,7 @@
   border-radius: 4px;
   background: $color-mercury;
   opacity: 1;
-  transition: 0.3s all;
+  transition: 0.25s all;
   &:first-child {
     margin-left: 0px !important;
   }
@@ -68,4 +68,21 @@
 
 .swiper-pagination-bullet-active {
   background-color: $color-orange;
+}
+
+@media screen and (max-width: 768px) {
+  .swiper-button {
+    &-prev {
+      left: -4px !important;
+    }
+    &-next {
+      right: -4px !important;
+    }
+  }
+  .swiper-slide {
+    width: max-content;
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
 }

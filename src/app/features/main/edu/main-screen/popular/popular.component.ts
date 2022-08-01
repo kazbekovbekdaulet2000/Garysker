@@ -1,11 +1,11 @@
-import { Component, Input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { Select, Store } from '@ngxs/store'
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { heightAnimation } from '@core/animations/height-animation';
 import 'swiper/swiper.scss'
-import SwiperCore, { Autoplay, Navigation, Scrollbar, Mousewheel, SwiperOptions } from "swiper";
+import SwiperCore, { Autoplay, Navigation, Scrollbar, Mousewheel } from "swiper";
 import { MainState } from '../../../main.state';
 import { UpdateTop } from '@core/states/scroll/scroll';
 import FreeMode from 'swiper'
@@ -18,7 +18,6 @@ SwiperCore.use([FreeMode, Autoplay, Navigation, Scrollbar, Mousewheel]);
   templateUrl: './popular.component.html',
   styleUrls: ['./popular.component.scss'],
   animations: [opacityAnimation, heightAnimation],
-  encapsulation: ViewEncapsulation.None,
 })
 export class EduPopularComponent {
   @Input() popular: any

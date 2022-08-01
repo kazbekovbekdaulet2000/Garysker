@@ -12,14 +12,14 @@
       text-align: center;
       text-transform: uppercase;
       margin-right: 40px;
-      transition: 0.3s ease-in-out;
+      transition: 0.25s ease-in-out;
       &:last-child {
         margin-right: 0px;
       }
     }
     .selected {
       color: #ffa800;
-      transition: 0.3s ease-in-out;
+      transition: 0.25s ease-in-out;
       &::after {
         content: "";
         position: absolute;
@@ -32,7 +32,7 @@
     }
   }
   .content {
-    transition: 0.3s all;
+    transition: 0.25s all;
     text-align: center;
     a {
       color: #ffa800;

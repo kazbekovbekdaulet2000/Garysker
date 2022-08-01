@@ -1,6 +1,6 @@
 <div class="d-flex flex-column justify-content-center align-items-center">
 
-  <img class="icon" src="assets/images/err_sticker_2.png" alt="">
+  <img class="icon" src="assets/images/stickers/sticker2.png" alt="">
 
   <div class="close">
     <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
@@ -9,8 +9,7 @@
   <div class="clipboard pointer" (click)="copy()">
     <div class="clipboard-text">{{location}}</div>
     <img class="clipboard-image pointer" src="assets/images/clipboard.png" alt="">
-    <div @opacityAnimation *ngIf="copied" class="clipboard-copied">
-      {{'скопирован' | translate}}
+    <div @opacityAnimation *ngIf="copied" class="clipboard-copied" translate="скопирован">
     </div>
   </div>
 

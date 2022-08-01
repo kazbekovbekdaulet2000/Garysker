@@ -15,6 +15,14 @@ body {
   margin: 0;
   background-color: $color-space;
   color: $color-primary;
+
+  // NO SCROLL
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 main {
@@ -64,11 +72,11 @@ h3 {
 
 a {
   text-decoration: none;
-  color: $color-gray-suit;
-}
-
-iframe {
-  border-radius: 16px;
+  color: $color-secondary;
+  transition: 0.25s all;
+  &:hover {
+    color: $color-orange;
+  }
 }
 
 .modal-content {
@@ -109,6 +117,7 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+
 textarea:hover,
 input:hover,
 textarea:active,
@@ -126,13 +135,7 @@ label:focus,
   box-shadow: none !important;
 }
 
-a {
-  &:hover {
-    color: $color-orange;
-  }
-}
-
-.form-check-input:checked{
+.form-check-input:checked {
   background-color: $color-orange !important;
   border-color: $color-orange !important;
 }

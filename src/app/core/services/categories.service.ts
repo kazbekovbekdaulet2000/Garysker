@@ -5,9 +5,6 @@ import { ApiService } from './api.service';
 import { CategoryModel } from '@core/models/api/category.model';
 import { map } from 'rxjs/operators';
 import getCategoryIcon from '@core/utils/category-icons';
-import { Select } from '@ngxs/store';
-import { AppState } from '@core/states/app/app.state';
-import { LangType } from '@core/types/lang.type';
 
 
 @Injectable({

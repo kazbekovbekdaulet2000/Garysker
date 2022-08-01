@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { VideoModel } from '@core/models/api/video.model';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import * as moment from 'moment';
@@ -8,7 +8,6 @@ import * as moment from 'moment';
   templateUrl: './video-card.component.html',
   styleUrls: ['./video-card.component.scss'],
   animations: [opacityAnimation],
-  encapsulation: ViewEncapsulation.None,
 })
 export class VideoCardComponent implements OnInit {
 

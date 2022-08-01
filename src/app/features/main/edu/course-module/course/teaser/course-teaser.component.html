@@ -1,0 +1,33 @@
+<div class="wrapper">
+
+  <div @opacityAnimation class="lesson" *ngIf="courseService.course as course">
+
+    <div class="title">
+
+      <div class="title-header">{{course | lang | async}}</div>
+
+    </div>
+
+    <app-video-player [video]="course.teaser"></app-video-player>
+
+    <div class="tabs">
+      <div class="tab selected pointer">{{'course.description_tab' | translate}}</div>
+      <div class="participate pointer" (click)="participateCourse(course)" translate='course.teaser.start_course'></div>
+    </div>
+
+    <div class="description" [innerHtml]="course | lang: 'description' | async"></div>
+
+    <div class="title-header">{{'course.lesson.lectors_list_header' | translate}}</div>
+    
+    <app-course-lector-card *ngFor="let lector of courseService.lectors" [show_desc]="false" [lector]="lector"></app-course-lector-card>
+
+    <!-- <ng-container *ngIf="course.ratings_count > 0">
+      <div class="title-header">{{'course.rating_header' | translate}}</div>
+      <div></div>
+    </ng-container> -->
+
+  </div>
+
+  <app-course-lesson-list></app-course-lesson-list>
+
+</div>

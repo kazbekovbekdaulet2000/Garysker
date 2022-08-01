@@ -13,6 +13,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
+import { SectionModel } from '../side-menu/side-menu.component';
 
 @Component({
   selector: 'app-core-sidenav',
@@ -26,6 +27,29 @@ export class SidenavComponent{
   @Select(AuthState.access) access$!: Observable<string>;
   @Select(AuthState.profile) profile$!: Observable<UserModel>;
   @Select(AppState.lang) lang$!: Observable<LangType>
+
+  sections: SectionModel[] = [
+    {
+      route: 'edu',
+      icon: 'g-icon-category',
+      name: 'sections.edu'
+    },
+    {
+      route: 'projects',
+      icon: 'g-icon-projects',
+      name: 'sections.project'
+    },
+    {
+      route: 'shop',
+      icon: 'g-icon-bag',
+      name: 'sections.shop'
+    },
+    {
+      route: 'main',
+      icon: 'g-icon-calendar',
+      name: 'sections.events'
+    }
+  ]
 
   constructor(
     private router: Router,
@@ -61,6 +85,9 @@ export class SidenavComponent{
           case route.url.includes('about'):
             this.main = 'about'
             break;
+          case route.url.includes('main'):
+            this.main = 'main'
+            break;
           default:
             this.main = '';
         }
@@ -82,7 +109,7 @@ export class SidenavComponent{
   logout() {
     const modal = this.bsModalService.show(ConfirmModalComponent, {
       initialState: {
-        icon: "err_sticker_2",
+        icon: "stickers/sticker2",
         message: "auth.logout_modal.title",
         false_ans: "auth.logout_modal.false",
         true_ans: "auth.logout_modal.true",

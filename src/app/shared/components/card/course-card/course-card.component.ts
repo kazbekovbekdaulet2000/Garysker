@@ -1,5 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { VideoModel } from '@core/models/api/video.model';
+import { Component, Input, OnInit } from '@angular/core';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import * as moment from 'moment';
 import { CourseModel } from '@core/models/api/course.model';
@@ -9,7 +8,6 @@ import { CourseModel } from '@core/models/api/course.model';
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.scss'],
   animations: [opacityAnimation],
-  encapsulation: ViewEncapsulation.None,
 })
 export class CourseCardComponent implements OnInit {
 

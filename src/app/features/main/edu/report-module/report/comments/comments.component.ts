@@ -36,7 +36,6 @@ export class ReportCommentsComponent implements OnDestroy {
   @ViewChild('input') textfield!: ElementRef;
 
   formGroup!: FormGroup;
-  replyContent: any | null;
   textInputLarge: boolean = false;
 
   constructor(
@@ -72,7 +71,6 @@ export class ReportCommentsComponent implements OnDestroy {
         body: null,
         reply: null
       })
-      this.replyContent = null
       this.removeComment()
     }
   }
@@ -121,7 +119,6 @@ export class ReportCommentsComponent implements OnDestroy {
   }
 
   removeReplyParent() {
-    this.replyContent = null
     this.patchReply(null)
   }
 

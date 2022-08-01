@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
 import { AboutComponent } from './about/about.component';
 
 import { MainComponent } from './main.component';
@@ -17,19 +16,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'edu'
+        redirectTo: 'main'
       },
       {
         path: 'edu',
         loadChildren: () => import('./edu/edu.module').then(m => m.EduModule)
-      },
-      {
-        path: 'about',
-        component: AboutComponent
-      },
-      {
-        path: 'nko',
-        component: NKOComponent
       },
       {
         path: 'projects',
@@ -44,6 +35,18 @@ const routes: Routes = [
         loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
       },
       {
+        path: 'main',
+        loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule)
+      }, 
+      {
+        path: 'about',
+        component: AboutComponent
+      },
+      {
+        path: 'nko',
+        component: NKOComponent
+      },
+      {
         path: 'profile',
         component: ProfileComponent,
       },
@@ -54,10 +57,6 @@ const routes: Routes = [
       {
         path: 'questions',
         component: QuestionsComponent
-      },
-      {
-        path: 'payment',
-        component: IokaPaymentComponent
       }
     ]
   },

@@ -15,12 +15,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxStickySidebarModule } from '@smip/ngx-sticky-sidebar';
 import { ProfileComponent } from "./profile/profile.component";
 import { ProfileChangeModalComponent } from './profile/profile-change-modal/profile-change-modal.component';
-import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { SupportComponent } from './support/support.component';
 import { SwiperModule } from "swiper/angular";
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AboutComponent } from './about/about.component';
-import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
 import { NKOComponent } from './nko/nko.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { LangPipeModule } from 'src/app/shared/pipes/lang/lang-pipe.module';
@@ -30,6 +28,7 @@ import { ReportState } from './edu/report-module/report.state';
 import { VideoState } from './edu/video-module/video.state';
 import { VideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
 import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
+import { SectionHeaderModule } from 'src/app/shared/components/section-header/section-header.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +41,6 @@ import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
     SupportComponent,
     AboutComponent,
     NKOComponent,
-    IokaPaymentComponent,
   ],
   imports: [
     CommonModule,
@@ -51,10 +49,10 @@ import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
     CommentModule,
     VideoPlayerModule,
     FormsModule,
-    IvyCarouselModule,
     SwiperModule,
     InfiniteScrollModule,
     LangPipeModule,
+    SectionHeaderModule,
     ReactiveFormsModule,
     TranslateModule,
     InputModule,

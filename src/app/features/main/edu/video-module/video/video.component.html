@@ -3,7 +3,7 @@
   <div class="video-holder">
     <div class="content">
       <ng-container *ngIf="video.video else alternative">
-        <video-player [video]="video.video"></video-player>
+        <app-video-player [video]="video.video"></app-video-player>
       </ng-container>
       <ng-template #alternative>
         alternative

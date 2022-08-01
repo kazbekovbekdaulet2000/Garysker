@@ -2,10 +2,7 @@
 
   <div @opacityAnimation *ngIf="videos.results.length > 0">
 
-    <div class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
-      <img class="icon" src="assets/images/video-camera.png" alt="">
-      <h3 class="mb-0">{{'main_screen.view'| translate}}</h3>
-    </div>
+    <app-section-header text="main_screen.view" icon="assets/images/video-camera.png"></app-section-header>
 
     <div *ngIf="videos.results.length > 0" class="videos">
 

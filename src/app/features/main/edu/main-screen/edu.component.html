@@ -16,7 +16,7 @@
 
       <img [src]="category.icon" class="categories-item-icon">
 
-      <span>{{category | lang: 'name'| async}}</span>
+      <span>{{category | lang| async}}</span>
 
     </div>
 
@@ -27,7 +27,7 @@
   <app-courses></app-courses>
 
   <app-reports></app-reports>
-
+  
   <app-videos></app-videos>
 
 </div>

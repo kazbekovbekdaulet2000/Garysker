@@ -16,7 +16,7 @@
           <div class="d-flex gap-3 align-items-center">
             <img class="product-image" [src]="order.product.images[0].image_thumb480" alt="">
             <div style="min-width: 120px;">
-              <h5>{{order.product | lang: 'name' | async}}</h5>
+              <h5>{{order.product | lang | async}}</h5>
               <h6>{{order.size.size_global}}</h6>
             </div>
           </div>

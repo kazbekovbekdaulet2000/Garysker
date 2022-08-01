@@ -1,0 +1,53 @@
+<div class="wrapper" *ngIf="courseService.question && courseService.questions">
+
+  <div class="header">Тест: Оценка усвоения пройденного материала</div>
+
+  <div class="pass_persentage">для успешной сдачи нужно ответить минимум на 70% вопросов правильно </div>
+
+  <div class="quiz">
+
+    <div class="quiz-list">
+      <span 
+        class="item pointer" 
+        [class.active]="question.id === courseService.question.id"
+        [class.answered]="question.answer"
+        (click)="onQuestion(question.id)"
+        *ngFor="let question of courseService.questions; let i=index">
+        {{i+1}}
+      </span>
+    </div>
+
+    <div class="question">
+      
+      <div class="question-header" [innerHtml]="courseService.question | lang: 'question' | async"></div>
+    
+      <div class="question-answers">
+
+        <div class="question-answer pointer" (click)="onAnswer(answer.id)" *ngFor="let answer of courseService.question.answers">
+
+          <div class="question-answer-selection">
+            <div class="selected" [class.selected]="selected_answer===answer.id"></div>
+          </div>
+
+          <div [innerHtml]="answer | lang: 'answer' | async"></div>
+
+        </div>
+
+      </div>
+    
+    </div>
+    
+    <div class="d-flex justify-content-end">
+
+      <ng-container [ngSwitch]="lastQuestion === courseService.question.id">
+        
+        <button *ngSwitchCase='false' class="btn btn-orange" (click)="onNext()">Далее</button> 
+        <button *ngSwitchCase='true' class="btn btn-orange" (click)="onFinish()">Завершить</button> 
+      
+      </ng-container>
+
+    </div>
+
+  </div>
+
+</div>

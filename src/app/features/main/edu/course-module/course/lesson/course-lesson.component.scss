@@ -1,0 +1,75 @@
+@import "colors";
+
+.wrapper {
+  width: calc(100% - 32px);
+  display: grid;
+  grid-template-columns: calc(100% - 416px) 400px;
+  gap: 24px;
+  margin-bottom: 36px;
+  margin-right: 16px;
+
+  .lector {
+    font-size: 500;
+    font-size: 14px;
+    margin-bottom: 24px;
+    opacity: 0.7;
+  }
+
+  .lesson {
+
+    .title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      &-header {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 27px;
+      }
+      .navigation {
+        display: flex;
+        flex-direction: row;
+        .nav {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 32px !important;
+          height: 32px !important;
+          padding: 4px;
+          background-color: #130f26;
+          border-radius: 16px;
+          margin-left: 12px;
+          &.active {
+            background-color: $color-orange;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .wrapper {
+    width: calc(100% - 32px);
+    margin-right: 0px;
+    grid-template-columns: calc(100% - 316px) 300px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    width: calc(100% - 16px);
+    margin-right: 0px;
+    gap: 48px;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    width: 100%;
+    padding: 0px 16px;
+  }
+}

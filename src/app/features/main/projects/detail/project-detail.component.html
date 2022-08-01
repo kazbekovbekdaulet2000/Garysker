@@ -1,6 +1,6 @@
 <div @opacityAnimation *ngIf="project" class="d-flex flex-column align-items-start project-wrapper">
 
-  <app-component-header [header]="(project | lang: 'name' | async) || ''"
+  <app-component-header [header]="(project | lang | async) || ''"
     [detail]="(project | lang: 'description' | async) || ''" [show_detail]="true"></app-component-header>
 
   <div class="d-flex align-items-center gap-2 mt-4 page-picker">
@@ -15,8 +15,8 @@
   <div class="project-report">
 
     <div class="video-content" *ngIf="project.children[index].video">
-      <video-player [video]="project.children[index].video">
-      </video-player>
+      <app-video-player [video]="project.children[index].video">
+      </app-video-player>
     </div>
 
     <div class="my-4" [innerHTML]="project.children[index] | sanitizerLang: 'description' | async"></div>
@@ -42,7 +42,7 @@
     <div class="resourses" *ngIf="project.children[index].resources.length > 0">
 
       <ng-container *ngFor="let resourse of project.children[index].resources">
-        <div class="resourses-title">{{resourse | lang: 'name' | async}}</div>
+        <div class="resourses-title">{{resourse | lang | async}}</div>
         <a [href]="resourse.file" target="_blank" class="resourses-item d-flex align-items-center">
           <img src="assets/images/projects/download.svg" alt="">
           <span class="download-text">{{'projects.download' | translate}}</span>

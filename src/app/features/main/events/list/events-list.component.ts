@@ -1,7 +1,7 @@
 import { Select, Store } from '@ngxs/store'
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { heightAnimation } from '@core/animations/height-animation';
-import { AfterViewInit, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { EventsState } from '../events.state';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '@core/models/api/list.model';
@@ -22,7 +22,6 @@ export interface EventType {
   templateUrl: './events-list.component.html',
   styleUrls: ['./events-list.component.scss'],
   animations: [opacityAnimation, heightAnimation],
-  encapsulation: ViewEncapsulation.None,
 })
 export class EventListComponent implements OnDestroy, AfterViewInit {
 

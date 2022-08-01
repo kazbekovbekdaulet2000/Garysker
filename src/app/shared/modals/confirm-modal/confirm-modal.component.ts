@@ -41,6 +41,6 @@ export class ConfirmModalComponent implements OnInit {
   }
 
   get getIcon(){
-    return this.icon ? `assets/images/${this.icon}.png` : 'assets/images/err_sticker_2.png'
+    return this.icon ? `assets/images/${this.icon}.png` : 'assets/images/stickers/sticker2.png'
   }
 }

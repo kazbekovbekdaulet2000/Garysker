@@ -1,7 +1,6 @@
 <div class="swiper-carousel" [style.width]="width" [style.margin-left]="marginLeft">
 
   <!-- [loopedSlides]="loop ? (swiper?.swiperRef?.slides?.length || 10) : null" -->
-
   <swiper 
     [loop]="loop" 
     [slidesPerView]="slidesPerView" 
@@ -14,7 +13,7 @@
     [autoplay]="autoplay"
     [speed]="500"
     [mousewheel]="mousewheel"
-    class="swiper-carousel-inner"
+    [class]="'swiper-carousel'"
     (touchStart)="onSwiper($event)"
     [style.margin-bottom.px]="pagination ? 48 : bottomMargin">
 

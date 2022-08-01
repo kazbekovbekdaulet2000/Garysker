@@ -4,13 +4,10 @@
 
     <div @opacityAnimation>
 
-      <div class="d-flex flex-row align-items-center gap-2">
-        <img class="icon" src="assets/images/star.png" alt="">
-        <h3 class="mb-0">{{'main_screen.popular'| translate}}</h3>
-      </div>
+      <app-section-header text="main_screen.popular" icon="assets/images/star.png"></app-section-header>
 
       <app-swiper [slides]="popular" [activeIndex]="1" [loop]="true" [spaceBetween]="spaceBetween"
-        [slidesPerView]="cellCount" [centeredSlides]="true" [horizontalPadding]="16">
+        [slidesPerView]="cellCount" [centeredSlides]="true" [horizontalPadding]="0">
 
         <ng-template let-item="item">
 
