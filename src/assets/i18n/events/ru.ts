@@ -43,6 +43,7 @@ const events: LocaleDataModel = {
     _11: 'Ноябрь',
     _12: 'Декабрь',
   },
+  empty_list: 'Список пустой',
   user_bookmarked: 'Вы зареганы на участие',
   user_removed: 'Вы отписались от участия'
 };

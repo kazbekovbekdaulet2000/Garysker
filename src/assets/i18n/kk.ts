@@ -14,6 +14,7 @@ import auth from "./auth/kk";
 import app from "./app/kk";
 import nko from "./nko/kk";
 import shop from "./shop/kk";
+import overview from "./overview/kk";
 
 const localeKk: LocaleModel = {
   lang: 'kk',
@@ -32,7 +33,8 @@ const localeKk: LocaleModel = {
     auth,
     app,
     nko,
-    shop
+    shop,
+    overview
   }
 };
 

@@ -58,6 +58,8 @@ const course: LocaleDataModel = {
     finished: 'Сіз бұл курсты аяқтадыңыз',
     congrats: 'Курсты сәтті аяқтауыңызбен құттықтаймыз!',
     rating_text: 'Сіз курсты қанша ұпаймен бағалайсыз?',
+    cancel: 'Өткізу',
+    send: 'Жіберу'
   },
   course_access_message: 'Құттықтаймыз! Енді сіз курсты көре аласыз',
   course_access: {

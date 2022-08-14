@@ -20,7 +20,7 @@ const footer: LocaleDataModel = {
     email: "info@garyshker.com",
     email2: "volunteer@garyshker.com",
     phone: "+7 702 000 63 69",
-    address: 'г.Алматы пр.Достык 162к4'
+    address: 'г.Алматы ул. Желтоксан 168A '
   },
   help: "Поддержать проект",
   privacy_polycy: "Политика конфиденциальности"

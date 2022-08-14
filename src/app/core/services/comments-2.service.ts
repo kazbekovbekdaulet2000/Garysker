@@ -5,10 +5,8 @@ import { ApiService } from './api.service';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { CommentModel } from '@core/models/api/comment.model';
 import { Store } from '@ngxs/store';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { AuthState } from '@core/states/auth/auth.state';
-
-export type CommentType = 'reports' | 'videos'
 
 @Injectable()
 export class CommentsService2 extends ApiService {
@@ -38,7 +36,7 @@ export class CommentsService2 extends ApiService {
   post(id: number, payload: any): Observable<CommentModel> {
     return this.http.post<CommentModel>(this.getUrl(`${id}/comments`), payload)
       .pipe(
-        switchMap(res => {
+        map(res => {
           const owner = this.store.selectSnapshot(AuthState.profile)
           res.owner = owner!
           res.replies = []
@@ -46,7 +44,7 @@ export class CommentsService2 extends ApiService {
           res.updated_at = new Date().toISOString()
           res.liked = false
           res.likes_count = 0
-          return of(res)
+          return res
         })
       )
   }

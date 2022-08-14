@@ -11,35 +11,66 @@
 
     <ng-container *ngFor="let config of form.config">
 
-      <label *ngIf="config.type !== 'user-type' && config.helper" class="form-content-title" [for]="config.key">
-        {{'auth.registration.steps.one.config.birth_date_p_helper' | translate}} </label>
+      <label 
+        *ngIf="config.type !== 'user-type' && config.helper"
+        class="form-content-title" [for]="config.key"
+        translate="auth.registration.steps.one.config.birth_date_p_helper">
+      </label>
 
-      <input @opacityUpDownAnimation *ngIf="(config.type === 'input' || config.type === 'email' || config.type === 'password') && config.key && getSelectedUserType()"
-        class="form-content-input" [id]="config.key" [type]="config.type" [formControlName]="config.key"
-        [placeholder]="config.placeholder! | translate" [email]="config.key === 'email'">
+      <input 
+        @opacityUpDownAnimation 
+        *ngIf="(config.type === 'input' || config.type === 'email' || config.type === 'password') && config.key && getSelectedUserType()"
+        class="form-content-input" 
+        [id]="config.key" 
+        [type]="config.type" 
+        [formControlName]="config.key"
+        [placeholder]="config.placeholder! | translate" 
+        [email]="config.key === 'email'">
 
-      <input @opacityUpDownAnimation *ngIf="config.type === 'birth-date' && config.key" [formControlName]="config.key"
-        class="form-content-input date" type="text" mask="d0/M0/0000" [placeholder]="config.placeholder! | translate"
+      <input 
+        @opacityUpDownAnimation 
+        *ngIf="config.type === 'birth-date' && config.key" 
+        [formControlName]="config.key"
+        class="form-content-input date" 
+        type="text" 
+        mask="d0/M0/0000" 
+        [placeholder]="config.placeholder! | translate"
         [dropSpecialCharacters]="false" value="">
 
-      <app-input-ahead @opacityUpDownAnimation class="form-content-input2" *ngIf="(config.type === 'city-selector' ||config.type === 'country-selector') && config.key"
-        [formControlName]="config.key" [required]="true" [hint]="config.placeholder! | translate"
+      <app-input-ahead 
+        @opacityUpDownAnimation 
+        class="form-content-input2" 
+        *ngIf="(config.type === 'city-selector' ||config.type === 'country-selector') && config.key"
+        [formControlName]="config.key" 
+        [required]="true" 
+        [hint]="config.placeholder! | translate"
         [listType]="config.type === 'city-selector' ? 'cities' : 'countries'">
       </app-input-ahead>
 
-      <select @opacityUpDownAnimation class="form-content-input" *ngIf="config.type === 'user-type' && config.key"
+      <select 
+        @opacityUpDownAnimation 
+        *ngIf="config.type === 'user-type' && config.key"
+        class="form-content-input" 
         (change)="updateSelection(config.key, $event)">
+
         <option value="" disabled selected>{{config.placeholder! | translate}}</option>
         <option value="0">{{'auth.registration.user_type.school' | translate}}</option>
         <option value="1">{{'auth.registration.user_type.student' | translate}}</option>
         <option value="2">{{'auth.registration.user_type.working' | translate}}</option>
         <option value="3">{{'auth.registration.user_type.other' | translate}}</option>
+
       </select>
 
       <ng-container @opacityUpDownAnimation *ngIf="config.key">
-        <div class="form-content-err" *ngIf="group.controls[config.key]?.errors?.incorrect">
+        
+        <div 
+          class="form-content-err" 
+          *ngIf="group.controls[config.key]?.errors?.incorrect">
+
           *{{config.error! | translate}}
+
         </div>
+      
       </ng-container>
 
       <ng-container @opacityUpDownAnimation *ngIf="config.type === 'goals'">
@@ -49,8 +80,8 @@
           <img class="user-type-icon" [src]="type.icon">
 
           <div class="user-type-info">
-            <h6>{{type.name | translate}}</h6>
-            {{type.description | translate}}
+            <h6 [translate]="type.name"></h6>
+            <span [translate]="type.description"></span>
           </div>
 
         </div>
@@ -60,22 +91,21 @@
     </ng-container>
 
     <ng-container *ngIf="stage === 3" [formGroup]="politics">
+
       <div class="d-flex mt-4 flew-row align-items-center gap-2">
         <input class="form-check-input" type="checkbox" id="politics" formControlName="rules">
-        <div for="politics" class="politics">{{'auth.registration.policy' | translate}} </div>
+        <div for="politics" class="politics" translate="auth.registration.policy"></div>
       </div>
+
     </ng-container>
 
-    <div class="d-flex justify-content-end align-items-end">
+    <div class="d-flex justify-content-end align-items-end mt-3">
 
-      <button *ngIf="stage > 0" class="btn form-content-prev" (click)="back()">{{'auth.registration.prev' |
-        translate}}</button>
+      <button *ngIf="stage > 0" class="btn" (click)="back()" translate="auth.registration.prev"></button>
 
-      <button *ngIf="stage !== 2" class="btn form-content-next" (click)="send()">{{'auth.registration.next' |
-        translate}}</button>
+      <button *ngIf="stage !== 2" class="btn" (click)="send()" translate="auth.registration.next"></button>
 
-      <button *ngIf="stage === 2" class="btn form-content-next" (click)="send()">{{'auth.registration.apply' |
-        translate}}</button>
+      <button *ngIf="stage === 2" class="btn" (click)="send()" translate="auth.registration.apply"></button>
 
     </div>
 

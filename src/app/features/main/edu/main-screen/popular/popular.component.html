@@ -1,19 +1,24 @@
-<div *ngIf="!!!(selectedCategory$ | async)" class="placeholderPopular">
+<div @opacityAnimation *ngIf="!!!(selectedCategory$ | async)" class="placeholderPopular">
 
-  <ng-container *ngIf="popular && !!!(selectedCategory$ | async); else loader">
+  <ng-container *ngIf="popular; else loader">
 
     <div @opacityAnimation>
 
       <app-section-header text="main_screen.popular" icon="assets/images/star.png"></app-section-header>
 
-      <app-swiper [slides]="popular" [activeIndex]="1" [loop]="true" [spaceBetween]="spaceBetween"
-        [slidesPerView]="cellCount" [centeredSlides]="true" [horizontalPadding]="0">
+      <app-swiper 
+        [slides]="popular" 
+        [activeIndex]="1" 
+        [loop]="true" 
+        [centeredSlides]="true"
+        [breakpoints]="breakpoints"
+        [horizontalPadding]="0">
 
         <ng-template let-item="item">
 
-          <div class="card-item" (click)="onNavigate(item)" [backgroundImage]="item.image" [style.height.px]="height">
+          <div class="card-item" (click)="onNavigate(item)" [backgroundImage]="item.image">
 
-            <div class="logo"> G.</div>
+            <div class="logo">G.</div>
 
             <div class="content">
 
@@ -26,13 +31,21 @@
                 </div>
 
                 <div class="d-flex flex-column content-category-text">
-                  {{item.category | category | async}}
-                  <div *ngIf="item.read_time" class='content-category-text-time'>{{item.read_time | ReadTime | async}} •
-                    {{item.created_at
-                    | DateRemained | async}}</div>
-                  <div *ngIf="!item.read_time" class='content-category-text-time'>{{item.created_at | DateRemained |
-                    async}}
+
+                  <span>{{item.category | category | async}}</span>
+
+                  <div 
+                    *ngIf="item.read_time" 
+                    class='content-category-text-time'>
+                    {{item.read_time | ReadTime | async}} • {{item.created_at | DateRemained | async}}
                   </div>
+
+                  <div 
+                    *ngIf="!item.read_time"
+                    class='content-category-text-time'>
+                    {{item.created_at | DateRemained | async}}
+                  </div>
+
                 </div>
 
               </div>

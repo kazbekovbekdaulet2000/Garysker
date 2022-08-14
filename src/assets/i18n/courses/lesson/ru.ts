@@ -2,6 +2,8 @@ import { LocaleDataModel } from "@core/models/local/locale.model";
 
 const locale: LocaleDataModel = {
   start_quiz: 'Сдать тест и перейти далее',
+  start_quiz_and_finish: "Сдать тест и закончить курс",
+  finish_course: "Закончить курс",
   next_lesson: 'След. урок',
   lectors_list_header: 'Лекторы',
   lector_header: 'О лекторе',

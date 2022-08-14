@@ -1,37 +1,27 @@
 <div *ngIf="profile$ | async as profile">
 
-  <div *ngIf="main!=='auth'" (click)="dropdownToggle()" class="content-profile">
+  <div *ngIf="main!=='auth'" (click)="dropdownToggle()" class="profile">
 
-    <img class="content-profile-image" (click)="dropdownToggle()" [src]="profile.image">
+    <div class="profile-image" [backgroundImage]="profile.image" temp="avatar"> </div>
 
-    <div #toggleDiv class="d-flex content-profile-text gap-1 pointer">
-      {{profile.surname}} {{profile.name}}
-      <img *ngIf="profile.verified" src="assets/icons/verified_user_new.svg">
-      <img class="content-profile-text-drop" src="assets/icons/dropdown.svg" alt="">
+    <div class="profile-text pointer">
+      <span>{{profile.surname}} {{profile.name}}</span>
+      <img class="profile-text-verified" *ngIf="profile.verified" src="assets/icons/verified_user_new.svg">
+      <i class="g-icon-chevron-down profile-text-dropdown"></i>
     </div>
 
     <div #menu @opacityAnimation *ngIf="dropdown" class="dropdown">
 
-      <div class="dropdown-desc">{{'app.profile_name' | translate}}</div>
+      <div class="dropdown-desc" translate="app.profile_name"></div>
 
-      <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
-        <img class="dropdown-item-image" src="assets/icons/user_new.svg" alt="">
-        {{'app.profile.name' | translate}}
+      <div class="d-flex align-items-center dropdown-item pointer" (click)="dropdownToggle()" routerLink='/profile'>
+        <i class="g-icon-user dropdown-item-image"></i>
+        <span translate="app.profile.name"></span>
       </div>
-
-      <!-- <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
-        <img class="d-flex align-items-center dropdown-item-image" src="assets/icons/folder.svg" alt="">
-        {{'app.profile.bookmarks' | translate}}
-      </div>
-
-      <div class="d-flex align-items-center gap-1 dropdown-item" (click)="dropdownToggle()" routerLink='/profile'>
-        <img class="dropdown-item-image" src="assets/icons/settings.svg" alt="">
-        {{'app.profile.settings' | translate}}
-      </div> -->
-
-      <div class="d-flex align-items-center gap-1 dropdown-item" (click)="logout()">
-        <img class="dropdown-item-image" src="assets/icons/exit_new.svg" alt="">
-        {{'app.profile.logout' | translate}}
+      
+      <div class="d-flex align-items-center dropdown-item pointer" (click)="logout()">
+        <i class="g-icon-logout dropdown-item-image"></i>
+        <span translate="app.profile.logout"></span>
       </div>
 
     </div>

@@ -2,7 +2,7 @@ $colors-dark: (
   space: #0c0b14,
   black: #000000,
   white: #ffffff,
-  steel-gray: #1c1b29,
+  steel-gray: #0f0e1d,
   orange: #ffa800,
   red: #f60808,
   orange-700: #ffa800b3,
@@ -18,7 +18,7 @@ $colors-dark: (
   section: #ffffff10,
   mako: #464653,
   ebony-clay: #26212e,
-  vulcan: #0f0e1d,
+  vulcan: #16151e,
   tuna: #33323e,
   success: #22b028,
 );
@@ -50,7 +50,8 @@ $colors: (
 
 @media (prefers-color-scheme: light) {
   :root {
-    @each $name, $color in $colors-dark { // $colors for light 
+    @each $name, $color in $colors-dark {
+      // $colors for light
       --color-#{$name}: #{$color};
     }
     --icon-filter: invert(0%); // 100% for light

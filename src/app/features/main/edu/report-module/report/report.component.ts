@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
@@ -13,16 +13,17 @@ import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
+import { CommentListComponent } from 'src/app/shared/components/comment/list/comment-list.component';
 import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
 import { LinkShareModalComponent } from 'src/app/shared/modals/share-modal/share-modal.component';
-import { ClearRelatedReportList, ClearReportDetail, GetRelatedReports, GetReport, LikeReport, SaveReport } from '../report.actions';
+import { ClearRelatedReportList, ClearReportDetail, GetReport, LikeReport, SaveReport } from '../report.actions';
 import { ReportState } from '../report.state';
-import { ReportCommentsComponent } from './comments/comments.component';
 
 @Component({
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss'],
-  animations: [opacityAnimation, heightAnimation]
+  animations: [opacityAnimation, heightAnimation],
+  encapsulation: ViewEncapsulation.None
 })
 export class ReportComponent implements OnDestroy {
 
@@ -31,8 +32,9 @@ export class ReportComponent implements OnDestroy {
   @Select(AppState.lang) lang$!: Observable<LangType>;
 
   @ViewChild('body') body!: ElementRef<any>
+  @ViewChild('commentsHolder')commentsHolder: ElementRef;
 
-  @ViewChild(ReportCommentsComponent) comments!: ReportCommentsComponent;
+  @ViewChild(CommentListComponent) comments: CommentListComponent;
 
   reportId!: number;
 
@@ -43,14 +45,16 @@ export class ReportComponent implements OnDestroy {
     private meta: Meta,
     private title: Title,
   ) {
-    window.scrollTo(0, 0)
-    
     this.activatedRoute.params.subscribe(({ id }) => {
       this.reportId = id
       this.store.dispatch(new GetReport(id))
-      this.store.dispatch(new ListComments('reports', id))
+      // this.store.dispatch(new ListComments('reports', id))
     })
-
+    this.report$.subscribe(data => {
+      if (data) {
+        window.scrollTo(0, 0)
+      }
+    })
     this.lang$.subscribe(lang => {
       this.store.select(ReportState.report).pipe(filter(obj => !!obj)).subscribe(report => {
         this.title.setTitle(lang === 'ru' ? report.title_ru : report.title_kk)
@@ -63,7 +67,7 @@ export class ReportComponent implements OnDestroy {
         this.meta.updateTag({ name: 'brand', content: 'Garyshker' })
         this.meta.updateTag({ property: "og:url", content: location.href })
         this.meta.updateTag({ property: 'og:type', content: 'website' })
-        this.meta.updateTag({ name: 'twitter:title', content: lang === 'ru' ? report.title_ru : report.title_kk})
+        this.meta.updateTag({ name: 'twitter:title', content: lang === 'ru' ? report.title_ru : report.title_kk })
         this.meta.updateTag({ property: 'og:title', content: lang === 'ru' ? report.title_ru : report.title_kk })
         this.meta.updateTag({ property: 'og:image', content: report.image })
         this.meta.updateTag({ name: 'twitter:image', content: report.image })
@@ -100,7 +104,8 @@ export class ReportComponent implements OnDestroy {
   }
 
   onComment() {
-    this.comments.toComment()
+    this.commentsHolder.nativeElement.scrollIntoView()
+    // this.comments.scrollToView()
   }
 
   onShare() {

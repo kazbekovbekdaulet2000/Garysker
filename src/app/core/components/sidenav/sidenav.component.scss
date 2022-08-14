@@ -38,10 +38,15 @@
   }
 
   .auth {
+    background-color: #24232c;
     display: flex;
     align-items: center;
-    padding: 16px 0;
-    i{
+    padding: 16px;
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-bottom: 24px;
+    height: 64px;
+    i {
       margin-right: 12px;
     }
   }
@@ -65,12 +70,12 @@
       font-weight: 700;
       font-size: 14px;
     }
-    &-dropdown{
+    &-dropdown {
       font-size: 10px;
       align-items: center;
       transition: 0.25s all;
     }
-    &-section-icon{
+    &-section-icon {
       width: 24px !important;
       margin-right: 8px;
     }
@@ -109,14 +114,16 @@
       }
     }
   }
-  .expanded{
+  .expanded {
     transform: rotate(180deg);
   }
   .support {
+    width: max-content;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin: auto;
     padding: 12px 6px;
     color: $color-orange;
     border-bottom: 1px solid $color-orange;

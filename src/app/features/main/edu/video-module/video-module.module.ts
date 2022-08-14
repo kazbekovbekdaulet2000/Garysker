@@ -18,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommentsState } from '@core/states/comments/comments.state';
 import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
 import { VideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
+import { CommentsService2 } from '@core/services/comments-2.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,9 @@ import { VideoPlayerModule } from 'src/app/shared/components/videoplayer/videopl
     NgxsModule.forFeature([VideoState, CommentsState]),
     DatePipeModule,
     SanitizerPipeModule,
+  ],
+  providers: [
+    CommentsService2.getProvider('videos')
   ]
 })
 export class VideoModuleModule { }

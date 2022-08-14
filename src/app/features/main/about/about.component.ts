@@ -40,7 +40,7 @@ export class AboutComponent {
     { text: 'about.contacts.phone', hint: 'tel:8-702-000-6369', prop: '8 702 000 6369' },
     { text: 'about.contacts.email', hint: 'mailto:info@garyshker.com', prop: 'info@garyshker.com' },
     { text: 'about.contacts.volunteer', hint: 'mailto:volunteer@garyshker.com', prop: 'volunteer@garyshker.com' },
-    { text: 'about.contacts.place', hint: 'https://go.2gis.com/gygevb', prop: 'г. Алматы пр. Достык 162к4' },
+    { text: 'about.contacts.place', hint: 'https://go.2gis.com/gygevb', prop: 'г. Алматы ул. Желтоксан 168A' },
   ]
 
   viewform = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdrH_kgGxyZfHfrZLwAbYSEDEPwSWYevwCvD7Tkyx8qswAsNQ/formResponse'

@@ -1,11 +1,8 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import app from '@assets/i18n/app/kk';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
-import { UserModel } from '@core/models/api/user.model';
 import { AuthState } from '@core/states/auth/auth.state';
 import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
@@ -22,6 +19,7 @@ import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /log
 export class CommentComponent {
 
   @Select(AuthState.access) access$!: Observable<string>;
+  @Select(AuthState.authorized) authorized$: Observable<boolean>;
 
   hideAns = true;
   editComment = false;

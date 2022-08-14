@@ -27,7 +27,7 @@ const auth: LocaleDataModel = {
       pass: 'Жаңа құпиясөз',
       pass_rep: 'Жаңа құпиясөз (қайта)',
       new_code: 'отправить новый код',
-      time: 'Уақыт: {{time}}c',
+      time: 'Уақыт: ',
       next: 'Алға'
     },
     errors: {

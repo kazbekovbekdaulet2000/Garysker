@@ -1,9 +1,11 @@
 <div @opacityAnimation *ngIf="project" class="d-flex flex-column align-items-start project-wrapper">
 
-  <app-component-header [header]="(project | lang | async) || ''"
-    [detail]="(project | lang: 'description' | async) || ''" [show_detail]="true"></app-component-header>
+  <app-component-header 
+    [header]="(project | lang | async) || ''"
+    [detail]="(project | lang: 'description' | async) || ''" [show_detail]="true">
+  </app-component-header>
 
-  <div class="d-flex align-items-center gap-2 mt-4 page-picker">
+  <div class="d-flex align-items-center gap-2 mt-2 page-picker">
 
     <div *ngFor="let child of project.children; let i=index" class="d-flex align-items-center pointer page-picker-item"
       [class.active]="i===index" (click)="onTypeSelect(i)">
@@ -51,7 +53,7 @@
 
     </div>
 
-    <div class="payment-form">
+    <div @opacityAnimation class="payment-form" *ngIf="project.children[index].donat.on_process">
 
       <div class="d-flex flex-column support-content" [formGroup]="formData">
 

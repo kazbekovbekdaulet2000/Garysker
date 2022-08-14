@@ -6,7 +6,7 @@ const sections: LocaleDataModel = {
   project: 'Жобалар',
   shop: 'Дүкен',
   events: 'Іс шаралар',
-  about_g: 'Garyshker жайлы',
+  about_g: 'Жоба жайлы',
   help: 'Жобаны қолдау',
   login: 'Кіру',
   register: 'Тіркелу',

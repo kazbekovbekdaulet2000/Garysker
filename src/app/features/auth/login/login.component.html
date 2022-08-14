@@ -1,19 +1,21 @@
 <div class="center">
+
   <div class="auth-card" [formGroup]="formGroup">
     
-    <h3> {{'auth.login.header' | translate}} </h3>
+    <h3 translate="auth.login.header"></h3>
   
     <input type="email" class="user-info" formControlName="email" [placeholder]="'auth.login.email' | translate"> 
     <p *ngIf="getRequireMessage('email')">{{'auth.required' | translate}}</p>
   
     <input type="password" class="user-info" formControlName="password" [placeholder]="'auth.login.password' | translate"> 
-    <p *ngIf="getRequireMessage('password')">{{'auth.required' | translate}}</p>
-    <p *ngIf="getFalseMessage('password')">{{'auth.login.err_400' | translate}}</p>
+    <p *ngIf="getRequireMessage('password')" translate="auth.required"></p>
+    <p *ngIf="getFalseMessage('password')" translate="auth.login.err_400"></p>
     
     <div class="menu mt-4"> 
-      <div class="pointer" routerLink="/auth/reset">{{'auth.login.reset_pass' | translate}}</div> 
-      <button class="btn login" (click)="login()">{{'auth.login.submit' | translate}}</button>
+      <div class="pointer" routerLink="/auth/reset" translate="auth.login.reset_pass"></div> 
+      <button class="btn btn-orange login" (click)="login()" translate="auth.login.submit"></button>
     </div>
-  
+    
   </div>
+
 </div>

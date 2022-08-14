@@ -8,12 +8,26 @@
   padding-top: 96px;
   padding-bottom: 32px;
 
+  #sidebar {
+    position: fixed;
+    width: 264px;
+  }
+
   .main {
     flex: 1;
     overflow-x: hidden;
+    margin-left: 264px;
 
     &.light {
       background-color: #fff;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    .main {
+      margin-left: 0;
     }
   }
 }

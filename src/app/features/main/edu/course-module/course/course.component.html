@@ -13,7 +13,7 @@
 
     <div class="item"> {{course | lang | async}} </div>
 
-  </div>
+  </div>  
 
   <ng-container [ngSwitch]="course.participant">
     <app-course-teaser *ngSwitchCase="false"></app-course-teaser>

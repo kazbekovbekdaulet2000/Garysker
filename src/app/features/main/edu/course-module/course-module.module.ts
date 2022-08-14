@@ -18,6 +18,7 @@ import { CourseLessonListComponent } from './course/lesson/list/course-lesson-li
 import { CourseLessonTabsComponent } from './course/lesson/tabs/course-lesson-tabs.component';
 import { CourseLectorCardComponent } from './course/lector-card/course-lector-card.component';
 import { CourseLessonQuizComponent } from './course/lesson/quiz/course-lesson-quiz.component';
+import { CourseRatingModalModalComponent } from './course/rating-modal/course-rating-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CourseLessonQuizComponent } from './course/lesson/quiz/course-lesson-qu
     CourseLessonTabsComponent,
     CourseLessonQuizComponent,
     CourseLessonListComponent,
-    CourseLectorCardComponent
+    CourseLectorCardComponent,
+    CourseRatingModalModalComponent
   ],
   imports: [
     CommonModule,

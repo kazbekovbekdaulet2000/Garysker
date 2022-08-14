@@ -1,37 +1,54 @@
+<!-- {{authorized$ | async}} -->
+<!-- access$ | async -->
+
 <nav [class.transparent]="main==='auth'">
 
   <div class="menu menu-left justify-content-start" (click)="sidenav.emit(true)">
-    <img class="menu-icon" src="assets/icons/menu.svg" alt="">
+    <i class="menu-icon g-icon-menu"></i>
   </div>
 
   <div class="icon-holder" *ngIf="!(innerWidth < 640 && showSearch)" routerLink=''></div>
 
   <app-header-search *ngIf="!(innerWidth < 640 && !showSearch)"></app-header-search>
 
-  <div class="align-items-center justify-content-center content" *ngIf="dataAvailable">
+  <div class="align-items-center justify-content-center content">
 
-    <ng-container *ngIf="(access$ | async)?.length === 0">
-      <button *ngIf="main!=='application'" class="btn content-primary" routerLink='auth/application'>
-        {{'app.registration' | translate}} </button>
+    <app-header-profile *ngIf="(authorized$ | async); else noProfile"></app-header-profile>
 
-      <button *ngIf="main!=='auth'" class="btn content-primary" routerLink='auth'>
-        {{'app.login' | translate}} </button>
-    </ng-container>
+    <ng-template #noProfile>
+      
+      <button 
+        *ngIf="main!=='application'" 
+        class="btn" 
+        routerLink='auth/application'
+        translate="app.registration">
+      </button>
 
-    <app-header-profile *ngIf="(access$ | async)?.length !== 0"></app-header-profile>
+      <button 
+        *ngIf="main!=='auth'" 
+        class="btn" 
+        routerLink='auth'
+        translate="app.login">
+      </button>
+    
+    </ng-template>
 
   </div>
 
-  <ng-container *ngIf="!['reports', 'videos'].includes(main); else share">
-    <div class="menu pointer" (click)="toggleSearch()">
-      <img class="menu-icon" src="assets/icons/search2.svg" alt="">
+  <ng-container *ngIf="isReportOrVideo; else share">
+    
+    <div class="menu pointer" (click)="shareLink()">
+      <i class="menu-icon g-icon-upload"></i>
     </div>
+
   </ng-container>
 
   <ng-template #share>
-    <div class="menu pointer" (click)="shareLink()">
-      <img class="menu-icon" src="assets/icons/new_share.svg" alt="">
+
+    <div class="menu pointer" (click)="toggleSearch()">
+      <i class="menu-icon g-icon-search"></i>
     </div>
+
   </ng-template>
 
 </nav>

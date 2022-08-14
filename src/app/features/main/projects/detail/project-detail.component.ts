@@ -58,6 +58,7 @@ export class ProjectDetailComponent {
             }
           ]
           this.formData.get('donation')?.patchValue(this.project.children[this.index].donat.id)
+          window.scrollTo(0, 0)
         })
         .catch(err => {
           if (err.status === 404) {

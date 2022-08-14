@@ -62,9 +62,37 @@
     }
     &-first {
       padding: 24px;
+      font-size: 16px;
+      .heading {
+        color: #faff01;
+        font-size: 36px;
+        margin-bottom: 4px;
+      }
+      &-right {
+        p {
+          &:first-child {
+            line-height: 28px;
+          }
+        }
+        font-weight: 400;
+        font-size: 12px;
+      }
     }
     &-second {
       padding: 24px;
+      font-weight: 400;
+      font-size: 12px;
+      .title {
+        font-family: Acrobat;
+        font-weight: 700;
+        font-size: 24px;
+        // line-height: 26px;
+      }
+      .desc {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+      }
     }
   }
   .projects-wrapper {

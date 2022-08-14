@@ -3,16 +3,15 @@ import { NavigationEnd, Router } from '@angular/router';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { UserModel } from '@core/models/api/user.model';
+import { ModalService } from '@core/services/modal.service';
 import { UpdateLang } from '@core/states/app/app.actions';
 import { AppState } from '@core/states/app/app.state';
 import { RemoveToken } from '@core/states/auth/actions';
 import { AuthState } from '@core/states/auth/auth.state';
 import { LangType } from '@core/types/lang.type';
 import { Select, Store } from '@ngxs/store';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
 import { SectionModel } from '../side-menu/side-menu.component';
 
 @Component({
@@ -45,16 +44,21 @@ export class SidenavComponent{
       name: 'sections.shop'
     },
     {
-      route: 'main',
+      route: 'events',
       icon: 'g-icon-calendar',
       name: 'sections.events'
+    },
+    {
+      route: 'main',
+      icon: 'g-icon-g',
+      name: 'sections.about_g'
     }
   ]
 
   constructor(
     private router: Router,
     private store: Store,
-    private bsModalService: BsModalService
+    private modalService: ModalService
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -107,24 +111,19 @@ export class SidenavComponent{
   }
 
   logout() {
-    const modal = this.bsModalService.show(ConfirmModalComponent, {
-      initialState: {
-        icon: "stickers/sticker2",
-        message: "auth.logout_modal.title",
-        false_ans: "auth.logout_modal.false",
-        true_ans: "auth.logout_modal.true",
-        false_ans_background: "group-background",
-      },
-      class: 'modal-dialog-centered'
-    })
-
-    modal.content!.onClose.subscribe(result => {
-      if (result === true) {
+    this.modalService.showConfirmDialog({
+      icon: 'stickers/sticker2',
+      title: 'auth.logout_modal.title',
+      cancelText: 'auth.logout_modal.false',
+      confirmText: 'auth.logout_modal.true',
+      position: 'center',
+      message: '',
+      onConfirm: () => {
         this.store.dispatch(RemoveToken)
         if (this.main === 'profile') {
           this.router.navigate(['/edu'])
         }
       }
-    });
+    })
   }
 }

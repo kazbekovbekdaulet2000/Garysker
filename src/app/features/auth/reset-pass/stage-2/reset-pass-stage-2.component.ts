@@ -22,6 +22,8 @@ export class ResetPassStageTwoComponent {
 
   timer$!: Observable<number>;
 
+  time: number;
+
   constructor(
     private formBuilder: FormBuilder,
     private identityService: IdentityService,

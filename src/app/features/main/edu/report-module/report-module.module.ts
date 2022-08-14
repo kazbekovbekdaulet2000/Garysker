@@ -23,6 +23,7 @@ import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
 import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
 import { ReportContentComponent } from './report/content/report-content.component';
 import { SectionHeaderModule } from 'src/app/shared/components/section-header/section-header.module';
+import { CommentsService2 } from '@core/services/comments-2.service';
 
 
 @NgModule({
@@ -51,6 +52,9 @@ import { SectionHeaderModule } from 'src/app/shared/components/section-header/se
     DatePipeModule,
     SanitizerPipeModule,
     BackgroundImageModule
+  ],
+  providers: [
+    CommentsService2.getProvider('reports')
   ]
 })
 export class ReportModuleModule { }

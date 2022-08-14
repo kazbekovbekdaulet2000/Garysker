@@ -9,7 +9,7 @@
         alternative
       </ng-template>
       <app-video-details [entity]="video"></app-video-details>
-      <app-video-comments [entity]="video"></app-video-comments>
+      <app-comment-list [entityId]="video.id"></app-comment-list>
     </div>
     <div class="content d-flex flex-column gap-4" *ngIf="videos$ | async as videos">
 

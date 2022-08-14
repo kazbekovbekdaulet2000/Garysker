@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -7,14 +6,12 @@ import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
 import { ListResponseModel } from '@core/models/api/list.model';
 import { ReportDetailModel } from '@core/models/api/report.model';
-import { CommentsService } from '@core/services/comments.service';
+import { ModalService } from '@core/services/modal.service';
 import { AuthState } from '@core/states/auth/auth.state';
 import { ClearComments, DeleteComment, LikeComment, ListComments, PatchComment, PostComment } from '@core/states/comments/comments.actions';
 import { CommentsState } from '@core/states/comments/comments.state';
 import { Select, Store } from '@ngxs/store';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
 import { DecreaseReportComments, IncreaseReportComments } from '../../report.actions';
 import { ReportState } from '../../report.state';
 
@@ -41,7 +38,7 @@ export class ReportCommentsComponent implements OnDestroy {
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
-    private bsModalService: BsModalService,
+    private modalService: ModalService,
     private activatedRoute: ActivatedRoute
   ) {
     this.activatedRoute.params.subscribe(({ id }) => {
@@ -100,22 +97,18 @@ export class ReportCommentsComponent implements OnDestroy {
   }
 
   deleteComment(comment: CommentModel) {
-    const modal = this.bsModalService.show(ConfirmModalComponent, {
-      initialState: {
-        title: "",
-        message: "app.comment.delete.title",
-        false_ans: "app.comment.delete.false",
-        true_ans: "app.comment.delete.true"
-      },
-      class: 'modal-dialog-centered'
-    })
-
-    modal.content!.onClose.subscribe(result => {
-      if (result === true) {
+    this.modalService.showConfirmDialog({
+      icon: 'stickers/sticker2',
+      title: '',
+      cancelText: 'app.comment.delete.false',
+      confirmText: 'app.comment.delete.true',
+      position: 'center',
+      message: 'app.comment.delete.title',
+      onConfirm: () => {
         this.store.dispatch(new DeleteComment('reports', this.reportId, comment.id))
         this.store.dispatch(DecreaseReportComments)
       }
-    });
+    })
   }
 
   removeReplyParent() {

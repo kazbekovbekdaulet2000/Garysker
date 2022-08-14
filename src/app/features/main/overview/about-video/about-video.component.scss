@@ -1,0 +1,23 @@
+@import "colors";
+
+.video {
+  margin: -24px -48px;
+}
+
+.close {
+  cursor: pointer;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+}
+
+@media screen and (max-width: 640px) {
+  .close {
+    right: 16px;
+    top: 16px;
+  }
+  .video {
+    margin: -32px -16px;
+  }
+}

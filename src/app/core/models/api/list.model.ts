@@ -6,7 +6,7 @@ export interface ListResponseModel<T> {
 }
 
 export const emptyListResponse = {
-  count: 0,
+  count: NaN,
   next: '',
   previous: '',
   results: [],

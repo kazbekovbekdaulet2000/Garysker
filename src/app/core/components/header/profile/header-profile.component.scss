@@ -1,42 +1,40 @@
 @import "colors";
 
-.content {
+.profile {
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
-  margin-left: auto;
-  margin-right: 0px;
-  &-primary {
-    background-color: $color-orange-dark;
-    color: $color-primary;
-    min-width: 136px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-  &-profile {
-    position: relative;
+  border-radius: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  &-text {
     display: flex;
-    gap: 4px;
-    border-radius: 12px;
     align-items: center;
-    justify-content: left;
-    &-text {
-      padding: 4px 12px;
-      border-radius: 6px;
-      &-drop {
-        width: 10px;
-      }
-      &:hover {
-        background-color: #ffffff10;
-      }
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    &-verified {
+      width: 16px;
+      height: 16px;
+      margin-left: 8px;
     }
-    &-image {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      object-fit: cover;
+    &-dropdown {
+      margin-left: 8px;
+      font-size: 8px;
     }
+    &:hover {
+      background-color: #272634;
+    }
+  }
+  &-image {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
   }
 }
+
 .dropdown {
   z-index: 1000;
   position: absolute;
@@ -56,7 +54,6 @@
     margin-bottom: 4px;
   }
   &-item {
-    cursor: pointer;
     position: relative;
     padding-top: 10px;
     padding-bottom: 16px;
@@ -71,8 +68,9 @@
     background-color: initial;
     border: 0;
     &-image {
-      width: 18px;
-      height: 18px;
+      font-size: 18px;
+      margin-right: 6px;
+      width: 18px !important;
     }
     &:first-child {
       padding-top: 0px;

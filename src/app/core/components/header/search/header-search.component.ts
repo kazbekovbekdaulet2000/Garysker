@@ -5,8 +5,7 @@ import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { ReportsService } from '@core/services/reports.service';
 import { VideosService } from '@core/services/videos.service';
-import { AppState } from '@core/states/app/app.state';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { combineLatest, Observable, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
 

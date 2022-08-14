@@ -46,6 +46,11 @@ export class AuthState {
     return profile;
   }
 
+  @Selector()
+  static authorized({ profile, access }: AuthStateModel): boolean {
+    return !!profile && !!access;
+  }
+
   constructor(
     private identityService: IdentityService,
     private store: Store
@@ -78,8 +83,16 @@ export class AuthState {
 
   @Action(UpdateProfile)
   UpdateProfile({ patchState }: StateContext<AuthStateModel>) {
-    this.identityService.profile().subscribe(profile => {
-      patchState({ profile })
+    this.identityService.profile().subscribe({
+      next: profile => { patchState({ profile }) },
+      error: err => {
+        patchState({
+          access: '',
+          refresh: '',
+          profile: null,
+          accessTokenExpireDate: null,
+        })
+      }
     })
   }
 

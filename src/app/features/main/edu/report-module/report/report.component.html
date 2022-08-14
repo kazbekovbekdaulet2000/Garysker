@@ -68,9 +68,12 @@
       </div>
 
     </div>
+
     <!-- <app-report-content [report]="report"></app-report-content> -->
 
-    <app-report-comments></app-report-comments>
+    <div #commentsHolder class="comment-holder">
+      <app-comment-list [marginTop]="false" [entityId]="report.id"></app-comment-list>
+    </div>
 
     <app-report-related [reportId]="reportId"></app-report-related>
 

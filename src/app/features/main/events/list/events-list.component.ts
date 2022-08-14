@@ -3,14 +3,15 @@ import { opacityAnimation } from '@core/animations/opacity-animation';
 import { heightAnimation } from '@core/animations/height-animation';
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { EventsState } from '../events.state';
-import { Observable } from 'rxjs';
-import { ListResponseModel } from '@core/models/api/list.model';
+import { Observable, of } from 'rxjs';
+import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
 import { EventModel } from '@core/models/api/event.model';
 import { ClearEvents, ListEvents } from '../events.actions';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
 import { EventDetailModalComponent } from './detail/detail-modal.component';
 import { EventService } from '@core/services/event.service';
+import { ModalService } from '@core/services/modal.service';
+import { filter } from 'rxjs/operators';
 
 export interface EventType {
   id: number
@@ -25,7 +26,7 @@ export interface EventType {
 })
 export class EventListComponent implements OnDestroy, AfterViewInit {
 
-  @Select(EventsState.events) events$!: Observable<ListResponseModel<EventModel>>
+  @Select(EventsState.events) events$: Observable<ListResponseModel<EventModel>>
 
   types: EventType[] = [
     {
@@ -44,11 +45,12 @@ export class EventListComponent implements OnDestroy, AfterViewInit {
     },
   ]
 
-  selected_type: EventType = this.types[0]
+  selected_type: EventType = this.types[2]
 
   constructor(
     private store: Store,
     private bsModalService: BsModalService,
+    private modalService: ModalService,
     private eventService: EventService
   ) {
     const params = this.selected_type.type ? { time: this.selected_type.type } : {}
@@ -63,11 +65,18 @@ export class EventListComponent implements OnDestroy, AfterViewInit {
       })
       localStorage.removeItem('saved_event_add_action')
     }
-    if (this.store.selectSnapshot(EventsState.events).count === 0) {
-      this.selected_type = this.types[2]
-      const params = {}
-      this.store.dispatch(new ListEvents(params))
-    }
+    this.events$.pipe(filter(list => list !== emptyListResponse)).subscribe(list => {
+      if (list.count === 0) {
+        this.modalService.showDialog({
+          position: 'center',
+          title: 'events.empty_list',
+          message: '',
+          iconType: "not-found",
+          blur: true
+        })
+        this.onTypeSelect(this.types[2])
+      }
+    })
   }
 
   ngOnDestroy(): void {
@@ -79,26 +88,6 @@ export class EventListComponent implements OnDestroy, AfterViewInit {
     this.ngOnDestroy()
     const params = this.selected_type.type ? { time: this.selected_type.type } : {}
     this.store.dispatch(new ListEvents(params))
-  }
-
-  openLink(link: string) {
-    if (!link) {
-      return
-    }
-    const modal = this.bsModalService.show(ConfirmModalComponent, {
-      initialState: {
-        message: "app.link.redirect.title",
-        false_ans: "app.link.redirect.false",
-        true_ans: "app.link.redirect.true"
-      },
-      class: 'modal-dialog-centered',
-    })
-
-    modal.content!.onClose.subscribe(result => {
-      if (result === true) {
-        window.open(link, '_blank');
-      }
-    });
   }
 
   onDetail(event: EventModel) {
@@ -117,5 +106,4 @@ export class EventListComponent implements OnDestroy, AfterViewInit {
     var today = new Date();
     return event_date < today
   }
-
 }

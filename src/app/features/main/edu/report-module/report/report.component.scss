@@ -88,7 +88,21 @@
 //   background-size: cover;
 // }
 
+.comment-holder {
+  background: $color-steel-gray;
+  border-radius: 30px;
+  max-width: 912px;
+  position: relative;
+  padding: 30px 120px;
+  margin-right: 16px;
+  margin-bottom: 40px;
+}
+
 @media screen and (min-width: 1441px) {
+  .comment-holder {
+    margin: 0px auto;
+    margin-bottom: 40px;
+  }
   .report {
     margin: 0px auto;
     margin-bottom: 40px;
@@ -96,6 +110,10 @@
 }
 
 @media screen and (max-width: 786px) {
+  .comment-holder {
+    margin-right: 0px;
+    padding: 20px 20px;
+  }
   .report-holder {
     padding: 0px 16px;
   }
@@ -116,7 +134,7 @@
       }
       p {
         font-size: 16px;
-        font-size: 400;
+        font-weight: 400;
         margin-bottom: 12px;
       }
     }

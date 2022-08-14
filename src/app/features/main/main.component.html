@@ -1,6 +1,8 @@
 <div class="wrapper">
 
-  <app-sidemenu [contentHeight]="contentHeight"></app-sidemenu>
+  <div id="sidebar">
+    <app-sidemenu [contentHeight]="contentHeight"></app-sidemenu>
+  </div>
 
   <div #content class="main">
     <router-outlet></router-outlet>

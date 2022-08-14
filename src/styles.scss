@@ -58,18 +58,6 @@ h3 {
   }
 }
 
-.btn {
-  outline: none !important;
-  margin-left: 12px;
-  border-radius: 8px;
-  &:focus,
-  &:active,
-  &:hover {
-    outline: none !important;
-    box-shadow: none;
-  }
-}
-
 a {
   text-decoration: none;
   color: $color-secondary;

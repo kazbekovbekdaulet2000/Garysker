@@ -13,10 +13,25 @@ import { InputModule } from 'src/app/shared/components/input/input.module';
 import { ProjectOverviewComponent } from './overview.component';
 import { RouterModule } from '@angular/router';
 import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
+import { ProjectOverviewEduComponent } from './edu/overview-edu.component';
+import { ProjectOverviewProjectsComponent } from './projects/overview-projects.component';
+import { ProjectOverviewShopComponent } from './shop/overview-shop.component';
+import { ProjectOverviewTeamComponent } from './team/overview-team.component';
+import { ProjectOverviewFAQComponent } from './faq/overview-faq.component';
+import { ProjectOverviewEventsComponent } from './events/overview-events.component';
+import { OverviewAboutVideoModalComponent } from './about-video/about-video.component';
+import { ProjectsService } from '@core/services/projects.service';
 
 @NgModule({
   declarations: [
-    ProjectOverviewComponent
+    ProjectOverviewComponent,
+    ProjectOverviewEduComponent,
+    ProjectOverviewProjectsComponent,
+    ProjectOverviewShopComponent,
+    ProjectOverviewTeamComponent,
+    ProjectOverviewFAQComponent,
+    ProjectOverviewEventsComponent,
+    OverviewAboutVideoModalComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +54,9 @@ import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
       }
     ])
   ],
-  providers: []
+  providers: [
+    ProjectsService
+  ]
 })
 export class OverviewModule {
 }

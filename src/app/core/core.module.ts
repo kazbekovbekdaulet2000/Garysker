@@ -45,7 +45,6 @@ import { LoaderComponent } from './components/loader/loader.component';
     NgxsRouterPluginModule.forRoot(),
     ModalModule.forRoot(),
     LangPipeModule,
-    // LoaderModule,
     TranslateModule.forRoot({
       defaultLanguage: 'ru'
     }),

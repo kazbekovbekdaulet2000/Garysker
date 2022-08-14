@@ -71,8 +71,6 @@
     <div class="item pointer" [class.selected]="lang==='ru'" (click)="changeLang('ru')">Рус</div>
   </div>
 
-  <div routerLink="support" class="support pointer">
-    {{'sections.help' | translate}}
-  </div>
+  <div routerLink="support" class="support pointer" translate="sections.help"></div>
 
 </div>

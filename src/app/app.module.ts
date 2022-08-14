@@ -23,6 +23,7 @@ import { providePerformance, getPerformance } from '@angular/fire/performance';
 import { HeaderSearchComponent } from '@core/components/header/search/header-search.component';
 import { HeaderProfileComponent } from '@core/components/header/profile/header-profile.component';
 import { SidenavComponent } from '@core/components/sidenav/sidenav.component';
+import { BackgroundImageModule } from './shared/directives/background-image.module';
 
 registerLocaleData(localeRu, 'ru');
 
@@ -42,6 +43,7 @@ registerLocaleData(localeRu, 'ru');
     MatSliderModule,
     SwiperModule,
     MatSidenavModule,
+    BackgroundImageModule,
     MatToolbarModule,
     LangPipeModule,
     TranslateModule,

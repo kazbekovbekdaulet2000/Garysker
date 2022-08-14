@@ -6,11 +6,13 @@ import { ListResponseModel } from '@core/models/api/list.model';
 import { CourseDetailModel, CourseModel } from '@core/models/api/course.model';
 import { LessonDetailModel, LessonModel } from '@core/models/api/lesson.model';
 import { LessonResourceModel } from '@core/models/api/lesson-resource.model';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { QuizModel } from '@core/models/api/quiz.model';
 import { LectorDetailModel } from '@core/models/api/lector.model';
 import { AnswerModel, QuestionDetailModel, QuestionModel, QuizAttemptModel } from '@core/models/api/question.model';
 import { Router } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { CourseRatingModalModalComponent } from 'src/app/features/main/edu/course-module/course/rating-modal/course-rating-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,8 @@ export class CourseService extends ApiService {
   courses: ListResponseModel<CourseModel>;
   course: CourseDetailModel;
   lessons: LessonModel[];
-  lectors: LectorDetailModel[]
+  lectors: LectorDetailModel[];
+  resourses: LessonResourceModel[] = [];
   lesson: LessonDetailModel;
   quiz: QuizModel;
 
@@ -32,7 +35,8 @@ export class CourseService extends ApiService {
 
   constructor(
     protected http: HttpClient,
-    private router: Router
+    private router: Router,
+    private bsModalService: BsModalService
   ) {
     super('courses');
   }
@@ -64,6 +68,7 @@ export class CourseService extends ApiService {
               }
             })
           }
+          this.getResources(this.course.id, this.lesson.id).subscribe(() => { })
         })
       }
     })
@@ -76,13 +81,27 @@ export class CourseService extends ApiService {
   }
 
   list(params?: any): Observable<ListResponseModel<CourseModel>> {
-    return this.http.get<ListResponseModel<CourseModel>>(this.getUrl(), { params }).pipe(tap(courses=>{
-      this.courses=courses
+    return this.http.get<ListResponseModel<CourseModel>>(this.getUrl(), { params }).pipe(tap(courses => {
+      this.courses = courses
     }))
   }
 
   get(courseId: number): Observable<CourseDetailModel> {
-    return this.http.get<CourseDetailModel>(this.getUrl(courseId)).pipe(tap(course => this.course = course))
+    return this.http.get<CourseDetailModel>(this.getUrl(courseId)).pipe(
+      map(course => {
+        if (course.completed && !course.user_rating) {
+          this.bsModalService.show(CourseRatingModalModalComponent, {
+            class: 'modal-dialog-centered modal-xl',
+            ignoreBackdropClick: true,
+            initialState: {
+              courseId: course.id
+            }
+          })
+        }
+        return course
+      }),
+      tap(course => this.course = course)
+    )
   }
 
   participate(courseId: number): Observable<any> {
@@ -114,7 +133,9 @@ export class CourseService extends ApiService {
   }
 
   getResources(courseId: number, lessonId: number): Observable<LessonResourceModel[]> {
-    return this.http.get<LessonResourceModel[]>(this.getUrl(`${courseId}/lessons/${lessonId}/resources`))
+    return this.http.get<LessonResourceModel[]>(this.getUrl(`${courseId}/lessons/${lessonId}/resources`)).pipe(
+      tap(resourses => this.resourses = resourses)
+    )
   }
 
   listSaved(params?: any): Observable<ListResponseModel<CourseModel>> {

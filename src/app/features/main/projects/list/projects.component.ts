@@ -18,6 +18,7 @@ interface ProjectPages {
   animations: [opacityAnimation]
 })
 export class ProjectsComponent {
+  
   types: ProjectPages[] = [
     {
       id: 1,
@@ -35,7 +36,8 @@ export class ProjectsComponent {
       type: 'finished',
     },
   ]
-  selected_type: string = 'all'
+  
+  selected_type: number = 1
 
   constructor(
     private store: Store,
@@ -43,6 +45,6 @@ export class ProjectsComponent {
   ) { }
 
   onTypeSelect(type: ProjectPages){
-    this.selected_type = type.type
+    this.selected_type = type.id
   }
 }

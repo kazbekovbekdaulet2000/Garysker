@@ -43,6 +43,7 @@ const events: LocaleDataModel = {
     _11: 'Қараша',
     _12: 'Желтоқсан',
   },
+  empty_list: 'Тізім бос',
   user_bookmarked: 'Сіз іс шараға тіркелдеңіз',
   user_removed: 'Сіз іс шарадан бас тарттыңыз',
 };

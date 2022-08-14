@@ -1,0 +1,28 @@
+<div class="wrapper">
+
+  <div class="header" translate="FAQ"></div>
+
+  <div class="question-holder">
+
+    <div class="question pointer" *ngFor="let question of questions" (click)="onQuestion(question.id)">
+
+      <div class="flex-fill">
+
+        <div class="text">{{question | lang: 'question' | async}}</div>
+
+        <div 
+          @heightOutAnimation
+          class="answer" 
+          *ngIf="selectedQuestion === question.id"
+          [innerHTML]="'<br/>' + (question | lang: 'answer' | async)">
+        </div>
+
+      </div>
+
+      <i class="g-icon-add" [class.remove]="selectedQuestion === question.id"></i>
+
+    </div>
+
+  </div>
+
+</div>

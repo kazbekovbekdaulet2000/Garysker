@@ -23,19 +23,15 @@ import { LinkShareModalComponent } from 'src/app/shared/modals/share-modal/share
 export class HeaderComponent implements OnInit, OnDestroy {
 
   main = '';
-
   innerWidth: number = window.innerWidth;
-
   dropdown: boolean = false;
-
   sideBar: boolean = false;
-
   dataAvailable: boolean = false;
-
   userMenu: boolean = false;
 
   @Select(AuthState.access) access$!: Observable<string>;
   @Select(AuthState.profile) profile$!: Observable<UserModel>;
+  @Select(AuthState.authorized) authorized$!: Observable<boolean>;
 
   @ViewChild('toggleDiv') toggleDiv: ElementRef | any;
   @ViewChild('menu') menu: ElementRef | any;
@@ -143,7 +139,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
           default:
             this.main = '';
         }
-        this.dataAvailable = true
       })
   }
 
@@ -173,5 +168,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   shareLink(){
     this.bsModalService.show(LinkShareModalComponent, { class: 'modal-dialog-centered' })
+  }
+
+  get isReportOrVideo(): boolean {
+    return ['reports', 'videos'].includes(this.main)
   }
 }

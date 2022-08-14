@@ -27,7 +27,7 @@ const auth: LocaleDataModel = {
       pass: 'Новый пароль',
       pass_rep: 'Новый пароль (повторно)',
       new_code: 'отправить новый код',
-      time: 'Время: {{time}}c',
+      time: 'Время: ',
       next: 'Далее'
     },
     errors: {

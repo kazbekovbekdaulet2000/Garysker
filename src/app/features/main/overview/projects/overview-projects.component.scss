@@ -1,0 +1,137 @@
+@import "colors";
+.title {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 38px;
+  color: $color-white;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.desc {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  margin-bottom: 32px;
+  color: #888888;
+}
+
+.project {
+  &-holder {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  &-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 40px 24px;
+    background: rgba(15, 14, 29, 0.88);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    &-icon {
+      font-size: 16px;
+      margin-right: 8px;
+    }
+    .info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      color: #888888;
+      margin-bottom: 12px;
+      &-date {
+        margin-right: 16px;
+        font-weight: 400;
+        font-size: 16px;
+      }
+    }
+    .main {
+      .title {
+        margin-bottom: 4px;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 29px;
+      }
+      .desc {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        margin-bottom: 12px;
+        color: #888888;
+      }
+    }
+    .footer {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      .purpose {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color: $color-orange;
+      }
+      .collected {
+        &-orange {
+          color: $color-orange;
+        }
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color: #555555;
+      }
+    }
+  }
+}
+
+.content {
+  width: calc(100% + 60px);
+  padding: 30px 16px;
+  margin-left: -30px;
+}
+
+@media screen and (max-width: 768px) {
+  .project {
+    &-holder {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 16px;
+    }
+    &-item {
+      padding: 20px;
+      .info {
+        &-date {
+          font-weight: 400;
+          font-size: 12px;
+        }
+      }
+      .main {
+        .title {
+          font-size: 16px;
+          line-height: 22px;
+        }
+        .desc {
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+      .footer {
+        .purpose {
+          font-size: 12px;
+          line-height: 17px;
+        }
+        .collected {
+          font-size: 12px;
+          line-height: 17px;
+        }
+      }
+    }
+  }
+  .content {
+    width: calc(100% + 32px);
+    padding: 16px;
+    margin-left: -16px;
+  }
+}

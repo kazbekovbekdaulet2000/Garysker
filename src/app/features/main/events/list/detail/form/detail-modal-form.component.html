@@ -9,11 +9,12 @@
 
   <app-input formControlName="name" [required]="true" [label]="'events.register.apply.name' | translate"
     [hint]="'events.register.apply.name_placeholder' | translate"></app-input>
-  
+
   <app-input formControlName="phone" [required]="true" [label]="'events.register.apply.phone' | translate"
     [hint]="'events.register.apply.phone_placeholder' | translate"></app-input>
 
   <div class="d-flex justify-content-end">
     <button class="btn btn-orange" (click)="onPost()">{{'events.register.apply.post' | translate}}</button>
   </div>
+
 </div>

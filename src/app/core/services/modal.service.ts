@@ -1,0 +1,37 @@
+import { Injectable } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { ConfirmDialogModalComponent } from 'src/app/shared/modals/confirm-dialog-modal/confirm-dialog-modal.component';
+import { DialogModalComponent } from 'src/app/shared/modals/dialog-modal/dialog-modal.component';
+
+export interface DialogModel {
+  position: 'top' | 'center';
+  title: string;
+  message: string;
+  icon?: string;
+  blur?: boolean;
+  iconType?: 'success' | 'hello' | 'congrats' | 'hope' | 'hello2' | 'not-found' | 'love' | 'error' | 'star-struck' | 'garyshker'
+}
+
+export interface DialogConfirmModel extends DialogModel {
+  confirmText?: string;
+  cancelText?: string;
+  onConfirm?: () => void;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ModalService {
+
+  constructor(
+    private bsModalService: BsModalService
+  ) { }
+
+  showConfirmDialog(options: DialogConfirmModel) {
+    this.bsModalService.show(ConfirmDialogModalComponent, { initialState: { options } });
+  }
+
+  showDialog(options: DialogModel) {
+    this.bsModalService.show(DialogModalComponent, { initialState: { options } })
+  }
+}

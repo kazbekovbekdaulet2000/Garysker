@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { TokenModel } from '../models/api/token.model';
 import { ApiService } from './api.service';
 import { UserModel } from '@core/models/api/user.model';

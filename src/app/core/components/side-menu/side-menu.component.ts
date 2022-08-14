@@ -25,6 +25,7 @@ export class SideMenuComponent {
 
   currentRoute: string | undefined;
   marginTop: number = 0
+  marginBottom: number = 0
 
   sections: SectionModel[] = [
     {
@@ -55,11 +56,14 @@ export class SideMenuComponent {
     private renderer: Renderer2
   ) {
     this.renderer.listen("window", "scroll", () => {
-      let diff = document.documentElement.scrollTop
-      if (diff + this.menu.nativeElement.scrollHeight < this.contentHeight) {
+      const diff = document.documentElement.scrollHeight - (32 + document.documentElement.scrollTop + this.menu.nativeElement.scrollHeight + this.menu.nativeElement.scrollHeight)
+      if (diff < 0) {
         this.marginTop = diff
+      } else {
+        this.marginTop = 0
       }
     });
+    
     this.addNavigationListener();
     this.store.dispatch(ListCategories)
   }

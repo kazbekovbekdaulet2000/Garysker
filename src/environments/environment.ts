@@ -14,5 +14,4 @@ export const environment = {
   },
   production: false,
   API: "https://app.garyshker-app.kz",
-  // API: "http://localhost:8000"
 };

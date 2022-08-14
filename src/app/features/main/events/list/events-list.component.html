@@ -1,12 +1,13 @@
 <div @opacityAnimation class="body">
 
-  <app-component-header header="events.main_header" detail="events.main_description"></app-component-header>
+  <div class="d-flex align-items-center gap-2 page-picker">
 
-  <div class="d-flex align-items-center gap-2 mt-4 page-picker">
-
-    <div *ngFor="let type of types" class="d-flex align-items-center pointer page-picker-item"
-      [class.active]="type===selected_type" (click)="onTypeSelect(type)">
-      <span>{{type.name | translate}}</span>
+    <div 
+      *ngFor="let type of types" 
+      class="d-flex align-items-center pointer page-picker-item"
+      [class.active]="type===selected_type" 
+      (click)="onTypeSelect(type)">
+      <span [translate]="type.name"></span>
     </div>
 
   </div>
@@ -38,7 +39,6 @@
           <img class="event-holder-item-image-location" src="assets/icons/location2.svg" alt="">
 
           <span class="pointer">{{event | lang: 'address' | async}}</span>
-          <!-- (click)="openLink(event.address_link)" -->
 
         </div>
 
@@ -47,20 +47,17 @@
       <div class="d-flex justify-content-between flex-wrap mt-4">
 
         <div *ngIf="!isPast(event)" class="d-flex gap-2 align-items-center mb-2">
-          <img class="ml-2" src="assets/icons/2_user.svg" alt="">
-          <span *ngIf="!event.max_user_count">{{'events.register.count' | translate: ({count: event.participants_count})}} </span>
-          <span *ngIf="event.max_user_count">{{'events.register.count_limit' | translate: ({count: event.participants_count, max_users: event.max_user_count})}} </span>
+          <i class="g-icon-users"></i>
+          <span *ngIf="!event.max_user_count" translate="events.register.count" [translateParams]="{count: event.participants_count}"></span>
+          <span *ngIf="event.max_user_count" translate="events.register.count_limit" [translateParams]="{count: event.participants_count, max_users: event.max_user_count}"></span>
         </div>
 
         <div *ngIf="isPast(event)" class="d-flex gap-2 align-items-center mb-2">
-          <!-- <img class="ml-2" src="assets/icons/2_user.svg" alt=""> -->
-          <span><b>{{'events.register.completed' | translate}}</b></span>
+          <span><b translate="events.register.completed"></b></span>
         </div>
 
-        <button class="btn btn-orange" *ngIf="!event.canceled" (click)="onDetail(event)">{{'events.register.more' |
-          translate }}</button>
-        <button class="btn btn-red" *ngIf="event.canceled" (click)="onDetail(event)">{{'events.register.canceled' |
-          translate }}</button>
+        <button class="btn btn-orange" *ngIf="!event.canceled" (click)="onDetail(event)" translate="events.register.more"></button>
+        <button class="btn btn-red" *ngIf="event.canceled" (click)="onDetail(event)" translate="events.register.canceled"></button>
 
       </div>
 

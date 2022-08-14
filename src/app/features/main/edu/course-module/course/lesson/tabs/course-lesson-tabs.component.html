@@ -12,23 +12,36 @@
     <div 
       class="tab pointer" 
       (click)="tab='resources'" 
+      *ngIf="courseService.resourses.length>0"
       [class.selected]="tab==='resources'">
       {{'course.resources_tab' | translate}}
     </div>
   
   </div>
 
-  <ng-container *ngIf="!courseService.lesson.finished">
+  <ng-container *ngIf="!courseService.lesson.finished && !courseService.course.completed; else completedBtns">
 
-    <ng-container *ngIf="courseService.quiz; else noQuiz">
+    <ng-container *ngIf="!courseService.quiz && isLastLesson">
+      <div class="participate pointer" (click)="nextLesson(courseService.lesson)" translate='course.lesson.finish_course'></div>
+    </ng-container>
+
+    <ng-container *ngIf="courseService.quiz && !isLastLesson">
       <div class="participate pointer" (click)="startQuiz(courseService.quiz)" translate='course.lesson.start_quiz'></div>
     </ng-container>
+
+    <ng-container *ngIf="courseService.quiz && isLastLesson">
+      <div class="participate pointer" (click)="startQuiz(courseService.quiz)" translate='course.lesson.start_quiz_and_finish'></div>
+    </ng-container>
   
-    <ng-template #noQuiz>
-      <div class="participate pointer" (click)="nextLesson(courseService.lesson)" translate='course.lesson.next_lesson'></div>
-    </ng-template>
+    <ng-container *ngIf="!courseService.quiz && !isLastLesson">
+      <div *ngIf="!isLastLesson" class="participate pointer" (click)="nextLesson(courseService.lesson)" translate='course.lesson.next_lesson'></div>
+    </ng-container>
 
   </ng-container>
+
+  <ng-template #completedBtns>
+    <div *ngIf="!isLastLesson" class="participate pointer" (click)="getNextLesson()" translate='course.lesson.next_lesson'></div>
+  </ng-template>
 
 </div>
 
@@ -36,7 +49,7 @@
 
   <div @opacityAnimation *ngSwitchCase="'desc'">
   
-    <div class="description" [innerHtml]="courseService.course | lang: 'description' | async"></div>
+    <div class="description" [innerHtml]="courseService.lesson | lang: 'description' | async"></div>
     
     <div class="lector-header">{{'course.lesson.lector_header' | translate}}</div>
 

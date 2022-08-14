@@ -27,7 +27,7 @@ const shop: LocaleDataModel = {
     create_order: 'Оформить заказ',
     location: {
       label: "Заказ вы можете забрать:",
-      title: 'Город Алматы, проспект Достык 162 к 4 (Офис Garyshker)'
+      title: 'Город Алматы, улица Желтоксан 168A (Офис Garyshker)'
     },
     close: "Назад",
     message: {

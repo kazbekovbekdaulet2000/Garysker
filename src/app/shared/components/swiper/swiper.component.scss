@@ -23,6 +23,7 @@
 .swiper-button {
   &-prev,
   &-next {
+    transition: 0.25s all !important;
     width: 40px !important;
     height: 40px !important;
     border-radius: 20px !important;
@@ -45,6 +46,9 @@
     margin-top: 0px !important;
     top: calc(50% - 20px) !important;
   }
+  &-disabled{
+    opacity: 0 !important;
+  }  
 }
 
 .swiper-pagination-bullet {
@@ -73,10 +77,10 @@
 @media screen and (max-width: 768px) {
   .swiper-button {
     &-prev {
-      left: -4px !important;
+      left: 4px !important;
     }
     &-next {
-      right: -4px !important;
+      right: 4px !important;
     }
   }
   .swiper-slide {

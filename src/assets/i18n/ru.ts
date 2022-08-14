@@ -14,6 +14,7 @@ import auth from "./auth/ru";
 import app from "./app/ru";
 import nko from "./nko/ru";
 import shop from "./shop/ru";
+import overview from "./overview/ru";
 
 const localeRu: LocaleModel = {
   lang: 'ru',
@@ -32,7 +33,8 @@ const localeRu: LocaleModel = {
     auth,
     app,
     nko,
-    shop
+    shop,
+    overview
   }
 };
 

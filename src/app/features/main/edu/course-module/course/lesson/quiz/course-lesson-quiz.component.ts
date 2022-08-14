@@ -106,7 +106,10 @@ export class CourseLessonQuizComponent {
       this.courseService.quiz = null
       this.courseService.questions = []
       this.courseService.question = null
+
       this.getCurrentLesson()
+      this.courseService.listLessons(this.courseId).subscribe(()=>{})
+
       this.router.navigate(['edu/courses', this.courseId])
       this.bsModalService.show(MessageModalComponent, {
         initialState: {

@@ -1,0 +1,141 @@
+@import "colors";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 40px;
+  background-color: $color-steel-gray;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  &:last-child {
+    margin-bottom: 24px;
+  }
+
+  .header {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 39px;
+    margin-bottom: 48px;
+  }
+
+  .members {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 48px;
+
+    &-item {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .icon {
+        width: 100px !important;
+        height: 100px !important;
+        padding: 10px;
+        border-radius: 50%;
+        margin-bottom: 16px;
+        background-color: #272634;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+      .name {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 8px;
+      }
+      .description {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+      }
+    }
+  }
+
+  .text {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #888888;
+    margin-bottom: 16px;
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  .description {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: center;
+    color: #b5b5b5;
+    margin-bottom: 32px;
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 640px);
+    margin: 0 auto;
+  }
+  .form-holder {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+  }
+  .input-form {
+    flex: 1;
+    background-color: #272634;
+    outline: none;
+    border: none;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 16px;
+    color: $color-white;
+    border-radius: 12px;
+    border: 1px solid transparent;
+
+    &:focus {
+      border: 1px solid $color-orange;
+      background-color: transparent;
+    }
+  }
+  .hint {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #555555;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    .members {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .form-holder {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      flex-direction: column;
+      .btn{
+        margin: auto;
+        margin-top: 12px;
+        width: max-content;
+      }
+    }
+  }
+}

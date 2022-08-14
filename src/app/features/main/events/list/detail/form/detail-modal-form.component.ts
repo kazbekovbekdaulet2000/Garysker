@@ -19,7 +19,7 @@ export class EventDetailFormModalComponent implements OnInit {
     phone: [null, Validators.required]
   })
 
-  onClose!: Subject<boolean | null>;
+  onClose: Subject<boolean | null>;
 
   constructor(
     private bsModalRef: BsModalRef,

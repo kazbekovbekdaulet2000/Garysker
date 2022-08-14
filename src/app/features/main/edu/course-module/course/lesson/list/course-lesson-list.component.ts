@@ -22,6 +22,7 @@ export class CourseLessonListComponent {
   changeLesson(lessonId: number) {
     this.courseService.getLesson(this.courseService.course.id, lessonId).subscribe(lesson => {
       this.courseService.lesson = lesson
+      this.courseService.getResources(this.courseService.course.id, lesson.id).subscribe(()=>{})
       if (this.courseService.lesson.quiz) {
         this.courseService.getQuiz(this.courseService.course.id, lesson.id).subscribe({
           next: quiz => {

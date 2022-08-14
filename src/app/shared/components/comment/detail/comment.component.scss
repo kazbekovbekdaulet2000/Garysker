@@ -16,7 +16,7 @@
   &-user {
     display: flex;
     justify-content: space-between;
-
+    align-items: center;
     &-image {
       width: 36px;
       height: 36px;
@@ -42,16 +42,12 @@
     }
     &-like {
       display: flex;
-      line-height: 20px;
-      gap: 4px;
+      align-items: center;
+      font-size: 16px;
       &-count {
+        margin-left: 4px;
         text-align: right;
         min-width: 12px;
-      }
-      &-icon {
-        width: 20px;
-        height: 20px;
-        object-fit: cover;
       }
     }
   }

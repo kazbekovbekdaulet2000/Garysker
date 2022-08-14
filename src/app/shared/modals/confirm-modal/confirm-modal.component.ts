@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { Subject, timer } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   templateUrl: './confirm-modal.component.html',
@@ -13,10 +13,9 @@ export class ConfirmModalComponent implements OnInit {
   false_ans: string = "";
   true_ans: string = "";
   icon: string = "";
-  false_ans_background: string = "";
-  true_ans_background: string = "";
+  false_ans_background: boolean = false;
   
-  onClose!: Subject<boolean | null>;
+  onClose: Subject<boolean | null>;
 
   constructor(
     private bsModalRef: BsModalRef,

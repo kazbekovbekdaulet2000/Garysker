@@ -1,8 +1,14 @@
 import { AfterViewInit, Component, ContentChild, EventEmitter, Input, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import SwiperCore, { Navigation, Pagination, Autoplay, SwiperOptions } from "swiper";
 import { SwiperComponent } from 'swiper/angular';
+import { AutoplayOptions } from 'swiper/types';
 
-SwiperCore.use([Pagination, Navigation]);
+SwiperCore.use([Pagination, Navigation, Autoplay]);
+
+export interface SwiperBreakpoint {
+  [size: number]: SwiperOptions;
+  [ratio: string]: SwiperOptions;
+}
 
 @Component({
   selector: 'app-swiper',
@@ -22,9 +28,15 @@ export class CarouselComponent implements AfterViewInit {
   @Input() spaceBetween: number = 8;
   @Input() centeredSlides: boolean = false;
   @Input() navigation: boolean = true;
-  @Input() autoplay: any = { delay: 5000 }
+  @Input() autoplay: AutoplayOptions | boolean = {
+    delay: 5000,
+    stopOnLastSlide: false,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: false
+  }
   @Input() bottomMargin: number = 16;
   @Input() mousewheel: boolean = false
+  @Input() breakpoints: SwiperBreakpoint;
 
   @Output() isEnd = new EventEmitter<any>();
 
@@ -47,6 +59,11 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   onSwiper(event: any) {
-    this.isEnd.emit(event.activeIndex+6>event.slides.length)
+    this.isEnd.emit(event.activeIndex + 6 > event.slides.length)
+  }
+  onSlideChange() {
+    // if (this.swiper.swiperRef.activeIndex === this.slides.length && this.loop) {
+    //   this.swiper.swiperRef.slideTo(0, 500, false)
+    // }
   }
 }

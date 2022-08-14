@@ -33,11 +33,15 @@ export class VideoComponent implements OnDestroy {
     private meta: Meta,
     private title: Title,
   ) {
-    window.scrollTo(0, 0)
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.ngOnDestroy()
+    })
+    this.video$.subscribe(data => {
+      if (data) {
+        window.scrollTo(0, 0)
+      }
     })
     this.activatedRoute.params.subscribe(({ id }) => {
       this.videoId = id
@@ -58,7 +62,7 @@ export class VideoComponent implements OnDestroy {
         this.meta.updateTag({ name: 'brand', content: 'Garyshker' })
         this.meta.updateTag({ property: "og:url", content: location.href })
         this.meta.updateTag({ property: 'og:type', content: 'website' })
-        this.meta.updateTag({ name: 'twitter:title', content: lang === 'ru' ? video!.title_ru : video!.title_kk})
+        this.meta.updateTag({ name: 'twitter:title', content: lang === 'ru' ? video!.title_ru : video!.title_kk })
         this.meta.updateTag({ property: 'og:title', content: lang === 'ru' ? video!.title_ru : video!.title_kk })
         this.meta.updateTag({ property: 'og:image', content: video!.image })
         this.meta.updateTag({ name: 'twitter:image', content: video!.image })

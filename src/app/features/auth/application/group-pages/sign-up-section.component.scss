@@ -76,22 +76,18 @@
       max-width: 145px;
     }
     &-prev {
-      border-radius: 12px;
       margin-top: 24px;
-      padding: 8px;
       outline: none;
       border: none;
-      color: #ffffff50;
+      color: $color-white !important;
       font-weight: 300;
     }
     &-next {
-      border-radius: 12px;
       background-color: #ffaa00e1;
       margin-top: 24px;
-      padding: 8px 36px;
       outline: none;
       border: none;
-      color: #ffffff;
+      color: $color-white !important;
     }
   }
 }

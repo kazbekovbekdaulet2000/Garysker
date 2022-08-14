@@ -12,6 +12,7 @@ import { ResetPassStageOneComponent } from './reset-pass/stage-1/reset-pass-stag
 import { ResetPassStageTwoComponent } from './reset-pass/stage-2/reset-pass-stage-2.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputModule } from 'src/app/shared/components/input/input.module';
+import { CountdownModule } from 'src/app/shared/components/countdown/countdown.module';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -33,6 +34,7 @@ const maskConfig: Partial<IConfig> = {
     InputModule,
     ReactiveFormsModule,
     TranslateModule,
+    CountdownModule,
     NgxMaskModule.forRoot(),
   ],
 })

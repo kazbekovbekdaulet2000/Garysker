@@ -7,4 +7,5 @@ export interface DonationModel {
   required: number;
   title_kk: string;
   title_ru: string;
+  on_process: boolean;
 }

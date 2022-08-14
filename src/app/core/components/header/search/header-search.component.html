@@ -1,17 +1,16 @@
-<div (click)="toggleSearch()" class="search-bar" *ngIf="main!=='auth' && main!=='application'">
+<div (click)="toggleSearch()" class="search" *ngIf="main!=='auth' && main!=='application'">
   
-  <img class="search-bar-icon" src="assets/icons/search.svg" alt="">
-  
-  <input type="text" [formControl]="searchText" class="search-bar-input" [placeholder]="'header.search' | translate">
+  <!-- <img class="search-bar-icon" src="assets/icons/search.svg" alt=""> -->
+  <i class="g-icon-search search-icon"></i>
+
+  <input type="text" [formControl]="searchText" class="search-input" [placeholder]="'header.search' | translate">
   
   <ng-container *ngIf="list$ | async as list">
   
-    <div #search @opacityAnimation class="search-bar-result" *ngIf="(showSearch && list.length>0); else noRes">
+    <div #search @opacityAnimation class="search-result" *ngIf="(showSearch && list.length>0); else noRes">
   
-      <div (click)="navigateRes(res)" class="search-bar-result-item pointer" *ngFor="let res of list">
-  
+      <div (click)="navigateRes(res)" class="search-result-item pointer" *ngFor="let res of list">
         {{res | lang: 'title' | async}}
-  
       </div>
   
     </div>
@@ -20,12 +19,11 @@
   
   <ng-template #noRes>
   
-    <div #search @opacityAnimation class="search-bar-result" *ngIf="showSearch">
+    <div #search @opacityAnimation class="search-result" *ngIf="showSearch">
   
-      <div class="d-flex justify-content-center search-bar-result-error">
-  
-        {{'app.err.no_res' | translate}}
-  
+      <div 
+        class="d-flex justify-content-center search-result-error" 
+        translate="app.err.no_res">
       </div>
   
     </div>

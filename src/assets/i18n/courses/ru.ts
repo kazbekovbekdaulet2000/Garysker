@@ -62,6 +62,8 @@ const course: LocaleDataModel = {
     finished: 'Вы закончили этот курс',
     congrats: 'Поздравляем с успешным окончанием курса!',
     rating_text: 'На сколько баллов ты оцениваешь пройденный курс?',
+    cancel: 'Пропустить',
+    send: 'Завершить'
   },
   course_access_message: 'Поздравляю! Вы теперь можете смотреть курс',
   course_access: {

@@ -29,7 +29,7 @@
 
     <div class="reset-menu">
       <div class="reset-menu-force">
-        <div class="pointer"> {{'auth.reset.step_2.time' | translate : ({time: timer$ | async})}} </div>
+        <div class="pointer"> {{'auth.reset.step_2.time' | translate}} {{timer$ | async}} </div>
         <!-- <div class="pointer" (click)="forceReset()"> отправить новый код</div> -->
       </div>
       <button class="btn reset-menu-next" (click)="reset()">{{'auth.reset.step_2.next' | translate}}</button>
@@ -38,3 +38,13 @@
   </div>
 
 </div>
+<!-- 
+<app-countdown [template]="countdown" [leftSeconds]="240"></app-countdown>
+
+<ng-template #countdown let-leftDays="leftDays" let-leftHours="leftHours" let-leftMinutes="leftMinutes"
+let-leftSec="leftSec">
+<div class="countdown">
+<span *ngIf="leftMinutes"><span *ngIf="leftMinutes<10">0</span>{{leftMinutes}}:</span>
+<span><span *ngIf="leftSec<10">0</span>{{leftSec}}</span>
+</div>
+</ng-template> -->
