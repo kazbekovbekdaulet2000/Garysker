@@ -8,26 +8,33 @@ import { Store } from '@ngxs/store';
 import { map } from 'rxjs/operators';
 import { AuthState } from '@core/states/auth/auth.state';
 
-export type CommentType = 'reports' | 'videos'
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CommentsService extends ApiService {
+
+  static getProvider(type: 'reports' | 'videos') {
+    return {
+      provide: CommentsService,
+      deps: [HttpClient, Store],
+      useFactory: (http, store) => {
+        return new CommentsService(http, store, type);
+      }
+    };
+  }
 
   constructor(
     protected http: HttpClient,
     protected store: Store,
+    @Inject(String) public type: string,
   ) {
-    super('edu');
+    super(`edu/${type}`)
   }
 
-  list(type: CommentType, id: number, params?: any): Observable<ListResponseModel<CommentModel>> {
-    return this.http.get<ListResponseModel<CommentModel>>(this.getUrl(`${type}/${id}/comments`), { params });
+  list(id: number, params?: any): Observable<ListResponseModel<CommentModel>> {
+    return this.http.get<ListResponseModel<CommentModel>>(this.getUrl(`${id}/comments`), { params });
   }
 
-  post(type: CommentType, id: number, payload: any): Observable<CommentModel> {
-    return this.http.post<CommentModel>(this.getUrl(`${type}/${id}/comments`), payload)
+  post(id: number, payload: any): Observable<CommentModel> {
+    return this.http.post<CommentModel>(this.getUrl(`${id}/comments`), payload)
       .pipe(
         map(res => {
           const owner = this.store.selectSnapshot(AuthState.profile)
@@ -42,15 +49,15 @@ export class CommentsService extends ApiService {
       )
   }
 
-  patch(type: CommentType, id: number, commentId: number, payload: any): Observable<CommentModel> {
-    return this.http.patch<CommentModel>(this.getUrl(`${type}/${id}/comments/${commentId}`), payload)
+  patch(id: number, commentId: number, payload: any): Observable<CommentModel> {
+    return this.http.patch<CommentModel>(this.getUrl(`${id}/comments/${commentId}`), payload)
   }
 
-  like(type: CommentType, id: number, commentId: number): Observable<any> {
-    return this.http.post<any>(this.getUrl(`${type}/${id}/comments/${commentId}/like`), {})
+  like(id: number, commentId: number): Observable<any> {
+    return this.http.post<any>(this.getUrl(`${id}/comments/${commentId}/like`), {})
   }
 
-  delete(type: CommentType, id: number, commentid: number): Observable<any> {
-    return this.http.delete<any>(this.getUrl(`${type}/${id}/comments/${commentid}`))
+  delete(id: number, commentid: number): Observable<any> {
+    return this.http.delete<any>(this.getUrl(`${id}/comments/${commentid}`))
   }
 }

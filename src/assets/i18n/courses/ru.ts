@@ -4,26 +4,6 @@ import lesson from './lesson/ru'
 
 
 const course: LocaleDataModel = {
-  time: {
-    min_1: 'минуту',
-    min_2_4: '{{time}} минуты',
-    min_5: '{{time}} минут',
-    hour_1: 'час',
-    hour_2_4: '{{time}} часа',
-    hour_5: '{{time}} часов',
-    day_1: 'день',
-    day_2_4: '{{time}} дня',
-    day_5: '{{time}} дней',
-    week_1: 'неделю',
-    week_2_4: '{{time}} недели',
-    week_5: '{{time}} неделей',
-    month_1: 'месяц',
-    month_2_4: '{{time}} месяца',
-    month_5: '{{time}} месяцев',
-    year_1: 'год',
-    year_2_4: '{{time}} года',
-    year_5: '{{time}} лет',
-  },
   progress: {
     lesson_ended: '{{number}}/{{count}} Завершено',
     rating_header: 'Отзывы',

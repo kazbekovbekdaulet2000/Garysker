@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { CategoryModel } from '@core/models/api/category.model';
 import { map } from 'rxjs/operators';
@@ -11,11 +11,21 @@ import getCategoryIcon from '@core/utils/category-icons';
   providedIn: 'root'
 })
 export class CategoriesService extends ApiService {
-  
+
+  selectedCategory$: BehaviorSubject<number> = new BehaviorSubject(NaN)
+
   constructor(
     protected http: HttpClient
   ) {
     super('edu/categories');
+  }
+
+  changeCategory(id: number){
+    if(this.selectedCategory$.value === id){
+      this.selectedCategory$.next(NaN)
+    }else{
+      this.selectedCategory$.next(id)
+    }
   }
 
   list(params?: any): Observable<CategoryModel[]> {

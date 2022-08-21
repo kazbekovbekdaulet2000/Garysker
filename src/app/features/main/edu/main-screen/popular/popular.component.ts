@@ -2,13 +2,11 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { heightAnimation } from '@core/animations/height-animation';
-import 'swiper/swiper.scss'
 import { UpdateTop } from '@core/states/scroll/scroll';
 import { SwiperComponent } from 'swiper/angular';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { SwiperOptions } from 'swiper';
-import { Observable } from 'rxjs';
-import { MainState } from '../../../main.state';
+import { CategoriesService } from '@core/services/categories.service';
 
 
 @Component({
@@ -20,7 +18,6 @@ import { MainState } from '../../../main.state';
 export class EduPopularComponent {
   @Input() popular: any[]
   @ViewChild(SwiperComponent, { static: false }) swiper: SwiperComponent | undefined;
-  @Select(MainState.selectedCategory) selectedCategory$!: Observable<number>;
 
   breakpoints: {
     [size: number]: SwiperOptions;
@@ -44,6 +41,7 @@ export class EduPopularComponent {
   constructor(
     private store: Store,
     private router: Router,
+    public categoriesService: CategoriesService
   ) { }
 
   onNavigate(item: any) {
@@ -54,7 +52,7 @@ export class EduPopularComponent {
       this.router.navigate(['edu/videos', item?.id])
     }
   }
-  
+
   get height(): number {
     return window.innerWidth >= 640 ? 300 : 200
   }

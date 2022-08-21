@@ -63,33 +63,33 @@ export class SidenavComponent{
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event) => {
-        const route = event as NavigationEnd
+        const route = (event as NavigationEnd).urlAfterRedirects
         switch (true) {
-          case route.url.includes('profile'):
+          case route.includes('profile'):
             this.main = 'profile'
             break;
-          case route.url.includes('application'):
+          case route.includes('application'):
             this.main = 'application'
             break;
-          case route.url.includes('auth'):
+          case route.includes('auth'):
             this.main = 'auth';
             break;
-          case route.url.includes('edu'):
+          case route.includes('edu'):
             this.main = 'edu'
             break;
-          case route.url.includes('projects'):
+          case route.includes('projects'):
             this.main = 'projects'
             break;
-          case route.url.includes('events'):
+          case route.includes('events'):
             this.main = 'events'
             break;
-          case route.url.includes('shop'):
+          case route.includes('shop'):
             this.main = 'shop'
             break;
-          case route.url.includes('about'):
+          case route.includes('about'):
             this.main = 'about'
             break;
-          case route.url.includes('main'):
+          case route.includes('main'):
             this.main = 'main'
             break;
           default:

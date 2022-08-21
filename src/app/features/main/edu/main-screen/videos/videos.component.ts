@@ -1,15 +1,16 @@
 import { Router } from '@angular/router';
-import { Observable, } from 'rxjs';
-import { Select, Store } from '@ngxs/store'
-import { ListResponseModel } from '@core/models/api/list.model';
+import { Observable } from 'rxjs';
+import { Store } from '@ngxs/store'
+import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { heightAnimation } from '@core/animations/height-animation';
 import { UpdateTop } from '@core/states/scroll/scroll';
-import { MainState } from '../../../main.state';
-import { VideoState } from '../../video-module/video.state';
 import { VideoModel } from '@core/models/api/video.model';
-import { ListMoreVideos } from '../../video-module/video.actions';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { ListAbstract } from '@core/abstract/list.abstract';
+import { VideosService } from '@core/services/videos.service';
+import { switchMap } from 'rxjs/operators';
+import { CategoriesService } from '@core/services/categories.service';
 
 @Component({
   selector: 'app-videos',
@@ -17,33 +18,39 @@ import { Component } from '@angular/core';
   styleUrls: ['./videos.component.scss'],
   animations: [opacityAnimation, heightAnimation],
 })
-export class EduVideosComponent {
-
-  @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>;
-
-  params: any = {
-    page: 1,
-    page_size: 10
-  }
+export class EduVideosComponent extends ListAbstract<VideoModel> implements OnDestroy {
 
   constructor(
     private store: Store,
-    private router: Router
-  ) { }
+    private router: Router,
+    private videosService: VideosService,
+    private categoriesService: CategoriesService
+  ) {
+    super();
+    this.page_size = 8;
+  }
 
-  loadVideo(next: string) {
-    if (next) {
-      this.params.page++;
-      const category = this.store.selectSnapshot(MainState.selectedCategory)
-      if (category) {
-        this.params = { ...this.params, category }
+  get listAction(): Observable<ListResponseModel<VideoModel>> {
+    return this.categoriesService.selectedCategory$.pipe(switchMap(category=>{
+      let params = this.params
+      if(category) {
+        params = {...params, category}
       }
-      this.store.dispatch(new ListMoreVideos(this.params))
-    }
+      return this.videosService.list(params)
+    }))
   }
 
   onVideoRoute(id: number) {
     this.store.dispatch(new UpdateTop(document.documentElement.scrollTop))
     this.router.navigate(['edu/videos', id])
+  }
+
+  ngOnDestroy(): void {
+    this.list = emptyListResponse;
+    this.category_sub.unsubscribe();
+    if(this.list_sub){
+      this.list_sub.unsubscribe();
+    }
+    this.videosService.clear();
   }
 }

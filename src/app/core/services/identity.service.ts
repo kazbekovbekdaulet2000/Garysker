@@ -5,11 +5,9 @@ import { TokenModel } from '../models/api/token.model';
 import { ApiService } from './api.service';
 import { UserModel } from '@core/models/api/user.model';
 
-
 @Injectable({
   providedIn: 'root'
 })
-
 export class IdentityService extends ApiService {
 
   constructor(

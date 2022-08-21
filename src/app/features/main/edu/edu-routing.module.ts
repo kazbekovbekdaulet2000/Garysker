@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DevEnvGuard } from '@core/guards/dev.guard';
 import { EduComponent } from './main-screen/edu.component';
 
 
@@ -18,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'courses',
-    loadChildren: () => import('./course-module/course-module.module').then(m => m.CourseModuleModule)
+    loadChildren: () => import('./course-module/course-module.module').then(m => m.CourseModuleModule),
+    canLoad: [DevEnvGuard]
   },
 ];
 

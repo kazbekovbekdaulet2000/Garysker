@@ -1,8 +1,8 @@
-<ng-container *ngIf="reports">
+<ng-container *ngIf="list.count else loader">
 
-  <app-section-header text="report.read_more" icon="assets/images/open-book.png" *ngIf="reports.results.length > 0"></app-section-header>
+  <app-section-header text="report.read_more" icon="assets/images/open-book.png" *ngIf="list.results.length > 0"></app-section-header>
 
-  <app-swiper @opacityAnimation *ngIf="reports.results.length > 0" [bottomMargin]="48" [slides]="reports.results" [activeIndex]="0"
+  <app-swiper @opacityAnimation *ngIf="list.results.length > 0" [bottomMargin]="48" [slides]="list.results" [activeIndex]="0"
     [loop]="false" [navigation]="false" [spaceBetween]="24" [slidesPerView]="'auto'" [centeredSlides]="false"
     [horizontalPadding]="0" [autoplay]="false" (isEnd)="onScroll($event)">
 
@@ -16,3 +16,7 @@
   </app-swiper>
 
 </ng-container>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

@@ -1,24 +1,22 @@
-<ng-container *ngIf="videos$ | async as videos">
+<div *ngIf="list.results.length > 0">
 
-  <div @opacityAnimation *ngIf="videos.results.length > 0">
+  <app-section-header text="main_screen.view" icon="assets/images/video-camera.png"></app-section-header>
 
-    <app-section-header text="main_screen.view" icon="assets/images/video-camera.png"></app-section-header>
+  <div *ngIf="list.results.length > 0" class="videos">
 
-    <div *ngIf="videos.results.length > 0" class="videos">
-
-      <app-video-card *ngFor="let video of videos.results" (click)="onVideoRoute(video.id)" [video]='video'>
-      </app-video-card>
-
-    </div>
-
-    <div *ngIf="videos.next"
-      class="d-flex show_more flex-column align-content-center align-items-center pointer mb-5"
-      (click)="loadVideo(videos.next)">
-      {{'main_screen.view_more' | translate}}
-      <img src="assets/icons/down.svg" alt="">
-    </div>
-    <div *ngIf="!videos.next" class="mb-5"></div>
+    <app-video-card *ngFor="let video of list.results" (click)="onVideoRoute(video.id)" [video]='video'>
+    </app-video-card>
 
   </div>
 
-</ng-container>
+  <div 
+    *ngIf="list.next"
+    class="d-flex show_more flex-column align-content-center align-items-center pointer mb-5"
+    (click)="onScroll(true)">
+
+    <span translate="main_screen.view_more"></span>
+    <i class="g-icon-chevron-down"></i>
+
+  </div>
+
+</div>

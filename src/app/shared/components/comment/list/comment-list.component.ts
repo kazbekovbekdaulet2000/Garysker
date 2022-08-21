@@ -1,14 +1,15 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ListAbstract } from '@core/abstract/list.abstract';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
-import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
-import { CommentsService2 } from '@core/services/comments-2.service';
+import { ListResponseModel } from '@core/models/api/list.model';
+import { CommentsService } from '@core/services/comments.service';
 import { ModalService } from '@core/services/modal.service';
 import { AuthState } from '@core/states/auth/auth.state';
 import { Select } from '@ngxs/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import deleteComment from 'src/app/features/main/edu/deleteComment';
 import iterateComments from 'src/app/features/main/edu/iterateComments';
 
@@ -18,17 +19,12 @@ import iterateComments from 'src/app/features/main/edu/iterateComments';
   styleUrls: ['./comment-list.component.scss'],
   animations: [opacityAnimation, heightAnimation]
 })
-export class CommentListComponent implements OnInit, OnDestroy {
-
+export class CommentListComponent extends ListAbstract<CommentModel> implements OnInit, OnDestroy {
   @Input() entityId: number;
-  @Input() marginTop: boolean = true
-  @Select(AuthState.authorized) authorized$!: Observable<boolean>;
+  @Input() marginTop: boolean = true;
+  @Output() newComment = new EventEmitter<'increase' | 'decrease'>();
 
-  comments: ListResponseModel<CommentModel> = emptyListResponse
-
-  commentsSubs: Subscription;
-
-  page: number = 1;
+  @Select(AuthState.authorized) authorized$: Observable<boolean>;
 
   formGroup: FormGroup;
 
@@ -37,30 +33,21 @@ export class CommentListComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private modalService: ModalService,
-    private commentsService: CommentsService2
-  ) { }
+    private commentsService: CommentsService
+  ) {
+    super();
+  }
+
+  get listAction(): Observable<ListResponseModel<CommentModel>> {
+    return this.commentsService.list(this.entityId, this.params)
+  }
 
   ngOnInit(): void {
-    this.onListUpdate(this.page)
+    this.init();
     this.formGroup = this.formBuilder.group({
       body: [null, Validators.required],
       reply: [null]
     })
-  }
-
-  onListUpdate(page: number) {
-    let params = { page, page_size: 10 }
-    this.commentsSubs = this.commentsService.list(this.entityId, params).subscribe(comments => {
-      this.comments = { ...comments, results: [...this.comments.results, ...comments.results] }
-    })
-  }
-
-  loadMore() {
-    if (!this.comments.next) {
-      return;
-    }
-    this.page++;
-    this.onListUpdate(this.page)
   }
 
   triggerFunction(event: any) {
@@ -78,9 +65,10 @@ export class CommentListComponent implements OnInit, OnDestroy {
     if (this.formGroup.valid) {
       const payload = this.formGroup.getRawValue()
       this.commentsService.post(this.entityId, payload).subscribe((comment) => {
-        this.comments.results = [comment, ...this.comments.results]
-        this.comments.count++;
-        this.formGroup.reset()
+        this.list.results = [comment, ...this.list.results]
+        this.list.count++;
+        this.formGroup.reset();
+        this.newComment.emit('increase')
       })
     }
   }
@@ -107,12 +95,12 @@ export class CommentListComponent implements OnInit, OnDestroy {
   addReply(reply: any) {
     this.commentsService.post(this.entityId, reply)
       .subscribe(comment => {
-        this.comments.count++
+        this.list.count++
         if (comment.reply) {
-          this.comments.results.map(item => iterateComments(item, comment))
+          this.list.results.map(item => iterateComments(item, comment))
         } else {
-          const list = [comment, ...this.comments.results]
-          this.comments.results = list
+          const list = [comment, ...this.list.results]
+          this.list.results = list
         }
       })
   }
@@ -127,18 +115,14 @@ export class CommentListComponent implements OnInit, OnDestroy {
       message: 'app.comment.delete.title',
       onConfirm: () => {
         this.commentsService.delete(this.entityId, comment.id).subscribe(() => {
-          this.comments = {
-            ...this.comments,
-            count: this.comments.count-1,
-            results: deleteComment(this.comments.results, comment.id)
+          this.list = {
+            ...this.list,
+            count: this.list.count - 1,
+            results: deleteComment(this.list.results, comment.id)
           }
+          this.newComment.emit('decrease')
         })
       }
     })
-  }
-
-  ngOnDestroy(): void {
-    this.comments = emptyListResponse;
-    this.commentsSubs.unsubscribe()
   }
 }

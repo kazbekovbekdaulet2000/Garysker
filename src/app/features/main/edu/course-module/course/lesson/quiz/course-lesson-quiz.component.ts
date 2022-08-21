@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CourseService } from '@core/services/courses.service';
+import { ModalService } from '@core/services/modal.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { MessageModalComponent } from 'src/app/shared/modals/err-modal/err-modal.component';
 
 @Component({
   templateUrl: './course-lesson-quiz.component.html',
@@ -18,6 +18,7 @@ export class CourseLessonQuizComponent {
   constructor(
     public courseService: CourseService,
     public bsModalService: BsModalService,
+    public modalService: ModalService,
     public router: Router
   ) {
     this.courseService.getCurrentQuiz(this.courseId, this.lessonId).subscribe({
@@ -31,10 +32,16 @@ export class CourseLessonQuizComponent {
           },
             err => {
               if (err.status === 400) {
-                this.getCurrentLesson()
-                this.bsModalService.show(MessageModalComponent, {
-                  initialState: { message: 'Количество попыток закончилась', icon: 'sticker1' }, //TODO
-                  class: 'modal-dialog-centered'
+                this.modalService.showConfirmDialog({
+                  position: 'center',
+                  title: 'Мы видим, что вы стараетесь!',
+                  message: 'Количество попыток закончилась',
+                  iconType: 'hope',
+                  confirmText: 'Перейти далее',
+                  onConfirm: () => {
+                    this.getCurrentLesson()
+                    this.courseService.listLessons(this.courseId).subscribe(()=>{})
+                  }
                 })
                 this.router.navigate(['edu/courses', this.courseId])
               }
@@ -52,7 +59,7 @@ export class CourseLessonQuizComponent {
   }
 
   getCurrentLesson() {
-    this.courseService.getCurrentLesson(this.courseId).subscribe((lesson)=>{
+    this.courseService.getCurrentLesson(this.courseId).subscribe((lesson) => {
       if (lesson.quiz) {
         this.courseService.getQuiz(this.courseId, lesson.id).subscribe({
           next: () => { },
@@ -108,17 +115,16 @@ export class CourseLessonQuizComponent {
       this.courseService.question = null
 
       this.getCurrentLesson()
-      this.courseService.listLessons(this.courseId).subscribe(()=>{})
+      this.courseService.listLessons(this.courseId).subscribe(() => { })
 
       this.router.navigate(['edu/courses', this.courseId])
-      this.bsModalService.show(MessageModalComponent, {
-        initialState: {
-          message: attempt.completed
-            ? `Поздравляю вы набрали ${attempt.progress}%`
-            : `Вы набрали недостаточно баллов для прохаждения далее, ваш балл ${attempt.progress}`,
-          icon: attempt.completed ? 'sticker3' : 'sticker1'
-        },
-        class: 'modal-dialog-centered'
+      this.modalService.showDialog({
+        position: 'center',
+        title: "",
+        message: attempt.completed
+          ? `Поздравляю вы набрали ${attempt.progress}%`
+          : `Вы набрали недостаточно баллов для прохаждения далее, ваш балл ${attempt.progress}`,
+        iconType: attempt.completed ? 'congrats' : 'success'
       })
     })
   }

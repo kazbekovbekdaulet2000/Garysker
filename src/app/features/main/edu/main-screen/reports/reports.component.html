@@ -1,25 +1,21 @@
 <div class="placeholderReports">
 
-  <ng-container *ngIf="reports$ | async as reports">
+  <div @opacityAnimation *ngIf="list.results.length > 0">
 
-    <div @opacityAnimation *ngIf="reports.results.length > 0">
+    <app-section-header text="main_screen.read" icon="assets/images/open-book.png"></app-section-header>
 
-      <app-section-header text="main_screen.read" icon="assets/images/open-book.png"></app-section-header>
+    <app-swiper [slides]="list.results" [activeIndex]="0" [loop]="false" [navigation]="false" [spaceBetween]="24"
+      [slidesPerView]="'auto'" [centeredSlides]="false" [horizontalPadding]="0" [autoplay]="false" (isEnd)="onScroll($event)">
 
-      <app-swiper [slides]="reports.results" [activeIndex]="0" [loop]="false" [navigation]="false" [spaceBetween]="24"
-        [slidesPerView]="'auto'" [centeredSlides]="false" [horizontalPadding]="0" [autoplay]="false" (isEnd)="onScroll($event)">
+      <ng-template let-item="item">
 
-        <ng-template let-item="item">
+        <report-card (click)="onReportRoute(item.id)" [report]='item'>
+        </report-card>
 
-          <report-card (click)="onReportRoute(item.id)" [report]='item'>
-          </report-card>
+      </ng-template>
 
-        </ng-template>
+    </app-swiper>
 
-      </app-swiper>
-
-    </div>
-
-  </ng-container>
+  </div>
 
 </div>

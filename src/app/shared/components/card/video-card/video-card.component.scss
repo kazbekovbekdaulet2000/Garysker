@@ -5,15 +5,9 @@
   overflow: hidden;
   border-radius: 20px;
   color: white;
+  height: 278px;
 
-  .back {
-    width: 100%;
-    height: 278px;
-    object-fit: cover;
-    background-color: $color-mako;
-  }
-
-  .small {
+  &.small {
     height: 180px;
   }
 
@@ -25,7 +19,7 @@
     font-family: "Acrobat";
     font-size: 30px;
     line-height: 30px;
-    color: #ffa800;
+    color: $color-orange;
   }
 
   .small-content {
@@ -85,7 +79,7 @@
     }
   }
 
-  .content-small{
+  .content-small {
     right: 12px;
     left: 12px;
     bottom: 16px;
@@ -112,9 +106,7 @@
 
 @media screen and (max-width: 640px) {
   .video-card {
-    .back {
-      height: 180px;
-    }
+    height: 180px;
     .content {
       position: absolute;
       z-index: 4;
@@ -132,9 +124,7 @@
 
 @media screen and (max-width: 480px) {
   .video-card {
-    .back {
-      height: 180px;
-    }
+    height: 180px;
     .content {
       position: absolute;
       z-index: 4;

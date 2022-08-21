@@ -10,7 +10,7 @@ const nko: LocaleDataModel = {
     header: '2021 жылғы есептер',
   },
   download: 'жүктеу',
-  support_message: 'Егер сіз жобаның демеушісі немесе серіктесі болғыңыз келсе, бізге электрондық поштаңызға жазыңыз <a class="mail-link" href="mailto:info@garyshker.com">info@garyshker.com</a>'
+  support_message: 'Егер сіз жобаның демеушісі немесе серіктесі болғыңыз келсе, бізге электрондық поштаңызға жазыңыз <a target="_blank" class="mail-link" href="mailto:info@garyshker.com">info@garyshker.com</a>'
 };
 
 export default nko;

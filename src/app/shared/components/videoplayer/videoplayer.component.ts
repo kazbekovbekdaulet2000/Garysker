@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { VideoTranscodeModel } from '@core/models/api/video/video-transcode.model';
@@ -12,7 +12,12 @@ import { videoI18n } from './videoplayer.i18n';
   styleUrls: ['./videoplayer.component.scss'],
   animations: [opacityAnimation, heightOutAnimation]
 })
-export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
+export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+  ngAfterViewInit(): void {
+    this.plyr.plyrEnded.subscribe(()=>{
+      this.videoEnd.emit(true)
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.video) {
@@ -22,9 +27,11 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() video: VideoTranscodeModel | undefined;
   @Input() link: string | undefined;
+  @Output() videoEnd = new EventEmitter<boolean>();
+
   @ViewChild(PlyrComponent) plyr: PlyrComponent | undefined;
 
-  player!: Plyr;
+  player: Plyr;
   videoSources: Plyr.Source[] = [];
   viderQuality!: Plyr.QualityOptions
   videoTracks: Plyr.Track[] = []
@@ -68,5 +75,4 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   play(): void {
     this.player.play();
   }
-
 }

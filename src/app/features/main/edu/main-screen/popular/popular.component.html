@@ -1,6 +1,6 @@
-<div @opacityAnimation *ngIf="!!!(selectedCategory$ | async)" class="placeholderPopular">
+<div @opacityAnimation *ngIf="!!!(categoriesService.selectedCategory$ | async)" class="placeholderPopular">
 
-  <ng-container *ngIf="popular; else loader">
+  <ng-container *ngIf="popular.length>0; else loader">
 
     <div @opacityAnimation>
 
@@ -8,7 +8,7 @@
 
       <app-swiper 
         [slides]="popular" 
-        [activeIndex]="1" 
+        [activeIndex]="2" 
         [loop]="true" 
         [centeredSlides]="true"
         [breakpoints]="breakpoints"
@@ -35,15 +35,15 @@
                   <span>{{item.category | category | async}}</span>
 
                   <div 
-                    *ngIf="item.read_time" 
+                    *ngIf="!!item.read_time" 
                     class='content-category-text-time'>
-                    {{item.read_time | ReadTime | async}} • {{item.created_at | DateRemained | async}}
+                    {{item.read_time}} • {{item.created_at | DateRemained | async}}
                   </div>
 
                   <div 
-                    *ngIf="!item.read_time"
+                    *ngIf="!!!item.read_time"
                     class='content-category-text-time'>
-                    {{item.created_at | DateRemained | async}}
+                    {{item.duriation}} • {{item.created_at | DateRemained | async}}
                   </div>
 
                 </div>

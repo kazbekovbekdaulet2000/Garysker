@@ -1,10 +1,7 @@
 <div class="swiper-carousel" [style.width]="width" [style.margin-left]="marginLeft" *ngIf="slides">
 
-  <!-- [loopedSlides]="loop ? (swiper?.swiperRef?.slides?.length || 10) : null" -->
- 
   <swiper 
     [loop]="loop" 
-    [loopedSlides]="loop ? 10 : null" 
     [slidesPerView]="slidesPerView" 
     [pagination]="pagination" 
     [centeredSlides]="centeredSlides"

@@ -9,8 +9,6 @@
   background-color: transparent;
   border-radius: 20px;
   overflow: hidden;
-  // margin-right: 30px;
-  // margin-bottom: 8px;
   padding: 16px 52px;
 
   .logo {
@@ -20,7 +18,7 @@
     position: absolute;
     font-family: "Acrobat";
     font-size: 28px;
-    color: #ffa800;
+    color: $color-orange;
   }
 
   .content {

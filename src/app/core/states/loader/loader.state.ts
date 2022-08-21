@@ -23,6 +23,11 @@ export class LoaderState {
     return queue;
   }
 
+  @Selector()
+  static loading({queue}: LoaderStateModel): boolean {
+    return queue.length === 0
+  }
+
   @Action(PushLoaderQueue)
   PushLoaderQueue({patchState, getState}: StateContext<LoaderStateModel>, {event}: PushLoaderQueue) {
     return patchState({
@@ -34,7 +39,6 @@ export class LoaderState {
   PopLoaderQueue({patchState, getState}: StateContext<LoaderStateModel>, {event}: PopLoaderQueue) {
     const queue = getState().queue;
     const foundIndex = queue.findIndex(i => i === event);
-
     if (foundIndex !== -1) {
       queue.splice(foundIndex, 1);
     }

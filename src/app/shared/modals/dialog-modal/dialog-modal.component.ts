@@ -34,4 +34,11 @@ export class DialogModalComponent implements OnInit {
   onClose(): void {
     this.bsModalRef.hide();
   }
+
+  onConfirm(){
+    if (this.options.onConfirm) {
+      this.options.onConfirm()
+    }
+    this.onClose()
+  }
 }

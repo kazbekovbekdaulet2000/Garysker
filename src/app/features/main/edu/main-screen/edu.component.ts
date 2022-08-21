@@ -1,37 +1,31 @@
 import { Select, Store } from '@ngxs/store'
-import { VideoModel } from '@core/models/api/video.model';
-import { ReportModel } from '@core/models/api/report.model';
-import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
+import { emptyListResponse } from '@core/models/api/list.model';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { heightAnimation } from '@core/animations/height-animation';
-import { filter } from 'rxjs/operators';
+import { filter, take, delay } from 'rxjs/operators';
 import { UpdateTop } from '@core/states/scroll/scroll';
 import { ScrollState } from '@core/states/scroll/scroll.state';
-import { ChangeCategory } from '../../main.actions';
-import { MainState } from '../../main.state';
-import { ReportState } from '../report-module/report.state';
-import { VideoState } from '../video-module/video.state';
-import { Component, AfterViewInit, OnDestroy } from '@angular/core';
-import { combineLatest, Observable, of } from 'rxjs';
-import { ClearReportList } from '../report-module/report.actions';
-import { ClearVideoList } from '../video-module/video.actions';
+import { Component, AfterViewInit } from '@angular/core';
+import { combineLatest, Observable } from 'rxjs';
 import { AppState } from '@core/states/app/app.state';
 import { CategoryModel } from '@core/models/api/category.model';
 import { Meta, Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '@env';
+import { ReportsService } from '@core/services/reports.service';
+import { VideosService } from '@core/services/videos.service';
+import { CategoriesService } from '@core/services/categories.service';
+import { LoaderState } from '@core/states/loader/loader.state';
 
 @Component({
   templateUrl: './edu.component.html',
   styleUrls: ['./edu.component.scss'],
   animations: [opacityAnimation, heightAnimation],
 })
-export class EduComponent implements AfterViewInit, OnDestroy {
-
-  @Select(ReportState.reports) reports$!: Observable<ListResponseModel<ReportModel>>;
-  @Select(VideoState.videos) videos$!: Observable<ListResponseModel<VideoModel>>;
-  @Select(MainState.selectedCategory) selectedCategory$!: Observable<number>;
-  @Select(AppState.categories) categories$!: Observable<CategoryModel[]>;
-  @Select(ScrollState.top) top$!: Observable<number>;
+export class EduComponent implements AfterViewInit {
+  loading: boolean = false;
+  @Select(AppState.categories) categories$: Observable<CategoryModel[]>;
+  @Select(ScrollState.top) top$: Observable<number>;
 
   show_info: boolean = false;
   popular: any[] = [];
@@ -40,11 +34,11 @@ export class EduComponent implements AfterViewInit, OnDestroy {
     private store: Store,
     private meta: Meta,
     private title: Title,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private reportsService: ReportsService,
+    private videosService: VideosService,
+    public categoriesService: CategoriesService
   ) {
-    const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
-    this.store.dispatch(new ChangeCategory(categoryId))
-
     this.translate.get('main_screen.description').subscribe(desc => {
       this.title.setTitle("Garyshker")
       this.meta.updateTag({ name: 'keywords', content: "asd, asd, asd" })
@@ -64,14 +58,20 @@ export class EduComponent implements AfterViewInit, OnDestroy {
     })
 
     combineLatest([
-      this.reports$,
-      this.videos$
+      this.reportsService._list$,
+      this.videosService._list$
     ]).pipe(
       filter(([reports, videos]) => reports !== emptyListResponse && videos !== emptyListResponse)
     ).subscribe(([reports, videos]) => {
       const list = [...reports.results, ...videos.results]
-      this.popular = list.sort((a: any, b: any) => (a.views < b.views) ? 1 : ((b.views < a.views) ? -1 : 0)).slice(0, 10)
+      this.popular = list.sort((a: any, b: any) => (a.views < b.views) ? 1 : ((b.views < a.views) ? -1 : 0))
     })
+
+    this.store.select(LoaderState.loading)
+      .pipe(filter(ans => ans === true), delay(500))
+      .subscribe(() => {
+        this.loading = true
+      })
   }
 
   ngAfterViewInit(): void {
@@ -81,26 +81,15 @@ export class EduComponent implements AfterViewInit, OnDestroy {
     this.store.dispatch(new UpdateTop(0))
   }
 
-  ngOnDestroy(): void {
-    this.store.dispatch([ClearReportList])
-  }
-
   removeRouteCategory() {
-    this.updateContent(NaN)
+    this.categoriesService.changeCategory(NaN)
   }
 
   onShow() {
     this.show_info = !this.show_info
   }
 
-  updateContent(id: number) {
-    this.store.dispatch([ClearReportList, ClearVideoList])
-
-    const categoryId = this.store.selectSnapshot(MainState.selectedCategory)
-    if (categoryId !== id) {
-      this.store.dispatch(new ChangeCategory(id))
-    } else {
-      this.store.dispatch(new ChangeCategory(NaN))
-    }
+  get isProd(): boolean {
+    return environment.production
   }
 }

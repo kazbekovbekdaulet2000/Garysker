@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
-import { LessonModel } from '@core/models/api/lesson.model';
 import { CourseService } from '@core/services/courses.service';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { MessageModalComponent } from 'src/app/shared/modals/err-modal/err-modal.component';
+import { ModalService } from '@core/services/modal.service';
 
 @Component({
   selector: 'app-course-lesson-list',
@@ -16,7 +14,7 @@ export class CourseLessonListComponent {
 
   constructor(
     public courseService: CourseService,
-    public bsModalService: BsModalService
+    private modalService: ModalService
   ) { }
 
   changeLesson(lessonId: number) {
@@ -42,9 +40,11 @@ export class CourseLessonListComponent {
     },
       (error) => {
         if (error.status === 403) {
-          this.bsModalService.show(MessageModalComponent, {
-            initialState: { message: 'Урок еще не открыт', icon: 'sticker1' }, //TODO
-            class: 'modal-dialog-centered'
+          this.modalService.showDialog({
+            position: 'center',
+            iconType: 'not-found',
+            title: '',
+            message: 'Урок еще не открыт'
           })
         }
       })

@@ -3,8 +3,9 @@
 
   <ng-template let-item="item">
 
-    <div class="product-swiper">
-      <img class="product-swiper-image" [src]="item.image_thumb720 || item.image_thumb480 || item.image_thumb1080" />
+    <div class="product-swiper" [backgroundImage]="item.image_thumb720 || item.image_thumb480 || item.image_thumb1080">
+    <!-- <div class="product-image" [backgroundImage]="product.images[0].image_thumb480"></div> -->
+      <!-- <img class="product-swiper-image" [src]="item.image_thumb720 || item.image_thumb480 || item.image_thumb1080" /> -->
     </div>
 
   </ng-template>

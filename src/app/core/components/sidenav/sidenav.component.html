@@ -16,7 +16,8 @@
   <ng-template #profile>
 
     <div class="profile" *ngIf="profile$ | async as profile">
-      <img class="profile-image" [src]="profile.image" alt="">
+      <!-- <img class="profile-image" [src]="profile.image" alt=""> -->
+      <div class="profile-image" [backgroundImage]="profile.image"></div>
       <div class="d-flex gap-2 justify-content-center">
 
         <h6 class="mb-0">{{profile.surname}} {{profile.name}}</h6>

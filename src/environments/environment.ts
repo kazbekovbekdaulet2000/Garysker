@@ -13,5 +13,6 @@ export const environment = {
     measurementId: 'G-XTD5SFC725',
   },
   production: false,
+  // API: "http://localhost:8000",
   API: "https://app.garyshker-app.kz",
 };

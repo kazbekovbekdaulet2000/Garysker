@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'src/app/shared/components/card/card.module';
-import { NgxsModule } from '@ngxs/store';
 import { EduComponent } from './main-screen/edu.component';
 import { DatePipeModule } from 'src/app/shared/pipes/date/date-pipe.module';
 import { SanitizerPipeModule } from 'src/app/shared/pipes/sanitizer/sanitizer-pipe.module';
 import { CommentModule } from 'src/app/shared/components/comment/comment.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { VideoState } from './video-module/video.state';
-import { ReportState } from './report-module/report.state';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { SwiperModule } from "swiper/angular";
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -26,6 +23,7 @@ import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
 import { BackgroundImageModule } from 'src/app/shared/directives/background-image.module';
 import { EllipsisModule } from 'ngx-ellipsis';
 import { SectionHeaderModule } from 'src/app/shared/components/section-header/section-header.module';
+import { DevEnvGuard } from '@core/guards/dev.guard';
 
 @NgModule({
   declarations: [
@@ -53,11 +51,11 @@ import { SectionHeaderModule } from 'src/app/shared/components/section-header/se
     ReactiveFormsModule,
     ComponentHeaderModule,
     TranslateModule,
-    NgxsModule.forFeature([ReportState, VideoState]),
     DatePipeModule,
     SanitizerPipeModule
   ],
   providers: [
+    DevEnvGuard,
     RatingsService.getProvider('courses')
   ]
 })

@@ -5,7 +5,6 @@ import { MainComponent } from './main.component';
 import { SideMenuComponent } from '@core/components/side-menu/side-menu.component';
 import { CardModule } from 'src/app/shared/components/card/card.module';
 import { NgxsModule} from '@ngxs/store';
-import { MainState } from './main.state';
 import { DatePipeModule } from 'src/app/shared/pipes/date/date-pipe.module';
 import { FooterComponent } from '@core/components/footer/footer.component';
 import { QuestionsComponent } from './questions/questions.component';
@@ -24,11 +23,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LangPipeModule } from 'src/app/shared/pipes/lang/lang-pipe.module';
 import { InputModule } from 'src/app/shared/components/input/input.module';
 import { BsModalsTemplateModule } from 'src/app/shared/modals/modals.module';
-import { ReportState } from './edu/report-module/report.state';
-import { VideoState } from './edu/video-module/video.state';
 import { VideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
 import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
 import { SectionHeaderModule } from 'src/app/shared/components/section-header/section-header.module';
+import { ProfileReportsComponent } from './profile/reports/profile-reports.component';
+import { ProfileVideosComponent } from './profile/videos/profile-videos.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +36,8 @@ import { SectionHeaderModule } from 'src/app/shared/components/section-header/se
     FooterComponent,
     QuestionsComponent,
     ProfileComponent,
+    ProfileReportsComponent,
+    ProfileVideosComponent,
     ProfileChangeModalComponent,
     SupportComponent,
     AboutComponent,
@@ -61,7 +62,6 @@ import { SectionHeaderModule } from 'src/app/shared/components/section-header/se
       minWidth: 257
     }),
     CarouselModule,
-    NgxsModule.forFeature([MainState, ReportState, VideoState]),
     DatePipeModule,
     SanitizerPipeModule
   ],

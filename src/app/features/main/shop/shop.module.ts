@@ -23,6 +23,7 @@ import { CardModalComponent } from './card/card-modal.component';
 import { ShopState } from './shop.state';
 import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
 import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
+import { BackgroundImageModule } from 'src/app/shared/directives/background-image.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
     ReactiveFormsModule,
     TranslateModule,
     CarouselModule,
+    BackgroundImageModule,
     ComponentHeaderModule,
     LoaderModule,
     DatePipeModule,

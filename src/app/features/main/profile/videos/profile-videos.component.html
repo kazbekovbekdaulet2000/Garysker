@@ -1,0 +1,25 @@
+<div @opacityAnimation *ngIf="list.results.length > 0">
+
+  <app-section-header 
+    text="app.profile.watching" 
+    icon="assets/images/video-camera.png">
+  </app-section-header>
+
+  <div class="videos">
+
+    <app-video-card *ngFor="let video of list.results" [routerLink]="['/edu/videos', video.id]" [video]='video'>
+    </app-video-card>
+
+  </div>
+
+  <div 
+    *ngIf="list.next" 
+    class="d-flex flex-column align-content-center align-items-center pointer mb-5"
+    (click)="onScroll(true)">
+
+    <span translate="main_screen.view_more"></span>
+    <i class="g-icon-chevron-down"></i>
+
+  </div>
+
+</div>

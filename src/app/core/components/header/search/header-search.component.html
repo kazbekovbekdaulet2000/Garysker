@@ -1,6 +1,5 @@
 <div (click)="toggleSearch()" class="search" *ngIf="main!=='auth' && main!=='application'">
   
-  <!-- <img class="search-bar-icon" src="assets/icons/search.svg" alt=""> -->
   <i class="g-icon-search search-icon"></i>
 
   <input type="text" [formControl]="searchText" class="search-input" [placeholder]="'header.search' | translate">

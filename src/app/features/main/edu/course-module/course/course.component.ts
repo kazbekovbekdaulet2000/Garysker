@@ -2,9 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
+import { CategoriesService } from '@core/services/categories.service';
 import { CourseService } from '@core/services/courses.service';
-import { Store } from '@ngxs/store';
-import { ChangeCategory } from 'src/app/features/auth/main.actions';
 
 @Component({
   templateUrl: './course.component.html',
@@ -14,9 +13,9 @@ import { ChangeCategory } from 'src/app/features/auth/main.actions';
 export class CourseComponent implements OnDestroy {
 
   constructor(
-    private store: Store,
     private activatedRoute: ActivatedRoute,
     public courseService: CourseService,
+    public categoriesService: CategoriesService,
     private router: Router
   ) {
     this.activatedRoute.params.subscribe(({ id }) => {
@@ -24,12 +23,10 @@ export class CourseComponent implements OnDestroy {
     })
   }
 
-  changeCategory(id?: number) {
+  changeCategory(id: number) {
     if (id) {
-      this.store.dispatch(new ChangeCategory(id))
-    } else {
-      this.store.dispatch(new ChangeCategory(NaN))
-    }
+      this.categoriesService.changeCategory(id)
+    } 
     this.router.navigate(['/edu'])
   }
 

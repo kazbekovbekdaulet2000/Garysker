@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReportDetailModel } from '@core/models/api/report.model';
-import { Store } from '@ngxs/store';
-import { ChangeCategory } from 'src/app/features/main/main.actions';
+import { CategoriesService } from '@core/services/categories.service';
 
 @Component({
   selector: 'app-report-menu',
@@ -14,12 +13,12 @@ export class ReportMenuComponent {
   @Input() report: ReportDetailModel;
 
   constructor(
-    private store: Store,
-    private router: Router
+    private router: Router,
+    public categoriesService: CategoriesService
   ) { }
 
-  navigateEdu(category: number) {
-    this.store.dispatch(new ChangeCategory(category))
+  navigateEdu(categoryId: number) {
+    this.categoriesService.changeCategory(categoryId)
     this.router.navigate(['/edu'])
   }
 }

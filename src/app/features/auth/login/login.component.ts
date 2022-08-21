@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { IdentityService } from '@core/services/identity.service';
 import { Login, UpdateProfile } from '@core/states/auth/actions';
 import { Store } from '@ngxs/store';
-import { ChangeCategory } from '../../main/main.actions';
 
 @Component({
   templateUrl: './login.component.html',
@@ -18,7 +16,6 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private store: Store,
     private identityService: IdentityService,
-    private router: Router
   ) {
     this.formGroup = this.formBuilder.group({
       email: [null, Validators.required],
@@ -40,7 +37,6 @@ export class LoginComponent {
       .toPromise()
       .then(token => {
         this.store.dispatch(new Login(token))
-        this.store.dispatch(new ChangeCategory(NaN))
         window.history.back()
       })
       .catch(error => {

@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import { Navigate } from '@ngxs/router-plugin';
-import { Login, Logout, PatchUser, RemoveToken, UpdateAvatar, UpdateProfile, UpdateToken } from './actions';
-
-import { TokenModel } from '../../models/api/token.model';
+import { Login, PatchUser, RemoveToken, UpdateAvatar, UpdateProfile, UpdateToken } from './actions';
 import { IdentityService } from '@core/services/identity.service';
 import { Moment } from 'moment';
 import * as moment from 'moment';
@@ -85,7 +82,7 @@ export class AuthState {
   UpdateProfile({ patchState }: StateContext<AuthStateModel>) {
     this.identityService.profile().subscribe({
       next: profile => { patchState({ profile }) },
-      error: err => {
+      error: () => {
         patchState({
           access: '',
           refresh: '',

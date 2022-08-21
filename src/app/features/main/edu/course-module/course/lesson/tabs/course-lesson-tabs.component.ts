@@ -33,7 +33,6 @@ export class CourseLessonTabsComponent {
     if (lesson.current) {
       this.courseService.nextLesson(this.courseService.course.id).subscribe((ans: any) => {
         if (ans.message === 'course completed') {
-          this.router.navigate(['edu'])
           this.bsModalService.show(CourseRatingModalModalComponent, {
             class: 'modal-dialog-centered modal-xl',
             ignoreBackdropClick: true,
@@ -43,7 +42,19 @@ export class CourseLessonTabsComponent {
           })
         }
         this.courseService.init(this.courseService.course.id)
-      })
+      },
+        err => {
+          // if (err.status === 404) {
+          //   this.bsModalService.show(CourseRatingModalModalComponent, {
+          //     class: 'modal-dialog-centered modal-xl',
+          //     ignoreBackdropClick: true,
+          //     initialState: {
+          //       courseId: this.courseService.course.id
+          //     }
+          //   })
+          //   this.router.navigate(['edu'])
+          // }
+        })
     }
   }
 

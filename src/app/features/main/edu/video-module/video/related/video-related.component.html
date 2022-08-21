@@ -1,0 +1,29 @@
+<ng-container *ngIf="list.count; else loader">
+  
+  <div class="content d-flex flex-column gap-4" *ngIf="list.count > 0">
+
+    <div *ngIf="showTitle" class="content-title d-flex flex-row align-items-center gap-2"> 
+      <img class="icon" src="assets/images/video-camera.png" alt="">
+      <h3 class="mb-0" translate="main_screen.view_more"> </h3>
+    </div>
+
+    <app-video-card 
+      *ngFor="let video of list.results" 
+      [small]="true" 
+      [video]="video" 
+      width="100%"
+      (click)="navigateVideo(video.id)">
+    </app-video-card>
+
+    <div *ngIf="list.next" class="content-more gap-2 pointer" (click)="onScroll(true)">
+      <span translate="main_screen.view_more"></span>
+      <i class="g-icon-chevron-down"></i>
+    </div>
+
+  </div>
+
+</ng-container>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

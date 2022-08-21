@@ -10,7 +10,6 @@ import { CourseComponent } from './course/course.component';
 import { RatingsService } from '@core/services/rating.service';
 import { InputModule } from 'src/app/shared/components/input/input.module';
 import { BackgroundImageModule } from 'src/app/shared/directives/background-image.module';
-import { PlyrModule } from 'ngx-plyr';
 import { VideoPlayerModule } from 'src/app/shared/components/videoplayer/videoplayer.module';
 import { CourseTeaserComponent } from './course/teaser/course-teaser.component';
 import { CourseLessonComponent } from './course/lesson/course-lesson.component';
@@ -41,7 +40,6 @@ import { CourseRatingModalModalComponent } from './course/rating-modal/course-ra
     InputModule,
     DatePipeModule,
     VideoPlayerModule,
-    PlyrModule,
     BackgroundImageModule
   ],
   providers: [

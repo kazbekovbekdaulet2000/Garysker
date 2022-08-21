@@ -3,28 +3,6 @@ import teaser from './teaser/kk'
 import lesson from './lesson/kk'
 
 const course: LocaleDataModel = {
-  teaser,
-  lesson,
-  time: {
-    min_1: 'бір минут',
-    min_2_4: '{{time}} минут',
-    min_5: '{{time}} минут',
-    hour_1: 'бір сағат',
-    hour_2_4: '{{time}} сағат',
-    hour_5: '{{time}} сағат',
-    day_1: 'бір күн',
-    day_2_4: '{{time}} күн',
-    day_5: '{{time}} күн',
-    week_1: 'бір апта',
-    week_2_4: '{{time}} апта',
-    week_5: '{{time}} апта',
-    month_1: 'бір ай',
-    month_2_4: '{{time}} ай',
-    month_5: '{{time}} ай',
-    year_1: 'бір жыл',
-    year_2_4: '{{time}} жыл',
-    year_5: '{{time}} жыл',
-  },
   progress: {
     lesson_ended: '{{number}}/{{count}} аяқталды',
     rating_header: 'Пікірлер',
@@ -65,7 +43,9 @@ const course: LocaleDataModel = {
   course_access: {
     back: 'Негізгі экранға',
     forward: `LET'S GOOO`
-  }
+  },
+  teaser,
+  lesson,
 };
 
 export default course;

@@ -88,7 +88,6 @@ export class RequestInterceptor implements HttpInterceptor {
           this.refreshTokenSubject.next(null);
           window.location.reload()
         }
-
         return this.identityService.refresh(refresh).pipe(
           switchMap(token => {
             this.isRefreshing = false;
@@ -102,6 +101,8 @@ export class RequestInterceptor implements HttpInterceptor {
             return throwError(err);
           })
         );
+      } else {
+        this.bsModalService.show(LoginErrModalComponent, { class: 'modal-dialog-centered' })
       }
     }
 

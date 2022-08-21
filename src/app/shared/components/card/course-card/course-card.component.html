@@ -1,10 +1,13 @@
-<div class="course-card pointer" [ngStyle]="{'background-size':'320px', 'background-position': 'center center'}">
-  <img class="course-card-image" [src]="course.image" alt="">
+<div class="course-card pointer">
+
+  <img class="course-card-image" [src]="course.image" alt="" onerror="this.src='./assets/images/dummy-image.png'"/>
 
   <div class="course-card-logo">
-    <div class="course-card-logo-img background" [backgroundImage]="course.organization.icon"></div>
+    <div class="course-card-logo-img background" [backgroundImage]="course.organization.icon" temp="cover"></div>
   </div>
+
   <div></div>
+  
   <div class="course-card-content">
 
     <h5 class="mb-3"> {{course | lang | async}}</h5>
@@ -13,15 +16,15 @@
 
       <div class="course-card-content-details">
 
-        <img src="assets/icons/document.svg" alt="">
-        <span>{{course.lesson_count | courseTime: 'lesson_cnt' | async}}</span>
+        <i class="g-icon-book"></i>
+        <span>{{course.lesson_count | courseTime | async}}</span>
 
       </div>
 
       <div class="course-card-content-details">
 
-        <img src="assets/icons/time_circle.svg" alt="">
-        <span>{{course.duriation | courseTime: 'time' | async}}</span>
+        <i class="g-icon-time"></i>
+        <span>{{course.duriation | DurationPipe | async}}</span>
 
       </div>
 

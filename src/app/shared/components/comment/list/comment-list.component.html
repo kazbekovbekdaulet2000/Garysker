@@ -1,8 +1,8 @@
-<div @opacityAnimation *ngIf="comments" class="comment" [style.margin-top.px]="marginTop ? 56 : 0">
+<div @opacityAnimation *ngIf="list" class="comment" [style.margin-top.px]="marginTop ? 56 : 0">
 
-  <div class="comment-count">{{comments.count || 0}} комментарии</div>
+  <div class="comment-count">{{list.count || 0}} комментарии</div>
 
-  <div *ngIf="authorized$ | async" class="textfield" [formGroup]="formGroup">
+  <div class="textfield" [formGroup]="formGroup">
 
     <textarea 
       #input 
@@ -25,10 +25,10 @@
 
   </div>
 
-  <ng-container *ngIf="comments.count>0; else empty">
+  <ng-container *ngIf="list.count>0; else empty">
  
     <app-comment-module 
-      *ngFor="let comment of comments.results" 
+      *ngFor="let comment of list.results" 
       [comment]="comment" 
       (reply)="addReply($event)"
       (like)="postLike($event)" 
@@ -50,8 +50,8 @@
 
   <a 
     class="loadmore pointer" 
-    *ngIf="comments.next"
-    (click)="loadMore()"
+    *ngIf="list.next"
+    (click)="onScroll(true)"
     translate="video.comment.load_more">
   </a>
 

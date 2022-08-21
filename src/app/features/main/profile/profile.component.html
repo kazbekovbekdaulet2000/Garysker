@@ -12,10 +12,10 @@
       <img class="profile-info-change" src="assets/icons/pen.svg" (click)="onProfileChange()">
     </h3>
     <div class="profile-info-detail">{{profile?.email}}</div>
-    <div class="profile-info-detail">{{profile.birth_date | DateAge | async}}</div>
+    <div class="profile-info-detail">{{profile.birth_date | DateRemained: true | async}}</div>
     <div class="profile-info-detail">
-      <img src="assets/icons/location.svg" alt="">
-      {{profile.city}}
+      <i class="g-icon-location"></i>
+      <span class="ml-2"> {{profile.city}}</span>
     </div>
   </div>
 
@@ -23,50 +23,8 @@
 
 <div class="body">
 
-  <ng-container *ngIf="reports$ | async as reports">
+  <app-profile-reports></app-profile-reports>
 
-    <div @heightAnimation *ngIf="reports.results.length > 0">
-
-      <app-section-header text="app.profile.reading" icon="assets/images/open-book.png" *ngIf="reports.results.length > 0"></app-section-header>
-
-      <app-swiper [mousewheel]="false" [slides]="reports.results" [activeIndex]="0" [loop]="false" [navigation]="false" [spaceBetween]="24"
-        [slidesPerView]="'auto'" [centeredSlides]="false" [horizontalPadding]="0" [autoplay]="false" (isEnd)="onScroll($event)">
-
-        <ng-template let-item="item">
-
-          <report-card [routerLink]="['/edu/reports', item.id]" [report]='item'>
-          </report-card>
-
-        </ng-template>
-
-      </app-swiper>
-
-    </div>
-
-  </ng-container>
-
-  <ng-container *ngIf="videos$ | async as videos">
-
-    <div @heightAnimation *ngIf="videos.results.length > 0">
-
-      <app-section-header text="app.profile.watching" icon="assets/images/video-camera.png" *ngIf="videos.results.length > 0"></app-section-header>
-
-
-      <div *ngIf="videos.results.length > 0" class="videos">
-
-        <app-video-card *ngFor="let video of videos.results" [routerLink]="['/edu/videos', video.id]" [video]='video'>
-        </app-video-card>
-
-      </div>
-
-      <div *ngIf="videos.next" class="d-flex flex-column align-content-center align-items-center pointer mb-5"
-        (click)="loadVideo()">
-        <span>{{'main_screen.view_more' | translate}}</span>
-        <img src="assets/icons/down.svg" alt="">
-      </div>
-
-    </div>
-
-  </ng-container>
-
+  <app-profile-videos></app-profile-videos>
+  
 </div>

@@ -13,7 +13,6 @@ import { RequestInterceptor } from './interceptors/request.intercepter';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { ModalModule } from 'ngx-bootstrap/modal'
-import { PlyrModule } from 'ngx-plyr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './guards/auth.guard';
 import { ScrollState } from './states/scroll/scroll.state';
@@ -37,7 +36,6 @@ import { LoaderComponent } from './components/loader/loader.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    PlyrModule,
     MatSliderModule,
     MatSidenavModule,
     NgxsModule.forRoot([AppState, AuthState, LoaderState, ScrollState, ShopState]),

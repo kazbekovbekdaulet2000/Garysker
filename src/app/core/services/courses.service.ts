@@ -9,10 +9,11 @@ import { LessonResourceModel } from '@core/models/api/lesson-resource.model';
 import { map, tap } from 'rxjs/operators';
 import { QuizModel } from '@core/models/api/quiz.model';
 import { LectorDetailModel } from '@core/models/api/lector.model';
-import { AnswerModel, QuestionDetailModel, QuestionModel, QuizAttemptModel } from '@core/models/api/question.model';
+import { QuestionDetailModel, QuestionModel, QuizAttemptModel } from '@core/models/api/question.model';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CourseRatingModalModalComponent } from 'src/app/features/main/edu/course-module/course/rating-modal/course-rating-modal.component';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -81,9 +82,10 @@ export class CourseService extends ApiService {
   }
 
   list(params?: any): Observable<ListResponseModel<CourseModel>> {
-    return this.http.get<ListResponseModel<CourseModel>>(this.getUrl(), { params }).pipe(tap(courses => {
-      this.courses = courses
-    }))
+    return this.http.get<ListResponseModel<CourseModel>>(this.getUrl(), { params }).pipe(
+      tap(courses => {
+        this.courses = courses
+      }))
   }
 
   get(courseId: number): Observable<CourseDetailModel> {
@@ -109,7 +111,14 @@ export class CourseService extends ApiService {
   }
 
   listLessons(courseId: number): Observable<LessonModel[]> {
-    return this.http.get<LessonModel[]>(this.getUrl(`${courseId}/lessons`)).pipe(tap(lessons => this.lessons = lessons))
+    return this.http.get<LessonModel[]>(this.getUrl(`${courseId}/lessons`)).pipe(
+      map(list => {
+        list.map(obj => {
+          return { ...obj, duriation: moment.duration(obj.duriation).humanize() }
+        })
+        return list
+      }),
+      tap(lessons => this.lessons = lessons))
   }
 
   listLectors(courseId: number): Observable<LectorDetailModel[]> {

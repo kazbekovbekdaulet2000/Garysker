@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { heightOutAnimation } from '@core/animations/height-out-animation';

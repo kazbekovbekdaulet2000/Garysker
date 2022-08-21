@@ -55,7 +55,7 @@
 
     <div class="d-flex flex-column align-items-start gap-3 content-thanks">
 
-      <h3>{{'about.thanks.header' | translate}}</h3>
+      <h3 translate="about.thanks.header">2</h3>
 
       <div class="content-thanks-text">
         {{'about.thanks.text_1' | translate}}
@@ -76,17 +76,19 @@
       </div>
 
       <div class="content-partners-hint">
-        {{'about.partners.helper_start' | translate}} <a href="mailto:info@garyshker.com">info@garyshker.com</a>
+        {{'about.partners.helper_start' | translate}} <a target="_blank" href="mailto:info@garyshker.com">info@garyshker.com</a>
         {{'about.partners.helper_end' | translate}}
       </div>
 
-      <input formControlName="email" class="content-partners-input" type="text"
+      <input 
+        formControlName="email" 
+        class="content-partners-input" 
+        type="text"
         [placeholder]="'about.partners.input_placeholder' | translate">
 
       <div class="d-flex justify-content-end mt-4">
 
-        <button (click)="save()" class="btn content-partners-btn">
-          {{'about.partners.send_btn' | translate}}
+        <button (click)="save()" class="btn content-partners-btn" translate="about.partners.send_btn">
         </button>
 
       </div>

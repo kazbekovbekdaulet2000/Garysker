@@ -9,13 +9,13 @@ export interface DialogModel {
   message: string;
   icon?: string;
   blur?: boolean;
-  iconType?: 'success' | 'hello' | 'congrats' | 'hope' | 'hello2' | 'not-found' | 'love' | 'error' | 'star-struck' | 'garyshker'
+  iconType?: 'success' | 'hello' | 'congrats' | 'hope' | 'hello2' | 'not-found' | 'love' | 'error' | 'wow-face' | 'garyshker'
+  onConfirm?: () => void;
 }
 
 export interface DialogConfirmModel extends DialogModel {
   confirmText?: string;
   cancelText?: string;
-  onConfirm?: () => void;
 }
 
 @Injectable({

@@ -2,12 +2,12 @@
 
   <div class="comment-user">
 
-    <img class="comment-user-image" [src]="comment.owner?.image">
+    <div class="comment-user-image" [backgroundImage]="comment.owner.image" temp="cover"></div>
 
     <div class="comment-user-info">
       <div class="d-flex gap-2">
-        <p class="comment-user-info-name">{{comment?.owner?.surname}} {{comment?.owner?.name}}</p>
-        <img *ngIf="comment?.owner?.verified" src="assets/icons/verified_user_new.svg">
+        <p class="comment-user-info-name">{{comment.owner.surname}} {{comment.owner.name}}</p>
+        <img *ngIf="comment.owner.verified" src="assets/icons/verified_user_new.svg">
       </div>
       <p *ngIf="comment.created_at" class="comment-user-info-date">{{comment.created_at | DateRemained | async}}</p>
     </div>

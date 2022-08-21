@@ -13,12 +13,8 @@
   </div>
 
   <div class="d-flex flex-row align-items-center">
-
     <span>{{report.created_at | DateRemained | async}}</span>
-
-    <span class="menu-read_time">
-      {{'report.read_time' | translate}} {{report.read_time | ReadTime | async}}
-    </span>
+    <span class="menu-read_time">{{'report.read_time' | translate}} {{report.read_time}}</span>
   </div>
 
 </div>

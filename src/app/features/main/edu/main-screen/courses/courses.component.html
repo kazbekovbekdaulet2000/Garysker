@@ -1,27 +1,16 @@
-<ng-container *ngIf="courseService.courses else loader">
+<div @heightAnimation *ngIf="list.results.length > 0">
 
-  <div @opacityAnimation *ngIf="courseService.courses.results.length > 0">
+  <app-section-header text="main_screen.educate" icon="assets/images/educate_logo.png"></app-section-header>
 
-    <app-section-header text="main_screen.educate" icon="assets/images/educate_logo.png"></app-section-header>
+  <app-swiper [slides]="list.results" [activeIndex]="0" [loop]="false" [navigation]="false" [spaceBetween]="24"
+    [slidesPerView]="'auto'" [centeredSlides]="false" [horizontalPadding]="0" [autoplay]="false">
 
-    <app-swiper [slides]="courseService.courses.results" [activeIndex]="0" [loop]="false" [navigation]="false" [spaceBetween]="24"
-      [slidesPerView]="'auto'" [centeredSlides]="false" [horizontalPadding]="0" [autoplay]="false">
+    <ng-template let-item="item">
 
-      <ng-template let-item="item">
+      <app-course-card (click)="onCourseRoute(item.id)" [course]="item"></app-course-card>
 
-        <app-course-card style="overflow: hidden;border-radius: 24px; min-width: 320px;"
-          (click)="onCourseRoute(item.id)" [course]="item"></app-course-card>
+    </ng-template>
 
-      </ng-template>
+  </app-swiper>
 
-    </app-swiper>
-
-  </div>
-
-</ng-container>
-
-<ng-template #loader>
-  <div class="course-placeholder">
-    <app-loader height="100%"></app-loader>
-  </div>
-</ng-template>
+</div>

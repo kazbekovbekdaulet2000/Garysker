@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { EventModel } from '@core/models/api/event.model';
@@ -42,8 +42,7 @@ export class ProjectOverviewComponent implements AfterViewInit {
       this.eventService.list(),
       this.supportService.listQuestions(),
       this.projectsService.get(1),
-      this.activatedRoute.fragment
-    ]).subscribe(([events, questions, project, fragment]) => {
+    ]).subscribe(([events, questions, project]) => {
       this.events = events
       this.questions = questions
       const donat = project.children.find(obj => obj.year === 2022).donat
@@ -61,22 +60,25 @@ export class ProjectOverviewComponent implements AfterViewInit {
         location_ru: 'Алматинская область',
         location_kk: 'Алматинская область',
       }
-
-      switch (fragment) {
-        case 'partners':
-          this.scroll(this.teamElement.nativeElement.offsetTop)
-          break;
-        case 'questions':
-          this.scroll(this.faqElement.nativeElement)
-          break;
-        default:
-          break;
-      }
+      this.activatedRoute.fragment.subscribe(fragment=>{
+        switch (fragment) {
+          case 'partners':
+            this.scroll(this.teamElement.nativeElement)
+            break;
+          case 'questions':
+            this.scroll(this.faqElement.nativeElement)
+            break;
+          default:
+            break;
+        }
+      })
     })
   }
 
   scroll(el: HTMLElement) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(function(){
+      window.scrollTo(0, el.offsetTop-120)
+    }, 0)
   }
 
   projects: any[] = [
