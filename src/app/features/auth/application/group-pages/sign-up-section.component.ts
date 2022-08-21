@@ -23,10 +23,6 @@ export class SignUpSectionComponent implements OnInit {
   selectedType: number = NaN;
   politics!: FormGroup;
 
-  cities: string[] = ['Алматы', 'Нур-Султан', 'Шымкент', 'Актобе', 'Караганда',
-    'Тараз', 'Павлодар', 'Атырау', 'Усть-Каменогорск', 'Семей', 'Уральск', 'Кызылорда', 'Костанай',
-    'Петропавловск', 'Актау', 'Темиртау', 'Туркестан', 'Кокшетау', 'Талдыкорган', 'Экибастуз', 'Рудный',
-    'Жанаозен', 'Жезказган', 'Балхаш', 'Другое']
   constructor(
     private bsService: BsModalService,
     private formBuilder: FormBuilder
@@ -49,7 +45,7 @@ export class SignUpSectionComponent implements OnInit {
   send() {
     if(this.stage === 3 && this.politics.getRawValue().rules !== true){
       this.bsService.show(MessageModalComponent, {
-        initialState: { message: "Надо принять условия использования сайта" },
+        initialState: { message: "auth.message.err.policy" },
         class: 'modal-dialog-centered'
       })
       return
@@ -75,5 +71,27 @@ export class SignUpSectionComponent implements OnInit {
   choseType(i: number) {
     this.selectedType = i
     this.group.get('user_type')?.setValue(i)
+  }
+
+  getSelectedUserType(){
+    const user_type = this.group.getRawValue()['user_type']
+    if(user_type===null){
+      return false
+    }else if(!!user_type){
+      return [0,1].includes(Number(user_type))
+    }else{
+      return true
+    }
+  }
+
+  getSelected(){
+    const user_type = this.group.getRawValue()['user_type']
+    if(user_type===null){
+      return false
+    }else if(!!user_type){
+      return [0,1].includes(Number(user_type))
+    }else{
+      return true
+    }
   }
 }

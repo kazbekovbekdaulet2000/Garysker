@@ -1,0 +1,39 @@
+<div class="title" translate="overview.project.title"></div>
+<div class="desc" translate="overview.project.desc_detail"></div>
+
+<div class="content" backgroundImage="assets/icons/main_project_background.svg" size="contain">
+
+  <div class="project-holder">
+
+    <div class="project-item" *ngIf="project" routerLink="/projects/1">
+
+      <div class="info">
+
+        <div class="info-date" *ngIf="project.date_ru && project.date_kk">
+          <i class="g-icon-time project-item-icon"></i>
+          <span>{{project | lang: 'date' | async}}</span>
+        </div>
+
+        <div class="info-date" *ngIf="project.location_ru && project.location_kk">
+          <i class="g-icon-location project-item-icon"></i>
+          <span>{{project | lang: "location" | async}}</span>
+        </div>
+
+      </div>
+
+      <div class="main">
+        <div class="title">{{project | lang: "name" | async}}</div>
+        <div class="desc">{{project | lang: "desc" | async}}</div>
+      </div>
+
+      <div class="footer">
+        <div class="purpose" *ngIf="project.purpose_ru && project.purpose_kk">{{project | lang: "purpose" | async}}</div>
+        <div class="collected" *ngIf="project.collected && project.amount"><span
+            class="collected-orange">{{project.collected}}</span> / {{project.amount}}</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

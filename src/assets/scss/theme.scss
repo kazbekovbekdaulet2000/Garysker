@@ -1,0 +1,79 @@
+$colors-dark: (
+  space: #0c0b14,
+  black: #000000,
+  white: #ffffff,
+  steel-gray: #0f0e1d,
+  orange: #ffa800,
+  red: #f60808,
+  orange-700: #ffa800b3,
+  orange-dark: #ffa600,
+  orange-dark-800: #b67906cc,
+  pink: #ffd2dd,
+  primary: #ffffff,
+  secondary: #808191,
+  active-back: #afaeae10,
+  mercury: #e1e1e1,
+  silver-chalicea: #9f9f9f,
+  gray-suit: #c4bdcf,
+  section: #ffffff10,
+  mako: #464653,
+  ebony-clay: #26212e,
+  vulcan: #16151e,
+  tuna: #33323e,
+  success: #22b028,
+);
+
+$colors: (
+  space: #eeeeee,
+  black: #ffffff,
+  white: #000000,
+  steel-gray: #ffffff,
+  orange: #ffa800,
+  red: #f60808,
+  orange-700: #ffa800b3,
+  orange-dark: #ffa600,
+  orange-dark-800: #b67906cc,
+  pink: #f07594,
+  primary: #000,
+  secondary: #808191,
+  active-back: #afaeae10,
+  mercury: #e1e1e1,
+  silver-chalicea: #5f5f5f,
+  gray-suit: #c4bdcf,
+  section: #ffffff10,
+  mako: #ffffff,
+  ebony-clay: #ffffff,
+  vulcan: #dedede,
+  tuna: #e1e1e1,
+  success: #22b028,
+);
+
+@media (prefers-color-scheme: light) {
+  :root {
+    @each $name, $color in $colors-dark {
+      // $colors for light
+      --color-#{$name}: #{$color};
+    }
+    --icon-filter: invert(0%); // 100% for light
+    --theme: "light";
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @each $name, $color in $colors-dark {
+      --color-#{$name}: #{$color};
+    }
+    --icon-filter: invert(0%);
+    --theme: "dark";
+    --swiper-navigation-size: 12px;
+  }
+}
+
+@function color($color-name) {
+  @return var(--color-#{$color-name});
+}
+
+img[src*=".svg"] {
+  filter: var(--icon-filter);
+}

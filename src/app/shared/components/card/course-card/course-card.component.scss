@@ -1,0 +1,82 @@
+@import "colors";
+@import "background-image";
+
+.course-card {
+  width: 320px;
+  height: 424px;
+  border-radius: 24px;
+  padding: 16px 12px 52px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+
+  &-image {
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    position: absolute;
+    top: 0px;
+    filter: blur(3px);
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+
+  &-logo {
+    min-height: 35px;
+    
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+
+    /* identical to box height, or 133% */
+
+    color: white;
+    font-weight: 500;
+    width: max-content;
+    background-color: $color-orange;
+    border-radius: 20px;
+    padding: 8px 24px;
+    display: flex;
+    align-self: flex-end;
+    margin-right: 4px;
+    &-img {
+      width: 100px;
+      object-fit: cover;
+    }
+  }
+
+  &-content {
+    color: white;
+    &-details {
+      display: flex;
+      align-items: center;
+      i {
+        min-width: 24px !important;
+        font-size: 24px;
+      }
+      span {
+        color: $color-orange;
+        margin-left: 8px;
+        font-weight: 500;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .modal-content {
+    padding: 32px 16px;
+  }
+  .course-card {
+    height: 320px;
+  }
+}

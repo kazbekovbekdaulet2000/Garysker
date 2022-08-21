@@ -1,40 +1,35 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { ListResponseModel } from '@core/models/api/list.model';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ListAbstract } from '@core/abstract/list.abstract';
+import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
 import { ReportModel } from '@core/models/api/report.model';
-import { Select, Store } from '@ngxs/store';
+import { ReportsService } from '@core/services/reports.service';
 import { Observable } from 'rxjs';
-import { ClearReportDetail, GetRelatedReports } from '../../report.actions';
-import { ReportState } from '../../report.state';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-report-related',
   templateUrl: './related.component.html',
   styleUrls: ['./related.component.scss']
 })
-export class ReportRelatedComponent {
-
-  @Input() reportId!: number
-  @Select(ReportState.reports_related) reports$!: Observable<ListResponseModel<ReportModel>>
-  page: number = 1;
+export class ReportRelatedComponent extends ListAbstract<ReportModel> {
 
   constructor(
-    private store: Store,
-    private router: Router
-  ) { }
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private reportService: ReportsService
+  ) {
+    super();
+  }
+
+  get listAction(): Observable<ListResponseModel<ReportModel>> {
+    return this.activatedRoute.params.pipe(switchMap(params=>{
+      return this.reportService.getRelated(+params.id, this.params)
+    }))
+  }
 
   navigateReport(id: number) {
-    this.store.dispatch(ClearReportDetail)
     this.router.navigate(['/edu/reports', id])
+    this.list = emptyListResponse;
   }
-
-  onScroll() {
-    this.reports$.subscribe(data => {
-      if (data.next) {
-        const page = data.next.split('page=')[1]
-        this.store.dispatch(new GetRelatedReports(this.reportId, { page: page }))
-      }
-    })
-  }
-
 }

@@ -1,47 +1,43 @@
-@import "variables";
+@import "colors";
 
-.icon {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 12px;
-}
-
-.close {
-  cursor: pointer;
-  position: absolute;
-  top: 24px;
-  right: 24px;
-}
-
-.message {
-  text-align: center;
-  font-size: 20px;
-}
-
-.group {
+.confirm {
   display: flex;
-  flex-direction: row;
-  gap: 12px;
-  &-btn {
-    font-size: 18px;
-    line-height: 24px;
-    color: #ffffff;
-    opacity: 0.9;
-    margin: 0px;
-    color: white;
-    font-weight: 400;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .icon {
+    width: 100px;
+    height: 100px;
   }
-  &-background{
-    font-weight: 700;
-    background-color: #b67906;
-    border-radius: 20px;
-    padding: 10px 22px;
+  .close {
+    cursor: pointer;
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    font-size: 24px;
+    transform: rotate(45deg);
+  }  
+  .header {
+    font-weight: 500;
+    text-align: center;
+  }
+  .message {
+    text-align: center;
+    font-size: 20px;
+  }
+  .group {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    width: 100%;
+    color: $color-white;
+    &-btn {
+      justify-content: center;
+      font-size: 18px;
+      line-height: 24px;
+      padding: 10px 22px;
+      flex: 1;
+    }
   }
 }
 
-@media screen and (max-width: 640px) {
-  .close {
-    right: 16px;
-    top: 16px;
-  }
-}

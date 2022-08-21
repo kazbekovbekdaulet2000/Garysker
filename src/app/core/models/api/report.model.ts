@@ -2,7 +2,8 @@ import { UserModel } from "./user.model";
 
 export interface ReportModel {
   id: number,
-  title: string,
+  title_kk: string,
+  title_ru: string,
   image: string,
   created_at: string,
   category: number,
@@ -12,7 +13,8 @@ export interface ReportModel {
   bookmarks_count: number,
   bookmarked: boolean,
   comments_count: number
-  views: number
+  views: number,
+  tags: string[]
 }
 
 export interface ReportDetailModel extends ReportModel{

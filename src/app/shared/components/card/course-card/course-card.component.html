@@ -1,0 +1,35 @@
+<div class="course-card pointer">
+
+  <img class="course-card-image" [src]="course.image" alt="" onerror="this.src='./assets/images/dummy-image.png'"/>
+
+  <div class="course-card-logo">
+    <div class="course-card-logo-img background" [backgroundImage]="course.organization.icon" temp="cover"></div>
+  </div>
+
+  <div></div>
+  
+  <div class="course-card-content">
+
+    <h5 class="mb-3"> {{course | lang | async}}</h5>
+
+    <div class="d-flex gap-2 flex-column">
+
+      <div class="course-card-content-details">
+
+        <i class="g-icon-book"></i>
+        <span>{{course.lesson_count | courseTime | async}}</span>
+
+      </div>
+
+      <div class="course-card-content-details">
+
+        <i class="g-icon-time"></i>
+        <span>{{course.duriation | DurationPipe | async}}</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

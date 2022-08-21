@@ -1,0 +1,16 @@
+<div class="lector">
+
+  <div class="lector-info">
+
+    <div class="icon" [backgroundImage]="lector.icon" temp="avatar"></div>
+
+    <div class="d-flex flex-column">
+      <div class="lector-info-name">{{lector.fullname}}</div>
+      <div class="lector-info-role">{{lector | lang: 'role' | async}}</div>
+    </div>
+
+  </div>
+
+  <div *ngIf="show_desc" class="lector-info" [innerHtml]="lector | lang: 'description' | async"></div>
+
+</div>

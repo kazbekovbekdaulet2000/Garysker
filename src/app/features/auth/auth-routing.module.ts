@@ -5,7 +5,8 @@ import { ApplicationComponent } from './application/application.component';
 
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
-import { ResetPassComponent } from './reset-pass/reset-pass.component';
+import { ResetPassStageOneComponent } from './reset-pass/stage-1/reset-pass-stage-1.component';
+import { ResetPassStageTwoComponent } from './reset-pass/stage-2/reset-pass-stage-2.component';
 
 const routes: Routes = [
   {
@@ -28,9 +29,14 @@ const routes: Routes = [
   },
   {
     path: 'reset',
-    component: ResetPassComponent,
+    component: ResetPassStageOneComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path: 'reset/code',
+    component: ResetPassStageTwoComponent,
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

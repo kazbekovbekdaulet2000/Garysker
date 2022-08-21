@@ -1,20 +1,16 @@
-<div class="d-flex flex-column justify-content-center align-items-center">
-
+<div class="confirm">
+  
   <img class="icon" [src]="getIcon" alt="">
 
-  <h4 class="mb-0">{{title}}</h4>
+  <h4 class="mb-0 header" [translate]="title"></h4>
 
-  <div class="close">
-    <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
-  </div>
+  <i class="g-icon-add close" (click)="closeModal()"></i>
 
-  <div class="message">
-    {{message}}
-  </div>
+  <div class="message" [translate]="message"></div>
 
   <div class="group mt-4">
-    <button class="btn group-btn group-background" (click)="onCancel()">{{false_ans}}</button>
-    <button class="btn group-btn" (click)="onConfirm()">{{true_ans}}</button>
+    <button *ngIf="false_ans" class="btn btn-orange-outline group-btn" (click)="onCancel()" [translate]="false_ans">{{false_ans | translate}}</button>
+    <button *ngIf="true_ans" class="btn group-btn" (click)="onConfirm()" [translate]="true_ans"></button>
   </div>
-
+  
 </div>

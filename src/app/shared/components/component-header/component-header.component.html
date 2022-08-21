@@ -1,0 +1,10 @@
+<div class="d-flex flex-column component-header">
+    
+  <div (click)="onShow()" class="d-flex pointer gap-2 component-header-name">
+    <h1>{{header| translate}}</h1>
+    <img [class.expanded]="show_detail" src="assets/icons/down.svg">
+  </div>
+
+  <span @heightAnimation *ngIf="show_detail" [innerHTML]="detail| translate" class="component-header-text mb-0 mr-4 hidden"></span>
+
+</div>

@@ -1,8 +1,10 @@
-@import "variables";
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
+@import "theme";
+@import "colors";
+@import "videoplayer";
+@import "font";
+@import "button";
+@import "image";
 @import "~bootstrap/dist/css/bootstrap.css";
-@import "./assets/font/stylesheet.scss";
 
 :root {
   --plyr-color-main: #ffa800;
@@ -11,11 +13,16 @@
 body {
   padding: 0;
   margin: 0;
-}
-
-body {
   background-color: $color-space;
   color: $color-primary;
+
+  // NO SCROLL
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 main {
@@ -32,7 +39,7 @@ main {
   outline: none !important;
 }
 
-.cursor-pointer {
+.pointer {
   cursor: pointer;
 }
 
@@ -51,32 +58,20 @@ h3 {
   }
 }
 
-.btn {
-  outline: none !important;
-  margin-left: 12px;
-  border-radius: 8px;
-  &:focus,
-  &:active,
-  &:hover {
-    outline: none !important;
-    box-shadow: none;
-  }
-}
-
 a {
   text-decoration: none;
-  color: #c4bdcf;
-}
-
-iframe{
-  border-radius: 16px;
+  color: $color-secondary;
+  transition: 0.25s all;
+  &:hover {
+    color: $color-orange;
+  }
 }
 
 .modal-content {
   position: relative;
-  background-color: #14131D;
+  background-color: $color-steel-gray;
   border-radius: 16px;
-  padding: 24px 64px;
+  padding: 24px 48px;
   h4 {
     font-weight: 700;
   }
@@ -98,6 +93,10 @@ body {
   font-family: "Formular", sans-serif;
 }
 
+.hidden {
+  overflow: hidden;
+}
+
 .no-select {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -106,6 +105,7 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+
 textarea:hover,
 input:hover,
 textarea:active,
@@ -123,8 +123,7 @@ label:focus,
   box-shadow: none !important;
 }
 
-a {
-  &:hover {
-    color: $color-orange;
-  }
+.form-check-input:checked {
+  background-color: $color-orange !important;
+  border-color: $color-orange !important;
 }

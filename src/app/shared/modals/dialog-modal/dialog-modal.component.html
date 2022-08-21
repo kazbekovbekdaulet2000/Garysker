@@ -1,0 +1,15 @@
+<div class="dialog">
+  
+  <img class="icon" *ngIf="icon" [src]="icon" alt="">
+
+  <h4 class="mb-0 title" [translate]="options.title"></h4>
+
+  <i class="g-icon-add close" (click)="onClose()"></i>
+
+  <div class="message" [translate]="options.message"></div>
+
+  <div class="group mt-4">
+    <button class="btn group-btn" (click)="onConfirm()">OK</button>
+  </div>
+  
+</div>

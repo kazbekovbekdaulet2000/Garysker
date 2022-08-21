@@ -1,19 +1,19 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { PlyrVideoPlayerComponent } from "./videoplayer.component";
+import { VideoPlayerComponent } from "./videoplayer.component";
 import { PlyrModule } from 'ngx-plyr';
 
 @NgModule({
   declarations: [
-    PlyrVideoPlayerComponent
+    VideoPlayerComponent
   ],
   exports: [
-    PlyrVideoPlayerComponent
+    VideoPlayerComponent
   ],
   imports: [
     CommonModule,
     PlyrModule,
   ],
 })
-export class PlyrVideoPlayerModule {
+export class VideoPlayerModule {
 }

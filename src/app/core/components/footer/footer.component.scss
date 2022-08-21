@@ -1,124 +1,107 @@
-@import "variables";
+@import "colors";
+@import "button";
 
 footer {
-  min-height: 64px;
   display: flex;
-  flex-direction: column;
-  padding: 36px 135px 12px;
-  background-color: #26212e;
-  bottom: 0px;
-  width: 100%;
-  font-size: 14px;
-  overflow-y: auto;
+  flex-direction: row-reverse;
+  // align-items: flex-start;
+  justify-content: flex-end;
+  padding: 50px 50px 80px;
+  background-color: $color-vulcan;
+  flex-wrap: wrap;
+
+  .footer-info {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .main {
+    margin-right: 24px;
+    .icon {
+      font-family: "Acrobat";
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 40px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      &::before {
+        content: "Garyshker.";
+      }
+      &::first-letter {
+        color: $color-orange;
+      }
+    }
+    .copyright {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+      color: #4b4b4b;
+      margin-bottom: 24px;
+    }
+    .confidental {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }
 
   .content {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 108px;
-    &-info {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      gap: 80px;
-      margin-bottom: 12px;
-      &-item {
-        display: flex;
-        flex-direction: column;
-        .main {
-          font-weight: 600;
-          font-size: 18px;
-          margin-top: 0px;
-          color: #ffd2dd;
-        }
-        a {
-          margin-top: 8px;
-          font-size: 16px;
-        }
-      }
+    flex-direction: column;
+    margin-bottom: 24px;
+    &-header {
+      color: $color-white;
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 18px;
+      margin-bottom: 24px;
     }
-    &-contacts {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 12px;
-      &-main {
-        font-weight: 600;
-        font-size: 18px !important;
-        color: #cacaca;
-      }
-      a {
-        font-size: 16px;
-        color: #9f9f9f;
-        &:hover{
-          color: $color-orange;
-        }
-      }
-    }
-    .project-btn {
-      align-self: center;
-      border-radius: 12px;
-      color: #fff;
-      padding: 16px 24px;
+    &-item {
+      font-weight: 400;
       font-size: 14px;
-      font-weight: 600;
-      background-color: #b67906;
-      align-self: start;
-      margin-top: 24px;
+      line-height: 17px;
+      margin-bottom: 16px;
+      &:last-child {
+        margin-bottom: 0px;
+      }
     }
   }
 
-  .bottom {
+  .social {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    &-rules {
+    flex-direction: row;
+    &-item {
       display: flex;
-      gap: 24px;
-      margin-bottom: 12px;
-    }
-    &-social {
-      display: flex;
-      gap: 40px;
-      margin-bottom: 12px;
+      align-items: center;
+      justify-content: center;
+      color: $color-white;
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 50%;
+      border: 1px solid #4b4b4b;
+      margin-right: 16px;
+      &:last-child {
+        margin-right: 0;
+      }
+      &:hover {
+        color: $color-orange;
+      }
     }
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 768px) {
   footer {
-    padding: 36px 50px 12px;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  footer {
-    padding: 36px 16px 12px;
-    .content {
-      margin-bottom: 0px;
-      &-info {
-        margin-bottom: 64px;
-      }
-      &-contacts {
-        margin-bottom: 64px;
-      }
-    }
-  }
-  .project-btn {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 64px;
+    padding: 50px 50px 80px;
   }
 }
 
 @media screen and (max-width: 512px) {
   footer {
-    .bottom {
-      flex-direction: column;
-      align-items: center;
-      &-rules {
-        margin-bottom: 32px;
-      }
-    }
+    padding: 32px 24px 48px;
   }
 }

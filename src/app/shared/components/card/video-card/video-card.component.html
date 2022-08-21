@@ -1,7 +1,7 @@
-<div class="video-card cursor-pointer">
+<div class="video-card pointer" [backgroundImage]="video.image_2 ? video.image_2 : video.image" [class.small]="small">
 
   <div class="logo"> G.</div>
-  <img class="back" [class.small]="small" [src]="video.image_2 ? video.image_2 : video.image" draggable="false">
+ 
   <div class="content" [class.content-small]="small">
 
     <div 
@@ -11,8 +11,8 @@
       <img class="category-icon" [src]="video.category | categoryImage | async">
       
       <span> {{video.category | category | async}} </span>
-      
-      <span class="category-duriation"> • {{getTime(video.duriation) | date:'m'}} минут</span>
+
+      <span class="category-duriation"> • {{video.duriation}}</span>
     </div>
 
     <h5 class="mb-0" [class]="small ? 'content-small-title' : 'content-title'">{{video | lang: 'title' | async}}</h5>

@@ -1,0 +1,30 @@
+<div class="title" translate="overview.edu.title"></div>
+<div class="desc" translate="overview.edu.desc_detail"></div>
+
+<app-swiper 
+  [slides]="courses" [activeIndex]="0" [loop]="false" [navigation]="true"
+  [spaceBetween]="24" [slidesPerView]="cellCount" [horizontalPadding]="0" class="swiper-carousel" [autoplay]="false"
+  [bottomMargin]="0">
+
+  <ng-template let-item="item">
+
+    <div class="course" (click)="navigate(item.route)" [style]="'background:'+ item.background + ';' + 'color:'+item.color+';'">
+
+      <div class="content" [style.color]="item.color">
+        <div class="content-category" >{{item.category | category | async}}</div>
+        <div class="content-text">
+          <div class="content-text-topic">{{item | lang: 'title' | async}}</div>
+          <div class="content-text-duriation">
+            <div>{{item.duriation}}</div>
+            <div>{{item.tag}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="photo" [backgroundImage]="item.photo"></div>
+
+    </div>
+
+  </ng-template>
+
+</app-swiper>

@@ -1,0 +1,58 @@
+<div @opacityAnimation *ngIf="list" class="comment" [style.margin-top.px]="marginTop ? 56 : 0">
+
+  <div class="comment-count">{{list.count || 0}} комментарии</div>
+
+  <div class="textfield" [formGroup]="formGroup">
+
+    <textarea 
+      #input 
+      rows=3 
+      [placeholder]="'video.comment.placeholder' | translate"
+      class="textfield-area"
+      formControlName="body" 
+      (keydown)="triggerFunction($event)"></textarea>
+
+    <div @opacityAnimation class="d-flex justify-content-end" *ngIf="formGroup.valid">
+
+      <button 
+        [disabled]="!formGroup.valid"
+        class="btn btn-orange-outline"
+        (click)="sendComment()"
+        translate="video.comment.send">
+      </button>
+
+    </div>
+
+  </div>
+
+  <ng-container *ngIf="list.count>0; else empty">
+ 
+    <app-comment-module 
+      *ngFor="let comment of list.results" 
+      [comment]="comment" 
+      (reply)="addReply($event)"
+      (like)="postLike($event)" 
+      (delete)="deleteComment($event)"
+      (patch)="patchComment($event)">
+    </app-comment-module>
+
+  </ng-container>
+
+  <ng-template #empty>
+  
+    <div 
+      *ngIf="authorized$ | async" 
+      class="d-flex justify-content-center mt-2"
+      translate="app.comment.comment_req">
+    </div>
+  
+  </ng-template>
+
+  <a 
+    class="loadmore pointer" 
+    *ngIf="list.next"
+    (click)="onScroll(true)"
+    translate="video.comment.load_more">
+  </a>
+
+</div>

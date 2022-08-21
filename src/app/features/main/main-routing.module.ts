@@ -1,20 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
 import { AboutComponent } from './about/about.component';
-import { DobroAboutComponent } from './dobro/about/dobro-about.component';
-import { DobroComponent } from './dobro/dobro.component';
-import { EduComponent } from './edu/edu.component';
-import { ReportModuleModule } from './edu/report-module/report-module.module';
-import { VideoModuleModule } from './edu/video-module/video-module.module';
-import { EventsComponent } from './events/events.component';
 
 import { MainComponent } from './main.component';
 import { NKOComponent } from './nko/nko.component';
-import { ProductsComponent } from './products/products.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from "./profile/profile.component";
 import { QuestionsComponent } from './questions/questions.component';
-import { ShopComponent } from './shop/shop.component';
 import { SupportComponent } from './support/support.component';
 
 const routes: Routes = [
@@ -25,8 +16,28 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'edu'
+        redirectTo: 'main'
       },
+      {
+        path: 'edu',
+        loadChildren: () => import('./edu/edu.module').then(m => m.EduModule)
+      },
+      {
+        path: 'projects',
+        loadChildren: () => import('./projects/project.module').then(m => m.ProjectsModule)
+      },
+      {
+        path: 'shop',
+        loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
+      },
+      {
+        path: 'events',
+        loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
+      },
+      {
+        path: 'main',
+        loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule)
+      }, 
       {
         path: 'about',
         component: AboutComponent
@@ -34,34 +45,6 @@ const routes: Routes = [
       {
         path: 'nko',
         component: NKOComponent
-      },
-      {
-        path: 'edu',
-        component: EduComponent
-      },
-      {
-        path: 'edu/:id',
-        component: EduComponent
-      },
-      {
-        path: 'edu/reports/:id',
-        loadChildren: () => ReportModuleModule,
-      },
-      {
-        path: 'edu/videos/:id',
-        loadChildren: () => VideoModuleModule,
-      },
-      {
-        path: 'products',
-        component: ProductsComponent
-      },
-      {
-        path: 'shop',
-        component: ShopComponent
-      },
-      {
-        path: 'events',
-        component: EventsComponent
       },
       {
         path: 'profile',
@@ -74,10 +57,6 @@ const routes: Routes = [
       {
         path: 'questions',
         component: QuestionsComponent
-      },
-      {
-        path: 'payment',
-        component: IokaPaymentComponent
       }
     ]
   },

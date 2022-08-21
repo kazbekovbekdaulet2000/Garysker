@@ -1,0 +1,23 @@
+<ng-container *ngIf="courseService.inited && courseService.course as course">
+
+  <div class="breadcrumbs mb-2">
+
+    <div class="item" (click)="changeCategory(null)" translate="main_screen.educate"></div>
+
+    <div class="item" (click)="changeCategory(course.category)">
+
+      <img class="item-img" [src]="course.category | categoryImage | async">
+      <span>{{course.category | category | async }} </span>
+
+    </div>
+
+    <div class="item"> {{course | lang | async}} </div>
+
+  </div>
+
+  <ng-container [ngSwitch]="course.participant">
+    <app-course-teaser *ngSwitchCase="false"></app-course-teaser>
+    <app-course-lesson [lesson]="courseService.lesson" *ngSwitchCase="true"></app-course-lesson>
+  </ng-container>
+
+</ng-container>

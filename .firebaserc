@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "garyshker-1c49e": {
+      "hosting": {
+        "garyshker-front": [
+          "garyshker-dev"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "garyshker-1c49e"
+  }
+}

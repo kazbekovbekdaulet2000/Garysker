@@ -1,0 +1,28 @@
+@import "colors";
+
+.label {
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.user-input {
+  background-color: $color-tuna;
+  outline: none;
+  border: none;
+  height: 40px;
+  font-size: 14px;
+  width: 100%;
+  color: $color-white;
+  padding: 0 auto;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  &:focus {
+    border: 1px solid #ffa800;
+    background-color: transparent;
+  }
+  &:first-child {
+    margin-top: 0px;
+  }
+}

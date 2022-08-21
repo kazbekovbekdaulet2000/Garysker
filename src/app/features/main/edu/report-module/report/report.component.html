@@ -1,73 +1,72 @@
-<div *ngIf="report$ | async as report" class="report-holder">
+<ng-container *ngIf="report; else loader">
+  
+  <div class="report-holder">
+  
+    <div @opacityAnimation class="report">
 
-  <div @opacityAnimation class="report">
+      <app-report-menu [report]="report"></app-report-menu>
 
-    <app-report-menu [report]="report"></app-report-menu>
+      <h1 class="report-header"> {{report | lang: 'title' | async}}</h1>
 
-    <h1 class="report-header"> {{report | lang: 'title' | async}}</h1>
-
-    <div class="report-body">
-      <span class="mb-0" style="white-space: pre-line;">
-        {{report | lang: 'preview_text' | async}}
-      </span>
-    </div>
-
-    <div class="report-stat mb-4">
-
-      <div>
-        <img src="assets/icons/comment.svg" alt="">
-        {{report.comments_count}}
+      <div class="report-body">
+        <span class="mb-0" style="white-space: pre-line;">
+          {{report | lang: 'preview_text' | async}}
+        </span>
       </div>
 
-      <img class="cursor-pointer" (click)="onSave(report.id)"
-        [src]="report.bookmarked ? 'assets/icons/saved_new.svg' : 'assets/icons/save_new.svg'" alt="">
+      <ng-container [ngTemplateOutlet]="stats"></ng-container>
 
-      <img class="cursor-pointer" (click)="onShare()" src="assets/icons/new_share.svg" alt="">
+      <div #body class="report-body" [innerHTML]="report | sanitizerLang: 'body' | async"></div>
 
-      <div class="report-stat-views cursor-pointer" (click)="likeReport(report.id)">
-        <img [src]="report.liked ? 'assets/icons/liked_new.svg' : 'assets/icons/like_new.svg'" alt="">
-        {{report.likes_count}}
+      <div class="report-author">
+
+        <img class="report-author-photo" [src]="report.author.image">
+
+        <div class="d-flex flex-column">
+          <div class="report-author-name">{{report.author.surname}} {{report.author.name}}</div>
+          <div class="report-author-role">Автор</div>
+        </div>
+
       </div>
 
-    </div>
+      <div class="report-views" translate="report.views" [translateParams]="{count: report.views}"></div>
 
-    <div #body class="report-body" [innerHTML]="report | sanitizerLang: 'body' | async"></div>
-
-    <div class="report-author">
-
-      <img class="report-author-photo" [src]="report.author.image">
-      <div class="d-flex flex-column">
-        <div class="report-author-name">{{report.author.surname}} {{report.author.name}}</div>
-        <div class="report-author-role">Автор</div>
-      </div>
+      <ng-container [ngTemplateOutlet]="stats"></ng-container>
 
     </div>
-
-    <div class="report-views">{{'report.views' | translate: ({count: report.views})}}</div>
-
-    <div class="report-stat">
-
-      <div>
-        <img src="assets/icons/comment.svg" alt="">
-        {{report.comments_count}}
-      </div>
-
-      <img class="cursor-pointer" (click)="onSave(report.id)"
-        [src]="report.bookmarked ? 'assets/icons/saved_new.svg' : 'assets/icons/save_new.svg'" alt="">
-
-      <img class="cursor-pointer" (click)="onShare()" src="assets/icons/new_share.svg" alt="">
-
-      <div class="report-stat-views cursor-pointer" (click)="likeReport(report.id)">
-        <img [src]="report.liked ? 'assets/icons/liked_new.svg' : 'assets/icons/like_new.svg'" alt="">
-        {{report.likes_count}}
-      </div>
-
+      
+    <div #commentsHolder class="comment-holder">
+      <app-comment-list [marginTop]="false" [entityId]="reportId" (newComment)="onNewComment($event)"></app-comment-list>
     </div>
+
+    <app-report-related></app-report-related>
 
   </div>
 
-  <app-report-comments [reportId]="reportId" [report]="report"></app-report-comments>
+  <ng-template #stats>
 
-  <app-report-related [reportId]="reportId"></app-report-related>
+    <div class="report-stat mb-4">
 
-</div>
+      <div class="pointer report-stat-comments" (click)="scrollToComments()">
+        <i class="g-icon-chat"></i>
+        <span class="ml-1">{{commentsCount}}</span>
+      </div>
+
+      <i (click)="onSave(report.id)" [class]="report.bookmarked ? 'pointer g-icon-bookmarked' : 'pointer g-icon-bookmark'"></i>
+
+      <i (click)="onShare()" class="pointer g-icon-upload"></i>
+
+      <div class="report-stat-views pointer" (click)="likeReport(report.id)">
+        <i [class]="report.liked ? 'g-icon-liked' : 'g-icon-like'"></i>
+        <span class="ml-1">{{report.likes_count}}</span>
+      </div>
+
+    </div>
+
+  </ng-template>
+
+</ng-container>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

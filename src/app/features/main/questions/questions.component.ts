@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 import { expandAnimation } from '@core/animations/expand-animation';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { QuestionModel } from '@core/models/api/question.model';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { ListQuestions } from '../main.actions';
-import { MainState } from '../main.state';
+import { SupportService } from '@core/services/support.service';
 
 @Component({
   selector: 'app-questions',
@@ -15,12 +12,16 @@ import { MainState } from '../main.state';
 })
 export class QuestionsComponent {
 
-  @Select(MainState.questions) questions$!: Observable<QuestionModel[]>;
+  questions: QuestionModel[];
 
   constructor(
-    private store: Store
+    private supportService: SupportService,
   ) {
-    this.store.dispatch(new ListQuestions)
+    this.supportService.listQuestions()
+      .toPromise()
+      .then(questions => {
+        this.questions = questions
+      })
   }
 
   selected: number[] = [];

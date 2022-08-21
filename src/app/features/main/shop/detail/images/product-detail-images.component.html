@@ -1,0 +1,13 @@
+<app-swiper *ngIf="images" [slides]="images" [activeIndex]="0" [spaceBetween]="8" [slidesPerView]="1"
+  [centeredSlides]="true" [pagination]="{clickable: true}">
+
+  <ng-template let-item="item">
+
+    <div class="product-swiper" [backgroundImage]="item.image_thumb720 || item.image_thumb480 || item.image_thumb1080">
+    <!-- <div class="product-image" [backgroundImage]="product.images[0].image_thumb480"></div> -->
+      <!-- <img class="product-swiper-image" [src]="item.image_thumb720 || item.image_thumb480 || item.image_thumb1080" /> -->
+    </div>
+
+  </ng-template>
+
+</app-swiper>

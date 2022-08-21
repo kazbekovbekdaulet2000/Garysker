@@ -1,0 +1,13 @@
+<div *ngIf="label" class="label" [class.required]="required">
+  {{label | translate}}
+</div>
+
+<input
+  class="form-control user-input {{class}}"
+  [type]="type"
+  [(ngModel)]="value"
+  (ngModelChange)="onValueChange($event)"
+  [placeholder]="hint | translate"
+  (keyup.enter)="enter.emit()"
+  [disabled]="disabled"
+/>

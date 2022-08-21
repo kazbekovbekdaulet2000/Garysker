@@ -1,0 +1,68 @@
+<div @opacityAnimation class="body">
+
+  <div class="d-flex align-items-center gap-2 page-picker">
+
+    <div 
+      *ngFor="let type of types" 
+      class="d-flex align-items-center pointer page-picker-item"
+      [class.active]="type===selected_type" 
+      (click)="onTypeSelect(type)">
+      <span [translate]="type.name"></span>
+    </div>
+
+  </div>
+
+  <div class="events-holder" *ngIf="events$ | async as events">
+
+    <div class="events-holder-item pointer" *ngFor="let event of events.results">
+
+      <div [backgroundImage]="event.poster"
+        (click)="onDetail(event)"
+        class="d-flex flex-column align-items-start justify-content-between events-holder-item-image background">
+
+        <div class="d-flex flex-column">
+          <span class="events-holder-item-image-date">
+            {{event.event_date | date: 'd'}}
+            <br>
+            {{(event.event_date | date: "M" | langMonth | async)! | translate}}
+            <br>
+            {{event.event_date | date: "hh:mm"}}
+          </span>
+        </div>
+
+        <div class="events-holder-item-image-title">
+          {{event | lang | async}}
+        </div>
+
+        <div class="d-flex gap-2 align-items-center">
+
+          <img class="event-holder-item-image-location" src="assets/icons/location2.svg" alt="">
+
+          <span class="pointer">{{event | lang: 'address' | async}}</span>
+
+        </div>
+
+      </div>
+
+      <div class="d-flex justify-content-between flex-wrap mt-4">
+
+        <div *ngIf="!isPast(event)" class="d-flex gap-2 align-items-center mb-2">
+          <i class="g-icon-users"></i>
+          <span *ngIf="!event.max_user_count" translate="events.register.count" [translateParams]="{count: event.participants_count}"></span>
+          <span *ngIf="event.max_user_count" translate="events.register.count_limit" [translateParams]="{count: event.participants_count, max_users: event.max_user_count}"></span>
+        </div>
+
+        <div *ngIf="isPast(event)" class="d-flex gap-2 align-items-center mb-2">
+          <span><b translate="events.register.completed"></b></span>
+        </div>
+
+        <button class="btn btn-orange" *ngIf="!event.canceled" (click)="onDetail(event)" translate="events.register.more"></button>
+        <button class="btn btn-red" *ngIf="event.canceled" (click)="onDetail(event)" translate="events.register.canceled"></button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

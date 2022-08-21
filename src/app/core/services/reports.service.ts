@@ -1,41 +1,75 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { ReportDetailModel, ReportModel } from '@core/models/api/report.model';
-import { ListResponseModel } from '@core/models/api/list.model';
-import { map } from 'rxjs/operators';
-import { Store } from '@ngxs/store';
-import { CommentModel } from '@core/models/api/comment.model';
-import { AuthState } from '@core/states/auth/auth.state';
-import getCategoryIcon from '@core/utils/category-icons';
+import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { Select, Store } from '@ngxs/store';
+import { AppState } from '@core/states/app/app.state';
+import { LangType } from '@core/types/lang.type';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportsService extends ApiService {
 
+  @Select(AppState.lang) lang$!: Observable<LangType>
+
+  _list$: BehaviorSubject<ListResponseModel<ReportModel>> = new BehaviorSubject(emptyListResponse);
+
   constructor(
     protected http: HttpClient,
-    private store: Store
   ) {
     super('edu/reports');
   }
 
   list(params?: any): Observable<ListResponseModel<ReportModel>> {
-    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(), { params })
+    return this.lang$.pipe(
+      switchMap(lang => {
+        params = { ...params, languages: lang }
+        return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(), { params }).pipe(
+          map(list => {
+            list.results = list.results.map(obj => {
+              return { ...obj, read_time: moment.duration(obj.read_time).humanize() }
+            })
+            return list
+          }),
+          tap(_list => this._list$.next({ ..._list, results: [...this._list$.value.results, ..._list.results] }))
+        )
+      })
+    )
   }
 
   listSaved(params?: any): Observable<ListResponseModel<ReportModel>> {
-    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('bookmarked'), { params })
+    return this.lang$.pipe(switchMap(lang => {
+      params = { ...params, languages: lang }
+      return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('bookmarked'), { params }).pipe(map(list => {
+        list.results = list.results.map(obj => {
+          return { ...obj, read_time: moment.duration(obj.read_time).humanize() }
+        })
+        return list
+      }))
+    }))
   }
 
   get(id: number): Observable<ReportDetailModel> {
-    return this.http.get<ReportDetailModel>(this.getUrl(id))
+    return this.http.get<ReportDetailModel>(this.getUrl(id)).pipe(map(obj => {
+      return { ...obj, read_time: moment.duration(obj.read_time).humanize() }
+    }))
   }
 
   getRelated(id: number, params?: any): Observable<ListResponseModel<ReportModel>> {
-    return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(`${id}/related`), { params })
+    return this.lang$.pipe(switchMap(lang => {
+      params = { ...params, languages: lang }
+      return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(`${id}/related`), { params }).pipe(map(list => {
+        list.results = list.results.map(obj => {
+          return { ...obj, read_time: moment.duration(obj.read_time).humanize() }
+        })
+        return list
+      }))
+    }))
   }
 
   like(id: number): Observable<any> {
@@ -46,31 +80,7 @@ export class ReportsService extends ApiService {
     return this.http.post<any>(this.getUrl(`${id}/save`), {})
   }
 
-  listComments(id: number, params?: any): Observable<ListResponseModel<CommentModel>> {
-    return this.http.get<ListResponseModel<CommentModel>>(this.getUrl(`${id}/comments`), { params })
-  }
-
-  likeComment(reportId: number, id: number): Observable<any> {
-    return this.http.post<any>(this.getUrl(`${reportId}/comments/${id}/like`), {})
-  }
-
-  deleteComment(reportId: number, id: number): Observable<any> {
-    return this.http.delete<any>(this.getUrl(`${reportId}/comments/${id}`))
-  }
-
-  postComment(id: number, payload: any): Observable<CommentModel> {
-    return this.http.post<CommentModel>(this.getUrl(`${id}/comments`), payload)
-      .pipe(
-        map(res => {
-          const owner = this.store.selectSnapshot(AuthState.profile)
-          res.owner = owner!
-          res.replies = []
-          res.created_at = new Date().toISOString()
-          res.updated_at = new Date().toISOString()
-          res.liked = false
-          res.likes_count = 0
-          return res
-        })
-      )
+  clear() {
+    this._list$.next(emptyListResponse)
   }
 }

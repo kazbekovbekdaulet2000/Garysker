@@ -1,0 +1,14 @@
+<div *ngIf="label" class="label" [class.required]="required">
+  {{label | translate}}
+</div>
+
+<textarea 
+  rows=3 
+  [placeholder]="hint | translate" 
+  class="textfield-area {{class}}"
+  [class.large]="textInputLarge" 
+  [(ngModel)]="value"
+  (ngModelChange)="onValueChange($event)"
+  (click)="textareaTap()"
+  (keydown)="triggerFunction($event)">
+</textarea>

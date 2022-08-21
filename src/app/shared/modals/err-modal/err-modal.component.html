@@ -5,11 +5,9 @@
   <div class="close">
     <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
   </div>
-  
-  <div class="mt-0 title">{{title}}</div>
 
-  <div class="message">
-    {{message}}
-  </div>
-  
+  <div class="mt-0 title" [translate]="title"></div>
+
+  <div class="message" [translate]="message"></div>
+
 </div>

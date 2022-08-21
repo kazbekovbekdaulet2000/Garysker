@@ -12,10 +12,10 @@
       <img class="profile-info-change" src="assets/icons/pen.svg" (click)="onProfileChange()">
     </h3>
     <div class="profile-info-detail">{{profile?.email}}</div>
-    <div class="profile-info-detail">{{profile.birth_date | DateAge | async}}</div>
+    <div class="profile-info-detail">{{profile.birth_date | DateRemained: true | async}}</div>
     <div class="profile-info-detail">
-      <img src="assets/icons/location.svg" alt="">
-      {{profile.city}}
+      <i class="g-icon-location"></i>
+      <span class="ml-2"> {{profile.city}}</span>
     </div>
   </div>
 
@@ -23,54 +23,8 @@
 
 <div class="body">
 
-  <ng-container *ngIf="reports$ | async as reports">
+  <app-profile-reports></app-profile-reports>
 
-    <div @heightAnimation *ngIf="reports.results.length > 0">
-
-      <div class="d-flex flex-row align-items-center gap-2" *ngIf="reports.results.length > 0">
-        <img class="icon" src="assets/images/open-book.png" alt="">
-        <h3 class="mb-0">Читаю</h3>
-      </div>
-
-      <div *ngIf="reports.results.length > 0" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
-        [scrollWindow]="false" [horizontal]="true" (scrolled)="onScroll()"
-        class="d-flex align-items-center gap-2 my-4 reading">
-
-        <report-card *ngFor="let report of reports.results" [routerLink]="['/edu/reports', report.id]"
-          [report]='report'>
-        </report-card>
-
-      </div>
-
-    </div>
-
-  </ng-container>
-
-
-  <ng-container *ngIf="videos$ | async as videos">
-
-    <div @heightAnimation *ngIf="videos.results.length > 0">
-
-      <div class="d-flex flex-row align-items-center gap-2" *ngIf="videos.results.length > 0">
-        <img class="icon" src="assets/images/video-camera.png" alt="">
-        <h3 class="mb-0">Смотреть</h3>
-      </div>
-
-      <div *ngIf="videos.results.length > 0" class="videos">
-
-        <app-video-card *ngFor="let video of videos.results" [routerLink]="['/edu/videos', video.id]" [video]='video'>
-        </app-video-card>
-
-      </div>
-
-      <div *ngIf="videos.next" class="d-flex flex-column align-content-center align-items-center cursor-pointer mb-5"
-        (click)="loadVideo()">
-        Смотреть еще
-        <img src="assets/icons/down.svg" alt="">
-      </div>
-
-    </div>
-
-  </ng-container>
-
+  <app-profile-videos></app-profile-videos>
+  
 </div>

@@ -1,24 +1,21 @@
-import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { UserModel } from '@core/models/api/user.model';
 import { ReportsService } from '@core/services/reports.service';
 import { VideosService } from '@core/services/videos.service';
-import { UpdateLang } from '@core/states/app/app.actions';
 import { AppState } from '@core/states/app/app.state';
-import { RemoveToken } from '@core/states/auth/actions';
 import { AuthState } from '@core/states/auth/auth.state';
-import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { combineLatest, Observable, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, takeUntil } from 'rxjs/operators';
-import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confirm-modal.component';
+import { LinkShareModalComponent } from 'src/app/shared/modals/share-modal/share-modal.component';
 
 @Component({
-  selector: 'core-header',
+  selector: 'app-core-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   animations: [opacityAnimation, heightOutAnimation],
@@ -26,23 +23,18 @@ import { ConfirmModalComponent } from 'src/app/shared/modals/confirm-modal/confi
 export class HeaderComponent implements OnInit, OnDestroy {
 
   main = '';
-
+  innerWidth: number = window.innerWidth;
   dropdown: boolean = false;
-
   sideBar: boolean = false;
-
   dataAvailable: boolean = false;
-
   userMenu: boolean = false;
-
-  sidebar: string = '100%';
 
   @Select(AuthState.access) access$!: Observable<string>;
   @Select(AuthState.profile) profile$!: Observable<UserModel>;
+  @Select(AuthState.authorized) authorized$!: Observable<boolean>;
 
   @ViewChild('toggleDiv') toggleDiv: ElementRef | any;
   @ViewChild('menu') menu: ElementRef | any;
-  @ViewChild('search') search: ElementRef | any;
 
   showSearch: boolean = false
 
@@ -50,6 +42,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchText = new FormControl('');
 
   list$!: Observable<any[]>
+  @Output() sidenav: EventEmitter<boolean> = new EventEmitter(false);
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+  }
 
   constructor(
     private router: Router,
@@ -57,23 +55,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     private reportService: ReportsService,
     private videoService: VideosService,
-    private bsModalService: BsModalService,
-    private translateService: TranslateService
+    private bsModalService: BsModalService
   ) {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationStart))
-      .subscribe((val) => {
-        this.sidebar = '100%'
-      })
     this.renderer.listen('window', 'click', (e: Event) => {
       if (this.menu) {
         if (e.target !== this.toggleDiv.nativeElement && e.target !== this.menu?.nativeElement) {
           this.dropdown = false;
-        }
-      }
-      if (this.search) {
-        if (e.target !== this.search?.nativeElement) {
-          this.showSearch = false;
         }
       }
     });
@@ -128,11 +115,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
           case route.url.includes('auth'):
             this.main = 'auth';
             break;
+          case route.url.includes('videos'):
+            this.main = 'videos'
+            break;
+          case route.url.includes('reports'):
+            this.main = 'reports'
+            break;
           case route.url.includes('edu'):
             this.main = 'edu'
             break;
-          case route.url.includes('products'):
-            this.main = 'products'
+          case route.url.includes('projects'):
+            this.main = 'projects'
             break;
           case route.url.includes('events'):
             this.main = 'events'
@@ -146,7 +139,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
           default:
             this.main = '';
         }
-        this.dataAvailable = true
       })
   }
 
@@ -159,20 +151,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   navigateRoute(path: string) {
-    this.activateMenu()
     this.router.navigate([path])
   }
 
-  activateMenu() {
-    if (this.sidebar === "100%") {
-      this.sidebar = "0%";
-    } else {
-      this.sidebar = "100%";
-    }
-  }
-
   toggleSearch() {
-    this.showSearch != this.showSearch
+    this.showSearch = !this.showSearch
   }
 
   dropdownToggle() {
@@ -183,45 +166,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userMenu = !this.userMenu
   }
 
-  logout() {
-    this.dropdown = false
-    const modal = this.bsModalService.show(ConfirmModalComponent, {
-      initialState: {
-        icon: "err_sticker_2",
-        message: "Вы уверены, что хотите выйти?",
-        false_ans: "Нет, остаться",
-        true_ans: "Да, выйти",
-      },
-      class: 'modal-dialog-centered'
-    })
-
-    modal.content!.onClose.subscribe(result => {
-      if (result === true) {
-        this.store.dispatch(RemoveToken)
-        if (this.main === 'profile') {
-          this.activateMenu()
-          this.router.navigate(['/edu'])
-        }
-      }
-    });
+  shareLink(){
+    this.bsModalService.show(LinkShareModalComponent, { class: 'modal-dialog-centered' })
   }
 
-  changeLang() {
-    const modal = this.bsModalService.show(ConfirmModalComponent, {
-      initialState: {
-        icon: "err_sticker_2",
-        message: "Выберите язык",
-        false_ans: "Қазақша",
-        true_ans: "Русский",
-      },
-      class: 'modal-dialog-centered'
-    })
-    modal.content!.onClose.subscribe(res => {
-      if (res === true) {
-        this.store.dispatch(new UpdateLang('ru'))
-      } else {
-        this.store.dispatch(new UpdateLang('kk'))
-      }
-    })
+  get isReportOrVideo(): boolean {
+    return ['reports', 'videos'].includes(this.main)
   }
 }

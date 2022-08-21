@@ -1,7 +1,7 @@
-export interface CategoryModel {
+import { NameModel } from "../name.model"
+
+export interface CategoryModel extends NameModel {
   id: number,
-  name_ru: string,
-  name_kk: string,
   created_at: string,
   updated_at: string
   icon?: string

@@ -11,28 +11,13 @@ import { opacityAnimation } from '@core/animations/opacity-animation';
 })
 export class NKOComponent {
 
-  constructor(
-    private http: HttpClient,
-    // private fileSaver: FileSaverService,
-  ) { }
+  constructor() { }
 
   downloadReport() {
-    const url = `https://storage.yandexcloud.net/garysh-app/course/course_3/abdi`;
-    const options: any = { responseType: 'blob' };
-    this.http.get(url, options)
-      .subscribe((res: any) => {
-        // this.fileSaver.save(res.body, 'file');
-      });
+    window.open('https://storage.yandexcloud.net/garysh-app/%D0%BE%D1%82%D1%87%D0%B5%D1%82-2021.pdf', "_blank");
   }
 
   downloadNKO() {
-    window.open('https://storage.yandexcloud.net/garysh-app/course/course_3/abdi', "_blank");
-
-    // const url = `https://storage.yandexcloud.net/garysh-app/course/course_3/abdi`;
-    // const options: any = { responseType: 'blob' };
-    // this.http.get(url, options)
-    //   .subscribe((res: any) => {
-    //     this.fileSaver.save(res.body, 'file');
-    //   });
+    window.open('https://storage.yandexcloud.net/garysh-app/Ustav_Fund.pdf', "_blank");
   }
 }

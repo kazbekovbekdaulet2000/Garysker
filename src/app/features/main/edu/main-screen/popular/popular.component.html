@@ -1,0 +1,69 @@
+<div @opacityAnimation *ngIf="!!!(categoriesService.selectedCategory$ | async)" class="placeholderPopular">
+
+  <ng-container *ngIf="popular.length>0; else loader">
+
+    <div @opacityAnimation>
+
+      <app-section-header text="main_screen.popular" icon="assets/images/star.png"></app-section-header>
+
+      <app-swiper 
+        [slides]="popular" 
+        [activeIndex]="2" 
+        [loop]="true" 
+        [centeredSlides]="true"
+        [breakpoints]="breakpoints"
+        [horizontalPadding]="0">
+
+        <ng-template let-item="item">
+
+          <div class="card-item" (click)="onNavigate(item)" [backgroundImage]="item.image">
+
+            <div class="logo">G.</div>
+
+            <div class="content">
+
+              <div class="content-header" ellipsis [ellipsis-content]="(item | lang: 'title' | async)!"></div>
+
+              <div class="d-flex align-content-center content-category pointer">
+
+                <div class="content-category-icon">
+                  <img [src]="item.category | categoryImage | async">
+                </div>
+
+                <div class="d-flex flex-column content-category-text">
+
+                  <span>{{item.category | category | async}}</span>
+
+                  <div 
+                    *ngIf="!!item.read_time" 
+                    class='content-category-text-time'>
+                    {{item.read_time}} • {{item.created_at | DateRemained | async}}
+                  </div>
+
+                  <div 
+                    *ngIf="!!!item.read_time"
+                    class='content-category-text-time'>
+                    {{item.duriation}} • {{item.created_at | DateRemained | async}}
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </ng-template>
+
+      </app-swiper>
+
+    </div>
+
+  </ng-container>
+
+  <ng-template #loader>
+    <app-loader height="{{height}}px"></app-loader>
+  </ng-template>
+
+</div>

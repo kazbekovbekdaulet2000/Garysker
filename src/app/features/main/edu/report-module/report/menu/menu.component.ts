@@ -1,12 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoryModel } from '@core/models/api/category.model';
 import { ReportDetailModel } from '@core/models/api/report.model';
-import { SidebarState } from '@core/states/sidebar/sidebar.state';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
-import { ChangeCategory } from 'src/app/features/main/main.actions';
+import { CategoriesService } from '@core/services/categories.service';
 
 @Component({
   selector: 'app-report-menu',
@@ -15,15 +10,15 @@ import { ChangeCategory } from 'src/app/features/main/main.actions';
 })
 export class ReportMenuComponent {
 
-  @Input() report!: ReportDetailModel;
+  @Input() report: ReportDetailModel;
 
   constructor(
-    private store: Store,
-    private router: Router
+    private router: Router,
+    public categoriesService: CategoriesService
   ) { }
 
-  navigateEdu(category: number) {
-    this.store.dispatch(new ChangeCategory(category))
+  navigateEdu(categoryId: number) {
+    this.categoriesService.changeCategory(categoryId)
     this.router.navigate(['/edu'])
   }
 }

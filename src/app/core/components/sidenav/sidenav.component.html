@@ -1,0 +1,77 @@
+<div class="sidemenu">
+
+  <ng-container *ngIf="(access$ | async)?.length === 0; else profile">
+
+    <div class="auth">
+      <i class="g-icon-users"></i>
+      <span>
+        <a href="/auth">{{'sections.login' | translate}}</a>
+        /
+        <a href="/auth/application">{{'sections.register' | translate}}</a>
+      </span>
+    </div>
+
+  </ng-container>
+
+  <ng-template #profile>
+
+    <div class="profile" *ngIf="profile$ | async as profile">
+      <!-- <img class="profile-image" [src]="profile.image" alt=""> -->
+      <div class="profile-image" [backgroundImage]="profile.image"></div>
+      <div class="d-flex gap-2 justify-content-center">
+
+        <h6 class="mb-0">{{profile.surname}} {{profile.name}}</h6>
+        <img *ngIf="profile.verified" src="assets/icons/verified_user_new.svg">
+
+      </div>
+    </div>
+
+    <div (click)="triggerMenu()" *ngIf="profile$ | async as profile"
+      class="d-flex gap-2 my-3 pointer align-items-center sidemenu-section-text">
+
+      <div>{{'app.profile_menu' | translate}}</div>
+
+      <i class="g-icon-chevron-down profile-dropdown" [class.expanded]="userMenu"></i>
+
+    </div>
+
+    <div @heightOutAnimation class="overflow" *ngIf="userMenu">
+
+      <ng-container *ngIf="profile$ | async as profile">
+
+        <div class="d-flex align-items-center py-2 mt-2 pointer" [class.active]="main === 'profile'" (click)="navigateRoute('/profile')">
+          <i class="g-icon-user profile-section-icon"></i>
+          <span>{{'app.profile.name' | translate}}</span>
+        </div>
+        
+        <div class="d-flex align-items-center py-2 pointer" (click)="logout()">
+          <i class="g-icon-logout profile-section-icon"></i>
+          <span>{{'app.profile.logout' | translate}}</span>
+        </div>
+
+      </ng-container>
+
+      <hr>
+
+    </div>
+
+  </ng-template>
+
+  <div class="d-flex flex-column">
+
+    <div class="section pointer" *ngFor="let section of sections" (click)="navigateRoute(section.route)"
+      [class.active]="main === section.route">
+      <div class="icon"><i [class]="section.icon"></i></div>
+      <span>{{section.name | translate}}</span>
+    </div>
+
+  </div>
+
+  <div class="lang-switcher" *ngIf="lang$ | async as lang">
+    <div class="item pointer" [class.selected]="lang==='kk'" (click)="changeLang('kk')">Қаз</div>
+    <div class="item pointer" [class.selected]="lang==='ru'" (click)="changeLang('ru')">Рус</div>
+  </div>
+
+  <div routerLink="support" class="support pointer" translate="sections.help"></div>
+
+</div>

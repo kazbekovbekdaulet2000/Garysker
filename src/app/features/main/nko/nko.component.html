@@ -1,8 +1,8 @@
 <div class="d-flex flex-column align-items-left mt-4 mb-5 gap-4 nko-holder">
 
-  <h1>Документация НКО</h1>
+  <h1>{{'nko.header' | translate}}</h1>
 
-  <div>Нам важно поддерживать прозрачность и открытость деятельности организации, так как мы являемся НКО.</div>
+  <div>{{'nko.desc' | translate}}</div>
 
   <div class="file d-flex align-items-left gap-4">
 
@@ -10,11 +10,11 @@
 
       <div class="d-flex flex-column align-items-center gap-4">
 
-        <h4 class="mb-4"> Устав НКО </h4>
+        <h4 class="mb-4"> {{'nko.first.header' | translate}} </h4>
 
-        <div class="mb-0 d-flex gap-2 cursor-pointer" (click)="downloadNKO()">
+        <div class="mb-0 d-flex gap-2 pointer" (click)="downloadNKO()">
           <img src="assets/icons/paper.svg" alt="">
-          <span class="file-item-download">Скачать</span>
+          <span class="file-item-download">{{'nko.download' | translate}}</span>
         </div>
 
       </div>
@@ -25,11 +25,11 @@
 
       <div class="d-flex flex-column align-items-center gap-4">
 
-        <h4 class="mb-4">Отчеты за 2021 год</h4>
+        <h4 class="mb-4">{{'nko.second.header' | translate}}</h4>
 
-        <div class="mb-0 d-flex gap-2 cursor-pointer" (click)="downloadReport()">
+        <div class="mb-0 d-flex gap-2 pointer" (click)="downloadReport()">
           <img src="assets/icons/paper.svg" alt="">
-          <span class="file-item-download">Скачать</span>
+          <span class="file-item-download">{{'nko.download' | translate}}</span>
         </div>
 
       </div>
@@ -38,9 +38,6 @@
 
   </div>
 
-  <div>
-    Если вы хотите стать спонсором или партнером проекта, напишите нам на почту <a class="mail-link"
-      href="mailto:info@garyshker.com">info@garyshker.com</a>
-  </div>
+  <div [innerHTML]="'nko.support_message' | translate"></div>
 
 </div>

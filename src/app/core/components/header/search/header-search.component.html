@@ -1,0 +1,32 @@
+<div (click)="toggleSearch()" class="search" *ngIf="main!=='auth' && main!=='application'">
+  
+  <i class="g-icon-search search-icon"></i>
+
+  <input type="text" [formControl]="searchText" class="search-input" [placeholder]="'header.search' | translate">
+  
+  <ng-container *ngIf="list$ | async as list">
+  
+    <div #search @opacityAnimation class="search-result" *ngIf="(showSearch && list.length>0); else noRes">
+  
+      <div (click)="navigateRes(res)" class="search-result-item pointer" *ngFor="let res of list">
+        {{res | lang: 'title' | async}}
+      </div>
+  
+    </div>
+  
+  </ng-container>
+  
+  <ng-template #noRes>
+  
+    <div #search @opacityAnimation class="search-result" *ngIf="showSearch">
+  
+      <div 
+        class="d-flex justify-content-center search-result-error" 
+        translate="app.err.no_res">
+      </div>
+  
+    </div>
+  
+  </ng-template>
+
+</div>

@@ -1,4 +1,4 @@
-@import "variables";
+@import "colors";
 
 .icon {
   width: 26px;
@@ -6,7 +6,7 @@
 }
 
 .report {
-  background: #1c1b29;
+  background: $color-steel-gray;
   border-radius: 30px;
   max-width: 912px;
   position: relative;
@@ -44,13 +44,29 @@
     margin-top: 24px;
     display: flex;
     flex-direction: row;
-    gap: 36px;
+    align-items: center;
+    i {
+      font-size: 24px;
+      margin-left: 32px;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+    &-comments {
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 4px;
+      }
+    }
     &-views {
       flex: 1;
       display: flex;
       justify-content: flex-end;
-      gap: 6px;
       align-items: center;
+      span {
+        margin-left: 4px;
+      }
     }
   }
   &-author {
@@ -78,8 +94,21 @@
     opacity: 0.7;
   }
 }
+.comment-holder {
+  background: $color-steel-gray;
+  border-radius: 30px;
+  max-width: 912px;
+  position: relative;
+  padding: 30px 120px;
+  margin-right: 16px;
+  margin-bottom: 40px;
+}
 
 @media screen and (min-width: 1441px) {
+  .comment-holder {
+    margin: 0px auto;
+    margin-bottom: 40px;
+  }
   .report {
     margin: 0px auto;
     margin-bottom: 40px;
@@ -87,6 +116,10 @@
 }
 
 @media screen and (max-width: 786px) {
+  .comment-holder {
+    margin-right: 0px;
+    padding: 20px 20px;
+  }
   .report-holder {
     padding: 0px 16px;
   }
@@ -107,7 +140,7 @@
       }
       p {
         font-size: 16px;
-        font-size: 400;
+        font-weight: 400;
         margin-bottom: 12px;
       }
     }

@@ -1,0 +1,6 @@
+<div class="organization-request d-flex flex-column gap-2" [formGroup]="formGroup">
+  <p>Пока мы продаем только наш мерч, но если вы хотите увидеть свои товары или услуги, то уэлком!</p>
+  <p>Вы можете связаться с нами, написав нам на почту info@garyshker.com либо оставить ниже ваш email для связи</p>
+  <app-input formControlName="email" [required]="true" [class]="'organization-request-form'"
+    [hint]="'events.register.apply.phone_placeholder' | translate"></app-input>
+</div>

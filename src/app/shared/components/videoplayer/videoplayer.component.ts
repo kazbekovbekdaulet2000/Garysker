@@ -1,30 +1,37 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
-import { VideoDetailModel, VideoModel } from '@core/models/api/video.model';
-import { Select } from '@ngxs/store';
+import { VideoTranscodeModel } from '@core/models/api/video/video-transcode.model';
 import { PlyrComponent } from 'ngx-plyr';
 import * as Plyr from 'plyr';
-import { Observable } from 'rxjs';
-import { VideoState } from 'src/app/features/main/edu/video-module/video.state';
 import { videoI18n } from './videoplayer.i18n';
 
 @Component({
-  selector: 'app-plyr-player',
+  selector: 'app-video-player',
   templateUrl: './videoplayer.component.html',
   styleUrls: ['./videoplayer.component.scss'],
   animations: [opacityAnimation, heightOutAnimation]
 })
-export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
-  @Input() entity: VideoDetailModel | any
-  @Input() link: string | any;
+export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+  ngAfterViewInit(): void {
+    this.plyr.plyrEnded.subscribe(()=>{
+      this.videoEnd.emit(true)
+    })
+  }
 
-  @Select(VideoState.video) video$!: Observable<VideoDetailModel>
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.video) {
+      this.ngOnInit()
+    }
+  }
 
-  @ViewChild(PlyrComponent)
-  plyr!: PlyrComponent;
-  player!: Plyr;
+  @Input() video: VideoTranscodeModel | undefined;
+  @Input() link: string | undefined;
+  @Output() videoEnd = new EventEmitter<boolean>();
 
+  @ViewChild(PlyrComponent) plyr: PlyrComponent | undefined;
+
+  player: Plyr;
   videoSources: Plyr.Source[] = [];
   viderQuality!: Plyr.QualityOptions
   videoTracks: Plyr.Track[] = []
@@ -36,7 +43,7 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
     volume: 1,
     fullscreen: {
       enabled: true,
-      iosNative: true
+      iosNative: true,
     },
   }
 
@@ -45,7 +52,16 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.videoSources = []
+    if (this.video) {
+      this.videoSources = this.video.qualities.map(obj => {
+        return {
+          src: obj.url.split('?')[0],
+          provider: 'html5',
+          size: obj.quality
+        }
+      })
+      this.videoSources.push({ src: this.video.video, provider: 'html5' })
+    }
     if (this.link) {
       this.videoSources = [
         {
@@ -53,70 +69,10 @@ export class PlyrVideoPlayerComponent implements OnInit, OnDestroy {
           provider: 'html5',
         },
       ];
-    } else {
-      this.video$.subscribe(link => {
-        const new_link = link?.video?.split('/video-video/')[0]
-        if (link.youtube) {
-          this.videoSources = [
-            {
-              src: link.youtube,
-              provider: 'youtube',
-            }
-          ];
-        } else {
-          if (link.subs_kk) {
-            this.videoTracks.push({
-              kind: 'subtitles',
-              label: 'Казахский',
-              srcLang: 'kk',
-              src: link.subs_kk,
-              default: true,
-            })
-          }
-
-          this.videoSources.push({
-            src: link?.video,
-            provider: 'html5',
-            type: 'video/mp4',
-            size: this.get_quality(link?.original_quality),
-          })
-
-          link?.video_quality?.forEach((video: any) => {
-            const q_link = video.path
-            this.videoSources.push({
-              src: `${new_link}/video-video/${q_link}`,
-              provider: 'html5',
-              type: 'video/mp4',
-              size: video.quality
-            })
-          })
-
-        }
-      })
     }
-  }
-
-  get_quality(quality: number): number {
-    if (quality > 1080 && quality <= 1440) {
-      return 1440
-    }
-    if (quality > 1440 && quality <= 2160) {
-      return 2160
-    }
-    if (quality > 720 && quality <= 1080) {
-      return 1080
-    }
-    if (quality > 480 && quality <= 720) {
-      return 720
-    }
-    if (quality > 360 && quality <= 480) {
-      return 480
-    }
-    return 240
   }
 
   play(): void {
     this.player.play();
   }
-
 }

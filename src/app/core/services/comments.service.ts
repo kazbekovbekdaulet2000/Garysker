@@ -8,24 +8,33 @@ import { Store } from '@ngxs/store';
 import { map } from 'rxjs/operators';
 import { AuthState } from '@core/states/auth/auth.state';
 
+@Injectable()
+export class CommentsService extends ApiService {
 
-@Injectable({
-  providedIn: 'any'
-})
-export class CommentService extends ApiService {
+  static getProvider(type: 'reports' | 'videos') {
+    return {
+      provide: CommentsService,
+      deps: [HttpClient, Store],
+      useFactory: (http, store) => {
+        return new CommentsService(http, store, type);
+      }
+    };
+  }
+
   constructor(
     protected http: HttpClient,
-    private store: Store
+    protected store: Store,
+    @Inject(String) public type: string,
   ) {
-    super('');
+    super(`edu/${type}`)
   }
 
-  listComments(id: number, type?: string): Observable<ListResponseModel<CommentModel>> {
-    return this.http.get<any>(this.getUrl(`${type}/${id}/comments`));
+  list(id: number, params?: any): Observable<ListResponseModel<CommentModel>> {
+    return this.http.get<ListResponseModel<CommentModel>>(this.getUrl(`${id}/comments`), { params });
   }
 
-  postComment(id: number, payload: any, type?: string): Observable<CommentModel> {
-    return this.http.post<CommentModel>(this.getUrl(`${type}/${id}/comments`), payload)
+  post(id: number, payload: any): Observable<CommentModel> {
+    return this.http.post<CommentModel>(this.getUrl(`${id}/comments`), payload)
       .pipe(
         map(res => {
           const owner = this.store.selectSnapshot(AuthState.profile)
@@ -40,7 +49,15 @@ export class CommentService extends ApiService {
       )
   }
 
-  likeComment(id: number, commentId: number, type?: string): Observable<any> {
-    return this.http.post<any>(this.getUrl(`${type}/${id}/comments/${commentId}/like`), {})
+  patch(id: number, commentId: number, payload: any): Observable<CommentModel> {
+    return this.http.patch<CommentModel>(this.getUrl(`${id}/comments/${commentId}`), payload)
+  }
+
+  like(id: number, commentId: number): Observable<any> {
+    return this.http.post<any>(this.getUrl(`${id}/comments/${commentId}/like`), {})
+  }
+
+  delete(id: number, commentid: number): Observable<any> {
+    return this.http.delete<any>(this.getUrl(`${id}/comments/${commentid}`))
   }
 }

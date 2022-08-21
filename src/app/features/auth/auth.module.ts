@@ -8,7 +8,11 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApplicationComponent } from './application/application.component';
 import { SignUpSectionComponent } from './application/group-pages/sign-up-section.component';
-import { ResetPassComponent } from './reset-pass/reset-pass.component';
+import { ResetPassStageOneComponent } from './reset-pass/stage-1/reset-pass-stage-1.component';
+import { ResetPassStageTwoComponent } from './reset-pass/stage-2/reset-pass-stage-2.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { InputModule } from 'src/app/shared/components/input/input.module';
+import { CountdownModule } from 'src/app/shared/components/countdown/countdown.module';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -19,14 +23,18 @@ const maskConfig: Partial<IConfig> = {
     AuthComponent,
     LoginComponent,
     ApplicationComponent,
-    ResetPassComponent,
+    ResetPassStageOneComponent,
+    ResetPassStageTwoComponent,
     SignUpSectionComponent
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
     FormsModule,
+    InputModule,
     ReactiveFormsModule,
+    TranslateModule,
+    CountdownModule,
     NgxMaskModule.forRoot(),
   ],
 })

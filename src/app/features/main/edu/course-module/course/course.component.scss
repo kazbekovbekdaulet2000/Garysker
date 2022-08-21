@@ -1,0 +1,60 @@
+@import "colors";
+
+.breadcrumbs {
+  flex: 1;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .item {
+    position: relative;
+    font-size: 14px;
+    color: $color-mercury;
+    font-weight: 500;
+    margin-right: 12px;
+    cursor: pointer;
+
+    &-img {
+      width: 16px;
+      height: 16px;
+      object-fit: cover;
+      margin-right: 4px;
+      margin-left: 4px;
+    }
+
+    &:hover {
+      color: $color-orange;
+    }
+
+    &:after {
+      content: "/";
+      position: absolute;
+      top: 0;
+      left: calc(100% + 4px);
+      z-index: -1;
+      font-size: 14px;
+      color: $color-mercury;
+    }
+
+    &:last-child {
+      margin-right: 0;
+      cursor: default;
+
+      &:hover {
+        color: $color-orange;
+      }
+
+      &:after {
+        content: "";
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .breadcrumbs {
+    width: 100%;
+    padding: 0px 16px;
+  }
+}

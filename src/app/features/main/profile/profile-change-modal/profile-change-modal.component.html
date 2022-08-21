@@ -8,7 +8,7 @@
 
   <div class="user">
 
-    <img class="user-image cursor-pointer" [src]="profile.image" (click)="avatarInputFile.click()">
+    <img class="user-image pointer" [src]="profile.image" (click)="avatarInputFile.click()">
 
     <input #avatarInputFile type="file" hidden (change)="onChangeAvatarInputFile($event)">
 

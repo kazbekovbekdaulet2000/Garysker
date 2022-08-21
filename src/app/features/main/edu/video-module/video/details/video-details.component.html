@@ -3,19 +3,25 @@
   <div class="detail-info">
 
     <div class="detail-info-user align-items-center">
-      <img [src]="entity.author.image" alt="">
+      
+      <div class="icon" [backgroundImage]="entity.author.image"></div>
+
       <div class="detail-info-user-text">
+      
         <div class="d-flex gap-1 align-items-center">
-          <div>{{entity.author.surname}} {{entity.author.name}}</div>
+          <span>{{entity.author.surname}} {{entity.author.name}}</span>
           <img *ngIf="entity.author.verified" src="assets/icons/verified_user_new.svg">
         </div>
-        <div class="detail-info-user-text-author">{{'video.author' | translate}}</div>
+        
+        <div class="detail-info-user-text-author" translate="video.author"></div>
+      
       </div>
+
     </div>
 
     <div class="detail-info-category d-flex gap-2 flex-row align-items-center">
       <img [src]="entity?.category | categoryImage | async" alt="">
-      {{entity.category | category |async}}
+      <span>{{entity.category | category | async}}</span>
     </div>
 
   </div>
@@ -28,19 +34,15 @@
 
     <div class="detail-views">{{entity.created_at | DateRemained | async}}</div>
 
-    <div class="d-flex gap-4">
+    <div class="detail-reaction">
 
-      <img (click)="onShare()" class="cursor-pointer" src="assets/icons/new_share.svg" alt="">
+      <i (click)="onShare()" class="g-icon-upload pointer"></i>
 
-      <img (click)="onSave()" class="cursor-pointer"
-        [src]="entity.bookmarked ? 'assets/icons/saved_new.svg' : 'assets/icons/save_new.svg'" alt="">
+      <i (click)="save.emit()" [class]="entity.bookmarked ? 'g-icon-bookmarked pointer' : 'g-icon-bookmark pointer'"></i>
 
-      <div>
-        <img (click)="onLike()" class="cursor-pointer"
-          [src]="entity.liked ? 'assets/icons/liked_new.svg' : 'assets/icons/like_new.svg'" alt="">
-
-        {{entity.likes_count}}
-      </div>
+      <i (click)="like.emit()" [class]="entity.liked ? 'g-icon-liked pointer' : 'g-icon-like pointer'"></i>
+      
+      <span class="likes-count">{{entity.likes_count}}</span>
 
     </div>
 

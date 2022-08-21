@@ -1,0 +1,96 @@
+@import "colors";
+
+.center {
+  width: 100%;
+  height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reset {
+  background-color: transparent;
+  width: 560px;
+  margin: auto;
+  &-header {
+    font-family: Spoof, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 45px;
+    color: $color-white;
+    margin-bottom: 24px;
+    opacity: 0.8;
+  }
+  &-text {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  &-input {
+    background-color: $color-tuna;
+    outline: none;
+    border: none;
+    height: 52px;
+    font-size: 16px;
+    width: 100%;
+    color: $color-white;
+    padding: 0px 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    margin-top: 24px;
+    &:focus {
+      border: 1px solid #ffa800;
+      background-color: transparent;
+    }
+    &:first-child {
+      margin-top: 0px;
+    }
+  }
+  &-error {
+    font-size: 12px;
+    line-height: 16px;
+    color: #ba2525;
+    margin-top: 4px;
+    margin-bottom: 0px;
+  }
+  &-menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 24px;
+    &-force {
+      flex: 1;
+    }
+    &-next {
+      font-weight: 700;
+      font-size: 16px;
+      background-color: #ffa80090;
+      padding: 12px 60px;
+      color: $color-white;
+      border-radius: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .auth-card {
+    margin-top: 64px;
+    margin-bottom: auto;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .center {
+    width: 100%;
+    padding: 0 16px;
+  }
+  .auth-card {
+    width: 100%;
+    .menu {
+      .login {
+        padding: 12px 52px;
+      }
+    }
+  }
+}

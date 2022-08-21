@@ -1,9 +1,11 @@
 import { UserModel } from "./user.model";
+import { VideoTranscodeModel } from "./video/video-transcode.model";
 
 
 export interface VideoModel {
   id: number,
-  title: string,
+  title_kk: string,
+  title_ru: string,
   image: string,
   image_2: string,
   created_at: string,
@@ -14,13 +16,14 @@ export interface VideoModel {
   bookmarked: boolean,
   views: number,
   comments_count: number,
-  body: string,
-  duriation: string
+  body_kk: string,
+  body_ru: string,
+  duriation: string,
+  tags: string[]
 }
 
 export interface VideoDetailModel extends VideoModel {
   author: UserModel,
-  video: string,
   video_quality: Array<{
     path: string,
     quality: number
@@ -28,4 +31,5 @@ export interface VideoDetailModel extends VideoModel {
   original_quality: number,
   subs_kk: string,
   youtube: string,
+  video: VideoTranscodeModel
 }

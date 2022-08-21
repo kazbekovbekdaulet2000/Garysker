@@ -1,14 +1,20 @@
-<div class="menu">
-  <div class="icon">
-    <img class="icon-image" [src]="report.category | categoryImage | async" alt="">
+<div class="menu" *ngIf="report">
+
+  <div class="d-flex flex-row align-items-center">
+
+    <div class="icon">
+      <div class="icon-image" [backgroundImage]="report.category | categoryImage | async"></div>
+    </div>
+
+    <div class="menu-category flex-fill">
+      <span class="pointer" (click)="navigateEdu(report.category)">{{report.category | category | async}}</span>
+    </div>
+
   </div>
-  <div class="menu-category flex-fill">
-    <p class="cursor-pointer" (click)="navigateEdu(report.category)">{{report.category | category | async}}</p>
+
+  <div class="d-flex flex-row align-items-center">
+    <span>{{report.created_at | DateRemained | async}}</span>
+    <span class="menu-read_time">{{'report.read_time' | translate}} {{report.read_time}}</span>
   </div>
-  <div>
-    <p>{{report.created_at | DateRemained | async}}</p>
-  </div>
-  <div>
-    <p [style.opacity]="0.7">{{'report.read_time' | translate}} {{report.read_time | ReadTime | async}}</p>
-  </div>
+
 </div>

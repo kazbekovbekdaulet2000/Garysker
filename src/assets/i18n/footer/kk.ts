@@ -6,19 +6,21 @@ const footer: LocaleDataModel = {
     edu: "Білім",
     project: "Жобалар",
     shop: "Дүкен",
-    events: "Оқиғалар",
+    events: "Іс шаралар",
   },
   about: {
     title: "Біз туралы",
     garysh: "Garyshker туралы",
     partners: "Серіктестер",
     faq: "FAQs",
-    docs: "НКО құжаттамасы",
+    docs: "КЕҰ құжаттамасы",
   },
   requests: {
     title: "Сұрақтар мен ұсыныстар үшін",
     email: "info@garyshker.com",
-    phone: "8 702 000 6369",
+    email2: "volunteer@garyshker.com",
+    phone: "+7 702 000 63 69",
+    address: 'г.Алматы ул. Желтоксан 168A'
   },
   help: "Жобаны қолдау",
   privacy_polycy: "Privacy Policy"

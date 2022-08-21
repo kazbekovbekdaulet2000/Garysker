@@ -1,0 +1,56 @@
+@import "colors";
+
+.btn {
+  display: flex;
+  align-items: center;
+  outline: none !important;
+  margin-left: 8px;
+  border-radius: 8px;
+  background: #272634; //TODO
+  padding: 11px 23px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #b5b5b5 !important; //TODO
+  transition: 0.25s all;
+  &:focus,
+  &:active,
+  &:hover {
+    outline: none !important;
+    box-shadow: none;
+    background: rgba(255, 168, 0, 0.08);
+    border: 1px solid $color-orange;
+  }
+  &-orange {
+    margin-left: 0px !important;
+    background-color: $color-orange !important;
+    color: $color-white !important;
+    border-radius: 12px;
+  }
+  &-orange-outline {
+    border: 1px solid $color-orange !important;
+    color: $color-orange !important;
+  }
+  &-gray-outline {
+    border: 1px solid #888888 !important;
+    color: #888888 !important;
+    &:hover {
+      outline: none !important;
+      box-shadow: none;
+      background: none;
+      border: none;
+    }
+  }
+  &-orange-transparent {
+    backdrop-filter: blur(8px);
+    background-color: rgba(#ffa800, 0.08);
+  }
+  &-red {
+    background-color: rgba(255, 255, 255, 0);
+    color: $color-red !important;
+    font-size: 18px;
+    line-height: 21px;
+    border-radius: 12px;
+    padding: 0px 4px;
+  }
+}

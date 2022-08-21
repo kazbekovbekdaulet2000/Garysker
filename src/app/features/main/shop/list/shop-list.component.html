@@ -1,0 +1,23 @@
+<div @opacityAnimation class="d-flex flex-column align-items-start shop-wrapper">
+
+  <!-- <app-component-header header="shop.header" detail="shop.header_detail"></app-component-header> -->
+
+  <div class="d-flex align-items-center gap-2 page-picker">
+
+    <div *ngFor="let type of types" class="d-flex align-items-center pointer page-picker-item"
+      [class.active]="type.route===selected_type" (click)="onTypeSelect(type)">
+      <span [style.color]="type.color">{{type.name | translate}}</span>
+    </div>
+
+  </div>
+
+  <div class="shop-wrapper-card pointer" (click)="openCard()">
+    <img src="assets/icons/Bag.svg" alt="">
+    <div *ngIf="products$ | async as products" class="shop-wrapper-card-count">{{products.length}}</div>
+  </div>
+
+  <div style="width:100%;" class="mt-4">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

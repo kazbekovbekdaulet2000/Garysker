@@ -1,0 +1,21 @@
+<div class="wrapper">
+
+  <div @opacityAnimation class="lesson" *ngIf="lesson">
+
+    <div class="title">
+
+      <div class="title-header">{{courseService.course | lang | async}}</div>
+
+    </div>
+
+    <div class="lector">{{lesson.lector.fullname}}</div>
+
+    <app-video-player [video]="courseService.lesson.video"></app-video-player>
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+  <app-course-lesson-list></app-course-lesson-list>
+
+</div>

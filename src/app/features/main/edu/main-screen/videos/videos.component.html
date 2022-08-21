@@ -1,0 +1,22 @@
+<div *ngIf="list.results.length > 0">
+
+  <app-section-header text="main_screen.view" icon="assets/images/video-camera.png"></app-section-header>
+
+  <div *ngIf="list.results.length > 0" class="videos">
+
+    <app-video-card *ngFor="let video of list.results" (click)="onVideoRoute(video.id)" [video]='video'>
+    </app-video-card>
+
+  </div>
+
+  <div 
+    *ngIf="list.next"
+    class="d-flex show_more flex-column align-content-center align-items-center pointer mb-5"
+    (click)="onScroll(true)">
+
+    <span translate="main_screen.view_more"></span>
+    <i class="g-icon-chevron-down"></i>
+
+  </div>
+
+</div>

@@ -28,12 +28,15 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/sitemap.xml",
+              "src/.htaccess"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss",
-              "node_modules/plyr/dist/plyr.css"
+              "node_modules/plyr/dist/plyr.css",
+              "src/font-icons/index.scss",
+              "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -55,8 +58,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "12kb"
+                  "maximumWarning": "12kb",
+                  "maximumError": "16kb"
                 }
               ],
               "fileReplacements": [
@@ -71,9 +74,7 @@
                   "minify": true,
                   "inlineCritical": false
                 },
-                "fonts": {
-                  "inline": true
-                }
+                "fonts": true
               },
               "outputHashing": "all"
             },
@@ -82,12 +83,10 @@
               "optimization": {
                 "scripts": true,
                 "styles": {
-                  "minify": true,
+                  "minify": false,
                   "inlineCritical": false
                 },
-                "fonts": {
-                  "inline": true
-                }
+                "fonts": true
               },
               "vendorChunk": true,
               "extractLicenses": false,
@@ -125,9 +124,13 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/sitemap.xml"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/plyr/dist/plyr.css",
+              "src/assets/icon-font/index.scss",
               "src/styles.scss"
             ],
             "scripts": []
@@ -140,6 +143,16 @@
               "src/**/*.ts",
               "src/**/*.html"
             ]
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "garyshker-front:build:production",
+            "firebaseProject": "garyshker-1c49e",
+            "firebaseHostingSite": "garyshker-dev"
           }
         }
       }

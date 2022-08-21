@@ -1,0 +1,63 @@
+<div class="event-detail d-flex flex-column justify-content-center" *ngIf="event">
+
+  <div class="close">
+    <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
+  </div>
+
+  <ng-container *ngIf="event.video else poster">
+    <app-video-player [video]="event.video"></app-video-player>
+  </ng-container>
+  <ng-template #poster>
+
+    <div [backgroundImage]="event.poster"
+      class="d-flex flex-column align-items-start justify-content-between event-detail-item background">
+
+      <div class="d-flex flex-column">
+        <span class="event-detail-item-date">
+          {{event.event_date | date: 'd'}}
+          <br>
+          {{(event.event_date | date: "M" | langMonth | async)! | translate}}
+          <br>
+          {{event.event_date | date: "hh:mm"}}
+        </span>
+      </div>
+
+      <div class="event-detail-item-title">
+        {{event | lang | async}}
+      </div>
+
+      <div class="d-flex gap-2 align-items-center">
+
+        <img class="event-detail-item-location" src="assets/icons/location2.svg" alt="">
+
+        <span class="pointer" (click)="openLink(event.address_link)">{{event | lang: 'address' | async}}</span>
+
+      </div>
+
+    </div>
+  </ng-template>
+
+  <div class="d-flex justify-content-start mt-4">
+
+    <div class="d-flex gap-2">
+      <img src="assets/icons/2_user.svg" alt="">
+      <span *ngIf="!event.max_user_count">{{'events.register.count' | translate: ({count: event.participants_count})}}
+      </span>
+      <span *ngIf="event.max_user_count">{{'events.register.count_limit' | translate: ({count: event.participants_count,
+        max_users: event.max_user_count})}} </span>
+    </div>
+
+  </div>
+
+  <div class="my-4 event-detail-desc" [innerHTML]="event | lang: 'description' | async"></div>
+
+  <div class="d-flex justify-content-end" *ngIf="type !== 'past' && !isPast(event)">
+
+    <button class="btn btn-orange" (click)="onPost()"
+      *ngIf="!event.participant && !event.canceled">{{'events.register.submit' | translate}}</button>
+    <button class="btn btn-orange" (click)="onPost()" *ngIf="event.participant">{{'events.register.cancel' |
+      translate}}</button>
+    <button class="btn btn-red" *ngIf="event.canceled">{{'events.register.canceled' | translate }}</button>
+  </div>
+
+</div>

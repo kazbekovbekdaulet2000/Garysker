@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import * as moment from 'moment';
 import { Init, ListCategories, UpdateLang } from './app.actions';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,6 +8,8 @@ import localeRu from '@assets/i18n/ru';
 import { LangType } from '@core/types/lang.type';
 import { CategoryModel } from '@core/models/api/category.model';
 import { CategoriesService } from '@core/services/categories.service';
+import { AuthState } from '../auth/auth.state';
+import { UpdateProfile } from '../auth/actions';
 
 interface AppStateModel {
   lang: LangType;
@@ -36,7 +38,8 @@ export class AppState {
 
   constructor(
     private translateService: TranslateService,
-    private categoryService: CategoriesService
+    private categoryService: CategoriesService,
+    private store: Store
   ) { }
 
   @Action(Init)
@@ -44,6 +47,9 @@ export class AppState {
     let lang = getState().lang;
     if (!lang) {
       lang = 'ru';
+    }
+    if(this.store.selectSnapshot(AuthState).access){
+      this.store.dispatch(UpdateProfile)
     }
 
     patchState({ lang });
@@ -68,10 +74,8 @@ export class AppState {
   }
 
   @Action(ListCategories)
-  ListCategories({ getState, patchState }: StateContext<AppStateModel>) {
-    this.categoryService.list()
-      .toPromise()
-      .then(categories => {
+  ListCategories({ patchState }: StateContext<AppStateModel>) {
+    this.categoryService.list().subscribe(categories => {
         patchState({ categories });
       })
   }

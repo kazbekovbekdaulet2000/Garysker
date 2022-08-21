@@ -2,9 +2,9 @@
 
   <div class="d-flex flex-row align-items-center justify-content-center menu">
 
-    <div *ngFor="let section of sections;" class="item cursor-pointer" (click)="changeFragment(section.fragment)"
+    <div *ngFor="let section of sections;" class="item pointer" (click)="changeFragment(section.fragment)"
       [class.selected]="selectedSection===section.fragment">
-      {{section.name}}
+      {{section.name | translate}}
     </div>
 
   </div>
@@ -13,39 +13,41 @@
 
     <div class="section">
 
-      <h1 class="mb-2">Как устроен наш проект</h1>
+      <h1 class="mb-2">{{'about.main_heading' | translate}}</h1>
 
       <div class="section-text">
-        Garyshker.com – это сообщество, которое объединяет вокруг себя социально-активных людей, создавая при этом
-        благоприятные условия для изучения важных тем и реализации благотворительных проектов.
+        {{'about.slogan' | translate}}
       </div>
 
     </div>
 
     <div class="content-video">
-      <app-plyr-player link="https://storage.yandexcloud.net/garysh-app/promo_garyshker.%20(1080p).mp4">
-      </app-plyr-player>
+      <app-video-player link="https://storage.yandexcloud.net/garysh-app/promo_garyshker.%20(1080p).mp4">
+      </app-video-player>
     </div>
 
-    <h1 class="mb-4">Наши продукты</h1>
+    <h1 class="mb-4"> {{'about.second_heading' | translate}} </h1>
 
     <div *ngFor="let router of routers" class="content-product">
-      <h3>{{router.name}}</h3>
+      <h3>{{router.name | translate}}</h3>
       <div class="content-product-text">
-        {{router.body}}
+        {{router.body | translate}}
       </div>
-      <div class="content-product-router cursor-pointer" [routerLink]="[router.route]">Перейти —</div>
+      <div class="content-product-router pointer" [routerLink]="[router.route]">
+        {{'about.go' | translate}}
+      </div>
     </div>
 
-    <h1 class="mb-4">Кто делает Garyshker?</h1>
+    <h1 class="mb-4">{{'about.people.header' | translate}}</h1>
 
     <div class="content-people">
 
       <div *ngFor="let person of people" class="content-people-item">
 
-        <img class="content-people-item-image" [src]="person.img" alt="">
+        <img class="content-people-item-image" [class.content-people-item-border]="person.border" [src]="person.img"
+          alt="">
         <div class="content-people-item-name">{{person.name}}</div>
-        <div>{{person.prop}}</div>
+        <div>{{person.prop | translate}}</div>
 
       </div>
 
@@ -53,17 +55,12 @@
 
     <div class="d-flex flex-column align-items-start gap-3 content-thanks">
 
-      <h3>Благодарности</h3>
+      <h3 translate="about.thanks.header">2</h3>
 
-      <div class="content-thanks-text">Спасибо всем нашим бывшим коллегам, без которых Garyshker не был бы таким, какой
-        он есть: Акниет Кенес,
-        Фаина, Акмарал, Амир, Ермек Курбанов, Алижан Сагатов, Дмитрий Кан, Дарина, Аружан Кенжебек, Артур Ким, Айнур,
-        Камиля, Малика, Лейла, Тогжан, Куаныш Сагинтаев, Куаныш Нурнагым, Жансая, Султанбек Аубакиров, Вячеслав Ким,
-        Алибек Байм, Ассель, Руфат, Айжан, Алина, Дастан Аралбаев, Рамазан Абжамел.
+      <div class="content-thanks-text">
+        {{'about.thanks.text_1' | translate}}
         <br><br>
-
-        Спасибо всем операторам, режиссерам, спикерам, методистам и другим внештатным сотрудникам, с которыми мы
-        постоянно работаем. Без вас не было бы всего этого.
+        {{'about.thanks.text_2' | translate}}
       </div>
 
     </div>
@@ -75,20 +72,23 @@
     <div [formGroup]="formData" class="content-partners">
 
       <div class="content-partners-main">
-        Пока мы работаем и создаем все собственными силами. Но открыты к предложениям по сотрудничеству.
+        {{'about.partners.header' | translate}}
       </div>
 
       <div class="content-partners-hint">
-        Вы можете связаться с нами, написав нам на почту <a href="mailto:info@garyshker.com">info@garyshker.com</a> Либо
-        оставьте ниже ваш email для связи
+        {{'about.partners.helper_start' | translate}} <a target="_blank" href="mailto:info@garyshker.com">info@garyshker.com</a>
+        {{'about.partners.helper_end' | translate}}
       </div>
 
-      <input formControlName="email" class="content-partners-input" type="text" placeholder="Введите почту">
+      <input 
+        formControlName="email" 
+        class="content-partners-input" 
+        type="text"
+        [placeholder]="'about.partners.input_placeholder' | translate">
 
       <div class="d-flex justify-content-end mt-4">
 
-        <button (click)="save()" class="btn content-partners-btn">
-          Отправить
+        <button (click)="save()" class="btn content-partners-btn" translate="about.partners.send_btn">
         </button>
 
       </div>
@@ -101,7 +101,7 @@
   <div *ngIf="selectedSection==='contacts'" class="content">
 
     <div *ngFor="let contact of contacts" class="mb-4 content-contacts">
-      {{contact.text}} - <a [href]="contact.hint" target="_blank">{{contact.prop}}</a>
+      {{contact.text | translate}} - <a [href]="contact.hint" target="_blank">{{contact.prop}}</a>
     </div>
 
   </div>

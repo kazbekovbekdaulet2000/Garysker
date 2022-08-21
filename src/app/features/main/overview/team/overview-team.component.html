@@ -1,0 +1,39 @@
+<div class="wrapper">
+
+  <div class="header" translate="overview.command"></div>
+
+  <div class="members">
+
+    <div class="members-item" *ngFor="let member of members"> 
+      <div class="icon">
+        <img [src]="member.img" alt="">
+      </div>
+      <div class="name" [translate]="member.name"></div>
+      <div class="description[tio" [translate]="member.prop"></div>
+    </div>
+
+  </div>
+
+  <div class="text" translate="overview.thanks_people"></div>
+  <div class="text" translate="overview.thanks_technical_people"></div>
+
+</div>
+
+<div class="wrapper">
+
+  <div class="wrapper-form">
+
+    <div class="header mb-3" translate="overview.help.title"></div>
+
+    <div class="description" translate="overview.help.description"></div>
+
+    <div class="form-holder">
+      <input [formControl]="email" class="form-input input-form" type="text" [placeholder]="'about.partners.input_placeholder' | translate">
+      <button [disabled]="email.invalid" class="btn btn-orange-outline" translate="overview.help.send" (click)="onSubmit()"></button>
+    </div>
+    
+  </div>
+
+  <div class="hint mt-4" [innerHTML]="'overview.hint' | translate"></div>
+
+</div>

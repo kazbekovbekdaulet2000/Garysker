@@ -20,6 +20,6 @@ export class MessageModalComponent {
   }
 
   get getIcon() {
-    return this.icon ? `assets/images/${this.icon}.png` : 'assets/images/err_sticker_1.png'
+    return this.icon ? `assets/images/stickers/${this.icon}.png` : 'assets/images/stickers/sticker1.png'
   }
 }

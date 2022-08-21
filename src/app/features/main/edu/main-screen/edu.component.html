@@ -1,0 +1,37 @@
+
+<div class="body">
+
+  <div *ngIf="categories$ | async as categories" class="d-flex align-items-center gap-2 categories">
+
+    <div 
+      class="d-flex align-items-center categories-item" 
+      (click)="removeRouteCategory()"
+      [class.active]="!!!(categoriesService.selectedCategory$ | async)">
+
+      <span translate="main_screen.all_categories"></span>
+
+    </div>
+
+    <div 
+      *ngFor="let category of categories" 
+      class="d-flex align-items-center pointer categories-item"
+      (click)="categoriesService.changeCategory(category.id)" 
+      [class.active]="(categoriesService.selectedCategory$ | async) === category.id">
+
+      <img [src]="category.icon" class="categories-item-icon">
+
+      <span>{{category | lang| async}}</span>
+
+    </div>
+
+  </div>
+
+  <app-popular [popular]="popular"></app-popular>
+
+  <app-courses *ngIf="!isProd"></app-courses>
+
+  <app-reports></app-reports>
+  
+  <app-videos></app-videos>
+      
+</div>

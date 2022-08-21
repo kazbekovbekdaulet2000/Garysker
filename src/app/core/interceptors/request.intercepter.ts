@@ -8,8 +8,8 @@ import { AuthState } from '@core/states/auth/auth.state';
 import * as moment from 'moment';
 import { IdentityService } from '@core/services/identity.service';
 import { Navigate } from '@ngxs/router-plugin';
-import { environment } from '@env';
-import { TokenModel } from '@core/models/api/token.model';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
 
 
 @Injectable()
@@ -25,7 +25,7 @@ export class RequestInterceptor implements HttpInterceptor {
   constructor(
     private store: Store,
     private identityService: IdentityService,
-    private http: HttpClient
+    private bsModalService: BsModalService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -36,6 +36,10 @@ export class RequestInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError(error => {
+        if (req.url.includes('/courses/') && req.url.includes('/participate/') && error.status === 401) {
+          this.bsModalService.show(LoginErrModalComponent, { class: 'modal-dialog-centered' })
+        }
+
         if (error instanceof HttpErrorResponse && !req.url.includes('auth/login/') && error.status === 401) {
           return this.handle401Error(req, next);
         }
@@ -59,10 +63,12 @@ export class RequestInterceptor implements HttpInterceptor {
     if (request.params.has('refresh_token')) {
       return false;
     }
-    const { access, accessTokenExpireDate } = this.store.selectSnapshot(AuthState);
-    if (access !== '' || !accessTokenExpireDate) {
+    const access = this.store.selectSnapshot(AuthState).access
+    const accessTokenExpireDate = this.store.selectSnapshot(AuthState).accessTokenExpireDate
+    if (!access || !accessTokenExpireDate) {
       return false;
     }
+
     const leftSeconds = moment().diff(accessTokenExpireDate, 'seconds');
     return leftSeconds > -30;
   }
@@ -82,7 +88,6 @@ export class RequestInterceptor implements HttpInterceptor {
           this.refreshTokenSubject.next(null);
           window.location.reload()
         }
-
         return this.identityService.refresh(refresh).pipe(
           switchMap(token => {
             this.isRefreshing = false;
@@ -96,6 +101,8 @@ export class RequestInterceptor implements HttpInterceptor {
             return throwError(err);
           })
         );
+      } else {
+        this.bsModalService.show(LoginErrModalComponent, { class: 'modal-dialog-centered' })
       }
     }
 

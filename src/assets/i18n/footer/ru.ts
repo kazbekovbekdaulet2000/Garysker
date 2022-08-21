@@ -2,7 +2,7 @@ import { LocaleDataModel } from "@core/models/local/locale.model";
 
 const footer: LocaleDataModel = {
   projects: {
-    title: "Проекты",
+    title: "Продукты",
     edu: "Образование",
     project: "Проекты",
     shop: "Магазин",
@@ -18,10 +18,12 @@ const footer: LocaleDataModel = {
   requests: {
     title: "По вопросам и предложениям",
     email: "info@garyshker.com",
-    phone: "8 702 000 6369",
+    email2: "volunteer@garyshker.com",
+    phone: "+7 702 000 63 69",
+    address: 'г.Алматы ул. Желтоксан 168A '
   },
   help: "Поддержать проект",
-  privacy_polycy: "Privacy Policy"
+  privacy_polycy: "Политика конфиденциальности"
 };
 
 export default footer;

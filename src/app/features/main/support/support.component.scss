@@ -1,11 +1,46 @@
-@import "variables";
+@import "colors";
 
-.no-content {
-  margin: 32px 120px;
+.support {
+  width: calc(100% - 64px);
+  padding-top: 48px;
+  max-width: 1600px;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 30px;
+  margin-bottom: 36px;
+  margin-right: 64px;
+  &-content {
+    width: 100%;
+    position: relative;
+    justify-content: center;
+    &-enter {
+      font-family: "Spoof", sans-serif;
+      font-weight: 700;
+      background-color: $color-orange-dark;
+      text-align: center;
+      color: #fff;
+      padding: 8px 24px;
+      border-radius: 10px;
+    }
+  }
 }
 
-@media screen and (max-width: 640px) {
-  .no-content {
-    margin: 32px 32px;
+.form-check-input {
+  min-width: 25px;
+  min-height: 25px;
+  vertical-align: top;
+  border: 1px solid #ffa800;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-print-color-adjust: exact;
+}
+
+@media screen and (max-width: 768px) {
+  .support {
+    padding: 16px;
+    width: 100%;
+    grid-template-columns: 100%;
   }
 }

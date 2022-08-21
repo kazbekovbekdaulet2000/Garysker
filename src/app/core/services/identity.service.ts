@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-
+import { Observable } from 'rxjs';
 import { TokenModel } from '../models/api/token.model';
 import { ApiService } from './api.service';
 import { UserModel } from '@core/models/api/user.model';
-import { catchError } from 'rxjs/operators';
-
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class IdentityService extends ApiService {
 
   constructor(
@@ -49,7 +45,7 @@ export class IdentityService extends ApiService {
   reset(payload: any): Observable<any> {
     return this.http.post<any>(this.getUrl('reset'), payload)
   }
-
+  
   resetConfirm(payload: any): Observable<any> {
     return this.http.post<any>(this.getUrl('reset/confirm'), payload)
   }

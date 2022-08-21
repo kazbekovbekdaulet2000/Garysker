@@ -1,27 +1,69 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { Store } from '@ngxs/store';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { IokaPaymentComponent } from 'src/app/shared/components/payment/payment.component';
-import { ListCategories } from '@core/states/app/app.actions';
+import { Select, Store } from '@ngxs/store';
+import { ListCategories, UpdateLang } from '@core/states/app/app.actions';
+import { LangType } from '@core/types/lang.type';
+import { AppState } from '@core/states/app/app.state';
+import { Observable } from 'rxjs';
 
+export interface SectionModel {
+  route: string;
+  icon: string;
+  name: string;
+}
 
 @Component({
-  selector: 'core-sidemenu',
+  selector: 'app-sidemenu',
   templateUrl: './side-menu.component.html',
   styleUrls: ['./side-menu.component.scss']
 })
 export class SideMenuComponent {
+  @ViewChild('menu') menu: ElementRef
+  @Input() contentHeight: number = 0;
+  @Select(AppState.lang) lang$!: Observable<LangType>
 
   currentRoute: string | undefined;
+  marginTop: number = 0
+  marginBottom: number = 0
 
-  index: number = 1
+  sections: SectionModel[] = [
+    {
+      route: 'edu',
+      icon: 'g-icon-category',
+      name: 'sections.edu'
+    },
+    {
+      route: 'projects',
+      icon: 'g-icon-projects',
+      name: 'sections.project'
+    },
+    {
+      route: 'shop',
+      icon: 'g-icon-bag',
+      name: 'sections.shop'
+    },
+    {
+      route: 'events',
+      icon: 'g-icon-calendar',
+      name: 'sections.events'
+    }
+  ]
+
   constructor(
     private store: Store,
     private router: Router,
-    private bsModalService: BsModalService
+    private renderer: Renderer2
   ) {
+    this.renderer.listen("window", "scroll", () => {
+      const diff = document.documentElement.scrollHeight - (32 + document.documentElement.scrollTop + this.menu.nativeElement.scrollHeight + this.menu.nativeElement.scrollHeight)
+      if (diff < 0) {
+        this.marginTop = diff
+      } else {
+        this.marginTop = 0
+      }
+    });
+    
     this.addNavigationListener();
     this.store.dispatch(ListCategories)
   }
@@ -35,11 +77,8 @@ export class SideMenuComponent {
           case route.url.includes('edu'):
             this.currentRoute = 'edu';
             break;
-          case route.url.includes('dobro'):
-            this.currentRoute = 'dobro';
-            break;
-          case route.url.includes('products'):
-            this.currentRoute = 'products';
+          case route.url.includes('projects'):
+            this.currentRoute = 'projects';
             break;
           case route.url.includes('shop'):
             this.currentRoute = 'shop';
@@ -50,19 +89,16 @@ export class SideMenuComponent {
           case route.url.includes('about'):
             this.currentRoute = 'about';
             break;
+          case route.url.includes('main'):
+            this.currentRoute = 'main';
+            break;
           default:
             this.currentRoute = 'edu';
         }
       })
   }
 
-  helpProject() {
-    this.bsModalService.show(IokaPaymentComponent,
-      {
-        animated: true,
-        class: 'modal-content-payment',
-    })
-    // window.open('http://localhost:4200/#/payment', "_blank");
-    // this.router.navigate(['payment'])
+  changeLang(lang: LangType) {
+    this.store.dispatch(new UpdateLang(lang))
   }
 }

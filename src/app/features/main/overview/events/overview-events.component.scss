@@ -1,0 +1,98 @@
+@import "colors";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .header {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 38px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+
+  .description {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #888888;
+    margin-bottom: 64px;
+  }
+
+  .event-holder {
+    width: 100%;
+    min-height: 240px;
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .event {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 264px !important;
+    border-radius: 16px;
+    position: relative;
+    padding: 24px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(6, 5, 11, 0.32) 0%, rgba(6, 5, 11, 0.88) 100%);
+    }
+
+    .logo {
+      font-family: "Acrobat";
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 24px;
+      z-index: 3;
+      &::before {
+        content: "Garyshker. Talks";
+      }
+      &::first-letter {
+        color: $color-orange;
+      }
+    }
+
+    .content {
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 29px;
+        color: #fff;
+        margin-bottom: 16px;
+      }
+      .info {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        color: #b5b5b5;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    .event-holder {
+      gap: 24px;
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

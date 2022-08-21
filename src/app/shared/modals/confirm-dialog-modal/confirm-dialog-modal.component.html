@@ -1,0 +1,16 @@
+<div class="confirm">
+  
+  <img class="icon" [src]="getIcon" alt="">
+
+  <h4 class="mb-0 title" [translate]="options.title"></h4>
+
+  <i class="g-icon-add close" (click)="onClose()"></i>
+
+  <div class="message" [translate]="options.message"></div>
+
+  <div class="group mt-4">
+    <button *ngIf="options.cancelText" class="btn btn-orange-outline group-btn" (click)="onClose()" [translate]="options.cancelText"></button>
+    <button *ngIf="options.confirmText" class="btn group-btn" (click)="onConfirm()" [translate]="options.confirmText"></button>
+  </div>
+  
+</div>

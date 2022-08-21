@@ -1,0 +1,55 @@
+<div class="overview" backgroundImage="assets/icons/main-background.svg" size="contain" position="center top">
+
+  <div class="header">
+    <div class="header-title">
+      {{'overview.header_start' | translate}}
+      <span style="color: var(--color-orange);" translate="overview.header_mid"></span> <br>
+      {{'overview.header_end' | translate}}
+    </div>
+
+    <div class="header-desc" translate="overview.description"></div>
+    
+    <div class="header-btns">
+      
+      <button 
+        class="btn btn-orange-outline btn-orange-transparent" 
+        (click)="onAboutVideo()" 
+        translate="overview.about_project">
+      </button>
+      
+      <button 
+        class="btn btn-orange-outline btn-orange-transparent" 
+        *ngIf="(authorized$ | async) === false" 
+        routerLink="/auth/application" 
+        translate="overview.enter_community">
+      </button>
+      
+    </div>
+
+    <i class="g-icon-chevron-down cursor-pointer" (click)="scroll(pages)"></i>
+
+  </div>
+
+  <div #pages class="pages">
+
+    <div 
+      class="pages-item pointer" 
+      [class.top]="i%2===0" 
+      [routerLink]="['/',project.route]" 
+      *ngFor="let project of projects; let i=index">
+
+        <div class="title" [translate]="project.title"></div>
+        <div class="desc" [translate]="project.desc"></div>
+
+    </div>
+
+  </div>
+
+  <div class="section"><app-overview-edu></app-overview-edu></div>
+  <div class="section"><app-overview-projects [project]="project"></app-overview-projects></div>
+  <div class="section"><app-overview-shop></app-overview-shop></div>
+  <div class="section"><app-overview-events [events]="events"></app-overview-events></div>
+  <div #faqElement class="section"><app-overview-faq [questions]="questions"></app-overview-faq></div>
+  <div #teamElement class="section"><app-overview-team></app-overview-team></div>
+
+</div>

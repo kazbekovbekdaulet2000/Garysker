@@ -1,0 +1,24 @@
+@import "colors";
+
+.page-picker {
+  font-weight: 500;
+  &-item {
+    background-color: $color-steel-gray;
+    border-radius: 20px;
+    padding: 8px 12px;
+    font-size: 14px;
+    transition: all 0.3s ease-in-out;
+    span{
+      text-align: center;
+    }
+    &-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+  }
+  .active {
+    color: $color-black;
+    background-color: $color-white;
+  }
+}

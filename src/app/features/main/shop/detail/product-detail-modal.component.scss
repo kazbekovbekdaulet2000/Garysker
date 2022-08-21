@@ -1,0 +1,111 @@
+@import "colors";
+
+.product {
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  &-content {
+    h6 {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 17px;
+    }
+    p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+      white-space: pre-line;
+    }
+  }
+  .g-coin {
+    color: $color-orange;
+    opacity: 0.7;
+  }
+  .options {
+    &-size {
+      position: relative;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 15px;
+      width: 170px;
+      border: 1px solid $color-orange;
+      img {
+        width: 9px;
+        transition: 0.25s all;
+      }
+      .expanded {
+        transform: rotate(180deg);
+      }
+      &-items {
+        position: absolute;
+        overflow: hidden;
+        top: calc(100% + 8px);
+        left: 0px;
+        right: 0px;
+        width: 100%;
+        padding: 8px 12px;
+        background-color: $color-steel-gray;
+        border-radius: 10px;
+        &-option {
+          font-weight: 400;
+          font-size: 16px;
+          padding: 8px 0px;
+          &:hover {
+            color: $color-orange;
+          }
+        }
+      }
+    }
+    &-item {
+      padding: 12px 24px;
+      border-radius: 20px;
+      border: 1px solid $color-orange;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      &-interaction {
+        padding: 0px 12px;
+      }
+    }
+  }
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 12px;
+}
+
+.close {
+  cursor: pointer;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+app-product-images {
+  width: 100%;
+  min-width: 100%;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 992px) {
+  app-product-images {
+    margin-top: 24px;
+    width: 100%;
+    min-width: 100%;
+    overflow: hidden;
+  }
+  .product {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .close {
+    right: 16px;
+    top: 16px;
+  }
+  .event-detail {
+    padding: 8px 0px;
+  }
+}

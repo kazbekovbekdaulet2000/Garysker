@@ -1,0 +1,31 @@
+<div class="wrapper">
+
+  <div class="header" translate="overview.event.title"></div>
+  <div class="description" translate="overview.event.desc_detail"> </div>
+
+  <div class="event-holder">
+
+    <div class="event pointer" (click)="openEvent(event)" [backgroundImage]="event.poster" *ngFor="let event of events.results">
+
+      <div class="logo"></div>
+
+      <div class="content">
+        <div class="title"> {{event | lang | async}} </div>
+        <div class="info">
+          <span>
+            <i class="mr-2 g-icon-location"></i>
+            {{event | lang: 'address' | async}} &nbsp;
+          </span>
+          <span>
+            <i class="mr-2 g-icon-calendar"></i>
+            {{event.event_date | date}}
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

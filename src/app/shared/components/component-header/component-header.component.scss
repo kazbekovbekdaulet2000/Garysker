@@ -1,0 +1,36 @@
+@import "colors";
+
+.component-header {
+  margin-right: 50px;
+  &-name {
+    font-family: "Spoof", sans-serif;
+    font-style: normal;
+    margin-bottom: 8px;
+    h1 {
+      margin-bottom: 0px;
+      font-weight: 700 !important;
+      font-size: 36px !important;
+    }
+    img {
+      transition: 0.25s ease-in-out 0s;
+    }
+  }
+  .expanded {
+    transform: rotate(180deg);
+  }
+  &-text {
+    max-width: 850px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: normal;
+  }
+  .hidden {
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .component-header {
+    margin-right: 0px;
+  }
+}

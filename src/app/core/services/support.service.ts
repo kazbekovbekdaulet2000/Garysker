@@ -20,4 +20,7 @@ export class SupportService extends ApiService {
     return this.http.get<QuestionModel[]>(this.getNoSlashUrl('questions'), { params })
   }
 
+  sendEmail(payload: any): Observable<any> {
+    return this.http.post<any>(this.getUrl('email'), payload)
+  }
 }

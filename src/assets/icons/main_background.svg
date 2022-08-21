@@ -1,0 +1,26 @@
+<svg width="1230" height="984" viewBox="0 0 1230 984" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle opacity="0.16" cx="638.5" cy="345.5" r="226.5" fill="url(#paint0_radial_177_898)"/>
+<circle opacity="0.24" r="17.5" transform="matrix(1 0 0 -1 638.5 345.5)" fill="url(#paint1_linear_177_898)"/>
+<circle opacity="0.48" r="43.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<circle opacity="0.44" r="43.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<circle opacity="0.4" r="74.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<circle opacity="0.36" r="106.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<circle opacity="0.32" r="148.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<circle opacity="0.28" r="190.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<circle opacity="0.24" r="245.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<circle opacity="0.2" r="320.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<circle opacity="0.16" r="393.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<circle opacity="0.12" r="479.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<circle opacity="0.08" r="579.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<circle opacity="0.04" r="638.4" transform="matrix(-1 0 0 1 638.5 345.5)" stroke="#FFA800" stroke-width="0.2"/>
+<defs>
+<radialGradient id="paint0_radial_177_898" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(638.5 345.5) rotate(90) scale(226.5)">
+<stop stop-color="#FFA800"/>
+<stop offset="1" stop-color="#FFA800" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="paint1_linear_177_898" x1="17.5" y1="0" x2="17.5" y2="35" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFA800"/>
+<stop offset="1" stop-color="#FFA800" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>
