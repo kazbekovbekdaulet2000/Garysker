@@ -1,17 +1,13 @@
-import { Select, Store } from '@ngxs/store'
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { heightAnimation } from '@core/animations/height-animation';
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { EventsState } from '../events.state';
-import { Observable, of } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { emptyListResponse, ListResponseModel } from '@core/models/api/list.model';
 import { EventModel } from '@core/models/api/event.model';
-import { ClearEvents, ListEvents } from '../events.actions';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { EventDetailModalComponent } from './detail/detail-modal.component';
 import { EventService } from '@core/services/event.service';
 import { ModalService } from '@core/services/modal.service';
-import { filter } from 'rxjs/operators';
 
 export interface EventType {
   id: number
@@ -24,9 +20,7 @@ export interface EventType {
   styleUrls: ['./events-list.component.scss'],
   animations: [opacityAnimation, heightAnimation],
 })
-export class EventListComponent implements OnDestroy, AfterViewInit {
-
-  @Select(EventsState.events) events$: Observable<ListResponseModel<EventModel>>
+export class EventListComponent implements OnDestroy {
 
   types: EventType[] = [
     {
@@ -45,58 +39,53 @@ export class EventListComponent implements OnDestroy, AfterViewInit {
     },
   ]
 
-  selected_type: EventType = this.types[2]
+  selected_type$: BehaviorSubject<EventType> = new BehaviorSubject(this.types[2])
+
+  events: ListResponseModel<EventModel>;
 
   constructor(
-    private store: Store,
     private bsModalService: BsModalService,
     private modalService: ModalService,
     private eventService: EventService
   ) {
-    const params = this.selected_type.type ? { time: this.selected_type.type } : {}
-    this.store.dispatch(new ListEvents(params))
-  }
-
-  ngAfterViewInit(): void {
-    const eventId = Number(localStorage.getItem('saved_event_add_action'))
-    if (eventId) {
-      this.eventService.get(eventId).subscribe(event => {
-        this.onDetail(event)
+    this.selected_type$.subscribe(val => {
+      const params = val.type ? { time: val.type } : {}
+      this.eventService.list(params).pipe().subscribe(events => {
+        if (events.count === 0) {
+          this.modalService.showDialog({
+            position: 'center',
+            title: 'events.empty_list',
+            message: '',
+            iconType: "not-found",
+            blur: true,
+            onConfirm: () => {
+              this.selected_type$.next(this.types[2])
+            }
+          })
+          return;
+        }
+        this.events = events
       })
-      localStorage.removeItem('saved_event_add_action')
-    }
-    this.events$.pipe(filter(list => list !== emptyListResponse)).subscribe(list => {
-      if (list.count === 0) {
-        this.modalService.showDialog({
-          position: 'center',
-          title: 'events.empty_list',
-          message: '',
-          iconType: "not-found",
-          blur: true
-        })
-        this.onTypeSelect(this.types[2])
-      }
     })
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch([ClearEvents])
+    this.selected_type$.unsubscribe()
   }
 
   onTypeSelect(type: EventType) {
-    this.selected_type = type
-    this.ngOnDestroy()
-    const params = this.selected_type.type ? { time: this.selected_type.type } : {}
-    this.store.dispatch(new ListEvents(params))
+    this.events = emptyListResponse
+    this.selected_type$.next(type)
   }
 
   onDetail(event: EventModel) {
+    this.selected_type$.value
     this.bsModalService.show(EventDetailModalComponent, {
       class: 'modal-dialog-centered modal-lg',
       ignoreBackdropClick: !!event.video,
       initialState: {
         event: event,
-        type: this.selected_type.type
+        type: this.selected_type$.value.type
       }
     })
   }

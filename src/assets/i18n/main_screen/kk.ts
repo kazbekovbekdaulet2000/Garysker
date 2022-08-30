@@ -8,7 +8,8 @@ const main_screen: LocaleDataModel = {
   read: 'Оқу',
   view: 'Көру',
   view_more: 'Тағы',
-  educate: 'Үйрену'
+  educate: 'Үйрену',
+  educating: 'Изучаю'
 };
 
 export default main_screen;

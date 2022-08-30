@@ -44,28 +44,28 @@ export class HeaderProfileComponent implements OnInit {
       .subscribe((event) => {
         const route = event as NavigationEnd
         switch (true) {
-          case route.url.includes('profile'):
+          case route.urlAfterRedirects.includes('profile'):
             this.main = 'profile'
             break;
-          case route.url.includes('application'):
+          case route.urlAfterRedirects.includes('application'):
             this.main = 'application'
             break;
-          case route.url.includes('auth'):
+          case route.urlAfterRedirects.includes('auth'):
             this.main = 'auth';
             break;
-          case route.url.includes('edu'):
+          case route.urlAfterRedirects.includes('edu'):
             this.main = 'edu'
             break;
-          case route.url.includes('products'):
+          case route.urlAfterRedirects.includes('products'):
             this.main = 'products'
             break;
-          case route.url.includes('events'):
+          case route.urlAfterRedirects.includes('events'):
             this.main = 'events'
             break;
-          case route.url.includes('shop'):
+          case route.urlAfterRedirects.includes('shop'):
             this.main = 'shop'
             break;
-          case route.url.includes('about'):
+          case route.urlAfterRedirects.includes('about'):
             this.main = 'about'
             break;
           default:

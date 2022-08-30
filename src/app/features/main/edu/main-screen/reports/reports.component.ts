@@ -19,8 +19,8 @@ import { CategoriesService } from '@core/services/categories.service';
   styleUrls: ['./reports.component.scss'],
   animations: [opacityAnimation, heightAnimation],
 })
-export class EduReportsComponent extends ListAbstract<ReportModel> implements OnDestroy{
-  
+export class EduReportsComponent extends ListAbstract<ReportModel> implements OnDestroy {
+
   @ViewChild(CarouselComponent) carousel: CarouselComponent | undefined
 
   constructor(
@@ -28,15 +28,15 @@ export class EduReportsComponent extends ListAbstract<ReportModel> implements On
     private router: Router,
     private reportsService: ReportsService,
     private categoriesService: CategoriesService
-  ) { 
+  ) {
     super();
   }
 
   get listAction(): Observable<ListResponseModel<ReportModel>> {
-    return this.categoriesService.selectedCategory$.pipe(switchMap(category=>{
+    return this.categoriesService.selectedCategory$.pipe(switchMap(category => {
       let params = this.params
-      if(category) {
-        params = {...params, category}
+      if (category) {
+        params = { ...params, category }
       }
       return this.reportsService.list(params)
     }))
@@ -46,11 +46,11 @@ export class EduReportsComponent extends ListAbstract<ReportModel> implements On
     this.store.dispatch(new UpdateTop(document.documentElement.scrollTop))
     this.router.navigate(['edu/reports', id])
   }
-  
+
   ngOnDestroy(): void {
     this.list = emptyListResponse;
     this.category_sub.unsubscribe();
-    if(this.list_sub){
+    if (this.list_sub) {
       this.list_sub.unsubscribe();
     }
     this.reportsService.clear();

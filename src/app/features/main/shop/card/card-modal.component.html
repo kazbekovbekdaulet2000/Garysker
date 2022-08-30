@@ -1,14 +1,12 @@
 <div class="product-card">
 
-  <div class="close">
-    <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
-  </div>
+  <i class="g-icon-add close" (click)="closeModal()"></i>
 
   <ng-container *ngIf="products$ | async as products; else loader">
 
     <ng-container *ngIf="products.length > 0; else noOrders">
 
-      <h3 class="mt-2 mb-4">{{'shop.detail.order' | translate}}</h3>
+      <h3 class="mt-2 mb-4" translate="shop.detail.order"></h3>
 
       <div class="order d-flex gap-3 mb-5 flex-column">
 

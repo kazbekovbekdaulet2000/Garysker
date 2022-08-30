@@ -4,9 +4,9 @@
 
     <div class="detail-info-user align-items-center">
       
-      <div class="icon" [backgroundImage]="entity.author.image"></div>
+      <div class="icon" (click)="modalService.photoDialog(entity.author.image)" [backgroundImage]="entity.author.image"></div>
 
-      <div class="detail-info-user-text">
+      <div class="detail-info-user-text" (click)="modalService.photoDialog(entity.author.image)">
       
         <div class="d-flex gap-1 align-items-center">
           <span>{{entity.author.surname}} {{entity.author.name}}</span>

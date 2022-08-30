@@ -8,6 +8,8 @@ export interface ReportModel {
   created_at: string,
   category: number,
   read_time: string,
+  read_time_ru: string,
+  read_time_kk: string,
   likes_count: number,
   liked: boolean,
   bookmarks_count: number,

@@ -7,6 +7,8 @@ import { LoginErrModalComponent } from './noLogin-modal /login-modal.component';
 import { LinkShareModalComponent } from './share-modal/share-modal.component';
 import { ConfirmDialogModalComponent } from './confirm-dialog-modal/confirm-dialog-modal.component';
 import { DialogModalComponent } from './dialog-modal/dialog-modal.component';
+import { PhotoModalComponent } from './photo-modal/photo-modal.component';
+import { BackgroundImageModule } from '../directives/background-image.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,8 @@ import { DialogModalComponent } from './dialog-modal/dialog-modal.component';
     MessageModalComponent,
     ConfirmModalComponent,
     ConfirmDialogModalComponent,
-    DialogModalComponent
+    DialogModalComponent,
+    PhotoModalComponent
   ],
   exports: [
     LinkShareModalComponent,
@@ -23,11 +26,13 @@ import { DialogModalComponent } from './dialog-modal/dialog-modal.component';
     MessageModalComponent,
     ConfirmModalComponent,
     ConfirmDialogModalComponent,
-    DialogModalComponent
+    DialogModalComponent,
+    PhotoModalComponent
   ],
   imports: [
     CommonModule,
     TranslateModule,
+    BackgroundImageModule,
   ],
 })
 export class BsModalsTemplateModule {

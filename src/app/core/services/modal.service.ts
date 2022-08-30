@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ConfirmDialogModalComponent } from 'src/app/shared/modals/confirm-dialog-modal/confirm-dialog-modal.component';
 import { DialogModalComponent } from 'src/app/shared/modals/dialog-modal/dialog-modal.component';
+import { PhotoModalComponent } from 'src/app/shared/modals/photo-modal/photo-modal.component';
 
 export interface DialogModel {
   position: 'top' | 'center';
@@ -33,5 +34,9 @@ export class ModalService {
 
   showDialog(options: DialogModel) {
     this.bsModalService.show(DialogModalComponent, { initialState: { options } })
+  }
+
+  photoDialog(photo: string) {
+    this.bsModalService.show(PhotoModalComponent, { initialState: { photo }, class: 'modal-dialog-centered' })
   }
 }

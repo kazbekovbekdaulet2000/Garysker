@@ -20,7 +20,7 @@
 
       <div class="report-author">
 
-        <img class="report-author-photo" [src]="report.author.image">
+        <img class="report-author-photo" (click)="modalService.photoDialog(report.author.image)" [src]="report.author.image">
 
         <div class="d-flex flex-column">
           <div class="report-author-name">{{report.author.surname}} {{report.author.name}}</div>

@@ -2,7 +2,7 @@
 
   <div class="lector-info">
 
-    <div class="icon" [backgroundImage]="lector.icon" temp="avatar"></div>
+    <div class="icon" [backgroundImage]="lector.icon" temp="avatar" (click)="modalService.photoDialog(lector.icon)"></div>
 
     <div class="d-flex flex-column">
       <div class="lector-info-name">{{lector.fullname}}</div>

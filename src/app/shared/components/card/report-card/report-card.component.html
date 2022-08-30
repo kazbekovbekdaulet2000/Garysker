@@ -17,7 +17,7 @@
         <span> {{report.category | category | async}} </span>
 
         <div class="category-text">
-          {{report.read_time}} • {{report.created_at | DateRemained | async}}
+          {{report | lang: 'read_time' | async}} • {{report.created_at | DateRemained | async}}
         </div>
 
       </div>

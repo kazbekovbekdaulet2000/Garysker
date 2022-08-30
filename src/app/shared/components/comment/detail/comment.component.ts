@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { heightOutAnimation } from '@core/animations/height-out-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { CommentModel } from '@core/models/api/comment.model';
+import { ModalService } from '@core/services/modal.service';
 import { AuthState } from '@core/states/auth/auth.state';
 import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
@@ -44,7 +45,8 @@ export class CommentComponent {
     private store: Store,
     private bsModalService: BsModalService,
     private formBuilder: FormBuilder,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public modalService: ModalService
   ) { }
 
   addReply(comment: CommentModel) {

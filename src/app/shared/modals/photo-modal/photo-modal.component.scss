@@ -1,0 +1,31 @@
+@import "colors";
+
+.photo {
+  margin: -24px -48px;
+  border-radius: 16px;
+  width: calc(100% + 96px);
+  height: 100%;
+  object-fit: contain;
+}
+
+.close {
+  color: #fff;
+  // color: $color-orange;
+  cursor: pointer;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 24px;
+  transform: rotate(45deg);
+} 
+
+@media screen and (max-width: 640px) {
+  .close {
+    right: 16px;
+    top: 16px;
+  }
+  .photo {
+    margin: -32px -16px;
+    width: calc(100% + 32px);
+  }
+}

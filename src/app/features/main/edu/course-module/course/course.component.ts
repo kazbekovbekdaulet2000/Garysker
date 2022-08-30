@@ -23,10 +23,8 @@ export class CourseComponent implements OnDestroy {
     })
   }
 
-  changeCategory(id: number) {
-    if (id) {
-      this.categoriesService.changeCategory(id)
-    } 
+  changeCategory(id: number = NaN) {
+    this.categoriesService.changeCategory(id)
     this.router.navigate(['/edu'])
   }
 

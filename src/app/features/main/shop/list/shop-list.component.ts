@@ -67,10 +67,10 @@ export class ShopComponent {
       .subscribe((event) => {
         const route = event as NavigationEnd
         switch (true) {
-          case route.url.includes('organization'):
+          case route.urlAfterRedirects.includes('organization'):
             this.selected_type = 'organization';
             break;
-          case route.url.includes('delivery'):
+          case route.urlAfterRedirects.includes('delivery'):
             this.selected_type = 'delivery';
             break;
           default:

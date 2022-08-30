@@ -4,9 +4,7 @@
 
     <app-product-images [images]="product.images"></app-product-images>
 
-    <div class="close">
-      <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
-    </div>
+    <i class="g-icon-add close" (click)="closeModal()"></i>
 
     <div class="product-content">
 
@@ -14,7 +12,7 @@
 
       <p class="mb-3">{{product.price}} тг / <span class="g-coin">{{product.g_token_price}} g.coins</span></p>
 
-      <h6 class="mb-1">{{'shop.detail.size' | translate}}</h6>
+      <h6 class="mb-1" translate="shop.detail.size"></h6>
 
       <div class="options d-flex flex-column gap-3 mb-3 mt-2">
         <div class="options-size d-flex justify-content-between" (click)="toggleSizeExpand()">
@@ -31,16 +29,16 @@
             <span>{{product_count}}</span>
             <span (click)="increaseCount()" class="pointer options-item-interaction">+</span>
           </div>
-          <div class="options-item pointer" (click)="addProduct()">{{'shop.detail.add_to_card' | translate}}</div>
+          <div class="options-item pointer" (click)="addProduct()" translate="shop.detail.add_to_card"></div>
         </div>
       </div>
 
       <p class="mb-3" [innerHTML]="product | lang: 'description' | async"></p>
 
-      <h6 class="mb-1">{{'shop.detail.compound' | translate}}</h6>
+      <h6 class="mb-1" translate="shop.detail.compound"></h6>
       <p class="mb-3">{{sizeCompound | async}}</p>
 
-      <h6 class="mb-1">{{'shop.detail.care' | translate}}</h6>
+      <h6 class="mb-1" translate="shop.detail.care"></h6>
       <p class="mb-0">{{product | lang: 'care' | async}}</p>
     </div>
 

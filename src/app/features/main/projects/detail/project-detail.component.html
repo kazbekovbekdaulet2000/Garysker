@@ -23,73 +23,96 @@
 
     <div class="my-4" [innerHTML]="project.children[index] | sanitizerLang: 'description' | async"></div>
 
-    <div class="statistics">
-      <div class="graph">
-        <div class="graph-progress" [style.width.%]="collectedPersentage"> </div>
-      </div>
+    <ng-container *ngIf="project.children[index].donat">
 
-      <div class="mt-2 mb-4 d-flex justify-content-around">
-        <div class="d-flex flex-column align-items-center">
-          <div class="graph-decs">{{'projects.detail.collected' | translate}}</div>
-          <div class="graph-amount">{{project.children[index].donat.collected| price}}</div>
-        </div>
-        <div class="d-flex flex-column align-items-center">
-          <div class="graph-decs">{{'projects.detail.required' | translate}}</div>
-          <div class="graph-amount">{{project.children[index].donat.required| price}}</div>
-        </div>
-      </div>
+      <div @heightOutAnimation class="statistics">
 
-    </div>
-
-    <div class="resourses" *ngIf="project.children[index].resources.length > 0">
-
-      <ng-container *ngFor="let resourse of project.children[index].resources">
-        <div class="resourses-title">{{resourse | lang | async}}</div>
-        <a [href]="resourse.file" target="_blank" class="resourses-item d-flex align-items-center">
-          <img src="assets/images/projects/download.svg" alt="">
-          <span class="download-text">{{'projects.download' | translate}}</span>
-        </a>
-      </ng-container>
-
-    </div>
-
-    <div @opacityAnimation class="payment-form" *ngIf="project.children[index].donat.on_process">
-
-      <div class="d-flex flex-column support-content" [formGroup]="formData">
-
-        <app-select class="mb-2" [label]="'support.amount_hint' | translate" [list]="amount"
-          (selection)="selectAmount($event)">
-        </app-select>
-
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="rules" formControlName="rules">
-          <label class="form-check-label" for="rules">
-            {{'support.rules' | translate: ({amount: getAmount}) }}
-          </label>
+        <div class="graph">
+          <div class="graph-progress" [style.width.%]="collectedPersentage"> </div>
         </div>
 
-        <app-input @heightOutAnimation *ngIf="selfAmount" formControlName="amount" [required]="true" type="number"
-          [label]="'support.input.summ' | translate" [hint]="'support.input.summ_placeholder' | translate"></app-input>
-
-        <app-input formControlName="full_name" [required]="true" [label]="'support.input.name' | translate"
-          [hint]="'support.input.name_placeholder' | translate"></app-input>
-
-        <app-input formControlName="email" [required]="true" [label]="'support.input.email' | translate"
-          [hint]="'support.input.email_placeholder' | translate"></app-input>
-
-        <div class="d-flex flex-column justify-content-end align-items-end align-items-end">
-
-          <button [disabled]="!formData.valid" class="btn btn-orange support-content-enter mt-2" (click)="helpProject()">{{'support.enter' |
-            translate}}</button>
-
-        </div>
-
-        <div [innerHTML]="'support.policy' | translate" style="margin-top: 4px; text-align: right; font-size: 14px;">
+        <div class="mt-2 mb-4 d-flex justify-content-around">
+          <div class="d-flex flex-column align-items-center">
+            <div class="graph-decs" translate="projects.detail.collected"></div>
+            <div class="graph-amount">{{project.children[index].donat.collected| price}}</div>
+          </div>
+          <div class="d-flex flex-column align-items-center">
+            <div class="graph-decs" translate="projects.detail.required"></div>
+            <div class="graph-amount">{{project.children[index].donat.required| price}}</div>
+          </div>
         </div>
 
       </div>
 
-    </div>
+      <div class="resourses" *ngIf="project.children[index].resources.length > 0">
+
+        <ng-container *ngFor="let resourse of project.children[index].resources">
+          <div class="resourses-title">{{resourse | lang | async}}</div>
+          <a [href]="resourse.file" target="_blank" class="resourses-item d-flex align-items-center">
+            <img src="assets/images/projects/download.svg" alt="">
+            <span class="download-text" translate="projects.download"></span>
+          </a>
+        </ng-container>
+
+      </div>
+
+      <div @opacityAnimation class="payment-form" *ngIf="project.children[index].donat.on_process">
+
+        <div class="d-flex flex-column support-content" [formGroup]="formData">
+
+          <app-select class="mb-2" [label]="'support.amount_hint' | translate" [list]="amount"
+            (selection)="selectAmount($event)">
+          </app-select>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="rules" formControlName="rules">
+            <label class="form-check-label" for="rules" translate="support.rules" [translateParams]="{amount: getAmount}"></label>
+          </div>
+
+          <app-input 
+            @heightOutAnimation 
+            *ngIf="selfAmount" 
+            formControlName="amount" 
+            [required]="true" type="number"
+            [label]="'support.input.summ' | translate" 
+            [hint]="'support.input.summ_placeholder' | translate">
+          </app-input>
+
+          <app-input 
+            formControlName="full_name" 
+            [required]="true" 
+            [label]="'support.input.name' | translate"
+            [hint]="'support.input.name_placeholder' | translate">
+          </app-input>
+
+          <app-input 
+            formControlName="email" 
+            [required]="true" 
+            [label]="'support.input.email' | translate"
+            [hint]="'support.input.email_placeholder' | translate">
+          </app-input>
+
+          <div class="d-flex flex-column justify-content-end align-items-end align-items-end">
+
+            <button 
+              [disabled]="!formData.valid" 
+              class="btn btn-orange support-content-enter mt-2" 
+              (click)="helpProject()"
+              translate="support.enter">
+            </button>
+
+          </div>
+
+          <div 
+            [innerHTML]="'support.policy' | translate" 
+            style="margin-top: 4px; text-align: right; font-size: 14px;">
+          </div>
+
+        </div>
+
+      </div>
+
+    </ng-container>
 
   </div>
 

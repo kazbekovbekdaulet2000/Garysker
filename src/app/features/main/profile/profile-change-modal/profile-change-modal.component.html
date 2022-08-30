@@ -10,7 +10,7 @@
 
     <img class="user-image pointer" [src]="profile.image" (click)="avatarInputFile.click()">
 
-    <input #avatarInputFile type="file" hidden (change)="onChangeAvatarInputFile($event)">
+    <input #avatarInputFile type="file" hidden accept="image/*" (change)="onChangeAvatarInputFile($event)">
 
     <input class="form-control" formControlName="name" placeholder="Имя" />
 

@@ -1,7 +1,5 @@
 <div @opacityAnimation class="d-flex flex-column align-items-start projects-wrapper">
 
-  <!-- <app-component-header header="projects.header" detail="projects.header_detail" [show_detail]="true"></app-component-header> -->
-
   <div class="d-flex align-items-center gap-2 mb-4 page-picker">
 
     <div *ngFor="let item of types" class="d-flex align-items-center pointer page-picker-item"
@@ -16,23 +14,23 @@
     <div class="d-flex align-items-center flex-fill justify-content-between">
 
       <div class="d-flex flex-column project-first-left">
-        <h1 class="heading">{{'projects.project_1.name' | translate}}</h1>
-        <p class="mb-0">{{'projects.project_1.description' | translate}}</p>
+        <h1 class="heading" translate="projects.project_1.name"></h1>
+        <p class="mb-0" translate="projects.project_1.description"></p>
       </div>
 
       <div class="d-flex flex-column align-items-start project-first-right">
-        <p class="mb-2">{{'projects.project_1.time' | translate}}</p>
-        <p class="mb-0">{{'projects.project_1.place' | translate}}</p>
+        <p class="mb-2" translate="projects.project_1.time"></p>
+        <p class="mb-0" translate="projects.project_1.place"></p>
       </div>
 
     </div>
 
   </div>
 
-  <div @opacityAnimation *ngIf="[1,3].includes(selected_type)" class="d-flex project-card project-second pointer" routerLink="2" backgroundImage="assets/images/projects/project_2.png">
+  <div @opacityAnimation *ngIf="[1,3].includes(selected_type)" class="d-flex project-card project-second pointer" routerLink="3" backgroundImage="assets/images/projects/project_2.png">
 
-    <p class="mb-1 desc">{{'projects.project_2.description' | translate}}</p>
-    <h1 class="title">{{'projects.project_2.name' | translate}}</h1>
+    <p class="mb-1 desc" translate="projects.project_2.description"></p>
+    <h1 class="title" translate="projects.project_2.name"></h1>
 
   </div>
 

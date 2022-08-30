@@ -63,4 +63,6 @@
 
   </ng-template>
 
+  <app-course-reviews *ngIf="!courseService.lesson || courseService.course?.course_instance?.completed"></app-course-reviews>
+
 </div>

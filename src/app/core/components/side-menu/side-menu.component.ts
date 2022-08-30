@@ -74,22 +74,22 @@ export class SideMenuComponent {
       .subscribe((event) => {
         const route = event as NavigationEnd
         switch (true) {
-          case route.url.includes('edu'):
+          case route.urlAfterRedirects.includes('edu'):
             this.currentRoute = 'edu';
             break;
-          case route.url.includes('projects'):
+          case route.urlAfterRedirects.includes('projects'):
             this.currentRoute = 'projects';
             break;
-          case route.url.includes('shop'):
+          case route.urlAfterRedirects.includes('shop'):
             this.currentRoute = 'shop';
             break;
-          case route.url.includes('events'):
+          case route.urlAfterRedirects.includes('events'):
             this.currentRoute = 'events';
             break;
-          case route.url.includes('about'):
+          case route.urlAfterRedirects.includes('about'):
             this.currentRoute = 'about';
             break;
-          case route.url.includes('main'):
+          case route.urlAfterRedirects.includes('main'):
             this.currentRoute = 'main';
             break;
           default:

@@ -80,10 +80,10 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       .subscribe((event) => {
         const route = event as NavigationEnd
         switch (true) {
-          case route.url.includes('application'):
+          case route.urlAfterRedirects.includes('application'):
             this.main = 'application'
             break;
-          case route.url.includes('auth'):
+          case route.urlAfterRedirects.includes('auth'):
             this.main = 'auth';
             break;
           default:
@@ -93,7 +93,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   }
 
   navigateRes(result: any) {
-    if (result?.read_time) {
+    if ('read_time_kk' in result || 'read_time_ru' in result) {
       this.router.navigate(['edu/reports', result?.id])
     } else {
       this.router.navigate(['edu/videos', result?.id])

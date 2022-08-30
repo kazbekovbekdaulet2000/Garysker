@@ -32,7 +32,11 @@ export class ReportsService extends ApiService {
         return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(), { params }).pipe(
           map(list => {
             list.results = list.results.map(obj => {
-              return { ...obj, read_time: moment.duration(obj.read_time).humanize() }
+              return { 
+                ...obj, 
+                read_time_kk: moment.duration(obj.read_time_kk).humanize(),
+                read_time_ru: moment.duration(obj.read_time_ru).humanize(),
+              }
             })
             return list
           }),
@@ -47,7 +51,11 @@ export class ReportsService extends ApiService {
       params = { ...params, languages: lang }
       return this.http.get<ListResponseModel<ReportModel>>(this.getUrl('bookmarked'), { params }).pipe(map(list => {
         list.results = list.results.map(obj => {
-          return { ...obj, read_time: moment.duration(obj.read_time).humanize() }
+          return { 
+            ...obj, 
+            read_time_kk: moment.duration(obj.read_time_kk).humanize(),
+            read_time_ru: moment.duration(obj.read_time_ru).humanize(),
+          }
         })
         return list
       }))
@@ -56,7 +64,11 @@ export class ReportsService extends ApiService {
 
   get(id: number): Observable<ReportDetailModel> {
     return this.http.get<ReportDetailModel>(this.getUrl(id)).pipe(map(obj => {
-      return { ...obj, read_time: moment.duration(obj.read_time).humanize() }
+      return { 
+        ...obj, 
+        read_time_kk: moment.duration(obj.read_time_kk).humanize(),
+        read_time_ru: moment.duration(obj.read_time_ru).humanize(),
+      }
     }))
   }
 
@@ -65,7 +77,11 @@ export class ReportsService extends ApiService {
       params = { ...params, languages: lang }
       return this.http.get<ListResponseModel<ReportModel>>(this.getUrl(`${id}/related`), { params }).pipe(map(list => {
         list.results = list.results.map(obj => {
-          return { ...obj, read_time: moment.duration(obj.read_time).humanize() }
+          return { 
+            ...obj, 
+            read_time_kk: moment.duration(obj.read_time_kk).humanize(),
+            read_time_ru: moment.duration(obj.read_time_ru).humanize(),
+          }
         })
         return list
       }))

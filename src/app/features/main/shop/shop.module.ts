@@ -20,7 +20,6 @@ import { InputModule } from 'src/app/shared/components/input/input.module';
 import { ProductDetailModalComponent } from './detail/product-detail-modal.component';
 import { ProductDetailImagesComponent } from './detail/images/product-detail-images.component';
 import { CardModalComponent } from './card/card-modal.component';
-import { ShopState } from './shop.state';
 import { LoaderModule } from 'src/app/shared/components/loader/loader.module';
 import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
 import { BackgroundImageModule } from 'src/app/shared/directives/background-image.module';
@@ -32,7 +31,7 @@ import { BackgroundImageModule } from 'src/app/shared/directives/background-imag
     ProductDetailModalComponent,
     ProductDetailImagesComponent,
     ShopOrganizationRequestComponent,
-    CardModalComponent
+    CardModalComponent,
   ],
   imports: [
     CommonModule,

@@ -24,6 +24,13 @@ export interface CourseModel extends NameModel, DescriptionModel {
 export interface CourseDetailModel extends CourseModel {
   rating: number;
   completed: boolean;
+  course_instance: {
+    completed: boolean;
+    course: number;
+    current_lesson: number;
+    progress: number;
+    user: number
+  }
   ratings_count: number;
   user_rating: boolean;
 }

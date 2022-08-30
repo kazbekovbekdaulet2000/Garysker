@@ -21,9 +21,9 @@ export class ProductDetailModalComponent implements OnInit {
 
   @Select(AppState.lang) lang$!: Observable<LangType>
 
-  productId!: number;
-  product!: ProductDetailModel;
-  sizes!: ProductSizeModel[];
+  productId: number;
+  product: ProductDetailModel;
+  sizes: ProductSizeModel[];
   sizeExpanded: boolean = false;
   product_count: number = 1;
   selectedSize!: ProductSizeModel;

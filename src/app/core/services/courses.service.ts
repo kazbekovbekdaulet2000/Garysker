@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { CourseRatingModalModalComponent } from 'src/app/features/main/edu/course-module/course/rating-modal/course-rating-modal.component';
 import * as moment from 'moment';
+import { RatingModel } from '@core/models/api/rating.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,7 @@ export class CourseService extends ApiService {
   ) {
     super('courses');
   }
+  
 
   init(courseId: number) {
     this.get(courseId).subscribe(course => {
@@ -88,12 +90,16 @@ export class CourseService extends ApiService {
       }))
   }
 
+  listMy(params?: any): Observable<ListResponseModel<CourseModel>> {
+    return this.http.get<ListResponseModel<CourseModel>>(this.getUrl('participant'), { params })
+  }
+
   get(courseId: number): Observable<CourseDetailModel> {
     return this.http.get<CourseDetailModel>(this.getUrl(courseId)).pipe(
       map(course => {
-        if (course.completed && !course.user_rating) {
+        if (course.course_instance?.completed && !course.user_rating) {
           this.bsModalService.show(CourseRatingModalModalComponent, {
-            class: 'modal-dialog-centered modal-xl',
+            class: 'modal-dialog-centered',
             ignoreBackdropClick: true,
             initialState: {
               courseId: course.id
@@ -119,6 +125,10 @@ export class CourseService extends ApiService {
         return list
       }),
       tap(lessons => this.lessons = lessons))
+  }
+
+  listReviews(courseId: number): Observable<ListResponseModel<RatingModel>> {
+    return this.http.get<ListResponseModel<RatingModel>>(this.getUrl(`${courseId}/ratings`))
   }
 
   listLectors(courseId: number): Observable<LectorDetailModel[]> {

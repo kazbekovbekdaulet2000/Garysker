@@ -106,34 +106,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((event) => {
         const route = event as NavigationEnd
         switch (true) {
-          case route.url.includes('profile'):
+          case route.urlAfterRedirects.includes('profile'):
             this.main = 'profile'
             break;
-          case route.url.includes('application'):
+          case route.urlAfterRedirects.includes('application'):
             this.main = 'application'
             break;
-          case route.url.includes('auth'):
+          case route.urlAfterRedirects.includes('auth'):
             this.main = 'auth';
             break;
-          case route.url.includes('videos'):
+          case route.urlAfterRedirects.includes('videos'):
             this.main = 'videos'
             break;
-          case route.url.includes('reports'):
+          case route.urlAfterRedirects.includes('reports'):
             this.main = 'reports'
             break;
-          case route.url.includes('edu'):
+          case route.urlAfterRedirects.includes('edu'):
             this.main = 'edu'
             break;
-          case route.url.includes('projects'):
+          case route.urlAfterRedirects.includes('projects'):
             this.main = 'projects'
             break;
-          case route.url.includes('events'):
+          case route.urlAfterRedirects.includes('events'):
             this.main = 'events'
             break;
-          case route.url.includes('shop'):
+          case route.urlAfterRedirects.includes('shop'):
             this.main = 'shop'
             break;
-          case route.url.includes('about'):
+          case route.urlAfterRedirects.includes('about'):
             this.main = 'about'
             break;
           default:
@@ -143,7 +143,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   navigateRes(result: any) {
-    if (result?.read_time) {
+    if ('read_time_kk' in result || 'read_time_ru' in result) {
       this.router.navigate(['edu/reports', result?.id])
     } else {
       this.router.navigate(['edu/videos', result?.id])

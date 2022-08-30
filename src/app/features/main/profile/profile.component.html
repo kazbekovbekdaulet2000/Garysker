@@ -1,7 +1,7 @@
 <div @opacityAnimation class="d-flex justify-content-start align-items-center profile"
   *ngIf="profile$ | async as profile">
 
-  <img [src]="profile?.image" class="profile-image">
+  <img [src]="profile.image" (click)="modalService.photoDialog(profile.image)" class="profile-image">
 
   <div class="d-flex flex-column profile-info">
     <h3 class="d-flex gap-2">
@@ -22,6 +22,8 @@
 </div>
 
 <div class="body">
+
+  <app-profile-courses></app-profile-courses>
 
   <app-profile-reports></app-profile-reports>
 

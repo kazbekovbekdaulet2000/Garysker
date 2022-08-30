@@ -1,30 +1,46 @@
 <div class="d-flex flex-column justify-content-center align-items-center wrapper">
 
-  <img class="icon" src="assets/images/wow-face.png" alt="">
+  <img class="icon" src="assets/images/wow-face.png" draggable=false alt="">
 
   <div class="close">
     <img src="assets/icons/close.svg" (click)="closeModal()" alt="">
   </div>
 
-  <div class="congrats" translate="course.finish.congrats"></div>
+  <div class="congrats center" translate="course.finish.congrats"></div>
 
   <div class="rating-holder">
 
-    <div translate="course.finish.rating_text"></div>
+    <div class="center" [innerHtml]="'course.finish.to_profile' | translate"></div>
 
-    <div class="rating-input">
-      <img [class.active]="r<=rating" (click)="rating=r" src="assets/images/rocket.png" *ngFor="let r of [1,2,3,4,5]">
+    <div class="rating-holder-row">
+      
+      <div class="rating-holder-row-text" translate="course.finish.rating_text"></div>
+
+      <div class="rating-input" [class.selected]="rating">
+
+        <img 
+          draggable=false 
+          [class.active]="r<=rating" 
+          (click)="rating=r" 
+          src="assets/images/rocket.png" 
+          *ngFor="let r of [1,2,3,4,5]">
+
+      </div>
+
     </div>
 
   </div>
 
-  <textarea #input rows=3 [placeholder]="'video.comment.placeholder' | translate" class="textfield-area"
+  <textarea 
+    #input 
+    rows=3 
+    [placeholder]="'video.comment.placeholder' | translate" class="textfield-area"
     [(ngModel)]="body" (keydown)="triggerFunction($event)">
   </textarea>
 
   <div class="d-flex align-self-end justify-content-end mt-3">
-    <button class="btn" (click)="closeModal()">Пропустить</button>
-    <button [disabled]="body ===''" class="btn btn-orange" (click)="onSubmit()">Завершить</button>
+    <button class="btn" (click)="closeModal()" translate="course.finish.cancel"></button>
+    <button [disabled]="!rating" class="btn btn-orange" (click)="onSubmit()" translate="course.finish.send"></button>
   </div>
 
 </div>

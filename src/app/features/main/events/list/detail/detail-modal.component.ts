@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventModel } from '@core/models/api/event.model';
-import { EventService } from '@core/services/event.service';
-import { AuthState } from '@core/states/auth/auth.state';
 import { Store } from '@ngxs/store';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
-import { MessageModalComponent } from 'src/app/shared/modals/err-modal/err-modal.component';
-import { LoginErrModalComponent } from 'src/app/shared/modals/noLogin-modal /login-modal.component';
-import { ClearEvents, ListEvents } from '../../events.actions';
+import { ListEvents } from '../../events.actions';
 import { EventDetailFormModalComponent } from './form/detail-modal-form.component';
 
 @Component({
@@ -17,9 +13,9 @@ import { EventDetailFormModalComponent } from './form/detail-modal-form.componen
 })
 export class EventDetailModalComponent implements OnInit {
 
-  onClose!: Subject<boolean | null>;
+  onClose: Subject<boolean | null>;
 
-  event!: EventModel
+  event: EventModel
   type: string | null = null
 
   action: string | null | number = null
@@ -29,7 +25,6 @@ export class EventDetailModalComponent implements OnInit {
     private bsModalRef: BsModalRef,
     private bsModalService: BsModalService,
     private router: Router,
-    private eventService: EventService
   ) { }
 
   ngOnInit(): void {
@@ -52,9 +47,6 @@ export class EventDetailModalComponent implements OnInit {
 
   closeModal() {
     this.bsModalRef.hide()
-  }
-
-  sendRating() {
   }
 
   onPost() {
@@ -94,8 +86,8 @@ export class EventDetailModalComponent implements OnInit {
     }
   }
 
-  isPast(event: EventModel): boolean {
-    var event_date = new Date(event.event_date);
+  get isPast(): boolean {
+    var event_date = new Date(this.event.event_date);
     var today = new Date();
     return event_date < today
   }

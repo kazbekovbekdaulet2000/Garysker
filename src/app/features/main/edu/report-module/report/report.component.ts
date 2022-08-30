@@ -4,6 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { heightAnimation } from '@core/animations/height-animation';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { ReportDetailModel } from '@core/models/api/report.model';
+import { ModalService } from '@core/services/modal.service';
 import { ReportsService } from '@core/services/reports.service';
 import { AppState } from '@core/states/app/app.state';
 import { AuthState } from '@core/states/auth/auth.state';
@@ -43,7 +44,8 @@ export class ReportComponent implements OnDestroy {
     private meta: Meta,
     private title: Title,
     private reportService: ReportsService,
-    private router: Router
+    private router: Router,
+    public modalService: ModalService
   ) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)

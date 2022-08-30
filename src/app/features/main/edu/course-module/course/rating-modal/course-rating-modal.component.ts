@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { opacityAnimation } from '@core/animations/opacity-animation';
 import { RatingsService } from '@core/services/rating.service';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './course-rating-modal.component.html',
@@ -12,18 +13,22 @@ import { RatingsService } from '@core/services/rating.service';
 export class CourseRatingModalModalComponent {
 
   courseId: number;
-  rating: number = 5;
-  body: string = '';
+  rating: number;
+  body: string;
 
   constructor(
     private bsModalRef: BsModalRef,
-    private ratingsService: RatingsService
+    private ratingsService: RatingsService,
+    private routerService: Router
   ) { }
 
   onSubmit(): void {
-    if (this.body !== '') {
-      const payload = { body: this.body, rating: this.rating }
-      this.ratingsService.post(this.courseId, payload).subscribe(data => {
+    if (this.rating) {
+      let payload = { rating: this.rating }
+      if (this.body) {
+        payload = { ...payload, ...{ body: this.body } }
+      }
+      this.ratingsService.post(this.courseId, payload).subscribe(() => {
         this.closeModal()
       })
     }
@@ -31,6 +36,7 @@ export class CourseRatingModalModalComponent {
 
   closeModal() {
     this.bsModalRef.hide()
+    this.routerService.navigate(['/edu'])
   }
 
   triggerFunction(event: any) {

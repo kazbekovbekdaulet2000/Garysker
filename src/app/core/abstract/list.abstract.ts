@@ -12,8 +12,8 @@ export abstract class ListAbstract<T> implements OnDestroy, OnInit {
   category_sub: Subscription;
   list_sub: Subscription;
 
-  constructor() {}
-  
+  constructor() { }
+
   ngOnInit(): void {
     this.init();
   }
@@ -21,13 +21,13 @@ export abstract class ListAbstract<T> implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.list = emptyListResponse;
     this.category_sub.unsubscribe();
-    if(this.list_sub){
+    if (this.list_sub) {
       this.list_sub.unsubscribe();
     }
   }
 
-  init(){
-    this.category_sub = this.listAction.subscribe(list=>{
+  init() {
+    this.category_sub = this.listAction.subscribe(list => {
       this.list = list
     })
   }
@@ -35,9 +35,17 @@ export abstract class ListAbstract<T> implements OnDestroy, OnInit {
   onScroll(event: boolean) {
     if (!!this.list.next && event) {
       this.page++
-      this.list_sub =this.listAction.subscribe(list=>{
-        this.list = {...list, results: [...this.list.results, ...list.results]}
-      })
+      this.list_sub = this.listAction.subscribe(
+        list => {
+          this.list = { ...list, results: [...this.list.results, ...list.results] }
+        },
+        () => {
+          this.page = 1
+          this.list_sub = this.listAction.subscribe(list => {
+            this.list = list
+          })
+        },
+        () => { })
     }
   }
 

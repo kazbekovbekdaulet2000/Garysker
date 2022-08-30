@@ -28,6 +28,7 @@ import { CarouselModule } from 'src/app/shared/components/swiper/swiper.module';
 import { SectionHeaderModule } from 'src/app/shared/components/section-header/section-header.module';
 import { ProfileReportsComponent } from './profile/reports/profile-reports.component';
 import { ProfileVideosComponent } from './profile/videos/profile-videos.component';
+import { ProfileCoursesComponent } from './profile/courses/profile-courses.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ProfileVideosComponent } from './profile/videos/profile-videos.componen
     ProfileComponent,
     ProfileReportsComponent,
     ProfileVideosComponent,
+    ProfileCoursesComponent,
     ProfileChangeModalComponent,
     SupportComponent,
     AboutComponent,

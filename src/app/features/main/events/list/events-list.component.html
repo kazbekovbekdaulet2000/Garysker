@@ -5,14 +5,14 @@
     <div 
       *ngFor="let type of types" 
       class="d-flex align-items-center pointer page-picker-item"
-      [class.active]="type===selected_type" 
+      [class.active]="type===selected_type$.value" 
       (click)="onTypeSelect(type)">
       <span [translate]="type.name"></span>
     </div>
 
   </div>
 
-  <div class="events-holder" *ngIf="events$ | async as events">
+  <div class="events-holder" *ngIf="events.count">
 
     <div class="events-holder-item pointer" *ngFor="let event of events.results">
 
@@ -36,7 +36,7 @@
 
         <div class="d-flex gap-2 align-items-center">
 
-          <img class="event-holder-item-image-location" src="assets/icons/location2.svg" alt="">
+          <i class="g-icon-location"></i>
 
           <span class="pointer">{{event | lang: 'address' | async}}</span>
 

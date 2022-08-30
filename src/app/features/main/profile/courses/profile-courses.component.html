@@ -1,0 +1,16 @@
+<div @heightAnimation *ngIf="list.results.length > 0">
+
+  <app-section-header text="main_screen.educating" icon="assets/images/educate_logo.png"></app-section-header>
+
+  <app-swiper [slides]="list.results" [activeIndex]="0" [loop]="false" [navigation]="false" [spaceBetween]="24"
+    [slidesPerView]="'auto'" [centeredSlides]="false" [horizontalPadding]="0" [autoplay]="false">
+
+    <ng-template let-item="item">
+
+      <app-course-card (click)="onCourseRoute(item.id)" [course]="item"></app-course-card>
+
+    </ng-template>
+
+  </app-swiper>
+
+</div>

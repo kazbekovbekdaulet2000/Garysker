@@ -8,6 +8,7 @@ export const environment = {
     messagingSenderId: '81902221705',
     measurementId: 'G-XTD5SFC725',
   },
-  production: true,
+  // production: true,
+  production: false,
   API: "https://app.garyshker-app.kz"
 };

@@ -9,7 +9,7 @@ import { VideoModel } from '@core/models/api/video.model';
 import { Component, OnDestroy } from '@angular/core';
 import { ListAbstract } from '@core/abstract/list.abstract';
 import { VideosService } from '@core/services/videos.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, distinctUntilChanged } from 'rxjs/operators';
 import { CategoriesService } from '@core/services/categories.service';
 
 @Component({
@@ -31,10 +31,10 @@ export class EduVideosComponent extends ListAbstract<VideoModel> implements OnDe
   }
 
   get listAction(): Observable<ListResponseModel<VideoModel>> {
-    return this.categoriesService.selectedCategory$.pipe(switchMap(category=>{
+    return this.categoriesService.selectedCategory$.pipe(switchMap(category => {
       let params = this.params
-      if(category) {
-        params = {...params, category}
+      if (category) {
+        params = { ...params, category }
       }
       return this.videosService.list(params)
     }))
@@ -48,7 +48,7 @@ export class EduVideosComponent extends ListAbstract<VideoModel> implements OnDe
   ngOnDestroy(): void {
     this.list = emptyListResponse;
     this.category_sub.unsubscribe();
-    if(this.list_sub){
+    if (this.list_sub) {
       this.list_sub.unsubscribe();
     }
     this.videosService.clear();

@@ -46,13 +46,16 @@ export class EduPopularComponent {
 
   onNavigate(item: any) {
     this.store.dispatch(new UpdateTop(document.documentElement.scrollTop))
-    if (item.read_time) {
-      this.router.navigate(['edu/reports', item?.id])
+    if (this.isReport(item)) {
+      this.router.navigate(['edu/reports', item.id])
     } else {
-      this.router.navigate(['edu/videos', item?.id])
+      this.router.navigate(['edu/videos', item.id])
     }
   }
 
+  isReport(item: any): boolean {
+    return 'read_time_kk' in item || 'read_time_ru' in item
+  }
   get height(): number {
     return window.innerWidth >= 640 ? 300 : 200
   }

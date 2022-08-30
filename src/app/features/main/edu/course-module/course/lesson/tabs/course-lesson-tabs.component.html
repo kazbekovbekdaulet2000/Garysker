@@ -19,7 +19,7 @@
   
   </div>
 
-  <ng-container *ngIf="!courseService.lesson.finished && !courseService.course.completed; else completedBtns">
+  <ng-container *ngIf="!courseService.lesson.finished && !courseService.course.course_instance.completed; else completedBtns">
 
     <ng-container *ngIf="!courseService.quiz && isLastLesson">
       <div class="participate pointer" (click)="nextLesson(courseService.lesson)" translate='course.lesson.finish_course'></div>
@@ -51,7 +51,7 @@
   
     <div class="description" [innerHtml]="courseService.lesson | lang: 'description' | async"></div>
     
-    <div class="lector-header">{{'course.lesson.lector_header' | translate}}</div>
+    <div class="lector-header" translate="course.lesson.lector_header"></div>
 
     <app-course-lector-card [lector]="courseService.lesson.lector"></app-course-lector-card>
 

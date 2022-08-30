@@ -2,10 +2,12 @@
 
   <div class="comment-user">
 
-    <div class="comment-user-image" [backgroundImage]="comment.owner.image" temp="cover"></div>
+    <!-- <img class="reply-sign" src="./assets/icons/reply-sign.svg" draggable=false> -->
+
+    <div class="comment-user-image" (click)="modalService.photoDialog(comment.owner.image)" [backgroundImage]="comment.owner.image" temp="cover"></div>
 
     <div class="comment-user-info">
-      <div class="d-flex gap-2">
+      <div class="d-flex gap-2" (click)="modalService.photoDialog(comment.owner.image)">
         <p class="comment-user-info-name">{{comment.owner.surname}} {{comment.owner.name}}</p>
         <img *ngIf="comment.owner.verified" src="assets/icons/verified_user_new.svg">
       </div>
@@ -80,7 +82,7 @@
   </ng-container>
 
   <ng-container *ngIf="replyComment">
-
+  
     <div @heightOutAnimation class="d-flex flex-column align-items-end">
       
       <app-textarea 

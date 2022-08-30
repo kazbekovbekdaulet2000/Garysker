@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ContentChild, EventEmitter, Input, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import SwiperCore, { Navigation, Pagination, Autoplay, SwiperOptions } from "swiper";
+import SwiperCore, { Navigation, Pagination, Autoplay, SwiperOptions, Mousewheel } from "swiper";
 import { SwiperComponent } from 'swiper/angular';
-import { AutoplayOptions } from 'swiper/types';
+import { AutoplayOptions, MousewheelOptions } from 'swiper/types';
 
-SwiperCore.use([Pagination, Navigation, Autoplay]);
+SwiperCore.use([Pagination, Navigation, Autoplay, Mousewheel]);
 
 export interface SwiperBreakpoint {
   [size: number]: SwiperOptions;
@@ -35,7 +35,9 @@ export class CarouselComponent implements AfterViewInit {
     pauseOnMouseEnter: false
   }
   @Input() bottomMargin: number = 16;
-  @Input() mousewheel: boolean = false
+  @Input() mousewheel: MousewheelOptions | boolean = {
+    forceToAxis: true
+  }
   @Input() breakpoints: SwiperBreakpoint;
 
   @Output() isEnd = new EventEmitter<any>();

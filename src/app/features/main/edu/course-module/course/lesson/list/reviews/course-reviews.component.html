@@ -1,0 +1,24 @@
+<div @opacityAnimation class="wrapper" *ngIf="list.count">
+
+  <hr>
+
+  <div class="header">
+    <h5 translate="course.progress.rating_header"></h5>
+  </div>
+
+  <div class="review-holder">
+    
+    <div class="review" *ngFor="let review of list.results">
+
+      <div class="review-owner">
+        <div class="review-owner-icon" [backgroundImage]="review.owner.image" (click)="modalService.photoDialog(review.owner.image)"></div>
+        <span>{{review.owner.name}} {{review.owner.surname}}</span>
+      </div>
+
+      <div class="review-body">{{review.body}}</div>
+
+    </div>
+  
+  </div>
+
+</div>

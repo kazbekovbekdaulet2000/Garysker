@@ -10,7 +10,7 @@
 
     <div class="lector">{{lesson.lector.fullname}}</div>
 
-    <app-video-player [video]="courseService.lesson.video"></app-video-player>
+    <app-video-player (videoEnd)="onVideoEnd()" [video]="courseService.lesson.video"></app-video-player>
 
     <router-outlet></router-outlet>
 

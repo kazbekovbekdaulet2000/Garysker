@@ -6,6 +6,7 @@ import { ListResponseModel } from '@core/models/api/list.model';
 import { ReportModel } from '@core/models/api/report.model';
 import { UserModel } from '@core/models/api/user.model';
 import { VideoModel } from '@core/models/api/video.model';
+import { ModalService } from '@core/services/modal.service';
 import { RemoveToken, UpdateProfile } from '@core/states/auth/actions';
 import { AuthState } from '@core/states/auth/auth.state';
 import { Select, Store } from '@ngxs/store';
@@ -22,10 +23,11 @@ import { ProfileChangeModalComponent } from './profile-change-modal/profile-chan
 })
 export class ProfileComponent implements AfterViewInit {
   @Select(AuthState.profile) profile$: Observable<UserModel>;
-  
+
   constructor(
     private store: Store,
-    private bsModalService: BsModalService
+    private bsModalService: BsModalService,
+    public modalService: ModalService
   ) { }
 
   ngAfterViewInit(): void {

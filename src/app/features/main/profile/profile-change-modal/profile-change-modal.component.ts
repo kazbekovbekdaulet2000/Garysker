@@ -20,7 +20,7 @@ export class ProfileChangeModalComponent {
   constructor(
     private bsModalRef: BsModalRef,
     private store: Store,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     this.formGroup = this.formBuilder.group({
       name: [null],
@@ -43,7 +43,7 @@ export class ProfileChangeModalComponent {
     this.closeModal()
   }
 
-  closeModal(){
+  closeModal() {
     this.bsModalRef.hide()
   }
 }

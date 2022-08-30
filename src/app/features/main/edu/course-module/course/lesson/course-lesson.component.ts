@@ -17,5 +17,9 @@ export class CourseLessonComponent {
   constructor(
     public courseService: CourseService,
   ) { }
+
+  onVideoEnd(){
+    console.log('lesson finished')
+  }
 }
 

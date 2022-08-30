@@ -114,17 +114,19 @@ export class CourseLessonQuizComponent {
       this.courseService.questions = []
       this.courseService.question = null
 
-      this.getCurrentLesson()
-      this.courseService.listLessons(this.courseId).subscribe(() => { })
-
-      this.router.navigate(['edu/courses', this.courseId])
       this.modalService.showDialog({
         position: 'center',
         title: "",
         message: attempt.completed
           ? `Поздравляю вы набрали ${attempt.progress}%`
           : `Вы набрали недостаточно баллов для прохаждения далее, ваш балл ${attempt.progress}`,
-        iconType: attempt.completed ? 'congrats' : 'success'
+        iconType: attempt.completed ? 'congrats' : 'success',
+        onConfirm: ()=>{
+          this.getCurrentLesson()
+          this.courseService.get(this.courseId).subscribe(()=>{})
+          this.courseService.listLessons(this.courseId).subscribe(() => { })
+          this.router.navigate(['edu/courses', this.courseId])
+        }
       })
     })
   }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { VideoDetailModel } from '@core/models/api/video.model';
+import { ModalService } from '@core/services/modal.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { LinkShareModalComponent } from 'src/app/shared/modals/share-modal/share-modal.component';
 
@@ -15,6 +16,7 @@ export class VideoDetailsComponent {
 
   constructor(
     private bsService: BsModalService,
+    public modalService: ModalService
   ) { }
 
   onShare() {
